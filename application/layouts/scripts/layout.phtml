@@ -1,0 +1,49 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <title>Zend_Layout: Templates no Zend Framework</title>
+
+    <style type="text/css">
+        *{
+          margin:0;
+          padding:0;
+        }
+
+        body{
+          padding:10px;
+        }
+
+        #wrapper{
+          border:1px solid black;
+          margin:0 auto;
+          width:900px;
+        }
+
+        #header, #footer{
+          background-color:#f0f0f0;
+          height:150px;
+        }
+
+        #content{
+          border:1px solid black;
+        }
+    </style>
+
+</head>
+<body>
+
+    <div id="wrapper">
+        <div id="header">
+            <h1>Header</h1>
+        </div>
+        <div id="content">
+            <?php echo $this->layout()->content; ?>
+        </div>
+        <div id="footer">
+            Footer
+        </div>
+    </div>
+
+</body>
+</html>
