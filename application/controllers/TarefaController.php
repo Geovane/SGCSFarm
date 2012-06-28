@@ -1,17 +1,17 @@
 <?php
-function inverte_data($data,$separador)
-{
-    $nova_data = implode("".$separador."",array_reverse(explode("".$separador."",$data)));
-    return $nova_data;
-}
     
 class TarefaController extends Zend_Controller_Action
 {
 
     public function init()
     {
+        //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
+        if ( !Zend_Auth::getInstance()->hasIdentity() ) {
+            return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
+        }
+        
         $this->tarefa = new Application_Model_DbTable_Tarefa();
-                $this->estado = new Application_Model_DbTable_Estado();
+        $this->estado = new Application_Model_DbTable_Estado();
     }
 
     public function indexAction()
@@ -30,13 +30,13 @@ class TarefaController extends Zend_Controller_Action
         $this->view->estadoTarefa = $this->estado->fetchAll();
         
         if( $this->getRequest()->isPost() ) {
-            $dataInc = inverte_data($this->_request->getPost('dataInc'), "/");
+            $dataInc = $this->inverte_data($this->_request->getPost('dataInc'), "/");
             $dataInc = $dataInc." ".date("H:i:s");
             
-            $dataFim = inverte_data($this->_request->getPost('dataFim'), "/");
+            $dataFim = $this->inverte_data($this->_request->getPost('dataFim'), "/");
             $dataFim = $dataFim." ".date("H:i:s");
             
-            $dataEntrega = inverte_data($this->_request->getPost('dataEntrega'), "/");
+            $dataEntrega = $this->inverte_data($this->_request->getPost('dataEntrega'), "/");
             $dataEntrega = $dataEntrega." ".date("H:i:s");
             
             $dados = array(
@@ -61,13 +61,13 @@ class TarefaController extends Zend_Controller_Action
         $this->view->tarefaEncontrada = $result->current();
         $this->view->estadoTarefa = $this->estado->fetchAll();
         if( $this->getRequest()->isPost() ) {
-            $dataInc = inverte_data($this->_request->getPost('dataInc'), "/");
+            $dataInc = $this->inverte_data($this->_request->getPost('dataInc'), "/");
             $dataInc = $dataInc." ".date("H:i:s");
             
-            $dataFim = inverte_data($this->_request->getPost('dataFim'), "/");
+            $dataFim = $this->inverte_data($this->_request->getPost('dataFim'), "/");
             $dataFim = $dataFim." ".date("H:i:s");
             
-            $dataEntrega = inverte_data($this->_request->getPost('dataEntrega'), "/");
+            $dataEntrega = $this->inverte_data($this->_request->getPost('dataEntrega'), "/");
             $dataEntrega = $dataEntrega." ".date("H:i:s");
             
             $dados = array(
@@ -93,6 +93,12 @@ class TarefaController extends Zend_Controller_Action
 
         $this->_redirect('/tarefa');
         
+    }
+
+    private function inverte_data($data,$separador)
+    {
+        $nova_data = implode("".$separador."",array_reverse(explode("".$separador."",$data)));
+        return $nova_data;
     }
 
 }

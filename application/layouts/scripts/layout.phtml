@@ -1,7 +1,9 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN" "http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="pt">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+
+
     <?php
         $this->jQuery()
             ->setLocalPath('/js/jquery-1.7.2.min.js')
@@ -10,7 +12,10 @@
             ->addJavascriptFile('/js/jquery.ui.datepicker-pt-BR.js');
     ?>
     <?php echo $this->jQuery().PHP_EOL; ?>
-    <title>Zend_Layout: Templates no Zend Framework</title>
+
+
+
+    <title>SGCSFarm</title>
 
     <style type="text/css">
         *{
@@ -30,7 +35,7 @@
 
         #header, #footer{
           background-color:#f0f0f0;
-          height:150px;
+          height:170px;
         }
 
         #content{
@@ -44,6 +49,13 @@
     <div id="wrapper">
         <div id="header">
             <h1>Header</h1>
+            <br/>
+
+            <a href="/index"> <h4>Controler Index </h4> </a>
+            <a href="/funcionario"><h4>Controler funcionario</h4></a>
+            <a href="/tarefa"><h4>Controler Tarefa</h4></a>
+            <a href="/projeto"><h4>Controler Projeto</h4></a>
+            <a href="/auth/logout"><h4>Sair</h4></a>
         </div>
         <div id="content">
             <?php echo $this->layout()->content; ?>
