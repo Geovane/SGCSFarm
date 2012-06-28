@@ -19,11 +19,23 @@
         <controllerFile controllerName="Projeto">
           <actionMethod actionName="index"/>
         </controllerFile>
+        <controllerFile controllerName="Tarefa">
+          <actionMethod actionName="index"/>
+          <actionMethod actionName="create"/>
+          <actionMethod actionName="edit"/>
+          <actionMethod actionName="delete"/>
+        </controllerFile>
       </controllersDirectory>
-      <formsDirectory enabled="false"/>
+      <formsDirectory>
+        <formFile formName="Tarefa"/>
+      </formsDirectory>
       <layoutsDirectory enabled="false"/>
       <modelsDirectory>
         <modelFile modelName="Projeto"/>
+        <dbTableDirectory>
+          <dbTableFile dbTableName="Tarefa"/>
+          <dbTableFile dbTableName="Estado"/>
+        </dbTableDirectory>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="funcionario">
@@ -56,6 +68,18 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Index">
             <viewScriptFile forActionName="create"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Tarefa">
+            <viewScriptFile forActionName="index"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Tarefa">
+            <viewScriptFile forActionName="create"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Tarefa">
+            <viewScriptFile forActionName="edit"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Tarefa">
+            <viewScriptFile forActionName="delete"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
@@ -93,6 +117,7 @@
         <testApplicationControllerDirectory>
           <testApplicationControllerFile filesystemName="FuncionarioControllerTest.php"/>
           <testApplicationControllerFile filesystemName="ProjetoControllerTest.php"/>
+          <testApplicationControllerFile filesystemName="TarefaControllerTest.php"/>
         </testApplicationControllerDirectory>
       </testApplicationDirectory>
       <testLibraryDirectory>

@@ -1,0 +1,21 @@
+<a href='/tarefa/create'>[Criar Tarefa]</a>
+<table border="1px">
+
+    <tr><th>Nome da Tarefa</th><th>Data de In&iacute;cio</th><th>Data de Fim</th><th>Data de Entrega</th><th>Estado</th></tr>
+<?
+foreach ( $this->listaTarefa as $auxTarefa ) :
+    echo "<tr>
+            <td>".$auxTarefa->descricao."</td>
+            <td>".$auxTarefa->dataInc."</td>  
+            <td>".$auxTarefa->dataFim."</td>
+            <td>".$auxTarefa->dataEntrega."</td>
+            ";
+    foreach ( $this->estado as $auxEstado ) :
+        if($auxEstado->idestado == $auxTarefa->estado_idestado){
+            echo "<td>".$auxEstado->tipoDeEstado."</td>";
+        }
+    endforeach;
+    echo "<td><a href='/tarefa/edit/id/".$auxTarefa->idtarefa."' >Editar</a></td>
+          <td><a class='excluir' href='/tarefa/delete/id/".$auxTarefa->idtarefa."' >Excluir</a></td></tr>";
+endforeach;?>
+</table>

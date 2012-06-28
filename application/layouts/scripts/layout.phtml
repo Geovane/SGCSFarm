@@ -2,6 +2,14 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
 <head>
     <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+    <?php
+        $this->jQuery()
+            ->setLocalPath('/js/jquery-1.7.2.min.js')
+            ->setUiLocalPath('/js/jquery-ui-1.8.21.custom.min.js')
+            ->addStylesheet('/css/ui-lightness/jquery-ui-1.8.21.custom.css')
+            ->addJavascriptFile('/js/jquery.ui.datepicker-pt-BR.js');
+    ?>
+    <?php echo $this->jQuery().PHP_EOL; ?>
     <title>Zend_Layout: Templates no Zend Framework</title>
 
     <style type="text/css">
