@@ -278,11 +278,12 @@ CREATE TABLE `funcionario` (
   `senha` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
   `empresaFilial_idempresaFilial` int(11) NOT NULL,
+  `primeiroAcesso` tinyint(1) DEFAULT '0',
   PRIMARY KEY (`idfuncionario`),
   UNIQUE KEY `login_UNIQUE` (`login`),
   UNIQUE KEY `cpf_UNIQUE` (`documentoIdentificacao`),
   KEY `fk_funcionario_empresaFilial1` (`empresaFilial_idempresaFilial`)
-) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table funcionario
@@ -290,17 +291,19 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'FABI MATOS LIMA','87345099218','m56h','f45hj667','f_lima@gmail.com',2);
-INSERT INTO `funcionario` VALUES (2,'CARLOS EDUARDO','11234566','carlo','ec348912','carlosfonsa@yahoo.com',1);
-INSERT INTO `funcionario` VALUES (3,'MARIA CLARA DE JESUS AMARAL','12432654489','m34c','ma763904','ma_clarajesus@gmail.com',2);
-INSERT INTO `funcionario` VALUES (4,'JOSE VINICIUS SANTOS PUENTES','78034236749','j76v','jp651289','jose.puentes@hotmail.com',2);
-INSERT INTO `funcionario` VALUES (5,'MAX WILLIAMS SANCHEZ ','H3478H09','m78s','mw873542','maxws@gmail.com',2);
-INSERT INTO `funcionario` VALUES (7,'MILLENA MOURA SABOIA','56128965667','m90m','ms543444','millena.saboia@gmail.com',2);
-INSERT INTO `funcionario` VALUES (8,'POUL DENNY BUNTON','J678D835','p63d','pb897821','pdbunton@yahoo.com',2);
-INSERT INTO `funcionario` VALUES (9,'JOANA LIMA DA GAMA SETUBAL','78234456721','j71l','js672234','joanasetubal@gmail.com',2);
-INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','dd7834409','dannillyedyer@gmail.com',2);
-INSERT INTO `funcionario` VALUES (19,'mimoso','12324','x9','99a2dd0d8fa45d2ebe6e48c8c024ededa3287688','ge@g1.com',1);
-INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso souza','1170192599','geovane','3827657f02349634eb0ffbe5eb4bd42c620b4870','geovanemimoso@gmail.com',1);
+INSERT INTO `funcionario` VALUES (1,'FABI MATOS LIMA','87345099218','m56h','40bd001563085fc35165329ea1ff5c5ecbdbbeef','f_lima@gmail.com',2,0);
+INSERT INTO `funcionario` VALUES (2,'CARLOS EDUARDO','11234566','carlo','40bd001563085fc35165329ea1ff5c5ecbdbbeef','carlosfonsa@yahoo.com',1,0);
+INSERT INTO `funcionario` VALUES (3,'MARIA CLARA DE JESUS AMARAL','12432654489','m34c','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ma_clarajesus@gmail.com',2,0);
+INSERT INTO `funcionario` VALUES (4,'JOSE VINICIUS SANTOS PUENTES','78034236749','j76v','40bd001563085fc35165329ea1ff5c5ecbdbbeef','jose.puentes@hotmail.com',2,0);
+INSERT INTO `funcionario` VALUES (5,'MAX WILLIAMS SANCHEZ ','H3478H09','m78s','40bd001563085fc35165329ea1ff5c5ecbdbbeef','maxws@gmail.com',2,0);
+INSERT INTO `funcionario` VALUES (7,'MILLENA MOURA SABOIA','56128965667','m90m','40bd001563085fc35165329ea1ff5c5ecbdbbeef','millena.saboia@gmail.com',2,0);
+INSERT INTO `funcionario` VALUES (8,'POUL DENNY BUNTON','J678D835','p63d','40bd001563085fc35165329ea1ff5c5ecbdbbeef','pdbunton@yahoo.com',2,0);
+INSERT INTO `funcionario` VALUES (9,'JOANA LIMA DA GAMA SETUBAL','78234456721','j71l','40bd001563085fc35165329ea1ff5c5ecbdbbeef','joanasetubal@gmail.com',2,0);
+INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','40bd001563085fc35165329ea1ff5c5ecbdbbeef','dannillyedyer@gmail.com',2,0);
+INSERT INTO `funcionario` VALUES (19,'mimoso','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',1,0);
+INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso souza','1170192599','geovane','40bd001563085fc35165329ea1ff5c5ecbdbbeef','geovanemimoso@gmail.com',1,0);
+INSERT INTO `funcionario` VALUES (21,'Anderson Carlos','1234234','Acarlo','40bd001563085fc35165329ea1ff5c5ecbdbbeef','and@g.com',1,0);
+INSERT INTO `funcionario` VALUES (22,'admin','123','admin','40bd001563085fc35165329ea1ff5c5ecbdbbeef','admin@ds',1,0);
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +535,7 @@ CREATE TABLE `tarefa` (
   `dataEntrega` datetime NOT NULL,
   PRIMARY KEY (`idtarefa`),
   KEY `fk_tarefa_estado1` (`estado_idestado`)
-) ENGINE=InnoDB AUTO_INCREMENT=35 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table tarefa
@@ -545,6 +548,8 @@ INSERT INTO `tarefa` VALUES (31,'cuidar da programacao','2012-04-28','2012-06-07
 INSERT INTO `tarefa` VALUES (32,'analisar as tarefas concluidas','2012-06-08','2012-07-10',1,'2012-06-28');
 INSERT INTO `tarefa` VALUES (33,'gerenciar as tarefas','2012-04-01','2012-07-30',3,'2012-08-10');
 INSERT INTO `tarefa` VALUES (34,'xafsadfsdfs','2012-06-05 07:10:05','2012-06-30 07:10:05',3,'2012-07-20 07:10:05');
+INSERT INTO `tarefa` VALUES (35,'sdadasd','2012-06-01 19:39:50','2012-07-04 19:39:50',2,'2012-08-04 19:39:50');
+INSERT INTO `tarefa` VALUES (36,'dscxcz\\','2012-06-03 19:50:21','2012-06-16 19:50:21',1,'2012-07-14 19:51:55');
 /*!40000 ALTER TABLE `tarefa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -604,6 +609,8 @@ INSERT INTO `usuariobugzilla` VALUES (9,'p63d','pb897821');
 INSERT INTO `usuariobugzilla` VALUES (10,'d66e','dd104487');
 INSERT INTO `usuariobugzilla` VALUES (19,'x9','99a2dd0d8fa45d2ebe6e48c8c024ededa3287688');
 INSERT INTO `usuariobugzilla` VALUES (20,'geovane','3827657f02349634eb0ffbe5eb4bd42c620b4870');
+INSERT INTO `usuariobugzilla` VALUES (21,'Acarlo','c2e74bf16482d534ee859c606c76bb97ecbde4bb');
+INSERT INTO `usuariobugzilla` VALUES (22,'admin','40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 /*!40000 ALTER TABLE `usuariobugzilla` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -636,6 +643,8 @@ INSERT INTO `usuariogit` VALUES (9,'p63d','pb897821');
 INSERT INTO `usuariogit` VALUES (10,'d66e','dd104487');
 INSERT INTO `usuariogit` VALUES (19,'x9','99a2dd0d8fa45d2ebe6e48c8c024ededa3287688');
 INSERT INTO `usuariogit` VALUES (20,'geovane','3827657f02349634eb0ffbe5eb4bd42c620b4870');
+INSERT INTO `usuariogit` VALUES (21,'Acarlo','c2e74bf16482d534ee859c606c76bb97ecbde4bb');
+INSERT INTO `usuariogit` VALUES (22,'admin','40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 /*!40000 ALTER TABLE `usuariogit` ENABLE KEYS */;
 UNLOCK TABLES;
 
