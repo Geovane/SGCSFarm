@@ -20,9 +20,18 @@ class FuncionarioController extends Zend_Controller_Action
     public function indexAction()
     {
          $this->view->flag = $this->_request->getParam('flag');
-         $select = $this->funcionario->select();
+         $select = $this->funcionario->select()->order('nome');
 
-         $this->view->fun = $this->funcionario->fetchAll($select);
+         $rows = $this->funcionario->fetchAll($select);
+
+         //Cria a paginação relativa a exibição dos funcionarios
+
+         $paginator = Zend_Paginator::factory($rows);
+         //Passa o numero de registros por pagina
+         $paginator->setItemCountPerPage(5);
+      
+         $this->view->paginator = $paginator;
+         $paginator->setCurrentPageNumber($this->_getParam('page'));
 
     }
 

@@ -25,15 +25,19 @@ if ( isset($this->flag)  )
 
         <tr><th>Nome</th><th>documento</th><th>email</th></tr>
         <?
-        foreach ( $this->fun as $aux ) :
+        foreach ( $this->paginator as $aux ) :
 
             echo "<tr>
-                    <td>".$aux->nome."</td>
-                    <td>".$aux->documentoIdentificacao."</td>
-                    <td>".$aux->email."</td>
-                    <td><a href='/funcionario/edit/id/".$aux->idfuncionario."' >Editar</a></td>
-                    <td><a href='/funcionario/delete/id/".$aux->idfuncionario."' >Excluir</a></td>
+                    <td>".$aux['nome']."</td>
+                    <td>".$aux['documentoIdentificacao']."</td>
+                    <td>".$aux['email']."</td>
+                    <td><a href='/funcionario/edit/id/".$aux['idfuncionario']."' >Editar</a></td>
+                    <td><a href='/funcionario/delete/id/".$aux['idfuncionario']."' >Excluir</a></td>
                   </tr>";
 
          endforeach; ?>
 </table>
+<br>
+<div>
+    <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
+</div>
