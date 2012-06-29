@@ -1,8 +1,20 @@
 <a href='/tarefa/create'>[Criar Tarefa]</a>
+<form id="escolheProj" name="escolheProj" method="post" action="/tarefa/prepara">
+    <label for="listProj">Escolha um projeto :</label>
+        <select id="listProj" name="listProj">
+            <option value=""> - - Escolha um Projeto - - </option>
+        <?php foreach ( $this->projeto as $auxProj ) : ?>
+            <option value="<?php echo $auxProj->idprojeto; ?>">
+            <?php echo $auxProj->nome; ?></option>
+        <?php endforeach; ?>
+    </select>
+    <input type="submit" name="button" id="button" value="Ok" />
+</form>
+
 <table border="1px">
 
-    <tr><th>Nome da Tarefa</th><th>Data de In&iacute;cio</th><th>Data de Fim</th><th>Data de Entrega</th><th>Estado</th></tr>
-<?
+<tr><th>Nome da Tarefa</th><th>Data de In&iacute;cio</th><th>Data de Fim</th><th>Data de Entrega</th><th>Estado</th></tr>
+<?php
 foreach ( $this->listaTarefa as $auxTarefa ) :
     echo "<tr>
             <td>".$auxTarefa->descricao."</td>
@@ -17,5 +29,6 @@ foreach ( $this->listaTarefa as $auxTarefa ) :
     endforeach;
     echo "<td><a href='/tarefa/edit/id/".$auxTarefa->idtarefa."' >Editar</a></td>
           <td><a class='excluir' href='/tarefa/delete/id/".$auxTarefa->idtarefa."' >Excluir</a></td></tr>";
-endforeach;?>
+endforeach;
+?>
 </table>

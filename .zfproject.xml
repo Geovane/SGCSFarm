@@ -24,6 +24,7 @@
           <actionMethod actionName="create"/>
           <actionMethod actionName="edit"/>
           <actionMethod actionName="delete"/>
+          <actionMethod actionName="prepara"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -35,7 +36,10 @@
         <dbTableDirectory>
           <dbTableFile dbTableName="Tarefa"/>
           <dbTableFile dbTableName="Estado"/>
+          <dbTableFile dbTableName="FunFazTarefa"/>
+          <dbTableFile dbTableName="TarColabProj"/>
         </dbTableDirectory>
+        <modelFile modelName="TarColabProj"/>
       </modelsDirectory>
       <modulesDirectory>
         <moduleDirectory moduleName="funcionario">
@@ -80,6 +84,9 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Tarefa">
             <viewScriptFile forActionName="delete"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Tarefa">
+            <viewScriptFile forActionName="prepara"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>
