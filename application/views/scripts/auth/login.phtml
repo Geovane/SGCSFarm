@@ -1,0 +1,22 @@
+<?php if ( isset($this->mensagem) ): ?>
+
+  <strong>Erro:</strong> <?= $this->mensagem ?><br><br>
+
+ <?php endif; ?>
+
+<div >
+<form action="/auth/login" method="post">
+    <label>Usuário:</label>
+    <br />
+    <input type="text" name="login" id="login"/>
+    <br />
+    <label>Senha:</label>
+    <br />
+    <input type="password" name="senha" id="senha"/>
+    <br />
+    <a href="#">Esqueceu os dados de acesso?</a>
+    <br /><br />
+    <input type="submit" name="Login" value="Login" />
+</form>
+</div>
+

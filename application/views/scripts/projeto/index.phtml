@@ -1,0 +1,13 @@
+ <table>
+
+        <tr><th>Nome</th><th>Descrição</th></tr>
+        <?
+        foreach ( $this->proj as $aux ) :
+
+            echo "<tr>
+                    <td>".$aux->nome."</td>
+                    <td>".$aux->descricao."</td>
+                  </tr>";
+
+         endforeach; ?>
+</table>

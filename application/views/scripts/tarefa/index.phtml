@@ -1,0 +1,12 @@
+
+<form id="escolheProj" name="escolheProj" method="post" action="/tarefa/prepara">
+    <label for="listProj">Escolha um projeto :</label>
+        <select id="listProj" name="listProj">
+            <option value=""> - - Escolha um Projeto - - </option>
+        <?php foreach ( $this->projeto as $auxProj ) : ?>
+            <option value="<?php echo $auxProj->idprojeto; ?>">
+            <?php echo $auxProj->nome; ?></option>
+        <?php endforeach; ?>
+    </select>
+    <input type="submit" name="button" id="button" value="Ok" />
+</form>

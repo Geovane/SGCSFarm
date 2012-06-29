@@ -1,0 +1,41 @@
+<form action="/funcionario/edit" method="post">
+        <div>
+            <br><br>
+            <label for="filial">Filial:</label>
+            <select id="filial" name="idFilial">
+                <?php foreach ( $this->filial as $filial ) : ?>
+                <option <?php
+                        if ( $filial->idempresaFilial == $this->funcionario->empresaFilial_idempresaFilial )
+                        echo 'selected="selected"';
+                        ?>
+                        value="<?php echo $filial->idempresaFilial; ?>">
+                    
+                    <?php echo $filial->nome; ?>
+                </option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
+
+            <input type="hidden" value="<?=$this->funcionario->idfuncionario;?>" name="id" />
+            
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" maxlength="35" value ="<?= $this->funcionario->nome; ?>"/>
+            <br><br>
+
+            <label for="doc">Identidade:</label>
+            <input type="text" id="doc" name="doc" maxlength="25" value ="<?= $this->funcionario->documentoIdentificacao; ?>"/>
+            <br><br>
+
+            <label for="login">Usuário:</label>
+            <input type="text" id="login" name="login" maxlength="25"  value ="<?= $this->funcionario->login; ?>"/>
+            <br><br>
+
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" maxlength="25"  value ="<?= $this->funcionario->email; ?>"/>
+            <br><br>
+
+            <input  type="submit" value="atualizar" name="Atualizar" />
+            <br><br>
+        </div>
+
+</form>

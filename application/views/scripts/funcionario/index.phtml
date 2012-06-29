@@ -1,0 +1,43 @@
+<?
+if ( isset($this->flag)  )
+
+         switch ($this->flag){
+        case 1:
+            echo   "<h3>Funcionario cadastrado com sucesso!</h3><br>";
+            break;
+        case 2:
+            echo   "<h3>Funcionario atualizado com sucesso!</h3><br>";
+            break;
+        case 3:
+            echo "<h3>Funcionario excluído com sucesso!</h3><br>";
+            break;
+        case 4:
+            echo "<h4>Não foi possivel deletar o funcionario, verifique:<br> Se o funcionario é responsavel por alguma filial;<br>
+                Se o funcionario é colaborador em algum projeto;<br>Se o funcionario é gerente de algum projeto;<br>
+                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a escluxão.</h4><br>";
+            break;
+         }
+?>
+
+
+<h4><a href="/funcionario/create">Cadastrar Usuario</a></h4><br>
+<table>
+
+        <tr><th>Nome</th><th>documento</th><th>email</th></tr>
+        <?
+        foreach ( $this->paginator as $aux ) :
+
+            echo "<tr>
+                    <td>".$aux['nome']."</td>
+                    <td>".$aux['documentoIdentificacao']."</td>
+                    <td>".$aux['email']."</td>
+                    <td><a href='/funcionario/edit/id/".$aux['idfuncionario']."' >Editar</a></td>
+                    <td><a href='/funcionario/delete/id/".$aux['idfuncionario']."' >Excluir</a></td>
+                  </tr>";
+
+         endforeach; ?>
+</table>
+<br>
+<div>
+    <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
+</div>

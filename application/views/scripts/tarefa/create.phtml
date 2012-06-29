@@ -1,0 +1,61 @@
+<h1>Criando Tarefa</h1>
+
+<div>Tarefa para o projeto: <?php echo $this->projetoEncontrado->nome?>
+    <br/>
+    Para o colaborador: <?php echo $this->funcionario->nome;?>
+    <br/>
+    <br/>
+</div>
+<?php
+    $idColab = $this->idColab;
+    $idProj = $this->projetoEncontrado->idprojeto;
+    $action = "/idColab/".$idColab.'/idProj/'.$idProj.'';
+?>
+<form id="formulario_tarefa" name="formulario_tarefa" method="post" action="/tarefa/create<?php echo $action; ?>">
+    <label for="descricao">Descrição :</label>
+    <imput type="hidden" name="idProj" id="idPRoj" value="<?php echo $this->projetoEncontrado->idprojeto ?>" />
+    <textarea name="descricao" id="descricaoTarefa" cols="45" rows="5"></textarea>
+    <br />
+    <br />
+  <?php
+    $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
+            "defaultDate" => date('Y/m/d', time())));
+    $data->setName("dataInc")
+         ->setAttrib("id", "dataInc")
+         ->setLabel("Data de Início: ");
+    
+    echo $data;
+  ?>
+    <br />
+    <br />
+  <?php
+    $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
+            "defaultDate" => date('Y/m/d', time())));
+    $data->setName("dataFim")
+         ->setAttrib("id", "dataFim")
+         ->setLabel("Data de Fim: ");
+    
+    echo $data;
+  ?>
+    <br />
+    <br />
+  <?php
+//    $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
+//            "defaultDate" => date('Y/m/d', time())));
+//    $data->setName("dataEntrega")
+//         ->setAttrib("id", "dataEntrega")
+//         ->setLabel("Data de Entrega: ");
+//    
+//    echo $data;
+  ?>
+<!--  <label for="estadoTarefa">Estado da Tarefa :</label>-->
+<!--  <select id="estadoTarefa" name="estadoTarefa">-->
+    <?php // foreach ( $this->estadoTarefa as $auxEstado ) : ?>
+<!--        <option value="<?php // echo $auxEstado->idestado; ?>">-->
+<!--        <?php // echo $auxEstado->tipoDeEstado; ?></option>-->
+    <?php // endforeach; ?>
+<!--  </select>-->
+
+  <input type="submit" name="button" id="button" value="Enviar" />
+  <input type="reset" name="button2" id="button2" value="Limpar" />
+</form>
