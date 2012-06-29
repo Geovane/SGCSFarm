@@ -10,6 +10,11 @@ class TarefaController extends Zend_Controller_Action
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
         
+        //Pega as informações do usuario logado no sistema.
+        $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
+        //Envia pra view
+        $this->view->funcLogado = $this->funcLogado;
+        
         $this->funFazTarefa = new Application_Model_DbTable_FunFazTarefa();
         $this->tarefa = new Application_Model_DbTable_Tarefa();
         $this->estado = new Application_Model_DbTable_Estado();

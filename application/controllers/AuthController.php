@@ -71,31 +71,25 @@ class AuthController extends Zend_Controller_Action
 
                     /*Verifica se é o primeiro login.
                      * Se for, redireciona para o usuário fazer a alteração da senha
-                     * Senão, registra a data e hora no campo ultimo_login
+                     * Senão, vai para tela principal do sistema
+                     * */
+
 
                     $usuario = Zend_Auth::getInstance()->getIdentity();
 
-                    $result  = $this->_usuario->find($usuario->id);
+                    $result  = $this->_usuario->find($usuario->idfuncionario);
                     $dados = $result->current();
 
-                    if ( $dados->ultimo_login == NULL )
+                    if ( $dados->primeiroAcesso == 0 )
                     {
-                        $where = $this->_usuario->getAdapter()->quoteInto('id = ?', (int) $dados->id);
 
-                        $data = array( 'ultimo_login' => date('y-m-d h:i:s'));
-                        $this->_usuario->update($data, $where);
-
-                        return $this->_helper->redirector->goToRoute(array('controller' => 'meu-cadastro',
+                        return $this->_helper->redirector->goToRoute(array('controller' => 'auth',
                                                                            'action'     => 'senha'),
                                                                      null, true);
-                    } else
-                     */
-
-
-                    //{
+                    } else{
                         //Redireciona para o Controller protegido
                         return $this->_helper->redirector->goToRoute( array('controller' => 'index'), null, true);
-                    //}
+                    }
 
                 } else
                 {
@@ -116,5 +110,55 @@ class AuthController extends Zend_Controller_Action
         $auth->clearIdentity();
         return $this->_helper->redirector('login');
     }
+
+
+    /**
+     * Exibe o form para alteração da senha
+     *
+     * Executa o método '_updateSenha' quando a requisição for POST
+     */
+    public function senhaAction()
+    {
+
+        if ( !Zend_Auth::getInstance()->hasIdentity() ) {
+            return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
+        }
+
+        //Pega as informações do usuario logado no sistema.
+        $this->usuarioLogado = Zend_Auth::getInstance()->getIdentity();
+        $this->view->usuarioLogado = $this->usuarioLogado;
+
+
+        if ( $this->getRequest()->isPost() )
+        {
+            $data = array(
+                        'id'         => $this->_request->getPost('id'),
+                        'senhaNova'  => $this->_request->getPost('senhaNova'),
+                        'senhaNova2' => $this->_request->getPost('senhaNova2')
+                    );
+
+
+            if (  empty($data['senhaNova']) || empty($data['senhaNova2']) )
+                $this->view->mensagem = "Preencha os campos obrigatórios.";
+            elseif ( $data['senhaNova'] != $data['senhaNova2']  )
+                $this->view->mensagem = "As senhas digitadas são diferentes.";
+            else
+            {
+                //Faz o update do campo senha e redireciona para tela inicial do sistema
+
+                $where = $this->_usuario->getAdapter()->quoteInto('idfuncionario = ?', (int) $data['id']);
+
+                $data = array(
+                    'senha' => sha1($data['senhaNova']),
+                    'primeiroAcesso' => 1
+                );
+
+                $this->_usuario->update($data, $where);
+                $this->_redirect('/index');
+            }
+        }
+
+    }
+
 
 }

@@ -10,6 +10,11 @@ class FuncionarioController extends Zend_Controller_Action
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
 
+        //Pega as informações do usuario logado no sistema.
+        $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
+        //Envia pra view
+        $this->view->funcLogado = $this->funcLogado;
+
         /* Initialize action controller here */
         $this->funcionario = new Model_DbTable_Func();
         $this->filial = new Model_DbTable_Filial();
