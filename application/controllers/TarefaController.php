@@ -25,12 +25,6 @@ class TarefaController extends Zend_Controller_Action
     {
         // action body
         
-        $select = $this->tarefa->select();
-        $this->view->listaTarefa = $this->tarefa->fetchAll($select);
-        
-        $select = $this->estado->select();
-        $this->view->estado = $this->tarefa->fetchAll($select);
-
         $select = $this->projeto->select();
         $this->view->projeto = $this->projeto->fetchAll($select);
         

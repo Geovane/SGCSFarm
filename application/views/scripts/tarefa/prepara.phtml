@@ -1,0 +1,50 @@
+<form id="escolheColab" name="escolheColab" method="post" action="/tarefa/prepara">
+    Nome do Projeto : <?php echo $this->projEncontrado->nome;?>
+    <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
+    <br />
+    <label for="listColab">Para adicionar uma tarefa escolha um <srtong>colaborador</srtong> :</label>
+        <select id="listColab" name="listColab">
+            <option value=""> - - Escolha um Colaborador - - </option>
+            
+        <?php foreach ( $this->listaColaboradores as $auxColab ) : ?>
+            <?php foreach ( $this->listaFuncionarios as $auxFunc ) : ?>
+                <?php if($auxFunc->idfuncionario == $auxColab->funcionario_idfuncionario){?>
+                    <option value="<?php echo $auxColab->idcolaboradores; ?>">
+                       <?php echo $auxFunc->nome; ?></option>
+                <?php }?>
+            <?php endforeach; ?>
+        <?php endforeach; ?>   
+    </select>
+    <input type="submit" name="button" id="button" value="Ok" />
+</form>
+
+<br/>
+
+<h2>Tarefas do <?php echo $this->projEncontrado->nome;?></h2>
+
+<table border="1px">
+    <tr>
+        <th>Colaborador Respons&aacute;vel</th>
+        <th>Descri&ccedil;&atilde;o da Tarefa</th>
+        <th>Data de In&iacute;cio</th>
+        <th>Data de Fim</th><th>Estado</th>
+    </tr>
+    <?php
+    foreach ( $this->listaTarColabProj as $auxTarColabProj ) :
+        echo "<tr>
+                <td>".$auxTarColabProj->nomeFunc."</td>
+                <td>".$auxTarColabProj->descricaoTarefa."</td>  
+                <td>".$auxTarColabProj->dataInc."</td>
+                <td>".$auxTarColabProj->dataFim."</td>
+                ";
+        foreach ( $this->listaEstado as $auxEstado ) :
+            if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
+                echo "<td>".$auxEstado->tipoDeEstado."</td>";
+            }
+        endforeach;
+        echo "<td><a href='/tarefa/edit/id/".$auxTarColabProj->idtarefa."' >Editar</a></td>
+             <td><a class='excluir' href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/$auxTarColabProj->idColab' >
+                 Excluir</a></td></tr>";
+    endforeach;
+    ?>
+</table>
