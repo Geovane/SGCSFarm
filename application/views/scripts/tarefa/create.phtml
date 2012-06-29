@@ -8,10 +8,12 @@
 </div>
 <?php
     $idColab = $this->idColab;
-    $action = "/idColab/".$idColab.'';
+    $idProj = $this->projetoEncontrado->idprojeto;
+    $action = "/idColab/".$idColab.'/idProj/'.$idProj.'';
 ?>
 <form id="formulario_tarefa" name="formulario_tarefa" method="post" action="/tarefa/create<?php echo $action; ?>">
     <label for="descricao">Descrição :</label>
+    <imput type="hidden" name="idProj" id="idPRoj" value="<?php echo $this->projetoEncontrado->idprojeto ?>" />
     <textarea name="descricao" id="descricaoTarefa" cols="45" rows="5"></textarea>
     <br />
     <br />

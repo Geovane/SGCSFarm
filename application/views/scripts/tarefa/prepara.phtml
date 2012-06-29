@@ -1,3 +1,25 @@
+<?php
+if ( isset($this->flag)  )
+         switch ($this->flag){
+        case 1:
+            echo   "<h3>Tarefa cadastrada com sucesso!</h3><br>";
+            break;
+        case 2:
+            echo   "<h3>Tarefa atualizada com sucesso!</h3><br>";
+            break;
+        case 3:
+            echo "<h3>Tarefa excluída com sucesso!</h3><br>";
+            break;
+        case 4:
+            echo "<h4>Não foi possivel Excluir\ALTERAR o tarefa, verifique:
+                <br> Se a tarefa já existe!!<br>
+                <br> Se a tarefa ainda existe!!<br>
+                <br> Se a tarefa já foi alterada!!<br>
+                </h4><br>";
+            break;
+         }
+?>
+
 <form id="escolheColab" name="escolheColab" method="post" action="/tarefa/prepara">
     Nome do Projeto : <?php echo $this->projEncontrado->nome;?>
     <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
@@ -27,7 +49,9 @@
         <th>Colaborador Respons&aacute;vel</th>
         <th>Descri&ccedil;&atilde;o da Tarefa</th>
         <th>Data de In&iacute;cio</th>
-        <th>Data de Fim</th><th>Estado</th>
+        <th>Data de Fim</th>
+        <th>Data da Entrega</th>
+        <th>Estado</th>
     </tr>
     <?php
     foreach ( $this->listaTarColabProj as $auxTarColabProj ) :
@@ -36,15 +60,23 @@
                 <td>".$auxTarColabProj->descricaoTarefa."</td>  
                 <td>".$auxTarColabProj->dataInc."</td>
                 <td>".$auxTarColabProj->dataFim."</td>
+                <td>".$auxTarColabProj->dataEntrega."</td>
                 ";
         foreach ( $this->listaEstado as $auxEstado ) :
             if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
                 echo "<td>".$auxEstado->tipoDeEstado."</td>";
             }
         endforeach;
-        echo "<td><a href='/tarefa/edit/id/".$auxTarColabProj->idtarefa."' >Editar</a></td>
-             <td><a class='excluir' href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/$auxTarColabProj->idColab' >
-                 Excluir</a></td></tr>";
+        echo "<td>
+             <a 
+             href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+                 Editar
+             </a></td>
+             <td>
+             <a class='excluir' 
+             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+                Excluir
+             </a></td></tr>";
     endforeach;
     ?>
 </table>

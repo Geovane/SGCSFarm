@@ -79,18 +79,42 @@ class TarefaController extends Zend_Controller_Action
             
             $idInseridoFunFazTar = $this->funFazTarefa->insert($dadosFunFazTar);
             
-            $this->_redirect('/tarefa');
+            if(($idInseridoFunFazTar == null) || ($idInseridoTarefa == null)){
+                $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/4');
+            }else{
+                $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/1');
+            }
         }
+        
     }
 
     public function editAction()
     {
         // action body
-        $idTarefa = $this->_getParam('id');
+        $idProj = $this->_getParam('idProj');
+        $result  = $this->projeto->find($idProj);
+        $this->view->projetoEncontrado = $result->current();
+        
+        
+        $idColab = $this->_getParam('idColab');
+        $this->view->idColab = $idColab;
+        
+        $where = $this->colaboradores->getAdapter()->quoteInto('idcolaboradores = ?', $idColab);
+        $select = $this->colaboradores->select()
+                ->where($where);
+        $colabEncontrado = $this->colaboradores->fetchRow($select);
+        $fk_funcionario = $colabEncontrado->funcionario_idfuncionario;
+        
+        $result  = $this->funcionario->find($fk_funcionario);
+        $this->view->funcionario = $result->current();
+        
+        
+        $idTarefa = $this->_getParam('idTarefa');
         $result  = $this->tarefa->find($idTarefa);
         $this->view->id = $idTarefa;
         $this->view->tarefaEncontrada = $result->current();
         $this->view->estadoTarefa = $this->estado->fetchAll();
+        
         if( $this->getRequest()->isPost() ) {
             $dataInc = $this->inverte_data($this->_request->getPost('dataInc'), "/");
             $dataInc = $dataInc." ".date("H:i:s");
@@ -108,10 +132,14 @@ class TarefaController extends Zend_Controller_Action
                 'estado_idestado' => $this->_request->getPost('estadoTarefa'),
                 'dataEntrega'  => $dataEntrega
             );
-
+            
             $where = $this->tarefa->getAdapter()->quoteInto("idtarefa = ?", $idTarefa);
-            $this->tarefa->update($dados, $where);
-            $this->_redirect('/tarefa');
+            $idAtualizado = $this->tarefa->update($dados, $where);
+            if($idAtualizado == null){
+                $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/4');
+            }else{
+                $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/2');
+            }
         }
     }
 
@@ -122,12 +150,17 @@ class TarefaController extends Zend_Controller_Action
         $idColab = $this->_getParam('idColab');
         
         $where = $this->funFazTarefa->getAdapter()->quoteInto('tarefa_idtarefa = ?', $idTarefa, 'colaboradores_idcolaboradores = ?', $idColab);
-        $this->funFazTarefa->delete($where);
+        $idDelatadoFunfazTar = $this->funFazTarefa->delete($where);
         
         $where = $this->tarefa->getAdapter()->quoteInto('idtarefa = ?', $idTarefa);
-        $this->tarefa->delete($where);
-
-        $this->_redirect('/tarefa');
+        $idDelatadoTar = $this->tarefa->delete($where);
+        
+        $idProj = $this->_getParam('idProj');
+        if(($idDelatadoFunfazTar == null) || ($idDelatadoTar == null)){
+            $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/4');
+        }else{
+            $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/3');
+        }
     }
 
     private function inverte_data($data, $separador)
@@ -139,10 +172,15 @@ class TarefaController extends Zend_Controller_Action
     public function preparaAction()
     {
         // action body
-        if( $this->getRequest()->isPost() ){
-            $listProj = $this->_request->getPost('listProj');
+        $this->view->flag = $this->_request->getParam('flag');
+        $listProj = $this->_getParam('idProj');
+        if( ($this->getRequest()->isPost()) || ($listProj != null) ){
+            if($listProj == null)
+                $listProj = $this->_request->getPost('listProj');
+            
             $idColab = $this->_request->getPost('listColab');
             $idProj = $this->_request->getPost('idProj');
+            
             if(($idColab != null) && ($idProj != null)){
                 $this->_redirect('/tarefa/create/idProj/'.$idProj.'/idColab/'.$idColab.'');
             }
@@ -177,7 +215,6 @@ class TarefaController extends Zend_Controller_Action
                         ->where($where);
                 $this->view->listaTarColabProj = $this->tarColabProj->fetchAll($select);
                
-                
             }
             
         }

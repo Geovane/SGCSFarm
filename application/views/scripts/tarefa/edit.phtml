@@ -1,4 +1,16 @@
-<form id="formulario_tarefa" name="formulario_tarefa" method="post" action="/tarefa/edit/id/<?= $this->id;?>">
+<h1>Editando Tarefa</h1>
+
+<div>Editar tarefa do projeto: <?php echo $this->projetoEncontrado->nome?>
+    <br/>
+    Para o colaborador: <?php echo $this->funcionario->nome;?>
+    <br/>
+    <br/>
+</div>
+<?php
+    $idProj = $this->projetoEncontrado->idprojeto;
+    $action = '/idProj/'.$idProj.'';
+?>
+<form id="formulario_tarefa" name="formulario_tarefa" method="post" action="/tarefa/edit/idTarefa/<?= $this->id; echo $action;?>">
     <label for="descricao">Descrição :</label>
     <textarea name="descricao" id="descricaoTarefa" cols="45" rows="5"><?=
         $this->tarefaEncontrada->descricao;
