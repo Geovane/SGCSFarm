@@ -16,9 +16,16 @@ class ProjetoController extends Zend_Controller_Action
     public function indexAction()
     {
         
-         $select = $this->project->select();
-         $select->where('nome = ?', 'Proj A');
-         $this->view->proj = $this->project->fetchAll($select);
+         $select = $this->project->select()->order('nome');
+         
+         $rows = $this->project->fetchAll($select);
+         
+         $paginator = Zend_Paginator::factory($rows);
+         $paginator = setItemCountPerPage(5);
+         
+         $this->view->paginator = $paginator;
+         $paginator->setCurrentPageNumber($this->_getParam('page'));
+         
     }
 
 
