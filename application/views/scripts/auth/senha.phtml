@@ -1,0 +1,19 @@
+<h3>Primeiro acesso, modifique sua senha.</h3>
+
+<?php if ( isset($this->mensagem) ): ?>
+
+  <strong>Erro:</strong> <?= $this->mensagem ?><br><br>
+
+ <?php endif; ?>
+
+<form  action="/auth/senha" method="post">
+    
+    <input type="hidden" name="id" value="<?php echo $this->usuarioLogado->idfuncionario; ?>" />
+
+    Nova senha:&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="senhaNova" />
+     <br><br>
+    Repita a senha:<input type="password" name="senhaNova2" />
+    <br><br>
+    <input type="submit" value="Atualizar" name="Atualizar" />
+
+</form>

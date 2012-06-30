@@ -12,9 +12,8 @@ if ( isset($this->flag)  )
             break;
         case 4:
             echo "<h4>Não foi possivel Excluir\ALTERAR o tarefa, verifique:
-                <br> Se a tarefa já existe!!<br>
-                <br> Se a tarefa ainda existe!!<br>
-                <br> Se a tarefa já foi alterada!!<br>
+                <br> Se você não alterou algum dado!!
+                <br> Ou se a tarefa já foi excluída!!
                 </h4><br>";
             break;
          }
@@ -54,7 +53,7 @@ if ( isset($this->flag)  )
         <th>Estado</th>
     </tr>
     <?php
-    foreach ( $this->listaTarColabProj as $auxTarColabProj ) :
+    foreach ( $this->paginator as $auxTarColabProj ) :
         echo "<tr>
                 <td>".$auxTarColabProj->nomeFunc."</td>
                 <td>".$auxTarColabProj->descricaoTarefa."</td>  
@@ -80,3 +79,6 @@ if ( isset($this->flag)  )
     endforeach;
     ?>
 </table>
+<div>
+    <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
+</div>
