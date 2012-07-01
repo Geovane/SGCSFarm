@@ -19,26 +19,48 @@ if ( isset($this->flag)  )
          }
 ?>
 
+<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
 
-<h4><a href="/funcionario/create">Cadastrar Usuario</a></h4><br>
-<table>
+<a href="/funcionario/create">Cadastrar Usuario</a><br><br>
+<center>
+<table width="100%" class="tbl">
 
-        <tr><th>Nome</th><th>documento</th><th>email</th></tr>
+        <thead><tr><th>Nome</th><th>Identidade</th><th>Email</th><th></th><th></th></tr></thead>
         <?
+        $indice = 0;
         foreach ( $this->paginator as $aux ) :
-
-            echo "<tr>
-                    <td>".$aux['nome']."</td>
-                    <td>".$aux['documentoIdentificacao']."</td>
-                    <td>".$aux['email']."</td>
-                    <td><a href='/funcionario/edit/id/".$aux['idfuncionario']."' >Editar</a></td>
-                    <td><a href='/funcionario/delete/id/".$aux['idfuncionario']."' >Excluir</a></td>
-                  </tr>";
-
+        
+            if($indice%2){
+                echo "<tbody>
+                    <tr class='odd' >
+                        <td width='33%'>".$aux['nome']."</td>
+                        <td width='16%'>".$aux['documentoIdentificacao']."</td>
+                        <td width='33%'>".$aux['email']."</td>
+                        <td width='8%'><a href='/funcionario/edit/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
+                        <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
+                    </tr>
+                    </tbody>";
+            } else {
+                echo "<tbody>
+                    <tr>
+                        <td width='33%'>".$aux['nome']."</td>
+                        <td width='16%'>".$aux['documentoIdentificacao']."</td>
+                        <td width='33%'>".$aux['email']."</td>
+                        <td width='8%'><a href='/funcionario/edit/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
+                        <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
+                    </tr>
+                    </tbody>";
+            }
+         $indice = $indice + 1;   
          endforeach; ?>
-</table>
+</table>    
+    
+</center>
 <br>
 <div>
-    <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
+    <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
 </div>
+<script>
+menu('12');
+</script>
 
