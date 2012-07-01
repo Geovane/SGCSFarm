@@ -26,13 +26,13 @@ if ( isset($this->flag)  )
 <table width="100%" class="tbl">
 
         <thead><tr><th>Nome</th><th>Identidade</th><th>Email</th><th></th><th></th></tr></thead>
+        <tbody>
         <?
         $indice = 0;
         foreach ( $this->paginator as $aux ) :
         
             if($indice%2){
-                echo "<tbody>
-                    <tr class='odd' >
+                echo "<tr class='odd' >
                         <td width='33%'>".$aux['nome']."</td>
                         <td width='16%'>".$aux['documentoIdentificacao']."</td>
                         <td width='33%'>".$aux['email']."</td>
@@ -41,18 +41,17 @@ if ( isset($this->flag)  )
                     </tr>
                     </tbody>";
             } else {
-                echo "<tbody>
-                    <tr>
+                echo "<tr>
                         <td width='33%'>".$aux['nome']."</td>
                         <td width='16%'>".$aux['documentoIdentificacao']."</td>
                         <td width='33%'>".$aux['email']."</td>
                         <td width='8%'><a href='/funcionario/edit/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
                         <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
-                    </tr>
-                    </tbody>";
+                    </tr>";
             }
          $indice = $indice + 1;   
          endforeach; ?>
+            </tbody>
 </table>    
     
 </center>

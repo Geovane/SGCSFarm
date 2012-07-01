@@ -19,6 +19,9 @@ if ( isset($this->flag)  )
          }
 ?>
 
+<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
+
+
 <form id="escolheColab" name="escolheColab" method="post" action="/tarefa/prepara">
     Nome do Projeto : <?php echo $this->projEncontrado->nome;?>
     <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
@@ -41,19 +44,48 @@ if ( isset($this->flag)  )
 
 <br/>
 
-<h2>Tarefas do <?php echo $this->projEncontrado->nome;?></h2>
+<center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
 
-<table border="1px">
-    <tr>
+<table width="100%" class="tbl">
+    <thead><tr>
         <th>Colaborador Respons&aacute;vel</th>
         <th>Descri&ccedil;&atilde;o da Tarefa</th>
         <th>Data de In&iacute;cio</th>
         <th>Data de Fim</th>
         <th>Data da Entrega</th>
         <th>Estado</th>
+        <th></th>
+        <th></th>
     </tr>
+    </thead>
+    <tbody>
     <?php
+    $indice = 0;
     foreach ( $this->paginator as $auxTarColabProj ) :
+        if($indice%2){
+        echo "<tr  class='odd'>
+                <td>".$auxTarColabProj->nomeFunc."</td>
+                <td>".$auxTarColabProj->descricaoTarefa."</td>  
+                <td>".$auxTarColabProj->dataInc."</td>
+                <td>".$auxTarColabProj->dataFim."</td>
+                <td>".$auxTarColabProj->dataEntrega."</td>
+                ";
+        foreach ( $this->listaEstado as $auxEstado ) :
+            if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
+                echo "<td>".$auxEstado->tipoDeEstado."</td>";
+            }
+        endforeach;
+        echo "<td>
+             <a 
+             href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+                 Editar
+             </a></td>
+             <td>
+             <a class='excluir' 
+             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+                Excluir
+             </a></td></tr></tbody>";
+        }else{
         echo "<tr>
                 <td>".$auxTarColabProj->nomeFunc."</td>
                 <td>".$auxTarColabProj->descricaoTarefa."</td>  
@@ -75,9 +107,13 @@ if ( isset($this->flag)  )
              <a class='excluir' 
              href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
                 Excluir
-             </a></td></tr>";
+             </a></td></tr></tbody>";
+        }
+        
+    $indice = $indice + 1;
     endforeach;
     ?>
+        </tbody>
 </table>
 <div>
     <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
