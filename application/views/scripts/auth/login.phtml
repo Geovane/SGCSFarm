@@ -6,16 +6,16 @@
 
 <form name="login" action="/auth/login" method="post" >
     <div id="conteudo" style="background-color:#eaeaea; width:1022px; background:url(/images/tela-de-login_06.jpg); min-height:522px;"> <img src="/images/b.gif" height="213" style="border:0px solid black" /><br />
-      <input type="text" name="login" />
+      <input type="text" name="login" class="txtLogin" />
       <br />
       <img src="/images/b.gif" height="35" style="border:0px solid black" /><br />
-      <input type="password" name="senha" />
+      <input type="password" name="senha" class="txtLogin" />
       <br />
 
               <img src="/images/b.gif" height="3" style="border:0px solid black" /><br />
-      <a href="#">Esqueci minha senha</a><br />
+      <a class="linkEsqueci"href="#">Esqueci minha senha</a><br />
       <img src="/images/b.gif" height="17" style="border:0px solid black" /><br />
-      <input type="submit" value="login" onclick="validaLogin()" />
+      <input type="submit" value="login" class="btnLogin" onclick="validaLogin()" />
     </div>
 </form>
 
