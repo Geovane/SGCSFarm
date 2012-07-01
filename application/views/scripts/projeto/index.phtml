@@ -1,8 +1,8 @@
- <table>
-
+<a href="/projeto/create">Inserir Projeto</a><br><br>
+<table>
         <tr><th>Nome</th><th>Descrição</th></tr>
         <?
-        foreach ( $this->proj as $aux ) :
+        foreach ( $this->paginator as $aux ) :
 
             echo "<tr>
                     <td>".$aux->nome."</td>

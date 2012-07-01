@@ -8,4 +8,5 @@ class Model_DbTable_Proj extends Zend_Db_Table_Abstract
 	
 
 }
+?>
 

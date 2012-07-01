@@ -1,0 +1,46 @@
+<form action="/projeto/create" method="post">
+
+        <div>
+            
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" maxlength="35"/>
+            <br><br>
+
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" maxlength="25"/>
+            <br><br>
+            
+            <label for="dtinicio">Data de Início:</label>
+            <input type="date" id="dtinicio" name="dtinicio" />
+            <br><br>
+            
+            <label for="dtfim">Data de Término:</label>
+            <input type="date" id="dtfim" name="dtfim" />
+            <br><br>
+            
+            
+            <label for="gerente">Gerente:</label>
+            <select id="gerente" name="idGerente">
+                <?php foreach ( $this->funcionario as $gerente) : ?>
+                <option value="<?php echo $gerente->idfuncionario; ?>">
+                    <?php echo $gerente->nome; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
+            
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado">
+                <?php foreach ( $this->estado as $estado) : ?>
+                <option value="<?php echo $estado->idestado; ?>">
+                    <?php echo $estado->tipoDeEstado; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
+
+
+            <input  type="submit" value="Cadastrar" name="Cadastrar" class="btnLogin" style="width: 135px" />
+            <input  type="reset" value="Limpar" name="Limpar" class="btnLogin" style="width: 135px" />
+            <br><br>
+        </div>
+
+</form>
