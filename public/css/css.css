@@ -5,11 +5,11 @@ body{
 	margin-top:0px;
 	margin-left:0px;
 	background-color:#eaeaea;	
-	
+        font-family:Arial, Helvetica, sans-serif;
+        font-size: 13px;
 	}
 
-
-input[type="text"],[type="password"]{
+.txtLogin{
 	border:0px solid black;
 	position:relative;
 	left:332px;	
@@ -21,7 +21,7 @@ input[type="text"],[type="password"]{
 	font-weight:bolder;
 	}
 	
-input[type="submit"]{
+.btnLogin{
 	background-color:#d0d0d0;
 	position:relative;
 	left:382px;	
@@ -32,7 +32,7 @@ input[type="submit"]{
 	font-size:14px;
 	font-weight:bolder;
 	}
-a{
+.linkEsqueci{
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:11px;
 	color:#ff7f00;
@@ -41,6 +41,18 @@ a{
 	position:relative;
 	left:402px;	
 	}
-
-
-
+.linkLaranja{
+	font-family:Arial, Helvetica, sans-serif;
+	font-size:13px;
+	color:#ff7f00;
+	font-weight:bolder;
+	font-style:inherit;	
+	}        
+        
+.hiddenMenu{
+	display:none;
+	cursor:pointer;
+	}
+.menu{
+	cursor:pointer;
+	}
