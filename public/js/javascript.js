@@ -2,8 +2,8 @@
 
 //Funções de VALIDAÇÃO
 function validaLogin(){
-	var user = document.login.usuario
-	var senha = document.login.pwd
+	var user = document.login.login
+	var senha = document.login.senha
 
 	if(user.value =="")
 		{
@@ -18,8 +18,18 @@ function validaLogin(){
 				{
 				document.login.submit();
 				}
-			
-		
-		
-	
 	}
+	
+	
+// MUDA IMAGEM DO MENU
+function menu(it)	{
+//	alert(document.getElementById(it).style.display);
+	if(it>10){
+		for(i = 1; i< 9 ; i ++)	{
+			document.getElementById(i).style.display = "none";
+			document.getElementById(i+10).style.display = "inherit";			
+		}
+		document.getElementById(it).style.display = "none";
+		document.getElementById(it-10).style.display = "inherit";
+	}
+}
