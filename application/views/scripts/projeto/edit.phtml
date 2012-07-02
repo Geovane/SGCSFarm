@@ -1,0 +1,57 @@
+<form action="/projeto/edit" method="post">
+
+        <div>
+            
+            <input type="hidden" value="<?=$this->projeto->idprojeto;?>" name="id" />
+            
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" maxlength="35" value="<?= $this->projeto->nome; ?>"/>
+            <br><br>
+
+            <label for="descricao">Descrição:</label>
+            <input type="text" id="descricao" name="descricao" maxlength="25" value="<?= $this->projeto->descricao; ?>"/>
+            <br><br>
+            
+            <label for="dtinicio">Data de Início:</label>
+            <input type="date" id="dtinicio" name="dtinicio" value="<?= $this->projeto->dataInc; ?>" />
+            <br><br>
+            
+            <label for="dtfim">Data de Término:</label>
+            <input type="date" id="dtinicio" name="dtfim" />
+            <br><br>
+            
+            
+            <label for="gerente">Gerente:</label>
+            <select id="gerente" name="idGerente">
+                <?php foreach ( $this->funcionario as $gerente) : ?>
+                <option <?php
+                        if($gerente->idfuncionario == $this->projeto->idGerente)
+                        echo 'selected="selected"'    
+                        ?>value="<?php echo $gerente->idfuncionario; ?>">
+                    <?php echo $gerente->nome; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
+            
+            <label for="estado">Estado:</label>
+            <select id="estado" name="estado">
+            <?php foreach($this->estado as $estado): ?>
+            <option <?php
+                    if($estado->idestado == $this->projeto->estado_idestado)
+                    echo 'selected="selected"'    
+                    ?>value="<?php echo $estado->idestado; ?>">
+                <?php echo $estado->tipoDeEstado; ?>
+            </option>
+            <?php endforeach;?>
+            </select>
+            <br><br>
+            
+            
+
+
+            <input  type="submit" value="Atualizar" name="Atualizar" class="btnLogin" style="width: 135px" />
+            <input  type="reset" value="Limpar" name="Limpar" class="btnLogin" style="width: 135px" />
+            <br><br>
+        </div>
+
+</form>
