@@ -50,7 +50,7 @@ class TarefaController extends Zend_Controller_Action
          */
         $this->funFazTarefa = new Application_Model_DbTable_FunFazTarefa();
         $this->tarefa = new Application_Model_DbTable_Tarefa();
-        $this->estado = new Application_Model_DbTable_Estado();
+        $this->estado = new Model_DbTable_Estado();
         $this->projeto = new Model_DbTable_Proj();
         $this->colaboradores = new Model_DbTable_Colaboradores();
         $this->funcionario = new Model_DbTable_Func();

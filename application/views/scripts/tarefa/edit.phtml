@@ -22,7 +22,7 @@
                 "defaultDate" => date('Y/m/d', time())));
         $data->setName("dataInc")
             ->setAttrib("id", "dataInc")
-            ->setLabel("Data de Início: ")
+            ->setLabel("Data de Início da Tarefa: ")
             ->setValue($this->tarefaEncontrada->dataInc);
 
         echo $data;
@@ -35,7 +35,7 @@
                 "defaultDate" => date('Y/m/d', time())));
         $data->setName("dataFim")
             ->setAttrib("id", "dataFim")
-            ->setLabel("Data de Fim: ")
+            ->setLabel("Data de Fim da Tarefa: ")
             ->setValue($this->tarefaEncontrada->dataFim);
 
         echo $data;
@@ -47,7 +47,7 @@
                 "defaultDate" => date('Y/m/d', time())));
         $data->setName("dataEntrega")
             ->setAttrib("id", "dataEntrega")
-            ->setLabel("Data de Entrega: ")
+            ->setLabel("Data de Entrega da Tarefa: ")
             ->setValue($this->tarefaEncontrada->dataEntrega);
 
         echo $data;
@@ -68,6 +68,6 @@
   </select>
     <br />
     <br />
-  <input type="submit" name="button" id="button" value="Alterar" />
-  <input type="reset" name="button2" id="button2" value="Limpar" />
+  <input type="submit" name="button" id="button" class="btnLogin" value="Alterar" />
+  <input type="reset" name="button2" id="button2" class="btnLogin" value="Limpar" />
 </form>

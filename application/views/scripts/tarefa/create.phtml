@@ -22,7 +22,7 @@
             "defaultDate" => date('Y/m/d', time())));
     $data->setName("dataInc")
          ->setAttrib("id", "dataInc")
-         ->setLabel("Data de Início: ");
+         ->setLabel("Data de Início da Tarefa: ");
     
     echo $data;
   ?>
@@ -33,7 +33,7 @@
             "defaultDate" => date('Y/m/d', time())));
     $data->setName("dataFim")
          ->setAttrib("id", "dataFim")
-         ->setLabel("Data de Fim: ");
+         ->setLabel("Data de Fim da Tarefa: ");
     
     echo $data;
   ?>
@@ -56,6 +56,6 @@
     <?php // endforeach; ?>
 <!--  </select>-->
 
-  <input type="submit" name="button" id="button" value="Enviar" />
-  <input type="reset" name="button2" id="button2" value="Limpar" />
+  <input type="submit" name="button" id="button" class="btnLogin" value="Enviar" />
+  <input type="reset" name="button2" id="button2" class="btnLogin" value="Limpar" />
 </form>
