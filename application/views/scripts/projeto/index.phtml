@@ -10,6 +10,7 @@
         foreach ( $this->paginator as $aux ) :
             if($indice%2){
                 echo "<tr class='odd' >
+<<<<<<< HEAD
                         <td width='10%'>".$aux['nome']."</td>
                         <td width='15%'>".$aux['descricao']."</td>
                         <td width='8%' align='center'>".$aux['dataInc']."</td>
@@ -19,10 +20,22 @@
                         <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>    
                         <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
                         <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+=======
+                        <td width='33%'>".$aux['nome']."</td>
+                        <td width='33%'>".$aux['descricao']."</td>
+                        <td width='16%'>".$aux['dataInc']."</td>
+                        <td width='16%'>".$aux['dataFim']."</td>
+                        <td width='16%'>".$aux['idGerente']."</td>
+                        <td width='16%'>".$aux['estado_idestado']."</td>
+                        <td width='8%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Adcionar Colaborador</a></td>    
+                        <td width='8%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
+                        <td width='8%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+>>>>>>> 2e433860f5cf7719ef64e4a4e3b7f1d529da1b01
                     </tr>
                     </tbody>";
             } else {
                 echo "<tr>
+<<<<<<< HEAD
                         <td width='10%'>".$aux['nome']."</td>
                         <td width='15%'>".$aux['descricao']."</td>
                         <td width='8%' align='center'>".$aux['dataInc']."</td>
@@ -32,6 +45,17 @@
                         <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>    
                         <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
                         <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+=======
+                        <td width='33%'>".$aux['nome']."</td>
+                        <td width='33%'>".$aux['descricao']."</td>
+                        <td width='16%'>".$aux['dataInc']."</td>
+                        <td width='16%'>".$aux['dataFim']."</td>
+                        <td width='16%'>".$aux['idGerente']."</td>
+                        <td width='16%'>".$aux['estado_idestado']."</td>    
+                        <td width='8%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Adcionar Colaborador</a></td>    
+                        <td width='8%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
+                        <td width='8%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+>>>>>>> 2e433860f5cf7719ef64e4a4e3b7f1d529da1b01
                     </tr>";
             }
          $indice = $indice + 1;   
@@ -40,8 +64,12 @@
             </tbody>
 </table>    
     
+<<<<<<< HEAD
 </center>
 
 <script>
 menu('13');
 </script>
+=======
+</center>
+>>>>>>> 2e433860f5cf7719ef64e4a4e3b7f1d529da1b01
