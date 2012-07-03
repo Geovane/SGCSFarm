@@ -14,10 +14,6 @@
             <input type="date" id="dtinicio" name="dtinicio" />
             <br><br>
             
-            <label for="dtfim">Data de Término:</label>
-            <input type="date" id="dtfim" name="dtfim" />
-            <br><br>
-            
             
             <label for="gerente">Gerente:</label>
             <select id="gerente" name="idGerente">
@@ -28,14 +24,7 @@
             </select>
             <br><br>
             
-            <label for="estado">Estado:</label>
-            <select id="estado" name="estado">
-                <?php foreach ( $this->estado as $estado) : ?>
-                <option value="<?php echo $estado->idestado; ?>">
-                    <?php echo $estado->tipoDeEstado; ?></option>
-                <?php endforeach; ?>
-            </select>
-            <br><br>
+            
 
 
             <input  type="submit" value="Cadastrar" name="Cadastrar" class="btnLogin" style="width: 135px" />
@@ -44,3 +33,6 @@
         </div>
 
 </form>
+<script>
+menu('13');
+</script>

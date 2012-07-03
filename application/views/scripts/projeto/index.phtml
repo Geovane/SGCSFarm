@@ -1,13 +1,47 @@
+<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
 <a href="/projeto/create">Inserir Projeto</a><br><br>
-<table>
-        <tr><th>Nome</th><th>Descrição</th></tr>
+<center>
+<table width="100%" class="tbl">
+
+        <thead><tr><th>Nome</th><th>Descrição</th><th>Data de Início</th><th>Data de Término</th><th>Gerente</th><th>Estado</th><th></th><th></th><th></th></tr></thead>
+        <tbody>
         <?
+        $indice = 0;
         foreach ( $this->paginator as $aux ) :
+            if($indice%2){
+                echo "<tr class='odd' >
+                        <td width='10%'>".$aux['nome']."</td>
+                        <td width='15%'>".$aux['descricao']."</td>
+                        <td width='8%' align='center'>".$aux['dataInc']."</td>
+                        <td width='10%' align='center'>".$aux['dataFim']."</td>
+                        <td width='5%' align='center'>".$aux['idGerente']."</td>
+                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>
+                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>    
+                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
+                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+                    </tr>
+                    </tbody>";
+            } else {
+                echo "<tr>
+                        <td width='10%'>".$aux['nome']."</td>
+                        <td width='15%'>".$aux['descricao']."</td>
+                        <td width='8%' align='center'>".$aux['dataInc']."</td>
+                        <td width='10%' align='center'>".$aux['dataFim']."</td>
+                        <td width='5%' align='center'>".$aux['idGerente']."</td>
+                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>    
+                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>    
+                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
+                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+                    </tr>";
+            }
+         $indice = $indice + 1;   
+         
+         endforeach;?>
+            </tbody>
+</table>    
+    
+</center>
 
-            echo "<tr>
-                    <td>".$aux->nome."</td>
-                    <td>".$aux->descricao."</td>
-                  </tr>";
-
-         endforeach; ?>
-</table>
+<script>
+menu('13');
+</script>
