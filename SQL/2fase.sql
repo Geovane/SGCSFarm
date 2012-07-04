@@ -26,15 +26,15 @@ DROP TABLE IF EXISTS `colaboradores`;
 CREATE TABLE `colaboradores` (
   `projeto_idprojeto` int(11) NOT NULL,
   `funcionario_idfuncionario` int(11) NOT NULL,
-  `idcolaboradores` int(11) NOT NULL AUTO_INCREMENT,
-  `dedicacaoMes` int(11) DEFAULT NULL,
+  `idcolaboradores` int(11) NOT NULL,
+  `dedicacaoMes` int(11) DEFAULT '0',
   `funcaoProjeto_idfuncaoProjeto` int(11) NOT NULL,
   PRIMARY KEY (`projeto_idprojeto`,`funcionario_idfuncionario`),
   UNIQUE KEY `idcolaboradores_UNIQUE` (`idcolaboradores`),
   KEY `fk_colaboradores_funcaoProjeto1` (`funcaoProjeto_idfuncaoProjeto`),
   KEY `fk_colaboradores_funcionario1` (`funcionario_idfuncionario`),
   KEY `fk_colaboradores_projeto1` (`projeto_idprojeto`)
-) ENGINE=InnoDB AUTO_INCREMENT=20 DEFAULT CHARSET=utf8 COMMENT='IdColaboradoes é uma chave indexada, da tabela colaboradores, isso foi nescessario pois funcionarios não podem se repetir em projetos, logo idprojeto e idfuncionario são chaves.\nObs: quem identifica a tabela colaborars nas relaçoes externas é idColaboradores';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='IdColaboradoes é uma chave indexada, da tabela colaboradores, isso foi nescessario pois funcionarios não podem se repetir em projetos, logo idprojeto e idfuncionario são chaves.\nObs: quem identifica a tabela colaborars nas relaçoes externas é idColaboradores';
 
 #
 # Dumping data for table colaboradores
@@ -47,46 +47,16 @@ INSERT INTO `colaboradores` VALUES (1,2,11,25,10);
 INSERT INTO `colaboradores` VALUES (1,3,12,20,20);
 INSERT INTO `colaboradores` VALUES (1,4,13,15,30);
 INSERT INTO `colaboradores` VALUES (1,5,14,10,20);
-INSERT INTO `colaboradores` VALUES (1,19,24,NULL,10);
-INSERT INTO `colaboradores` VALUES (1,20,22,NULL,30);
+INSERT INTO `colaboradores` VALUES (1,19,24,10,10);
+INSERT INTO `colaboradores` VALUES (1,20,22,10,30);
 INSERT INTO `colaboradores` VALUES (2,7,16,25,10);
 INSERT INTO `colaboradores` VALUES (2,8,17,20,20);
 INSERT INTO `colaboradores` VALUES (2,9,18,15,30);
 INSERT INTO `colaboradores` VALUES (2,10,19,10,20);
-INSERT INTO `colaboradores` VALUES (3,2,21,NULL,10);
-INSERT INTO `colaboradores` VALUES (3,19,23,NULL,10);
-INSERT INTO `colaboradores` VALUES (3,20,20,NULL,10);
+INSERT INTO `colaboradores` VALUES (3,2,21,10,10);
+INSERT INTO `colaboradores` VALUES (3,19,23,10,10);
+INSERT INTO `colaboradores` VALUES (3,20,20,10,10);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
-UNLOCK TABLES;
-
-#
-# Source for table colaboradorespermissoes
-#
-
-DROP TABLE IF EXISTS `colaboradorespermissoes`;
-CREATE TABLE `colaboradorespermissoes` (
-  `permissoes_idpermissoes` int(11) NOT NULL,
-  `colaboradores_idcolaboradores` int(11) NOT NULL,
-  PRIMARY KEY (`permissoes_idpermissoes`,`colaboradores_idcolaboradores`),
-  KEY `fk_colaboradoresPermissoes_colaboradores1` (`colaboradores_idcolaboradores`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-#
-# Dumping data for table colaboradorespermissoes
-#
-
-LOCK TABLES `colaboradorespermissoes` WRITE;
-/*!40000 ALTER TABLE `colaboradorespermissoes` DISABLE KEYS */;
-INSERT INTO `colaboradorespermissoes` VALUES (20,10);
-INSERT INTO `colaboradorespermissoes` VALUES (20,14);
-INSERT INTO `colaboradorespermissoes` VALUES (20,19);
-INSERT INTO `colaboradorespermissoes` VALUES (21,13);
-INSERT INTO `colaboradorespermissoes` VALUES (21,18);
-INSERT INTO `colaboradorespermissoes` VALUES (22,12);
-INSERT INTO `colaboradorespermissoes` VALUES (22,17);
-INSERT INTO `colaboradorespermissoes` VALUES (23,11);
-INSERT INTO `colaboradorespermissoes` VALUES (23,16);
-/*!40000 ALTER TABLE `colaboradorespermissoes` ENABLE KEYS */;
 UNLOCK TABLES;
 
 #
@@ -103,8 +73,10 @@ CREATE TABLE `empresa` (
   `cep` varchar(45) DEFAULT NULL,
   `endereco` varchar(45) NOT NULL,
   `rezaoSocial` varchar(45) DEFAULT NULL,
+  `responsavelGeral` int(11) NOT NULL,
   PRIMARY KEY (`idempresa`),
-  UNIQUE KEY `nome_UNIQUE` (`nome`)
+  UNIQUE KEY `nome_UNIQUE` (`nome`),
+  KEY `fk_empresa_funcionario1` (`responsavelGeral`)
 ) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 
 #
@@ -113,7 +85,7 @@ CREATE TABLE `empresa` (
 
 LOCK TABLES `empresa` WRITE;
 /*!40000 ALTER TABLE `empresa` DISABLE KEYS */;
-INSERT INTO `empresa` VALUES (1,'SoftFarm','73 3634 1874','softfarm@gmail.com','www.softfarm.com','45 650 000','Rua Conselheiro Dantas 23 Centro Ilheus BA','03454876000109');
+INSERT INTO `empresa` VALUES (1,'SoftFarm','73 3634 1874','softfarm@gmail.com','www.softfarm.com','45 650 000','Rua Conselheiro Dantas 23 Centro Ilheus BA','03454876000109',19);
 /*!40000 ALTER TABLE `empresa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -212,11 +184,12 @@ CREATE TABLE `funcionario` (
   `email` varchar(45) NOT NULL,
   `empresaFilial_idempresaFilial` int(11) NOT NULL,
   `primeiroAcesso` tinyint(1) DEFAULT '0',
+  `foto` varchar(100) NOT NULL,
   PRIMARY KEY (`idfuncionario`),
   UNIQUE KEY `login_UNIQUE` (`login`),
   UNIQUE KEY `cpf_UNIQUE` (`documentoIdentificacao`),
   KEY `fk_funcionario_empresaFilial1` (`empresaFilial_idempresaFilial`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table funcionario
@@ -224,19 +197,19 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'FABI MATOS LIMA','87345099218','m56h','40bd001563085fc35165329ea1ff5c5ecbdbbeef','f_lima@gmail.com',2,0);
-INSERT INTO `funcionario` VALUES (2,'CARLOS EDUARDO','11234566','carlo','40bd001563085fc35165329ea1ff5c5ecbdbbeef','carlosfonsa@yahoo.com',1,0);
-INSERT INTO `funcionario` VALUES (3,'MARIA CLARA DE JESUS AMARAL','12432654489','m34c','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ma_clarajesus@gmail.com',2,0);
-INSERT INTO `funcionario` VALUES (4,'JOSE VINICIUS SANTOS PUENTES','78034236749','j76v','40bd001563085fc35165329ea1ff5c5ecbdbbeef','jose.puentes@hotmail.com',2,0);
-INSERT INTO `funcionario` VALUES (5,'MAX WILLIAMS SANCHEZ ','H3478H09','m78s','40bd001563085fc35165329ea1ff5c5ecbdbbeef','maxws@gmail.com',2,0);
-INSERT INTO `funcionario` VALUES (7,'MILLENA MOURA SABOIA','56128965667','m90m','40bd001563085fc35165329ea1ff5c5ecbdbbeef','millena.saboia@gmail.com',2,0);
-INSERT INTO `funcionario` VALUES (8,'POUL DENNY BUNTON','J678D835','p63d','40bd001563085fc35165329ea1ff5c5ecbdbbeef','pdbunton@yahoo.com',2,0);
-INSERT INTO `funcionario` VALUES (9,'JOANA LIMA DA GAMA SETUBAL','78234456721','j71l','40bd001563085fc35165329ea1ff5c5ecbdbbeef','joanasetubal@gmail.com',2,0);
-INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','40bd001563085fc35165329ea1ff5c5ecbdbbeef','dannillyedyer@gmail.com',2,0);
-INSERT INTO `funcionario` VALUES (19,'mimoso','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',1,1);
-INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso souza','1170192599','geovane','40bd001563085fc35165329ea1ff5c5ecbdbbeef','geovanemimoso@gmail.com',1,0);
-INSERT INTO `funcionario` VALUES (23,'teste','123456','teste','40bd001563085fc35165329ea1ff5c5ecbdbbeef','teste@teste',1,1);
-INSERT INTO `funcionario` VALUES (24,'Bruno Pereira dos Santos','123','bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef','bruno.ps@live.com',1,1);
+INSERT INTO `funcionario` VALUES (1,'FABI MATOS LIMA','87345099218','m56h','40bd001563085fc35165329ea1ff5c5ecbdbbeef','f_lima@gmail.com',2,0,'');
+INSERT INTO `funcionario` VALUES (2,'CARLOS EDUARDO','11234566','carlo','40bd001563085fc35165329ea1ff5c5ecbdbbeef','carlosfonsa@yahoo.com',1,0,'');
+INSERT INTO `funcionario` VALUES (3,'MARIA CLARA DE JESUS AMARAL','12432654489','m34c','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ma_clarajesus@gmail.com',2,0,'');
+INSERT INTO `funcionario` VALUES (4,'JOSE VINICIUS SANTOS PUENTES','78034236749','j76v','40bd001563085fc35165329ea1ff5c5ecbdbbeef','jose.puentes@hotmail.com',2,0,'');
+INSERT INTO `funcionario` VALUES (5,'MAX WILLIAMS SANCHEZ ','H3478H09','m78s','40bd001563085fc35165329ea1ff5c5ecbdbbeef','maxws@gmail.com',2,0,'');
+INSERT INTO `funcionario` VALUES (7,'MILLENA MOURA SABOIA','56128965667','m90m','40bd001563085fc35165329ea1ff5c5ecbdbbeef','millena.saboia@gmail.com',2,0,'');
+INSERT INTO `funcionario` VALUES (8,'POUL DENNY BUNTON','J678D835','p63d','40bd001563085fc35165329ea1ff5c5ecbdbbeef','pdbunton@yahoo.com',2,0,'');
+INSERT INTO `funcionario` VALUES (9,'JOANA LIMA DA GAMA SETUBAL','78234456721','j71l','40bd001563085fc35165329ea1ff5c5ecbdbbeef','joanasetubal@gmail.com',2,0,'');
+INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','40bd001563085fc35165329ea1ff5c5ecbdbbeef','dannillyedyer@gmail.com',2,0,'');
+INSERT INTO `funcionario` VALUES (19,'mimoso','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',1,1,'');
+INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso souza','1170192599','geovane','40bd001563085fc35165329ea1ff5c5ecbdbbeef','geovanemimoso@gmail.com',1,0,'');
+INSERT INTO `funcionario` VALUES (23,'teste','123456','teste','40bd001563085fc35165329ea1ff5c5ecbdbbeef','teste@teste',1,1,'');
+INSERT INTO `funcionario` VALUES (24,'Bruno Pereira dos Santos','123','bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef','bruno.ps@live.com',1,1,'');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -269,30 +242,6 @@ INSERT INTO `funfaztarefa` VALUES (45,24);
 UNLOCK TABLES;
 
 #
-# Source for table permissoes
-#
-
-DROP TABLE IF EXISTS `permissoes`;
-CREATE TABLE `permissoes` (
-  `idpermissoes` int(11) NOT NULL AUTO_INCREMENT,
-  `permissao` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`idpermissoes`)
-) ENGINE=InnoDB AUTO_INCREMENT=24 DEFAULT CHARSET=utf8;
-
-#
-# Dumping data for table permissoes
-#
-
-LOCK TABLES `permissoes` WRITE;
-/*!40000 ALTER TABLE `permissoes` DISABLE KEYS */;
-INSERT INTO `permissoes` VALUES (20,'criar tarefa');
-INSERT INTO `permissoes` VALUES (21,'modificar prazo');
-INSERT INTO `permissoes` VALUES (22,'alterar estado da tarefa');
-INSERT INTO `permissoes` VALUES (23,'modificar funcao');
-/*!40000 ALTER TABLE `permissoes` ENABLE KEYS */;
-UNLOCK TABLES;
-
-#
 # Source for table projeto
 #
 
@@ -309,7 +258,7 @@ CREATE TABLE `projeto` (
   UNIQUE KEY `nome_UNIQUE` (`nome`),
   KEY `fk_projeto_estado1` (`estado_idestado`),
   KEY `fk_projeto_funcionario1` (`idGerente`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table projeto
@@ -319,9 +268,9 @@ LOCK TABLES `projeto` WRITE;
 /*!40000 ALTER TABLE `projeto` DISABLE KEYS */;
 INSERT INTO `projeto` VALUES (1,'Proj A','Desenvolvimento de um sistema para gerenciamento de configuração de software.','2012-04-01','2012-07-30',1,2);
 INSERT INTO `projeto` VALUES (2,'Proj B','Sistema completo de automação comercial.','2012-04-01','2012-07-30',7,5);
-INSERT INTO `projeto` VALUES (3,'Proj C','teste','2012-07-03','0000-00-00',24,2);
-INSERT INTO `projeto` VALUES (4,'Proj D','Lorem Ipsum é simplesment','2012-07-03','0000-00-00',19,2);
-INSERT INTO `projeto` VALUES (5,'Proj E','testesteatestesteatestest','0000-00-00','0000-00-00',19,2);
+INSERT INTO `projeto` VALUES (3,'Proj C','teste','2012-07-03','1989-09-09',24,2);
+INSERT INTO `projeto` VALUES (4,'Proj D','Lorem Ipsum é simplesment','2012-07-03','1289-09-09',19,2);
+INSERT INTO `projeto` VALUES (5,'Proj E','testesteatestesteatestest','1989-09-09','1890-09-09',19,2);
 /*!40000 ALTER TABLE `projeto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -444,7 +393,7 @@ CREATE TABLE `tarefa` (
   `dataEntrega` datetime NOT NULL,
   PRIMARY KEY (`idtarefa`),
   KEY `fk_tarefa_estado1` (`estado_idestado`)
-) ENGINE=InnoDB AUTO_INCREMENT=43 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table tarefa
@@ -545,7 +494,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `acesso_funcionarios` AS se
 #
 
 DROP VIEW IF EXISTS `colaboradores_projetos`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `colaboradores_projetos` AS select `projeto`.`estado_idestado` AS `estado_idestado`,`projeto`.`idGerente` AS `idGerente`,`projeto`.`dataFim` AS `dataFim`,`projeto`.`dataInc` AS `dataInc`,`projeto`.`idprojeto` AS `idprojeto`,`projeto`.`nome` AS `nomeProj`,`projeto`.`descricao` AS `descricao`,`funcionario`.`nome` AS `nomeFuncinario` from ((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) order by `projeto`.`nome` desc;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `colaboradores_projetos` AS select `projeto`.`estado_idestado` AS `estado_idestado`,`projeto`.`idGerente` AS `idGerente`,`projeto`.`dataFim` AS `dataFim`,`projeto`.`dataInc` AS `dataInc`,`projeto`.`idprojeto` AS `idprojeto`,`projeto`.`nome` AS `nomeProj`,`projeto`.`descricao` AS `descricaoProj`,`funcionario`.`nome` AS `nomeFuncinario`,`funcionario`.`idfuncionario` AS `idfuncionario`,`colaboradores`.`dedicacaoMes` AS `dedicacaoMes`,`funcaoprojeto`.`descricao` AS `funcao` from (((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) join `funcaoprojeto` on((`colaboradores`.`funcaoProjeto_idfuncaoProjeto` = `funcaoprojeto`.`idfuncaoProjeto`))) order by `projeto`.`nome` desc;
 
 #
 # Source for view dados_git_projeto
@@ -583,11 +532,11 @@ DROP VIEW IF EXISTS `gerentes_projetos`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `gerentes_projetos` AS select `projeto`.`nome` AS `nomeProj`,`projeto`.`descricao` AS `descricao`,`projeto`.`dataInc` AS `dataInc`,`projeto`.`dataFim` AS `dataFim`,`funcionario`.`nome` AS `nomeFunc`,`funcionario`.`email` AS `email` from (`funcionario` join `projeto` on((`funcionario`.`idfuncionario` = `projeto`.`idGerente`))) order by `projeto`.`nome`;
 
 #
-# Source for view permissao_colaboradores_projeto
+# Source for view projetos_gerente_filial_colaboradores
 #
 
-DROP VIEW IF EXISTS `permissao_colaboradores_projeto`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `permissao_colaboradores_projeto` AS select `permissoes`.`permissao` AS `permissao`,`projeto`.`nome` AS `nomeProj`,`funcionario`.`nome` AS `nomeFunc` from ((((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `colaboradorespermissoes` on((`colaboradores`.`idcolaboradores` = `colaboradorespermissoes`.`colaboradores_idcolaboradores`))) join `permissoes` on((`colaboradorespermissoes`.`permissoes_idpermissoes` = `permissoes`.`idpermissoes`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) order by `projeto`.`nome`;
+DROP VIEW IF EXISTS `projetos_gerente_filial_colaboradores`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `projetos_gerente_filial_colaboradores` AS select `projeto`.`idprojeto` AS `idprojeto`,`projeto`.`nome` AS `nomeProj`,`projeto`.`dataFim` AS `dataFim`,`projeto`.`dataInc` AS `dataInc`,`estado`.`tipoDeEstado` AS `estadoProj`,`projeto`.`idGerente` AS `idGerente`,`funcionario1`.`nome` AS `nomeGerente`,`projeto`.`descricao` AS `descricaoProj`,`empresafilial`.`idempresaFilial` AS `idFilialProj`,`empresafilial`.`nome` AS `nomeFilialProj`,`funcionario`.`idfuncionario` AS `idFuncionarioColaborador`,`funcionario`.`nome` AS `nomeColaborador`,`colaboradores`.`dedicacaoMes` AS `dedicacaoMesColaborador`,`funcaoprojeto`.`descricao` AS `funcaoColaborador` from ((((((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) join `funcaoprojeto` on((`colaboradores`.`funcaoProjeto_idfuncaoProjeto` = `funcaoprojeto`.`idfuncaoProjeto`))) join `funcionario` `funcionario1` on((`projeto`.`idGerente` = `funcionario1`.`idfuncionario`))) join `estado` on((`projeto`.`estado_idestado` = `estado`.`idestado`))) join `empresafilial` on((`funcionario1`.`empresaFilial_idempresaFilial` = `empresafilial`.`idempresaFilial`))) order by `projeto`.`nome` desc;
 
 #
 # Source for view tarefa_colaborador_projetos
@@ -613,12 +562,11 @@ ADD CONSTRAINT `fk_colaboradores_funcionario1` FOREIGN KEY (`funcionario_idfunci
 ADD CONSTRAINT `fk_colaboradores_projeto1` FOREIGN KEY (`projeto_idprojeto`) REFERENCES `projeto` (`idprojeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 #
-#  Foreign keys for table colaboradorespermissoes
+#  Foreign keys for table empresa
 #
 
-ALTER TABLE `colaboradorespermissoes`
-ADD CONSTRAINT `fk_colaboradoresPermissoes_colaboradores1` FOREIGN KEY (`colaboradores_idcolaboradores`) REFERENCES `colaboradores` (`idcolaboradores`) ON DELETE NO ACTION ON UPDATE NO ACTION,
-ADD CONSTRAINT `fk_colaboradoresPermissoes_permissoes1` FOREIGN KEY (`permissoes_idpermissoes`) REFERENCES `permissoes` (`idpermissoes`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE `empresa`
+ADD CONSTRAINT `fk_empresa_funcionario1` FOREIGN KEY (`responsavelGeral`) REFERENCES `funcionario` (`idfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 #
 #  Foreign keys for table empresafilial
