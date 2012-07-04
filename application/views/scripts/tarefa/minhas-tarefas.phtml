@@ -1,51 +1,6 @@
-<?php
-if ( isset($this->flag)  )
-         switch ($this->flag){
-        case 1:
-            echo   "<h3>Tarefa cadastrada com sucesso!</h3><br>";
-            break;
-        case 2:
-            echo   "<h3>Tarefa atualizada com sucesso!</h3><br>";
-            break;
-        case 3:
-            echo "<h3>Tarefa excluída com sucesso!</h3><br>";
-            break;
-        case 4:
-            echo "<h4>Não foi possivel Excluir\ALTERAR o tarefa, verifique:
-                <br> Se você não alterou algum dado!!
-                <br> Ou se a tarefa já foi excluída!!
-                </h4><br>";
-            break;
-         }
-?>
-
-<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
-
-
-<form id="escolheColab" name="escolheColab" method="post" action="/tarefa/prepara">
-    Nome do Projeto : <?php echo $this->projEncontrado->nome;?>
-    <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
-    <br />
-    <label for="listColab">Para adicionar uma tarefa escolha um <srtong>colaborador</srtong> :</label>
-        <select id="listColab" name="listColab">
-            <option value=""> - - Escolha um Colaborador - - </option>
-            
-        <?php foreach ( $this->listaColaboradores as $auxColab ) : ?>
-            <?php foreach ( $this->listaFuncionarios as $auxFunc ) : ?>
-                <?php if($auxFunc->idfuncionario == $auxColab->funcionario_idfuncionario){?>
-                    <option value="<?php echo $auxColab->idcolaboradores; ?>">
-                       <?php echo $auxFunc->nome; ?></option>
-                <?php }?>
-            <?php endforeach; ?>
-        <?php endforeach; ?>   
-    </select>
-    <input type="submit" name="button" id="button" value="Ok" />
-</form>
-
 <br/>
 
 <center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
-
 <table width="100%" class="tbl">
     <thead><tr>
         <th>Colaborador Respons&aacute;vel</th>

@@ -47,11 +47,14 @@ INSERT INTO `colaboradores` VALUES (1,2,11,25,10);
 INSERT INTO `colaboradores` VALUES (1,3,12,20,20);
 INSERT INTO `colaboradores` VALUES (1,4,13,15,30);
 INSERT INTO `colaboradores` VALUES (1,5,14,10,20);
+INSERT INTO `colaboradores` VALUES (1,19,24,NULL,10);
+INSERT INTO `colaboradores` VALUES (1,20,22,NULL,30);
 INSERT INTO `colaboradores` VALUES (2,7,16,25,10);
 INSERT INTO `colaboradores` VALUES (2,8,17,20,20);
 INSERT INTO `colaboradores` VALUES (2,9,18,15,30);
 INSERT INTO `colaboradores` VALUES (2,10,19,10,20);
 INSERT INTO `colaboradores` VALUES (3,2,21,NULL,10);
+INSERT INTO `colaboradores` VALUES (3,19,23,NULL,10);
 INSERT INTO `colaboradores` VALUES (3,20,20,NULL,10);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -139,7 +142,7 @@ CREATE TABLE `empresafilial` (
 
 LOCK TABLES `empresafilial` WRITE;
 /*!40000 ALTER TABLE `empresafilial` DISABLE KEYS */;
-INSERT INTO `empresafilial` VALUES (1,'SoftFarm - EUA','56 8945 9891','FDGDFSGFDSGS',2,1,'ghd@hud.com','34 567 678');
+INSERT INTO `empresafilial` VALUES (1,'SoftFarm - EUA','56 8945 9891','FDGDFSGFDSGS',24,1,'ghd@hud.com','34 567 678');
 INSERT INTO `empresafilial` VALUES (2,'SoftFarm - BR','73 3639 5149','Rua da Linha 1029 Barra Ilheus BA ',1,1,'softfarmbr@gmail.com','45 650 000');
 /*!40000 ALTER TABLE `empresafilial` ENABLE KEYS */;
 UNLOCK TABLES;
@@ -260,6 +263,8 @@ INSERT INTO `funfaztarefa` VALUES (33,10);
 INSERT INTO `funfaztarefa` VALUES (37,10);
 INSERT INTO `funfaztarefa` VALUES (41,17);
 INSERT INTO `funfaztarefa` VALUES (42,17);
+INSERT INTO `funfaztarefa` VALUES (44,20);
+INSERT INTO `funfaztarefa` VALUES (45,24);
 /*!40000 ALTER TABLE `funfaztarefa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -315,6 +320,8 @@ LOCK TABLES `projeto` WRITE;
 INSERT INTO `projeto` VALUES (1,'Proj A','Desenvolvimento de um sistema para gerenciamento de configuração de software.','2012-04-01','2012-07-30',1,2);
 INSERT INTO `projeto` VALUES (2,'Proj B','Sistema completo de automação comercial.','2012-04-01','2012-07-30',7,5);
 INSERT INTO `projeto` VALUES (3,'Proj C','teste','2012-07-03','0000-00-00',24,2);
+INSERT INTO `projeto` VALUES (4,'Proj D','Lorem Ipsum é simplesment','2012-07-03','0000-00-00',19,2);
+INSERT INTO `projeto` VALUES (5,'Proj E','testesteatestesteatestest','0000-00-00','0000-00-00',19,2);
 /*!40000 ALTER TABLE `projeto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -337,6 +344,8 @@ LOCK TABLES `projetobugzilla` WRITE;
 /*!40000 ALTER TABLE `projetobugzilla` DISABLE KEYS */;
 INSERT INTO `projetobugzilla` VALUES (1,'Proj A');
 INSERT INTO `projetobugzilla` VALUES (3,'Proj C');
+INSERT INTO `projetobugzilla` VALUES (4,'Proj D');
+INSERT INTO `projetobugzilla` VALUES (5,'Proj E');
 /*!40000 ALTER TABLE `projetobugzilla` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -360,6 +369,8 @@ LOCK TABLES `projetogit` WRITE;
 /*!40000 ALTER TABLE `projetogit` DISABLE KEYS */;
 INSERT INTO `projetogit` VALUES (2,'Proj B','ydhbcgfhkchn');
 INSERT INTO `projetogit` VALUES (3,'Proj C','asdasdsda');
+INSERT INTO `projetogit` VALUES (4,'Proj D','asdasdsda');
+INSERT INTO `projetogit` VALUES (5,'Proj E','asdasdsda');
 /*!40000 ALTER TABLE `projetogit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -449,6 +460,8 @@ INSERT INTO `tarefa` VALUES (36,'dscxcz\\','2012-06-03 19:50:21','2012-06-16 19:
 INSERT INTO `tarefa` VALUES (37,'hgjjhgjgh','2012-06-01 07:08:09','2012-06-30 07:08:09',2,'2012-06-30 07:09:03');
 INSERT INTO `tarefa` VALUES (41,'fsdfsdf','2012-06-01 19:42:13','2012-06-30 19:42:13',2,'0000-00-00 00:00:00');
 INSERT INTO `tarefa` VALUES (42,'dasda','2012-06-03 05:28:45','2012-06-30 05:28:45',2,'0000-00-00 00:00:00');
+INSERT INTO `tarefa` VALUES (44,'teste','2012-07-03 20:47:25','2012-07-03 20:47:25',7,'0000-00-00 00:00:00');
+INSERT INTO `tarefa` VALUES (45,'testes','2012-07-03 03:09:05','2012-07-31 03:09:05',2,'0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `tarefa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -532,7 +545,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `acesso_funcionarios` AS se
 #
 
 DROP VIEW IF EXISTS `colaboradores_projetos`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `colaboradores_projetos` AS select `projeto`.`nome` AS `nomeProj`,`projeto`.`descricao` AS `descricao`,`funcionario`.`nome` AS `nomeFuncinario` from ((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) order by `projeto`.`nome` desc;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `colaboradores_projetos` AS select `projeto`.`estado_idestado` AS `estado_idestado`,`projeto`.`idGerente` AS `idGerente`,`projeto`.`dataFim` AS `dataFim`,`projeto`.`dataInc` AS `dataInc`,`projeto`.`idprojeto` AS `idprojeto`,`projeto`.`nome` AS `nomeProj`,`projeto`.`descricao` AS `descricao`,`funcionario`.`nome` AS `nomeFuncinario` from ((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) order by `projeto`.`nome` desc;
 
 #
 # Source for view dados_git_projeto

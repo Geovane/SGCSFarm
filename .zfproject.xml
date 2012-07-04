@@ -18,6 +18,7 @@
         </controllerFile>
         <controllerFile controllerName="Projeto">
           <actionMethod actionName="index"/>
+          <actionMethod actionName="detalhes"/>
         </controllerFile>
         <controllerFile controllerName="Tarefa">
           <actionMethod actionName="index"/>
@@ -25,6 +26,7 @@
           <actionMethod actionName="edit"/>
           <actionMethod actionName="delete"/>
           <actionMethod actionName="prepara"/>
+          <actionMethod actionName="minhasTarefas"/>
         </controllerFile>
       </controllersDirectory>
       <formsDirectory>
@@ -87,6 +89,12 @@
           </viewControllerScriptsDirectory>
           <viewControllerScriptsDirectory forControllerName="Tarefa">
             <viewScriptFile forActionName="prepara"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Projeto">
+            <viewScriptFile forActionName="detalhes"/>
+          </viewControllerScriptsDirectory>
+          <viewControllerScriptsDirectory forControllerName="Tarefa">
+            <viewScriptFile forActionName="minhasTarefas"/>
           </viewControllerScriptsDirectory>
         </viewScriptsDirectory>
         <viewHelpersDirectory/>

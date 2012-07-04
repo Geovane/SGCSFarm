@@ -15,11 +15,19 @@
         </div>
             
         <div class="field">      
-            <label for="dtinicio">Data de Início:</label>
-            <input type="date" class="input" id="dtinicio" name="dtinicio" />
+            <?php
+                $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
+                        "defaultDate" => date('Y/m/d', time())));
+                $data->setName("dtinicio")
+                    ->setAttrib("id", "dtinicio")
+                    ->setAttrib("class", "input")
+                    ->setLabel("Data de Início: ");
+
+                echo $data;
+            ?>
             <p class="hint">Defina a data de início do projeto.</p>
         </div>
-            
+           
         <div class="field">                  
             <label for="gerente">Gerente:</label>
             <select id="gerente" name="idGerente">
