@@ -165,7 +165,7 @@ class ProjetoController extends Zend_Controller_Action
 
     public function deleteAction()
     {
-        //CONCERTAR TODO O  DELETE
+        //Precisa só colocar as flags informando o ocorrido para o usuário
                 $id_proj = $this->_getParam('id');
                 
                 $select = $this->project->select();
@@ -184,6 +184,8 @@ class ProjetoController extends Zend_Controller_Action
                     $where = $this->project->getAdapter()->quoteInto('idprojeto = ?',$id_proj);
                     $this->project->delete($where);
                     
+                    $this->_redirect('projeto/index');
+                }else{
                     $this->_redirect('projeto/index');
                 }
     }

@@ -20,6 +20,9 @@ if ( isset($this->flag)  )
 ?>
 
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
+<?php echo $this->headLink()->appendStylesheet('/css/tab-view.css') ?>
+<?php echo $this->headScript()->appendFile("/js/ajax.js"); ?>
+<?php echo $this->headScript()->appendFile("/js/tab-view.js"); ?>
 
 <a href="/funcionario/create">Cadastrar Usuario</a><br><br>
 <center>
@@ -56,10 +59,30 @@ if ( isset($this->flag)  )
     
 </center>
 <br>
+
 <div>
     <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
 </div>
-<script>
+
+
+
+<div id="abasUsuario">
+	<div class="dhtmlgoodies_aTab">
+        </div>
+</div>  
+
+<script type="text/javascript">
+
 menu('12');
+
+//initTabs('mainContainerID','tabTitles','activeTab',width,height,closeButtonArray,additionalTab)
+initTabs('abasUsuario',Array('Usuários'),0,'100%',200,Array(false));
+
+//createNewTab(parentId,tabTitle,tabContent,tabContentUrl,closeButton)
+createNewTab('abasUsuario','Cadastrar Usuário','','create',false);
+
+//showTab('mainContainerID', indice)
+showTab('abasUsuario','0');
+
 </script>
 
