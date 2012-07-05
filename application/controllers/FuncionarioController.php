@@ -20,6 +20,18 @@ class FuncionarioController extends Zend_Controller_Action
         $dadosIndex = $this->FuncFilial->find($this->funcLogado->idfuncionario);
         $this->view->dadosIndex = $dadosIndex[0];
 
+        //Dados do usuario logado para serem utilizados nas actions
+        $idFunc = $this->funcLogado->idfuncionario;
+        $idEmpresa = $dadosIndex[0]->empresa_idempresa;
+        $idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
+
+        //Informações relativas a permissoes (Se tiver permissão retorna True)
+        $adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
+        $adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
+        $this->view->AdminFilial = $adminFilial;
+        $this->view->AdminEmpresa = $adminEmpresa;
+
+      
         /* Initialize action controller here */
         $this->funcionario = new Model_DbTable_Func();
         $this->filial = new Model_DbTable_Filial();
@@ -33,6 +45,7 @@ class FuncionarioController extends Zend_Controller_Action
 
     public function indexAction()
     {
+
          $this->view->flag = $this->_request->getParam('flag');
          $select = $this->funcionario->select()->order('nome');
 
@@ -92,16 +105,12 @@ class FuncionarioController extends Zend_Controller_Action
 
        $func_id = $this->_getParam('id');
 
-
-
        $result  = $this->funcionario->find($func_id);
        $this->view->funcionario = $result->current();
        $this->view->filial = $this->filial->fetchAll();
 
             if ( $this->_request->isPost() )
             {
-
-              if ( !empty ($file) ){
 
                 $data = array(
                     'nome'  => $this->_request->getPost('nome'),
@@ -118,7 +127,7 @@ class FuncionarioController extends Zend_Controller_Action
 
                 $this->_redirect('funcionario/index/flag/2');
 
-              }
+
             }
 
     }
@@ -294,6 +303,13 @@ class FuncionarioController extends Zend_Controller_Action
        }
 
        return $filesUploaded;
+     }
+
+     public function meusdadosAction(){
+
+        $dados = $this->funcionario->find($this->funcLogado->idfuncionario);
+        $this->view->dados = $dados[0];
+       
      }
 
 }

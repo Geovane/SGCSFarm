@@ -26,12 +26,12 @@ if ( isset($this->flag)  )
 ?>
 
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
-<?php echo $this->headLink()->appendStylesheet('/css/tab-view.css') ?>
-<?php echo $this->headScript()->appendFile("/js/ajax.js"); ?>
-<?php echo $this->headScript()->appendFile("/js/tab-view.js"); ?>
+<?php //echo $this->headLink()->appendStylesheet('/css/tab-view.css') ?>
+<?php //echo $this->headScript()->appendFile("/js/ajax.js"); ?>
+<?php //echo $this->headScript()->appendFile("/js/tab-view.js"); ?>
 
 <a href="/funcionario/create">Cadastrar Usuario</a><br>
-<a href="/funcionario/imagem">Alterar minha Imagem</a>
+<a href="/funcionario/meusdados">Meus Dados</a>
 <br><br>
 <center>
 <table width="100%" class="tbl">
@@ -73,11 +73,12 @@ if ( isset($this->flag)  )
 </div>
 
 
-
+<!--
 <div id="abasUsuario">
 	<div class="dhtmlgoodies_aTab">
         </div>
 </div>  
+
 
 <script type="text/javascript">
 
@@ -94,3 +95,4 @@ showTab('abasUsuario','0');
 
 </script>
 
+-->

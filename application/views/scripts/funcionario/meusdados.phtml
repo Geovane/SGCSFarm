@@ -1,0 +1,13 @@
+<?
+
+echo 'Nome:'.$this->dados->nome.'<br>';
+echo 'Filial:'.$this->dadosIndex->nomeEmpresa.'<br>';
+echo 'Identidade:'.$this->dados->documentoIdentificacao.'<br>';
+echo 'Usuário:'.$this->dados->login.'<br>';
+echo 'Email:'.$this->dados->email.'<br><br>';
+
+echo "<a href ='/funcionario/edit/id/".$this->funcLogado->idfuncionario."'>Alterar meus dados</a><br>";
+echo "<a href ='/funcionario/imagem' >Alterar minha imagem</a><br>";
+echo "<a href ='/auth/senha'>Alterar minha Senha</a><br>";
+
+?>

@@ -80,6 +80,14 @@
     <td>&nbsp;</td>
     <td width="1022">
         <div id="content" style="background-color:#eaeaea; width:1022px; min-height:522px;">
+
+            <? if ($this->AdminFilial){
+                    echo 'Admin Filial<br>';
+            }
+            if ($this->AdminEmpresa){
+                    echo 'Admin Empresa<br>';
+            }
+            ?>
                       <?php echo $this->layout()->content; ?>
         </div>
 </td>
