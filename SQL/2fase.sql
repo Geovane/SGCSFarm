@@ -197,19 +197,19 @@ CREATE TABLE `funcionario` (
 
 LOCK TABLES `funcionario` WRITE;
 /*!40000 ALTER TABLE `funcionario` DISABLE KEYS */;
-INSERT INTO `funcionario` VALUES (1,'FABI MATOS LIMA','87345099218','m56h','40bd001563085fc35165329ea1ff5c5ecbdbbeef','f_lima@gmail.com',2,0,'');
-INSERT INTO `funcionario` VALUES (2,'CARLOS EDUARDO','11234566','carlo','40bd001563085fc35165329ea1ff5c5ecbdbbeef','carlosfonsa@yahoo.com',1,0,'');
-INSERT INTO `funcionario` VALUES (3,'MARIA CLARA DE JESUS AMARAL','12432654489','m34c','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ma_clarajesus@gmail.com',2,0,'');
-INSERT INTO `funcionario` VALUES (4,'JOSE VINICIUS SANTOS PUENTES','78034236749','j76v','40bd001563085fc35165329ea1ff5c5ecbdbbeef','jose.puentes@hotmail.com',2,0,'');
-INSERT INTO `funcionario` VALUES (5,'MAX WILLIAMS SANCHEZ ','H3478H09','m78s','40bd001563085fc35165329ea1ff5c5ecbdbbeef','maxws@gmail.com',2,0,'');
-INSERT INTO `funcionario` VALUES (7,'MILLENA MOURA SABOIA','56128965667','m90m','40bd001563085fc35165329ea1ff5c5ecbdbbeef','millena.saboia@gmail.com',2,0,'');
-INSERT INTO `funcionario` VALUES (8,'POUL DENNY BUNTON','J678D835','p63d','40bd001563085fc35165329ea1ff5c5ecbdbbeef','pdbunton@yahoo.com',2,0,'');
-INSERT INTO `funcionario` VALUES (9,'JOANA LIMA DA GAMA SETUBAL','78234456721','j71l','40bd001563085fc35165329ea1ff5c5ecbdbbeef','joanasetubal@gmail.com',2,0,'');
-INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','40bd001563085fc35165329ea1ff5c5ecbdbbeef','dannillyedyer@gmail.com',2,0,'');
-INSERT INTO `funcionario` VALUES (19,'mimoso','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',1,1,'');
-INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso souza','1170192599','geovane','40bd001563085fc35165329ea1ff5c5ecbdbbeef','geovanemimoso@gmail.com',1,0,'');
-INSERT INTO `funcionario` VALUES (23,'teste','123456','teste','40bd001563085fc35165329ea1ff5c5ecbdbbeef','teste@teste',1,1,'');
-INSERT INTO `funcionario` VALUES (24,'Bruno Pereira dos Santos','123','bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef','bruno.ps@live.com',1,1,'');
+INSERT INTO `funcionario` VALUES (1,'FABI MATOS LIMA','87345099218','m56h','40bd001563085fc35165329ea1ff5c5ecbdbbeef','f_lima@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (2,'CARLOS EDUARDO','11234566','carlo','40bd001563085fc35165329ea1ff5c5ecbdbbeef','carlosfonsa@yahoo.com',1,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (3,'MARIA CLARA DE JESUS AMARAL','12432654489','m34c','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ma_clarajesus@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (4,'JOSE VINICIUS SANTOS PUENTES','78034236749','j76v','40bd001563085fc35165329ea1ff5c5ecbdbbeef','jose.puentes@hotmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (5,'MAX WILLIAMS SANCHEZ ','H3478H09','m78s','40bd001563085fc35165329ea1ff5c5ecbdbbeef','maxws@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (7,'MILLENA MOURA SABOIA','56128965667','m90m','40bd001563085fc35165329ea1ff5c5ecbdbbeef','millena.saboia@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (8,'POUL DENNY BUNTON','J678D835','p63d','40bd001563085fc35165329ea1ff5c5ecbdbbeef','pdbunton@yahoo.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (9,'JOANA LIMA DA GAMA SETUBAL','78234456721','j71l','40bd001563085fc35165329ea1ff5c5ecbdbbeef','joanasetubal@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','40bd001563085fc35165329ea1ff5c5ecbdbbeef','dannillyedyer@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (19,'Geovane M. souza','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',2,1,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso','1170192599','geovane','40bd001563085fc35165329ea1ff5c5ecbdbbeef','geovanemimoso@gmail.com',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (23,'teste','123456','teste','40bd001563085fc35165329ea1ff5c5ecbdbbeef','teste@teste',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (24,'Bruno Pereira dos Santos','123','bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef','bruno.ps@live.com',1,1,'/images/fotosFunc/24_1341473472.jpg');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -238,6 +238,7 @@ INSERT INTO `funfaztarefa` VALUES (41,17);
 INSERT INTO `funfaztarefa` VALUES (42,17);
 INSERT INTO `funfaztarefa` VALUES (44,20);
 INSERT INTO `funfaztarefa` VALUES (45,24);
+INSERT INTO `funfaztarefa` VALUES (46,20);
 /*!40000 ALTER TABLE `funfaztarefa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -393,7 +394,7 @@ CREATE TABLE `tarefa` (
   `dataEntrega` datetime NOT NULL,
   PRIMARY KEY (`idtarefa`),
   KEY `fk_tarefa_estado1` (`estado_idestado`)
-) ENGINE=InnoDB AUTO_INCREMENT=46 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table tarefa
@@ -411,6 +412,7 @@ INSERT INTO `tarefa` VALUES (41,'fsdfsdf','2012-06-01 19:42:13','2012-06-30 19:4
 INSERT INTO `tarefa` VALUES (42,'dasda','2012-06-03 05:28:45','2012-06-30 05:28:45',2,'0000-00-00 00:00:00');
 INSERT INTO `tarefa` VALUES (44,'teste','2012-07-03 20:47:25','2012-07-03 20:47:25',7,'0000-00-00 00:00:00');
 INSERT INTO `tarefa` VALUES (45,'testes','2012-07-03 03:09:05','2012-07-31 03:09:05',2,'0000-00-00 00:00:00');
+INSERT INTO `tarefa` VALUES (46,',n,mn,m','2012-07-17 04:05:19','2012-07-27 04:05:19',2,'0000-00-00 00:00:00');
 /*!40000 ALTER TABLE `tarefa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -497,6 +499,13 @@ DROP VIEW IF EXISTS `colaboradores_projetos`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `colaboradores_projetos` AS select `projeto`.`estado_idestado` AS `estado_idestado`,`projeto`.`idGerente` AS `idGerente`,`projeto`.`dataFim` AS `dataFim`,`projeto`.`dataInc` AS `dataInc`,`projeto`.`idprojeto` AS `idprojeto`,`projeto`.`nome` AS `nomeProj`,`projeto`.`descricao` AS `descricaoProj`,`funcionario`.`nome` AS `nomeFuncinario`,`funcionario`.`idfuncionario` AS `idfuncionario`,`colaboradores`.`dedicacaoMes` AS `dedicacaoMes`,`funcaoprojeto`.`descricao` AS `funcao` from (((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) join `funcaoprojeto` on((`colaboradores`.`funcaoProjeto_idfuncaoProjeto` = `funcaoprojeto`.`idfuncaoProjeto`))) order by `projeto`.`nome` desc;
 
 #
+# Source for view dados_funcionario_filial
+#
+
+DROP VIEW IF EXISTS `dados_funcionario_filial`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `dados_funcionario_filial` AS select `funcionario`.`idfuncionario` AS `idfuncionario`,`funcionario`.`nome` AS `nome`,`funcionario`.`foto` AS `foto`,`empresafilial`.`nome` AS `nomeEmpresa` from (`funcionario` join `empresafilial` on((`funcionario`.`empresaFilial_idempresaFilial` = `empresafilial`.`idempresaFilial`)));
+
+#
 # Source for view dados_git_projeto
 #
 
@@ -523,13 +532,6 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `filias_das_empresas` AS se
 
 DROP VIEW IF EXISTS `funcao_colaboradores_projeto`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `funcao_colaboradores_projeto` AS select `funcaoprojeto`.`descricao` AS `descricao`,`projeto`.`nome` AS `nomeProj`,`funcionario`.`nome` AS `nomeFunc`,`colaboradores`.`dedicacaoMes` AS `dedicacaoMes` from (((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcaoprojeto` on((`colaboradores`.`funcaoProjeto_idfuncaoProjeto` = `funcaoprojeto`.`idfuncaoProjeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) order by `projeto`.`nome`,`funcionario`.`nome`;
-
-#
-# Source for view gerentes_projetos
-#
-
-DROP VIEW IF EXISTS `gerentes_projetos`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `gerentes_projetos` AS select `projeto`.`nome` AS `nomeProj`,`projeto`.`descricao` AS `descricao`,`projeto`.`dataInc` AS `dataInc`,`projeto`.`dataFim` AS `dataFim`,`funcionario`.`nome` AS `nomeFunc`,`funcionario`.`email` AS `email` from (`funcionario` join `projeto` on((`funcionario`.`idfuncionario` = `projeto`.`idGerente`))) order by `projeto`.`nome`;
 
 #
 # Source for view projetos_gerente_filial_colaboradores
