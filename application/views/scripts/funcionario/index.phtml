@@ -16,6 +16,12 @@ if ( isset($this->flag)  )
                 Se o funcionario é colaborador em algum projeto;<br>Se o funcionario é gerente de algum projeto;<br>
                 Caso alguma dessas opções seja positiva, as modifique e volte a tentar a escluxão.</h4><br>";
             break;
+        case 5:
+            echo "<h4>Imagem não inserida ou o formarto do arquivo é diferente de: 'jpg', 'jpeg', 'png' ou 'gif'.</h4><br>";
+            break;
+        case 6:
+            echo "<h4>Imagem  alterada com sucesso.</h4><br>";
+            break;
          }
 ?>
 
@@ -24,7 +30,9 @@ if ( isset($this->flag)  )
 <?php echo $this->headScript()->appendFile("/js/ajax.js"); ?>
 <?php echo $this->headScript()->appendFile("/js/tab-view.js"); ?>
 
-<a href="/funcionario/create">Cadastrar Usuario</a><br><br>
+<a href="/funcionario/create">Cadastrar Usuario</a><br>
+<a href="/funcionario/imagem">Alterar minha Imagem</a>
+<br><br>
 <center>
 <table width="100%" class="tbl">
 

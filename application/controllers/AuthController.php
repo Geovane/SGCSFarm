@@ -60,8 +60,6 @@ class AuthController extends Zend_Controller_Action
                     $info = $authAdapter->getResultRowObject(array(
                                                                 'idfuncionario',
                                                                 'nome',
-                                                                'documentoIdentificacao',
-                                                                'email',
                                                                 'empresaFilial_idempresaFilial'
                                                              )
                             );
@@ -159,12 +157,5 @@ class AuthController extends Zend_Controller_Action
         }
 
     }
-	
-	public function contatoAction()
-    {
-        
-    }
-	
-
 
 }

@@ -53,6 +53,10 @@ class TarefaController extends Zend_Controller_Action
         $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
         $this->view->funcLogado = $this->funcLogado;
 
+        //Informações de exibição do usuario no index (deve estar em todos os inits)
+        $this->FuncFilial = new Model_DbTable_FuncFilial();
+        $dadosIndex = $this->FuncFilial->find($this->funcLogado->idfuncionario);
+        $this->view->dadosIndex = $dadosIndex[0];
 
         /**
             * Variáveis responsáveis pelo acesso as tabelas do banco de dado.

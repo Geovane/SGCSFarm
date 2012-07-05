@@ -32,11 +32,13 @@
       <table width="100%" height="127" border="0" cellspacing="0" cellpadding="0">
         <tr>
           <td width="55%">&nbsp;</td>
-          <td width="35%" align="right"><?php echo $this->funcLogado->nome ?> - <a href="/auth/logout" class="linkLaranja" style="font-size:13px">Sair</a><br />
-          Funcoes do camarada logado<br />
-          Envolvido em X projetos - <a class="linkLaranja" href="#">Visualizar</a><br />
-          Possui X tarefas pendentes - <a class="linkLaranja" href="#">Visualizar</a></td>
-          <td width="10%">&nbsp;</td>
+          <td width="35%" align="right">
+              <?php echo $this->dadosIndex->nome ?> <br/>
+              <?php echo $this->dadosIndex->nomeEmpresa ?> <br/><br/>
+              <a href="/auth/logout" class="linkLaranja" style="font-size:13px">Sair </a><br />
+          
+         </td>
+          <td width="10%"><img src="<?=$this->dadosIndex->foto ?>" width="102px" height="127px" /></td>
         </tr>
       </table>
     </td>
@@ -78,7 +80,7 @@
     <td>&nbsp;</td>
     <td width="1022">
         <div id="content" style="background-color:#eaeaea; width:1022px; min-height:522px;">
-            <?php echo $this->layout()->content; ?>
+                      <?php echo $this->layout()->content; ?>
         </div>
 </td>
     <td>&nbsp;</td>

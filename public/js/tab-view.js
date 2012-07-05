@@ -65,7 +65,7 @@ Owner of DHTMLgoodies.com
 			obj.className='tabInactive';
 			var img = obj.getElementsByTagName('IMG')[0];
 			if(img.src.indexOf('tab_')==-1)img = obj.getElementsByTagName('IMG')[1];
-			img.src = 'images/tab_right_inactive.gif';
+			img.src = '/images/tab_right_inactive.gif';
 			document.getElementById('tabView' + parentId_div + activeTabIndex[parentId]).style.display='none';
 		}
 
@@ -74,7 +74,7 @@ Owner of DHTMLgoodies.com
 		thisObj.className='tabActive';
 		var img = thisObj.getElementsByTagName('IMG')[0];
 		if(img.src.indexOf('tab_')==-1)img = thisObj.getElementsByTagName('IMG')[1];
-		img.src = 'images/tab_right_active.gif';
+		img.src = '/images/tab_right_active.gif';
 
 		document.getElementById('tabView' + parentId_div + tabIndex).style.display='block';
 		activeTabIndex[parentId] = tabIndex;
@@ -122,7 +122,7 @@ Owner of DHTMLgoodies.com
 			this.className='inactiveTabOver';
 			var img = this.getElementsByTagName('IMG')[0];
 			if(img.src.indexOf('tab_')<=0)img = this.getElementsByTagName('IMG')[1];
-			img.src = 'images/tab_right_over.gif';
+			img.src = '/images/tab_right_over.gif';
 		}
 
 	}
@@ -132,7 +132,7 @@ Owner of DHTMLgoodies.com
 			this.className='tabInactive';
 			var img = this.getElementsByTagName('IMG')[0];
 			if(img.src.indexOf('tab_')<=0)img = this.getElementsByTagName('IMG')[1];
-			img.src = 'images/tab_right_inactive.gif';
+			img.src = '/images/tab_right_inactive.gif';
 		}
 
 	}
@@ -199,7 +199,7 @@ Owner of DHTMLgoodies.com
 
 			if(closeButtonArray[no]){
 				var closeButton = document.createElement('IMG');
-				closeButton.src = 'images/close.gif';
+				closeButton.src = '/images/close.gif';
 				closeButton.height = closeImageHeight + 'px';
 				closeButton.width = closeImageHeight + 'px';
 				closeButton.setAttribute('height',closeImageHeight);
@@ -220,7 +220,7 @@ Owner of DHTMLgoodies.com
 
 			var img = document.createElement('IMG');
 			img.valign = 'bottom';
-			img.src = 'images/tab_right_inactive.gif';
+			img.src = '/images/tab_right_inactive.gif';
 			// IE5.X FIX
 			if((navigatorVersion && navigatorVersion<6) || (MSIE && !strictDocType)){
 				img.style.styleFloat = 'none';
