@@ -1,128 +1,112 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
 
-<a href="/projeto">Projetos</a>
-<!-- Se o cara logado é responsavel pela filial apresenta todos os dados de todos os projetos -->
-<?php if ($this->eResponsavel){ ?>
-    | <a href='/projeto/create'>Novo Projetos</a>
-<?php }?>
-    <br>
-    <div style="float: left; border: 1px solid #666666; overflow:scroll; width:35%; height:400px;">
-            <div style="text-align:center; margin-top: 70px; ">
-                    Nome: <?php echo $this->projeto->nome; ?><br />
-                    Data de in&iacute;cio: <?php echo $this->projeto->dataInc; ?><br />
-                    Previs&atilde;o de conclus&atilde;o: <?php echo $this->projeto->dataFim ?><br />
-                    Situa&ccedil&atilde;o do projeto: <?php 
-                                                           foreach ( $this->estado as $auxEstado ):
-                                                               if($auxEstado->idestado == $this->projeto->estado_idestado)
-                                                                   echo $auxEstado->tipoDeEstado;
-                                                          endforeach; ?><br />
-                   Gerente: <?php 
-                                foreach ( $this->funcionario as $auxFunc ):
-                                    if($auxFunc->idfuncionario == $this->projeto->idGerente)
-                                        echo $auxFunc->nome;
-                                endforeach; ?><br />
-                   <br/>
-                   Descrição:
-                   <center>
-                   <div style="word-wrap:break-word; width:70%; border: 1px solid #666666; "><?php echo $this->projeto->descricao; ?></div><br />
-                   </center>
-                   
-                   <center>
-                       <?php if(($this->funcLogado->idfuncionario == $this->projeto->idGerente)
-                                || $this->eResponsavel){?>
-                       <a href='/projeto/edit/id/<?php echo $this->projeto->idprojeto; ?>'>Editar Projeto</a> |
-                       <a href='/projeto/delete/id/<?php echo $this->projeto->idprojeto; ?>'>Excluir Projeto</a>
-                       <?php } ?>
-                   </center>
-            </div>            
-    </div>
-    
-    
-    
-    
-    
-    <div style="margin-left: 20px; float:left; border: 1px solid #666666; overflow:scroll; width:60%; height:200px;">
-        <center><h4>Tarefas do Projeto: <?php echo $this->projeto->nome; ?></h4></center>
+<br>
+<div style="float: left; border: 1px solid #666666; overflow:scroll; width:35%; height:450px;">
+    <div style="text-align:center; margin-top: 70px; ">
+        Projeto alocado na filial: <?php echo $this->ProjEncontrado->current()->nomeFilialProj; ?><br />
+        Nome: <?php echo $this->ProjEncontrado->current()->nomeProj; ?><br />
+        Data de in&iacute;cio: <?php echo $this->ProjEncontrado->current()->dataInc; ?><br />
+        Previs&atilde;o de conclus&atilde;o: <?php echo $this->ProjEncontrado->current()->dataFim; ?><br />
+        Situa&ccedil&atilde;o do projeto: <?php echo $this->ProjEncontrado->current()->estadoProj; ?><br />
+        Gerente: <?php echo $this->ProjEncontrado->current()->nomeGerente; ?><br />
         <br/>
-        <?php if(($this->funcLogado->idfuncionario == $this->projeto->idGerente)
-                                || $this->eResponsavel){?>
-        <center><a href='/tarefa/prepara/idProj/<?php echo $this->projeto->idprojeto; ?>'>Gerenciar Tarefas</a></center>
-        <?php } else { ?>
-        <center><a href='/tarefa/minhas-tarefas/idProj/<?php echo $this->projeto->idprojeto; ?>'>Suas Tarefas</a></center>
-        <?php } ?>
-        <br>
+        Descrição:
         <center>
-            <div style="width:95%;">
-            <table width="100%" class="tbl">
-                <thead><tr><th>Nome Funcionário</th><th>Descrição</th><th>Data de início</th><th>Data de Fim</th></thead>
-        <?php 
-            $indice = 0;
-            foreach ( $this->tipoEstadoTarefaColabProj as $auxtipoEstadoTarefaColabProj ): 
-                if($indice%2){
-                    echo "<tr class='odd' >
-                            <td width='10%'><p style='word-wrap:break-word;'>".$auxtipoEstadoTarefaColabProj->nomeFunc."</p></td>
-                            <td width='15%' align='center'>".substr($auxtipoEstadoTarefaColabProj->descricaoTarefa, 0 , 20)."...</td>
-                            <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataInc."</td>
-                            <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataFim."</td>
-                          </tbody>";
-                } else {
-                    echo "<tr>
-                            <td width='10%'><p style='word-wrap:break-word;'>".$auxtipoEstadoTarefaColabProj->nomeFunc."</p></td>
-                            <td width='15%' align='center'>".substr($auxtipoEstadoTarefaColabProj->descricaoTarefa, 0 , 20)."...</td>
-                            <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataInc."</td>
-                            <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataFim."</td>
-                        </tr>";
-                }
-                $indice = $indice + 1;   
-            endforeach; ?>
-            </table> 
-            </div>
+        <div style="word-wrap:break-word; width:70%; border: 1px solid #666666; "><?php echo $this->ProjEncontrado->current()->descricaoProj; ?></div><br />
         </center>
-        
-    </div>
-    
-    
-    
-    
-    
-    <div style="word-wrap:break-word; margin-left: 20px; float:left; border: 1px solid #666666; overflow:scroll; width:60%; height:200px;">
-        <center><h4>Colaboradores do Projeto: <?php echo $this->projeto->nome; ?></h4></center>
-        <br/>
-        <?php if(($this->funcLogado->idfuncionario == $this->projeto->idGerente)
-                                || $this->eResponsavel){?>
-        <center><a href='#'>Gerenciar Colaboradores</a></center>
-        <br>
-        <center><a href='/projeto/colab/id/<?php echo $this->projeto->idprojeto; ?>'>REMOVER ESSE Inserir Colaborador</a></center>
-        <br>
-        <?php } ?>
-        <center>
-            <div style="width:95%;">
-            <table width="100%" class="tbl">
-                <thead><tr><th>Nome Funcionário</th><th>Função</th><th>Tempo de Dedicação em horas/mês</th></thead>
-        <?php 
-            $indice = 0;
-            foreach ( $this->funcaoColabProj as $auxfuncaoColabProj ): 
-                if($indice%2){
-                    echo "<tr class='odd' >
-                            <td width='10%'><p style='word-wrap:break-word;'>".$auxfuncaoColabProj->nomeFunc."</p></td>
-                            <td width='15%' align='center'>".$auxfuncaoColabProj->descricao."</td>
-                            <td width='8%' align='center'>".$auxfuncaoColabProj->dedicacaoMes."</td>
-                        </tr>
-                        </tbody>";
-                } else {
-                    echo "<tr>
-                            <td width='10%'>".$auxfuncaoColabProj->nomeFunc."</td>
-                            <td width='15%' align='center'>".$auxfuncaoColabProj->descricao."</td>
-                            <td width='8%' align='center'>".$auxfuncaoColabProj->dedicacaoMes."</td>
-                        </tr>";
-                }
-                $indice = $indice + 1;   
-            endforeach; ?>
-            </table>
-            </div>
-        </center>
-    </div>
 
+        <center>
+            <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
+            <a href='/projeto/edit/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>Editar Projeto</a> |
+            <a href='/projeto/delete/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>Excluir Projeto</a>
+            <?php } ?>
+        </center>
+    </div>            
+</div>
+
+<!-- div de tarefas -->
+
+<div style="margin-left: 20px; float:left; border: 1px solid #666666; width:60%; height:295px;">
+    <center><h4>Tarefas do Projeto: <?php echo $this->ProjEncontrado->current()->nomeProj; ?></h4></center>
+    <br/>
+    <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
+    <center><a href='/tarefa/prepara/idProj/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>Gerenciar Tarefas</a></center>
+    <?php } else { ?>
+    <center><a href='/tarefa/minhas-tarefas/idProj/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>Suas Tarefas</a></center>
+    <?php } ?>
+    <br>
+    <center>
+        <div style="width:95%;">
+        <table width="100%" class="tbl">
+            <thead><tr><th>Nome Funcionário</th><th>Descrição</th><th>Data de início</th><th>Data de Fim</th></thead>
+    <?php 
+        $indice = 0;
+        foreach ( $this->paginator as $auxtipoEstadoTarefaColabProj ): 
+            if($indice%2){
+                echo "<tr class='odd' >
+                        <td width='10%'><p style='word-wrap:break-word;'>".$auxtipoEstadoTarefaColabProj->nomeFunc."</p></td>
+                        <td width='15%' align='center'>".substr($auxtipoEstadoTarefaColabProj->descricaoTarefa, 0 , 20)."...</td>
+                        <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataInc."</td>
+                        <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataFim."</td>
+                        </tbody>";
+            } else {
+                echo "<tr>
+                        <td width='10%'><p style='word-wrap:break-word;'>".$auxtipoEstadoTarefaColabProj->nomeFunc."</p></td>
+                        <td width='15%' align='center'>".substr($auxtipoEstadoTarefaColabProj->descricaoTarefa, 0 , 20)."...</td>
+                        <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataInc."</td>
+                        <td width='8%' align='center'>".$auxtipoEstadoTarefaColabProj->dataFim."</td>
+                    </tr>";
+            }
+            $indice = $indice + 1;   
+        endforeach; ?>
+        </table>
+            
+        <div>
+            <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
+        </div>
+        </div>
+    </center>
+
+</div>
+
+<!-- div de colaboradores -->
+
+<div style="word-wrap:break-word; margin-top:5px; margin-left: 20px; float:left; border: 1px solid #666666; overflow:scroll; width:60%; height:150px;">
+    <center><h4>Colaboradores do Projeto: <?php echo $this->ProjEncontrado->current()->nomeProj; ?></h4></center>
+    <br/>
+    <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
+    <center><a href='#'>Gerenciar Colaboradores</a></center>
+    <br>
+    <center><a href='/projeto/colab/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>REMOVER ESSE Inserir Colaborador</a></center>
+    <br>
+    <?php } ?>
+    <center>
+        <div style="width:95%;">
+        <table width="100%" class="tbl">
+            <thead><tr><th>Nome Funcionário</th><th>Função</th><th>Tempo de Dedicação em horas/mês</th></thead>
+    <?php 
+        $indice = 0;
+        foreach ( $this->ProjEncontrado as $auxfuncaoColabProj ): 
+            if($indice%2){
+                echo "<tr class='odd' >
+                        <td width='10%'><p style='word-wrap:break-word;'>".$auxfuncaoColabProj->nomeColaborador."</p></td>
+                        <td width='15%' align='center'>".$auxfuncaoColabProj->funcaoColaborador."</td>
+                        <td width='8%' align='center'>".$auxfuncaoColabProj->dedicacaoMesColaborador."</td>
+                    </tr>
+                    </tbody>";
+            } else {
+                echo "<tr>
+                        <td width='10%'><p style='word-wrap:break-word;'>".$auxfuncaoColabProj->nomeColaborador."</p></td>
+                        <td width='15%' align='center'>".$auxfuncaoColabProj->funcaoColaborador."</td>
+                        <td width='8%' align='center'>".$auxfuncaoColabProj->dedicacaoMesColaborador."</td>
+                    </tr>";
+            }
+            $indice = $indice + 1;   
+        endforeach; ?>
+        </table>
+        </div>
+    </center>
+</div>
 
 
 

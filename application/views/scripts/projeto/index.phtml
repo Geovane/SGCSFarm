@@ -1,251 +1,31 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
-<a href="/projeto">Projetos</a>
-<!-- Se o cara logado é responsavel pela filial apresenta todos os dados de todos os projetos -->
-<?php if ($this->eResponsavel){ ?>
-    | <a href='/projeto/create'>Novo Projetos</a>
-    
-    <div style="border: 1px solid #666666; overflow:scroll; width:100%; height:400px;">
-        <br/>
-        <center><h2>Todos os Projetos</h2></center>
-        <br/>
-        <?php foreach ( $this->paginator as $aux ) : ?>
-            <center>
-            <div style="margin: 5px; text-align:center; width:80%; border: 1px solid #666666;">
-                    Nome: <?php echo $aux['nome']; ?><br />
-                    Resumo: <?php echo substr($aux['descricao'], 0, 50)."..."; ?><br />
-                    Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
-                    Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim'] ?><br />
-                    Situa&ccedil&atilde;o do projeto: <?php 
-                                                           foreach ( $this->estado as $auxEstado ):
-                                                               if($auxEstado->idestado == $aux['estado_idestado'])
-                                                                   echo $auxEstado->tipoDeEstado;
-                                                          endforeach; ?><br />
-                   Gerente: <?php 
-                                foreach ( $this->funcionario as $auxFunc ):
-                                    if($auxFunc->idfuncionario == $aux['idGerente'])
-                                        echo $auxFunc->nome;
-                                endforeach; ?><br />
-                   <br/>
-                   <a href='/projeto/detalhes/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a> |
-                   <a href='/tarefa/prepara/idProj/<?php echo $aux['idprojeto']; ?>'>Tarefas do Projeto</a>
-                   
-            </div>
-            </center>
-        <?php endforeach; ?>
+<br/>
+<br/>
+<div style="border: 1px solid #666666; overflow:scroll; width:100%; height:400px;">
+    <br/>
+    <center><h2>Seus Projetos</h2></center>
+    <br/>
+    <?php foreach ( $this->paginator as $aux ) : ?>
+        <center>
+        <div style="margin: 5px; text-align:center; width:80%; border: 1px solid #666666;">
+                Nome: <?php echo $aux['nomeProj']; ?><br />
+                Resumo: <?php echo substr($aux['descricaoProj'], 0, 50)."..."; ?><br />
+                Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
+                Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim']; ?><br />
+                Situa&ccedil&atilde;o do projeto: <?php echo $aux['estadoProj']; ?><br/>
+                Gerente: <?php echo $aux['nomeGerente']; ?>
+                <br/>
+                <a href='/projeto/detalhes/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a>
+                <?php if($this->idFuncLogado == $aux['idGerente']){?>
+                    | <a href='/tarefa/prepara/idProj/<?php echo $aux['idprojeto']; ?>'>Tarefas do Projeto</a>
+                <?php }?>
+        </div>
+        </center>
+    <?php endforeach; ?>
+    <div>
+    <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
     </div>
-
-<?php }else{ ?>
-    <!-- Se o cara logado é colaborador ou Gerente -->
-    
-    <div style="border: 1px solid #666666; overflow:scroll; width:100%; height:400px;">
-        <br/>
-        <?php if( isset($this->ProjetosFuncEGerente->current()->nome) ){ ?>
-            <center><h3>Projetos em você, <?php echo $this->funcLogado->nome; ?>, é gerente</h3></center>
-            <br/>
-        <?php } ?>
-        <?php foreach ( $this->ProjetosFuncEGerente as $aux ) : ?>
-            <center>
-            <div style="margin: 5px; text-align:center; width:80%; border: 1px solid #666666;">
-                    Nome: <?php echo $aux['nome']; ?><br />
-                    Resumo: <?php echo substr($aux['descricao'], 0, 50)."..."; ?><br />
-                    Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
-                    Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim'] ?><br />
-                    Situa&ccedil&atilde;o do projeto: <?php 
-                                                           foreach ( $this->estado as $auxEstado ):
-                                                               if($auxEstado->idestado == $aux['estado_idestado'])
-                                                                   echo $auxEstado->tipoDeEstado;
-                                                          endforeach; ?><br />
-                   Gerente: <?php 
-                                foreach ( $this->funcionario as $auxFunc ):
-                                    if($auxFunc->idfuncionario == $aux['idGerente'])
-                                        echo $auxFunc->nome;
-                                endforeach; ?><br />
-                   <br/>
-                   <a href='/projeto/detalhes/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a> |
-                   <a href='/tarefa/prepara/idProj/<?php echo $aux['idprojeto']; ?>'>Tarefas do Projeto</a>
-                   
-            </div>
-            </center>
-        <?php endforeach; ?>
-        <br/>
-        <?php if( isset($this->ProjetosFuncEColab->current()->nomeProj) ){ ?>
-            <center><h3>Projetos em você, <?php echo $this->funcLogado->nome; ?>, é colaborador</h3></center>
-            <br/>
-        <?php } ?>
-        <?php foreach ( $this->ProjetosFuncEColab as $aux ) : ?>
-            <center>
-            <div style="margin: 5px; text-align:center; width:80%; border: 1px solid #666666;">
-                    Nome: <?php echo $aux['nomeProj']; ?><br />
-                    Resumo: <?php echo substr($aux['descricao'], 0, 50)."..."; ?><br />
-                    Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
-                    Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim'] ?><br />
-                    Situa&ccedil&atilde;o do projeto: <?php 
-                                                           foreach ( $this->estado as $auxEstado ):
-                                                               if($auxEstado->idestado == $aux['estado_idestado'])
-                                                                   echo $auxEstado->tipoDeEstado;
-                                                          endforeach; ?><br />
-                   Gerente: <?php 
-                                foreach ( $this->funcionario as $auxFunc ):
-                                    if($auxFunc->idfuncionario == $aux['idGerente'])
-                                        echo $auxFunc->nome;
-                                endforeach; ?><br />
-                   <br/>
-                   <a href='/projeto/detalhes/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a>                    
-            </div>
-            </center>
-        <?php endforeach; ?>
-    </div>
-    
-    
-<?php } ?> 
-    
-    
-    <br/><br/><br/><br/>
-    <center><h1>não se importe com o que aparece daqui pra baixo</h1></center>
-<a href="/projeto/create">Inserir Projeto</a><br><br>
-<center>
-<table width="100%" class="tbl">
-
-        <thead><tr><th>Nome</th><th>Descrição</th><th>Data de Início</th><th>Data de Término</th><th>Gerente</th><th>Estado</th><th></th><th></th><th></th><th></th></tr></thead>
-        <tbody>
-        <?
-        $indice = 0;
-        foreach ( $this->paginator as $aux ) :
-            if($indice%2){
-                echo "<tr class='odd' >
-                        <td width='10%'>".$aux['nome']."</td>
-                        <td width='15%'>".$aux['descricao']."</td>
-                        <td width='8%' align='center'>".$aux['dataInc']."</td>
-                        <td width='10%' align='center'>".$aux['dataFim']."</td>
-                        <td width='5%' align='center'>".$aux['idGerente']."</td>
-                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>
-                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>
-                        <td width='4%'><a href='/tarefa/prepara/idProj/".$aux['idprojeto']."' class='linkLaranja' >Tarefas</a>
-                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
-                    </tr>
-                    </tbody>";
-            } else {
-                echo "<tr>
-                        <td width='10%'>".$aux['nome']."</td>
-                        <td width='15%'>".$aux['descricao']."</td>
-                        <td width='8%' align='center'>".$aux['dataInc']."</td>
-                        <td width='10%' align='center'>".$aux['dataFim']."</td>
-                        <td width='5%' align='center'>".$aux['idGerente']."</td>
-                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>    
-                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>
-                        <td width='4%'><a href='/tarefa/prepara/idProj/".$aux['idprojeto']."' class='linkLaranja' >Tarefas</a>
-                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
-                    </tr>";
-            }
-         $indice = $indice + 1;   
-         
-         endforeach;?>
-            </tbody>
-</table>    
-    
-</center>
-
-<!-- -------------------------------Visao do Gerente\Colab----------------------------------- -->
-<br/>
-<br/>
-<br/>
-<center>
-    Projetos em que sou gerente
-<table width="100%" class="tbl">
-
-        <thead><tr><th>Nome</th><th>Descrição</th><th>Data de Início</th><th>Data de Término</th><th>Gerente</th><th>Estado</th><th></th><th></th><th></th><th></th></tr></thead>
-        <tbody>
-        <?
-        $indice = 0;
-        foreach ( $this->ProjetosFuncEGerente as $aux ) :
-            if($indice%2){
-                echo "<tr class='odd' >
-                        <td width='10%'>".$aux['nome']."</td>
-                        <td width='15%'>".$aux['descricao']."</td>
-                        <td width='8%' align='center'>".$aux['dataInc']."</td>
-                        <td width='10%' align='center'>".$aux['dataFim']."</td>
-                        <td width='5%' align='center'>".$aux['idGerente']."</td>
-                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>
-                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>
-                        <td width='4%'><a href='/tarefa/prepara/idProj/".$aux['idprojeto']."' class='linkLaranja' >Tarefas</a>
-                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
-                    </tr>
-                    </tbody>";
-            } else {
-                echo "<tr>
-                        <td width='10%'>".$aux['nome']."</td>
-                        <td width='15%'>".$aux['descricao']."</td>
-                        <td width='8%' align='center'>".$aux['dataInc']."</td>
-                        <td width='10%' align='center'>".$aux['dataFim']."</td>
-                        <td width='5%' align='center'>".$aux['idGerente']."</td>
-                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>    
-                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>
-                        <td width='4%'><a href='/tarefa/prepara/idProj/".$aux['idprojeto']."' class='linkLaranja' >Tarefas</a>
-                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
-                    </tr>";
-            }
-         $indice = $indice + 1;   
-         
-         endforeach;?>
-            </tbody>
-</table>    
-    
-</center>
-
-
-<br/>
-<br/>
-<br/>
-<center>
-    Projetos em que sou Colab
-<table width="100%" class="tbl">
-
-        <thead><tr><th>Nome</th><th>Descrição</th><th>Data de Início</th><th>Data de Término</th><th>Gerente</th><th>Estado</th><th></th><th></th><th></th><th></th></tr></thead>
-        <tbody>
-        <?
-        $indice = 0;
-        foreach ( $this->ProjetosFuncEColab as $aux ) :
-            if($indice%2){
-                echo "<tr class='odd' >
-                         <td width='10%'>".$aux['nomeProj']."</td>
-                        <td width='15%'>".$aux['descricao']."</td>
-                        <td width='8%' align='center'>".$aux['dataInc']."</td>
-                        <td width='10%' align='center'>".$aux['dataFim']."</td>
-                        <td width='5%' align='center'>".$aux['idGerente']."</td>
-                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>    
-                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>
-                        <td width='4%'><a href='/tarefa/prepara/idProj/".$aux['idprojeto']."' class='linkLaranja' >Tarefas</a>
-                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
-                    </tr>
-                    </tbody>";
-            } else {
-                echo "<tr>
-                        <td width='10%'>".$aux['nomeProj']."</td>
-                        <td width='15%'>".$aux['descricao']."</td>
-                        <td width='8%' align='center'>".$aux['dataInc']."</td>
-                        <td width='10%' align='center'>".$aux['dataFim']."</td>
-                        <td width='5%' align='center'>".$aux['idGerente']."</td>
-                        <td width='5%' align='center'>".$aux['estado_idestado']."</td>    
-                        <td width='11%'><a href='/projeto/colab/id/".$aux['idprojeto']."' class='linkLaranja' >Inserir Colaborador</a></td>
-                        <td width='4%'><a href='/tarefa/prepara/idProj/".$aux['idprojeto']."' class='linkLaranja' >Tarefas</a>
-                        <td width='4%'><a href='/projeto/edit/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='4%'><a href='/projeto/delete/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
-                    </tr>";
-            }
-         $indice = $indice + 1;   
-         
-         endforeach;?>
-            </tbody>
-</table>    
-    
-</center>
-
-
+</div>
 
 <script>
 menu('13');

@@ -376,7 +376,18 @@ class TarefaController extends Zend_Controller_Action
         // action body
         $this->view->flag = $this->_request->getParam('flag');
         $listProj = $this->_getParam('idProj');
-
+        
+        $where = $this->projeto->getAdapter()->quoteInto('idprojeto = ?', $listProj);
+        $select = $this->projeto->select()
+                    ->where($where);
+        $projEncontrado = $this->projeto->fetchRow($select);
+        $idGerente = $projEncontrado->idGerente;
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+        
+        if($idGerente != $idFuncLogado){
+            $this->_redirect('/projeto/');
+        }
+        
         //verifica se algum projeto foi selecionado e presenta as informações
         //do mesmo.
         if( ($this->getRequest()->isPost()) || ($listProj != null) ){
@@ -441,6 +452,41 @@ class TarefaController extends Zend_Controller_Action
         // action body
         $idFunc = $this->funcLogado->idfuncionario;
         $idProj = $this->_getParam('idProj');
+        
+        $select = $this->estado->select();
+        $this->view->listaEstado = $this->estado->fetchAll($select);
+        
+        $where = $this->colaboradores->getAdapter()->quoteInto('projeto_idprojeto = ?', $idProj);
+        $where1 = $this->colaboradores->getAdapter()->quoteInto('funcionario_idfuncionario = ?', $idFunc);
+        $select = $this->colaboradores->select()
+                    ->where($where)
+                    ->where($where1);
+        $colabEncontrado = $this->colaboradores->fetchRow($select);
+        $idColabEncontrado = $colabEncontrado->idcolaboradores;  
+        
+        
+        $where = $this->projeto->getAdapter()->quoteInto('idprojeto = ?', $idProj);
+        $select = $this->projeto->select()
+                    ->where($where);
+        $projEncontrado = $this->projeto->fetchRow($select);
+        $this->view->projEncontrado = $projEncontrado;
+        $nomeProjEncontrado = $projEncontrado->nome;
+        
+        $select = $this->tarColabProj->select()
+                        ->where('nomeProj = ?', $nomeProjEncontrado)
+                        ->where('idColab = ?', $idColabEncontrado);
+        
+        $rows = $this->tarColabProj->fetchAll($select);
+        
+        //Cria a paginação relativa a exibição dos funcionarios
+        $paginator = Zend_Paginator::factory($rows);
+        //Passa o numero de registros por pagina
+        $paginator->setItemCountPerPage(5);
+
+        $this->view->paginator = $paginator;
+        $paginator->setCurrentPageNumber($this->_getParam('page'));
+        
+        
         
 //        $select = $this->estado->select();
 //        $this->view->listaEstado = $this->estado->fetchAll($select);

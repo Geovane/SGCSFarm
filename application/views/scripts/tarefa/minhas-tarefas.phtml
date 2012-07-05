@@ -1,6 +1,8 @@
+<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
 <br/>
 
 <center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
+
 <table width="100%" class="tbl">
     <thead><tr>
         <th>Colaborador Respons&aacute;vel</th>
@@ -35,11 +37,7 @@
              href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
                  Editar
              </a></td>
-             <td align='center'>
-             <a class='excluir' 
-             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                Excluir
-             </a></td></tr></tbody>";
+             </tr></tbody>";
         }else{
         echo "<tr>
                 <td align='center'>".$auxTarColabProj->nomeFunc."</td>
@@ -57,11 +55,6 @@
              <a 
              href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
                  Editar
-             </a></td>
-             <td align='center'>
-             <a class='excluir' 
-             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                Excluir
              </a></td></tr></tbody>";
         }
         
@@ -73,3 +66,7 @@
 <div>
     <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
 </div>
+
+<script>
+menu('13');
+</script>
