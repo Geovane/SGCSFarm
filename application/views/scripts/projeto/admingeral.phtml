@@ -3,17 +3,12 @@
 <br/>
 <div id="projetos">
     <br/>
-    <center><h2>Seus Projetos</h2></center>
+    <center><h2>Projetos da <?php echo $this->nomeEmpresa; ?></h2></center>
     <br/>
     <?php foreach ( $this->paginator as $aux ) : ?>
         <center>
-        <div id="projetos_conteudo"
-        <?php if($this->idFuncLogado == $aux['idGerente']){?>
-            style="-moz-box-shadow: 10px 10px 5px #ffb706; /* Firefox 3.6 and earlier */
-                    box-shadow: 0px 5px 10px #ffb706;"
-        <?php } ?>     
-        >
-                Nome: <b><?php echo $aux['nomeProj']; ?></b><br />
+        <div id="projetos_conteudo">
+                Nome: <?php echo $aux['nomeProj']; ?><br />
                 Resumo: <?php echo substr($aux['descricaoProj'], 0, 50)."..."; ?><br />
                 Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
                 Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim']; ?><br />
@@ -26,9 +21,6 @@
                 <?php } ?>
                 <br/>
                 <a href='/projeto/detalhes/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a>
-                <?php if($this->idFuncLogado == $aux['idGerente']){?>
-                    | <a href='/tarefa/prepara/idProj/<?php echo $aux['idprojeto']; ?>'>Tarefas do Projeto</a>
-                <?php }?>
         </div>
         </center>
     <?php endforeach; ?>

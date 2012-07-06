@@ -1,19 +1,4 @@
 <?php
-/* Zend_CodeGenerator_Php_File-DocblockMarker */
-/**
- * Esta classe tem como objetivo efetuar o CRUD de Tarefas para um projeto.
- * Ela contém os recursos necessários para a associação de uma tarefa recém
- * criada a um colaborador alocado em um projeto.
- * 
- * Os actions deste controller são: index, create, edit, delete e prepara.
- * 
- * @author Bruno Pereira dos Santos
- * @version 0.1
- * @access public
- * 
- * 
- */
-
 
 /**
  * Esta classe tem como objetivo efetuar o CRUD de Tarefas para um projeto.
@@ -59,17 +44,17 @@ class TarefaController extends Zend_Controller_Action
         $this->view->dadosIndex = $dadosIndex[0];
 
         /**
-            * Variáveis responsáveis pelo acesso as tabelas do banco de dado.
-            * 
-            * @name funFazTarefa
-            * @name tarefa
-            * @name estado
-            * @name projeto
-            * @name colaboradores
-            * @name funcionario
-            * @name tarColabProj
-            * @access disponível em todos os actions do controller Tarefas
-            */
+        * Variáveis responsáveis pelo acesso as tabelas do banco de dado.
+        * 
+        * @name funFazTarefa
+        * @name tarefa
+        * @name estado
+        * @name projeto
+        * @name colaboradores
+        * @name funcionario
+        * @name tarColabProj
+        * @access disponível em todos os actions do controller Tarefas
+        */
         $this->funFazTarefa = new Application_Model_DbTable_FunFazTarefa();
         $this->tarefa = new Application_Model_DbTable_Tarefa();
         $this->estado = new Model_DbTable_Estado();
@@ -442,7 +427,7 @@ class TarefaController extends Zend_Controller_Action
                 //Cria a paginação relativa a exibição dos funcionarios
                 $paginator = Zend_Paginator::factory($rows);
                 //Passa o numero de registros por pagina
-                $paginator->setItemCountPerPage(5);
+                $paginator->setItemCountPerPage(3);
 
                 $this->view->paginator = $paginator;
                 $paginator->setCurrentPageNumber($this->_getParam('page'));

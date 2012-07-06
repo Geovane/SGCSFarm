@@ -1,15 +1,40 @@
 <?php
+/**
+ * Esta classe tem como objetivo efetuar o CRUD de Projetos para um projeto
+ * bem como permitir acessos a views de gerentes (geral e de projetos).
+ * Ela contém os recursos necessários para o controle dos usuários ao CRUDE e
+ * as visões de cada tipo de usuário.
+ * 
+ * @author Bruno Pereira dos Santos
+ * @author Matheus Passos
+ * @version 0.1
+ * @access public
+ * 
+ * 
+ */
+
+
 
 class ProjetoController extends Zend_Controller_Action
 {
-
+    
+    /**
+     * Função que inicializa todos os parametros necessários para o correto
+     * funcionamento dos actions.
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function init()
     {
         //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
-
+        
+        
+        
         //Pega as informações do usuario logado no sistema.
         $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
         //Envia pra view
@@ -19,7 +44,26 @@ class ProjetoController extends Zend_Controller_Action
         $this->FuncFilial = new Model_DbTable_FuncFilial();
         $dadosIndex = $this->FuncFilial->find($this->funcLogado->idfuncionario);
         $this->view->dadosIndex = $dadosIndex[0];
-
+        
+        /**
+        * Variáveis responsáveis pelo acesso as tabelas do banco de dados.
+        * 
+        * @name project
+        * @name funcionario
+        * @name estado
+        * @name projbugzilla
+        * @name projgit
+        * @name funcaoproj
+        * @name colab
+         * @name empresafilial
+         * @name funcaoColabProj
+         * @name tipoEstadoTarefaColabProj
+         * @name colabProj
+         * @name ProjGerFiliColab
+         * @name empresa
+         * @name filial
+        * @access disponível em todos os actions do controller Tarefas
+        */
         $this->project = new Model_DbTable_Proj();
         $this->funcionario = new Model_DbTable_Func();
         $this->estado = new Model_DbTable_Estado();
@@ -32,13 +76,23 @@ class ProjetoController extends Zend_Controller_Action
         $this->tipoEstadoTarefaColabProj = new Model_DbTable_TipoEstadoTarefaColabProj();
         $this->colabProj = new Model_DbTable_ColaboradoresProjetos();
         $this->ProjGerFiliColab = new Model_DbTable_ProjGerFiliColab();
+        $this->empresa = new Model_DbTable_Empresa();
+        $this->filial = new Model_DbTable_Filial();
     }
-
+    
+    /**
+     * Função inicial do controller projetos.
+     * envia ao seu view as informações sobre os projetos.
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function indexAction()
     {
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;
-        
+
         $selectProjs = $this->ProjGerFiliColab->select()
                 ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
                         array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
@@ -46,9 +100,9 @@ class ProjetoController extends Zend_Controller_Action
                 ->distinct()
                 ->where('idGerente = ?', $idFuncLogado)
                 ->orWhere('idFuncionarioColaborador = ?', $idFuncLogado);
-        
+
         $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
-        
+
         $paginator = Zend_Paginator::factory($rows);
         //Passa o numero de registros por pagina
         $paginator->setItemCountPerPage(4);
@@ -56,17 +110,31 @@ class ProjetoController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
         $paginator->setCurrentPageNumber($this->_getParam('page'));
     }
-
+    
+    
+    /**
+     * Função responsável pela inserção ao banco dos dados de uma novo projeto
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function createAction()
     {
         $this->view->funcionario = $this->funcionario->fetchAll();
-                
-                
+                                
+                                
         if($this->_request->isPost())    
         {
+            /**
+            * Variável que pega uma data enviada pelo método post e prepara o
+            * array para posterior inserção no bando de dados.
+            *  
+            * @name $dataInc
+            */
             $dataInc = $this->inverte_data($this->_request->getPost('dtinicio'), "/");
             $dataInc = $dataInc." ".date("H:i:s");
-            
+
             $data = array
             (
                 'nome' => $this->_request->getPost('nome'),
@@ -99,67 +167,90 @@ class ProjetoController extends Zend_Controller_Action
             $this->_redirect('projeto/index');
         }
     }
-
+    
+    /**
+     * Função responsável pela edição de projeto existente
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function editAction()
     {
         $id_proj = $this->_getParam('id');
-                
-    $result = $this->project->find($id_proj);
-    $this->view->projeto = $result->current();
-    $this->view->funcionario = $this->funcionario->fetchAll();
-    $this->view->estado = $this->estado->fetchAll();
+                                
+        $result = $this->project->find($id_proj);
+        $this->view->projeto = $result->current();
+        $this->view->funcionario = $this->funcionario->fetchAll();
+        $this->view->estado = $this->estado->fetchAll();
 
-    if($this->_request->isPost())
-    {
-        $data = array
-        (
-            'nome' => $this->_request->getPost('nome'),
-            'descricao' => $this->_request->getPost('descricao'),
-            'dataInc' => $this->_request->getPost('dtinicio'),
-            'dataFim' => $this->_request->getPost('dtfim'),
-            'idGerente' => $this->_request->getPost('idGerente'),
-            'estado_idestado' => $this->_request->getPost('estado')  
-        );
+        if($this->_request->isPost())
+        {
+            $data = array
+            (
+                'nome' => $this->_request->getPost('nome'),
+                'descricao' => $this->_request->getPost('descricao'),
+                'dataInc' => $this->_request->getPost('dtinicio'),
+                'dataFim' => $this->_request->getPost('dtfim'),
+                'idGerente' => $this->_request->getPost('idGerente'),
+                'estado_idestado' => $this->_request->getPost('estado')  
+            );
 
-        $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', (int) $this->_request->getPost('id'));
+            $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', (int) $this->_request->getPost('id'));
 
-        $this->project->update($data,$where);
+            $this->project->update($data,$where);
 
-        $this->_redirect('projeto/index');
+            $this->_redirect('projeto/index');
         }
     }
-
+    
+    
+    /**
+     * Função responsável pela deleção de um projeto existente
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function deleteAction()
     {
         //Precisa só colocar as flags informando o ocorrido para o usuário
-                $id_proj = $this->_getParam('id');
-                
-                $select = $this->project->select();
-                $select -> from($this->project, 'COUNT(*) AS num')
-                        -> where('idprojeto = ?', $id_proj)
-                        ->where('estado_idestado = 7');
-                
-                if($this->project->fetchRow($select)->num != 0)
-                {
-                    $where = $this->projbugzilla->getAdapter()->quoteInto('projeto_idprojeto = ?',$id_proj);
-                    $this->projbugzilla->delete($where);
-                    
-                    $where = $this->projgit->getAdapter()->quoteInto('projeto_idprojeto = ?',$id_proj);
-                    $this->projgit->delete($where);
-                    
-                    $where = $this->project->getAdapter()->quoteInto('idprojeto = ?',$id_proj);
-                    $this->project->delete($where);
-                    
-                    $this->_redirect('projeto/index');
-                }else{
-                    $this->_redirect('projeto/index');
-                }
-    }
+        $id_proj = $this->_getParam('id');
 
+        $select = $this->project->select();
+        $select -> from($this->project, 'COUNT(*) AS num')
+                -> where('idprojeto = ?', $id_proj)
+                ->where('estado_idestado = 7');
+
+        if($this->project->fetchRow($select)->num != 0)
+        {
+            $where = $this->projbugzilla->getAdapter()->quoteInto('projeto_idprojeto = ?',$id_proj);
+            $this->projbugzilla->delete($where);
+
+            $where = $this->projgit->getAdapter()->quoteInto('projeto_idprojeto = ?',$id_proj);
+            $this->projgit->delete($where);
+
+            $where = $this->project->getAdapter()->quoteInto('idprojeto = ?',$id_proj);
+            $this->project->delete($where);
+
+            $this->_redirect('projeto/index');
+        }else{
+            $this->_redirect('projeto/index');
+        }
+    }
+    
+    /**
+     * Função responsável pela inserção de um colaborador associado a um projeto
+     * ao banco dos dados
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function colabAction()
     {
         $id_proj = $this->_getParam('id');
-                
+                                
         $result = $this->project->find($id_proj);
 
         $idgerente= $this->project->select();
@@ -190,104 +281,119 @@ class ProjetoController extends Zend_Controller_Action
             $this->_redirect('projeto/index');
         }
     }
-
-    public function detalhesAction(){
-        
+    
+    /**
+     * Função responsável pela exibição detalhada de um projeto
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
+    public function detalhesAction()
+    {
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;
-        
+
         $idProj = $this->_getParam('idProj');
         $where = $this->ProjGerFiliColab->getAdapter()->quoteInto('idprojeto = ?', $idProj);
         $selecProj = $this->ProjGerFiliColab->select()
                 ->where($where);
         $ProjEncontrado = $this->ProjGerFiliColab->fetchAll($selecProj);
         $this->view->ProjEncontrado = $ProjEncontrado;
-        
+
         $nomeProj = $ProjEncontrado->current()->nomeProj;
         $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
                     ->where('nomeProj = ?', $nomeProj);
         $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
-        
+
         $paginator = Zend_Paginator::factory($rows);
         //Passa o numero de registros por pagina
         $paginator->setItemCountPerPage(4);
 
         $this->view->paginator = $paginator;
         $paginator->setCurrentPageNumber($this->_getParam('page'));
-        /*
-         * Codigo que estava funcionando
-         */
-        
-//        $idProj = $this->_getParam('idProj');
-//        
-//        $idFilialFunc = $this->funcLogado->empresaFilial_idempresaFilial;
-//        $idFunc = $this->funcLogado->idfuncionario;
-//        $selectFilial = $this->empresafilial->select()
-//                ->where('idempresaFilial = ?', $idFilialFunc);
-//        $filialEncontrada = $this->empresafilial->fetchRow($selectFilial);
-//
-//        $selectProj = $this->project->find($idProj);
-//        $rows = $selectProj->current();
-//        $this->view->projeto = $rows;
-//             
-//        $selectFunc = $this->funcionario->select();
-//        $selectFunc = $this->estado->fetchAll($selectFunc);
-//        $this->view->funcionario = $selectFunc;
-//        
-//        $selectEstado = $this->estado->select();
-//        $estadoProj = $this->estado->fetchAll($selectEstado);
-//        $this->view->estado = $estadoProj;
-//
-//        if($idFunc == $filialEncontrada->responsavel){
-//            $eResponsavel = 1;
-//
-//            $this->view->eResponsavel = $eResponsavel;
-//            
-//            $selectFunc = $this->funcionario->select();
-//            $selectFunc = $this->funcionario->fetchAll($selectFunc);
-//            $this->view->funcionario = $selectFunc;
-//            
-//            
-//            
-//            $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', $idProj);
-//            $select = $this->project->select()
-//                    ->where($where);
-//            $ProjEncontrado = $this->project->fetchRow($select);
-//            $nomeProj = $ProjEncontrado->nome;
-//            
-//            $selectFuncaoColabProj = $this->funcaoColabProj->select()
-//                        ->where('nomeProj = ?', $nomeProj);
-//            $selectFuncaoColabProj = $this->funcaoColabProj->fetchAll($selectFuncaoColabProj);
-//            $this->view->funcaoColabProj = $selectFuncaoColabProj;
-//            
-//            
-//            $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
-//                        ->where('nomeProj = ?', $nomeProj);
-//            $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
-//            $this->view->tipoEstadoTarefaColabProj = $selectEstadoTarefa;
-//            
-//        }else{
-//            
-//            $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', $idProj);
-//            $select = $this->project->select()
-//                    ->where($where);
-//            $ProjEncontrado = $this->project->fetchRow($select);
-//            $nomeProj = $ProjEncontrado->nome;
-//            
-//            $selectFuncaoColabProj = $this->funcaoColabProj->select()
-//                        ->where('nomeProj = ?', $nomeProj);
-//            $selectFuncaoColabProj = $this->funcaoColabProj->fetchAll($selectFuncaoColabProj);
-//            $this->view->funcaoColabProj = $selectFuncaoColabProj;
-//            
-//            
-//            $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
-//                        ->where('nomeProj = ?', $nomeProj);
-//            $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
-//            $this->view->tipoEstadoTarefaColabProj = $selectEstadoTarefa;
-//        }
     }
     
-    /** 
+    /**
+     * Função responsável pela exibição de todos os projetos daquela filial
+     * para o administrador responsável pela filial.
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
+    public function adminfilialAction(){
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+        
+        $selecFilial = $this->filial->select()
+                ->where('responsavel = ?', $idFuncLogado);
+        $filialEncontrada = $this->filial->fetchRow($selecFilial);
+        
+        if($filialEncontrada->responsavel == $idFuncLogado){
+            $this->view->nomeFilial = $filialEncontrada->nome;
+            $idFilial = $filialEncontrada->idempresaFilial;
+            $selectProjs = $this->ProjGerFiliColab->select()
+                ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
+                        array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
+                    'nomeGerente', 'descricaoProj'))
+                ->distinct()
+                ->where('idFilialProj = ?', $idFilial);
+
+            $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
+
+            $paginator = Zend_Paginator::factory($rows);
+            //Passa o numero de registros por pagina
+            $paginator->setItemCountPerPage(4);
+
+            $this->view->paginator = $paginator;
+            $paginator->setCurrentPageNumber($this->_getParam('page'));
+            
+        }else{
+            $this->_redirect('/');
+        }
+        
+    }
+    
+    /**
+     * Função responsável pela exibição de todos os projetos daquela empresa
+     * para o administrador geral da empresa.
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
+    public function admingeralAction(){
+        
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+                
+        $selecEmpresa = $this->empresa->select()
+                ->where('responsavelGeral = ?', $idFuncLogado);
+        $empresaEncontrada = $this->empresa->fetchRow($selecEmpresa);
+        
+        if($empresaEncontrada->responsavelGeral == $idFuncLogado){
+            $this->view->nomeEmpresa = $empresaEncontrada->nome;
+            $selectProjs = $this->ProjGerFiliColab->select()
+                    ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
+                            array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
+                        'nomeGerente', 'descricaoProj'))
+                    ->distinct();
+
+            $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
+
+            $paginator = Zend_Paginator::factory($rows);
+            //Passa o numero de registros por pagina
+            $paginator->setItemCountPerPage(4);
+
+            $this->view->paginator = $paginator;
+            $paginator->setCurrentPageNumber($this->_getParam('page'));
+
+
+        }else{
+            $this->_redirect('/');
+        }
+    }
+
+    /**
      * Função para a inversão de datas.
      * Exemplo dd/mm/yyyy é convertido em yyyy/mm/dd e vice-versa
      * recebe a data e o tipo de separador utilizado
@@ -297,14 +403,21 @@ class ProjetoController extends Zend_Controller_Action
      * @param String $data
      * @param String $separador
      * @return string $nova_data
-     */ 
+     * 
+     * 
+     */
     private function inverte_data($data, $separador)
     {
         $nova_data = implode("".$separador."",array_reverse(explode("".$separador."",$data)));
-        return $nova_data;
+                        return $nova_data;
     }
 
+    
 }
+
+
+
+
 
 
 

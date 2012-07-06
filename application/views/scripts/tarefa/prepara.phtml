@@ -1,3 +1,6 @@
+<?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
+                            ->appendStylesheet('/css/tarefas_css.css');
+?>
 <?php
 if ( isset($this->flag)  )
          switch ($this->flag){
@@ -20,30 +23,74 @@ if ( isset($this->flag)  )
 ?>
 
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
+<center>
+<div id="perara_tarefa_add_colab">
+    <h1>Adicionar Tarefa</h1>
+    <form id="escolheColab" name="escolheColab" method="post" action="/tarefa/prepara">
+        <br />
+        <br />
+        <b>Nome do Projeto : <?php echo $this->projEncontrado->nome;?></b>
+        <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
+        <br />
+        <br />
+        <b><label for="listColab">Escolha um colaborador:</label></b>
+            <select id="listColab" name="listColab">
+                <option value=""> - - Escolha um Colaborador - - </option>
 
-
-<form id="escolheColab" name="escolheColab" method="post" action="/tarefa/prepara">
-    Nome do Projeto : <?php echo $this->projEncontrado->nome;?>
-    <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
-    <br />
-    <label for="listColab">Para adicionar uma tarefa escolha um <srtong>colaborador</srtong> :</label>
-        <select id="listColab" name="listColab">
-            <option value=""> - - Escolha um Colaborador - - </option>
-            
-        <?php foreach ( $this->listaColaboradores as $auxColab ) : ?>
-            <?php foreach ( $this->listaFuncionarios as $auxFunc ) : ?>
-                <?php if($auxFunc->idfuncionario == $auxColab->funcionario_idfuncionario){?>
-                    <option value="<?php echo $auxColab->idcolaboradores; ?>">
-                       <?php echo $auxFunc->nome; ?></option>
-                <?php }?>
-            <?php endforeach; ?>
-        <?php endforeach; ?>   
-    </select>
-    <input type="submit" name="button" id="button" value="Ok" />
-</form>
-
+            <?php foreach ( $this->listaColaboradores as $auxColab ) : ?>
+                <?php foreach ( $this->listaFuncionarios as $auxFunc ) : ?>
+                    <?php if($auxFunc->idfuncionario == $auxColab->funcionario_idfuncionario){?>
+                        <option value="<?php echo $auxColab->idcolaboradores; ?>">
+                        <?php echo $auxFunc->nome; ?></option>
+                    <?php }?>
+                <?php endforeach; ?>
+            <?php endforeach; ?>   
+        </select>
+        <input type="submit" name="button" id="button" value="Ok" />
+    </form>
+</div>
+</center>
 <br/>
 
+<div id="conteudo_tarefas">
+    <center>
+        <br/>
+        <h2>Todas as Tarefas</h2>
+        <br/>
+    <?php foreach ( $this->paginator as $auxTarColabProj ) : ?>
+        <div class="tarefas">
+            Colaborador Respons&aacute;vel: <?php echo $auxTarColabProj->nomeFunc; ?><br/>
+            Descri&ccedil;&atilde;o da Tarefa: <?php echo $auxTarColabProj->descricaoTarefa; ?><br/>
+            Data de In&iacute;cio: <?php echo $auxTarColabProj->dataInc;?><br/>
+            Data de Fim: <?php echo $auxTarColabProj->dataFim;?><br/>
+            Previsao da Entrega: <?php echo $auxTarColabProj->dataEntrega;?><br/>
+            <?php foreach ( $this->listaEstado as $auxEstado ) :
+                if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
+                    echo "Estado: ".$auxEstado->tipoDeEstado."<br/>";
+                }
+            endforeach; ?>
+            <br/>
+            <?php 
+                echo "<a title='Editar Tarefa' href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+                          <img src='/images/b_edit.png' width='20px' height='20px' alt='editar tarefa'/></a>
+                      &nbsp;&nbsp;
+                      <a title='Excluir Tarefa' class='excluir' href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+                        <img src='/images/b_drop.png' width='20px' height='20px' alt='excluir tarefa'/></a>"
+            ?>
+        </div>
+    <?php endforeach; ?>
+    </center>
+</div>
+<br/>
+<center>
+<div>
+    <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
+</div>
+</center>
+<br/>
+
+
+<!--
 <center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
 
 <table width="100%" class="tbl">
@@ -58,63 +105,60 @@ if ( isset($this->flag)  )
         <th></th>
     </tr>
     </thead>
-    <tbody>
+    <tbody>-->
     <?php
-    $indice = 0;
-    foreach ( $this->paginator as $auxTarColabProj ) :
-        if($indice%2){
-        echo "<tr  class='odd'>
-                <td align='center'>".$auxTarColabProj->nomeFunc."</td>
-                <td align='center'>".$auxTarColabProj->descricaoTarefa."</td>  
-                <td align='center'>".$auxTarColabProj->dataInc."</td>
-                <td align='center'>".$auxTarColabProj->dataFim."</td>
-                <td align='center'>".$auxTarColabProj->dataEntrega."</td>
-                ";
-        foreach ( $this->listaEstado as $auxEstado ) :
-            if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
-                echo "<td align='center'>".$auxEstado->tipoDeEstado."</td>";
-            }
-        endforeach;
-        echo "<td align='center'>
-             <a 
-             href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                 Editar
-             </a></td>
-             <td align='center'>
-             <a class='excluir' 
-             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                Excluir
-             </a></td></tr></tbody>";
-        }else{
-        echo "<tr>
-                <td align='center'>".$auxTarColabProj->nomeFunc."</td>
-                <td align='center'>".$auxTarColabProj->descricaoTarefa."</td>  
-                <td align='center'>".$auxTarColabProj->dataInc."</td>
-                <td align='center'>".$auxTarColabProj->dataFim."</td>
-                <td align='center'>".$auxTarColabProj->dataEntrega."</td>
-                ";
-        foreach ( $this->listaEstado as $auxEstado ) :
-            if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
-                echo "<td align='center'>".$auxEstado->tipoDeEstado."</td>";
-            }
-        endforeach;
-        echo "<td align='center'>
-             <a 
-             href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                 Editar
-             </a></td>
-             <td align='center'>
-             <a class='excluir' 
-             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                Excluir
-             </a></td></tr></tbody>";
-        }
-        
-    $indice = $indice + 1;
-    endforeach;
+//    $indice = 0;
+//    foreach ( $this->paginator as $auxTarColabProj ) :
+//        if($indice%2){
+//        echo "<tr  class='odd'>
+//                <td align='center'>".$auxTarColabProj->nomeFunc."</td>
+//                <td align='center'>".$auxTarColabProj->descricaoTarefa."</td>  
+//                <td align='center'>".$auxTarColabProj->dataInc."</td>
+//                <td align='center'>".$auxTarColabProj->dataFim."</td>
+//                <td align='center'>".$auxTarColabProj->dataEntrega."</td>
+//                ";
+//        foreach ( $this->listaEstado as $auxEstado ) :
+//            if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
+//                echo "<td align='center'>".$auxEstado->tipoDeEstado."</td>";
+//            }
+//        endforeach;
+//        echo "<td align='center'>
+//             <a 
+//             href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+//                 Editar
+//             </a></td>
+//             <td align='center'>
+//             <a class='excluir' 
+//             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+//                Excluir
+//             </a></td></tr></tbody>";
+//        }else{
+//        echo "<tr>
+//                <td align='center'>".$auxTarColabProj->nomeFunc."</td>
+//                <td align='center'>".$auxTarColabProj->descricaoTarefa."</td>  
+//                <td align='center'>".$auxTarColabProj->dataInc."</td>
+//                <td align='center'>".$auxTarColabProj->dataFim."</td>
+//                <td align='center'>".$auxTarColabProj->dataEntrega."</td>
+//                ";
+//        foreach ( $this->listaEstado as $auxEstado ) :
+//            if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
+//                echo "<td align='center'>".$auxEstado->tipoDeEstado."</td>";
+//            }
+//        endforeach;
+//        echo "<td align='center'>
+//             <a 
+//             href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+//                 Editar
+//             </a></td>
+//             <td align='center'>
+//             <a class='excluir' 
+//             href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
+//                Excluir
+//             </a></td></tr></tbody>";
+//        }
+//        
+//    $indice = $indice + 1;
+//    endforeach;
     ?>
-        </tbody>
-</table>
-<div>
-    <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
-</div>
+<!--        </tbody>
+</table>-->
