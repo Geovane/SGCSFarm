@@ -9,6 +9,8 @@ body{
         font-family:Verdana, Arial;
         line-height: 18px;
         font-size: 13px;
+        min-width: 1050px;
+        
 	}
 
 .txtLogin{
@@ -82,7 +84,19 @@ body{
 .hiddenMenu{
 	display:none;
 	cursor:pointer;
+        float: left;
 	}
 .menu{
 	cursor:pointer;
-	}
+        float: left;
+        }
+        
+.divMenu{
+        margin-top:31px;
+	border:0px;
+	width:1022px;
+	min-width:1022px;
+        max-height: 70px;
+        height: 70px;
+        padding: 0px 0px 0px 0px;
+        }        

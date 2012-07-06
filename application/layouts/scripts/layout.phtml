@@ -45,36 +45,49 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td width="1022">
-	  <table width="100%" height="70" border="0" cellspacing="0" cellpadding="0" >
-              <tr>
-                  <td>  <a href="/index"><img src="/images/menu_selected_01.jpg" onclick="menu(this.id)" id="1" width="80" height="70" class="menu" />		
-                        <img src="/images/menu_unselected_01.jpg" onclick="menu(this.id)" id="11" height="70" class="hiddenMenu" /></a></td>
-		    
-                  <td>  <a href="/funcionario"><img src="/images/menu_selected_02.jpg" onclick="menu(this.id)" id="2" width="145" height="70" class="hiddenMenu" />	
-                        <img src="/images/menu_unselected_02.jpg" onclick="menu(this.id)" id="12" height="70" class="menu" /></a></a></td>
-		    
-                  <td>  <a href="/projeto"><img src="/images/menu_selected_03.jpg" onclick="menu(this.id)" id="3"  width="156" height="70" class="hiddenMenu" />	
-                        <img src="/images/menu_unselected_03.jpg" onclick="menu(this.id)" id="13" height="70" class="menu" /></a></td>
-		    
-                  <td>  <a href="#"><img src="/images/menu_selected_04.jpg" onclick="menu(this.id)" id="4"  width="175" height="70" class="hiddenMenu" />	
-                        <img src="/images/menu_unselected_04.jpg" onclick="menu(this.id)" id="14" height="70" class="menu"/></a></td>
-		    
-                  <td>  <a href="#"><img src="/images/menu_selected_05.jpg" onclick="menu(this.id)" id="5"  width="156" height="70" class="hiddenMenu" />	
-                        <img src="/images/menu_unselected_05.jpg" onclick="menu(this.id)" id="15" height="70" class="menu"/></a></td>
+    <td style="background:url('/images/menu_itens_01.jpg') repeat-x">&nbsp;</td>
+    <td style="background:url('/images/menu_01.jpg') no-repeat" width="1022" height="70" align="center">
+        <div class="divMenu">
+            <div onclick="window.open('/index','_self')"><img src="/images/menu_selected_03.jpg" onclick="menu(this.id)" id="1" class="menu" />
+                 <img src="/images/menu_unselected_03.jpg" onclick="menu(this.id)" id="11" class="hiddenMenu" />
+            </div>
+            <div onclick="window.open('/projeto','_self')"><img src="/images/menu_unselected_04.jpg" onclick="menu(this.id)" id="2" class="menu" />
+                 <img src="/images/menu_unselected_04.jpg" onclick="menu(this.id)" id="12" class="hiddenMenu" />
+            </div>
+            <div onclick="window.open('/funcionario','_self')"><img src="/images/menu_unselected_05.jpg" onclick="menu(this.id)" id="3" class="menu" />
+                 <img src="/images/menu_unselected_05.jpg" onclick="menu(this.id)" id="13" class="hiddenMenu" />
+            </div>
+            <div ><img src="/images/menu_unselected_06.jpg" onclick="menu(this.id)" id="4" class="menu" />
+                 <img src="/images/menu_unselected_06.jpg" onclick="menu(this.id)" id="14" class="hiddenMenu" />
+            </div>
+            <div ><img src="/images/menu_unselected_07.jpg" onclick="menu(this.id)" id="5" class="menu" />
+                 <img src="/images/menu_selected_07.jpg" onclick="menu(this.id)" id="15" class="hiddenMenu" />
+            </div>
+
             
-                  <td>  <a href="#"><img src="/images/menu_selected_06.jpg" onclick="menu(this.id)" id="6"  width="118" height="70" class="hiddenMenu" />	
-                        <img src="/images/menu_unselected_06.jpg" onclick="menu(this.id)" id="16" height="70" class="menu" /></a></td>
+            <?php
             
-                  <td>  <a href="#"><img src="/images/menu_selected_07.jpg" onclick="menu(this.id)" id="7"  width="97" height="70" class="hiddenMenu" />	
-           		<img src="/images/menu_unselected_07.jpg" onclick="menu(this.id)" id="17" height="70" class="menu" /></a></td>
+            if ($this->AdminEmpresa){
+                    ?>            
+            <div onclick="window.open('/index','_self')"><img src="/images/menu_unselected_08.jpg" onclick="menu(this.id)" id="5" class="menu" />
+                 <img src="/images/menu_selected_08.jpg" onclick="menu(this.id)" id="16" class="hiddenMenu" />
+            </div>
+
+                             
+            <?
+            }
+            if ($this->AdminFilial){
+                    ?>
+            <div onclick="window.open('/index','_self')"><img src="/images/menu_unselected_09.jpg" onclick="menu(this.id)" id="5" class="menu" />
+                 <img src="/images/menu_selected_09.jpg" onclick="menu(this.id)" id="17" class="hiddenMenu" />
+            </div>
+            <?                 
+            }
+            ?>          
             
-                  <td>  <a href="#"><img src="/images/menu_selected_08.jpg" onclick="menu(this.id)" id="8"  width="95" height="70" class="hiddenMenu" />	
-                        <img src="/images/menu_unselected_08.jpg" onclick="menu(this.id)" id="18" height="70" class="menu" /></a></td>
-	    </tr>
-    </table></td>
-    <td>&nbsp;</td>
+        </div>
+    </td>
+    <td style="background:url('/images/menu_itens_01.jpg') repeat-x">&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
@@ -94,9 +107,9 @@
     <td>&nbsp;</td>
   </tr>
   <tr>
-    <td>&nbsp;</td>
-    <td width="1022"><img src="/images/tela-de-login_08.jpg" width="1022" /></td>
-    <td>&nbsp;</td>
+    <td background="/images/layout_08.jpg" style="background-repeat:repeat-x">&nbsp;</td>
+    <td width="1022"><img src="/images/layout_07.jpg" width="1022" /></td>
+    <td background="/images/layout_08.jpg" style="background-repeat:repeat-x">&nbsp;</td>
   </tr>
   <tr>
     <td>&nbsp;</td>
