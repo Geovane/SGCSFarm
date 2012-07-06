@@ -55,17 +55,17 @@
             <div onclick="window.open('/index','_self')"><img src="/images/menu_selected_03.jpg" onclick="menu(this.id)" id="1" class="menu" />
                  <img src="/images/menu_unselected_03.jpg" onclick="menu(this.id)" id="11" class="hiddenMenu" />
             </div>
-            <div onclick="window.open('/projeto','_self')"><img src="/images/menu_unselected_04.jpg" onclick="menu(this.id)" id="2" class="menu" />
-                 <img src="/images/menu_unselected_04.jpg" onclick="menu(this.id)" id="12" class="hiddenMenu" />
+            <div onclick="window.open('/projeto','_self')"><img src="/images/menu_unselected_04.jpg" onclick="menu(this.id)" id="12" class="menu" />
+                 <img src="/images/menu_selected_04.jpg" onclick="menu(this.id)" id="2" class="hiddenMenu" />
             </div>
-            <div onclick="window.open('/funcionario','_self')"><img src="/images/menu_unselected_05.jpg" onclick="menu(this.id)" id="3" class="menu" />
-                 <img src="/images/menu_unselected_05.jpg" onclick="menu(this.id)" id="13" class="hiddenMenu" />
+            <div onclick="window.open('/funcionario','_self')"><img src="/images/menu_unselected_05.jpg" onclick="menu(this.id)" id="13" class="menu" />
+                 <img src="/images/menu_selected_05.jpg" onclick="menu(this.id)" id="3" class="hiddenMenu" />
             </div>
-            <div ><img src="/images/menu_unselected_06.jpg" onclick="menu(this.id)" id="4" class="menu" />
-                 <img src="/images/menu_unselected_06.jpg" onclick="menu(this.id)" id="14" class="hiddenMenu" />
+            <div ><img src="/images/menu_unselected_06.jpg" onclick="menu(this.id)" id="14" class="menu" />
+                 <img src="/images/menu_selected_06.jpg" onclick="menu(this.id)" id="4" class="hiddenMenu" />
             </div>
-            <div ><img src="/images/menu_unselected_07.jpg" onclick="menu(this.id)" id="5" class="menu" />
-                 <img src="/images/menu_selected_07.jpg" onclick="menu(this.id)" id="15" class="hiddenMenu" />
+            <div ><img src="/images/menu_unselected_07.jpg" onclick="menu(this.id)" id="15" class="menu" />
+                 <img src="/images/menu_selected_07.jpg" onclick="menu(this.id)" id="5" class="hiddenMenu" />
             </div>
 
             
@@ -73,8 +73,8 @@
             
             if ($this->AdminEmpresa){
                     ?>            
-            <div onclick="window.open('/index','_self')"><img src="/images/menu_unselected_08.jpg" onclick="menu(this.id)" id="5" class="menu" />
-                 <img src="/images/menu_selected_08.jpg" onclick="menu(this.id)" id="16" class="hiddenMenu" />
+            <div onclick="window.open('#','_self')"><img src="/images/menu_unselected_08.jpg" onclick="menu(this.id)" id="16" class="menu" />
+                 <img src="/images/menu_selected_08.jpg" onclick="menu(this.id)" id="6" class="hiddenMenu" />
             </div>
 
                              
@@ -82,8 +82,8 @@
             }
             if ($this->AdminFilial){
                     ?>
-            <div onclick="window.open('/index','_self')"><img src="/images/menu_unselected_09.jpg" onclick="menu(this.id)" id="5" class="menu" />
-                 <img src="/images/menu_selected_09.jpg" onclick="menu(this.id)" id="17" class="hiddenMenu" />
+            <div onclick="window.open('#','_self')"><img src="/images/menu_unselected_09.jpg" onclick="menu(this.id)" id="17" class="menu" />
+                 <img src="/images/menu_selected_09.jpg" onclick="menu(this.id)" id="7" class="hiddenMenu" />
             </div>
             <?                 
             }
@@ -97,6 +97,7 @@
     <td>&nbsp;</td>
     <td width="1022">
         <div id="content" style="background-color:#eaeaea; width:1022px; min-height:300px;">
+
                       <?php echo $this->layout()->content; ?>
         </div>
 </td>
