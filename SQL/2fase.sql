@@ -115,7 +115,7 @@ CREATE TABLE `empresafilial` (
 LOCK TABLES `empresafilial` WRITE;
 /*!40000 ALTER TABLE `empresafilial` DISABLE KEYS */;
 INSERT INTO `empresafilial` VALUES (1,'SoftFarm - EUA','56 8945 9891','FDGDFSGFDSGS',24,1,'ghd@hud.com','34 567 678');
-INSERT INTO `empresafilial` VALUES (2,'SoftFarm - BR','73 3639 5149','Rua da Linha 1029 Barra Ilheus BA ',1,1,'softfarmbr@gmail.com','45 650 000');
+INSERT INTO `empresafilial` VALUES (2,'SoftFarm - BR','73 3639 5149','Rua da Linha 1029 Barra Ilheus BA ',19,1,'softfarmbr@gmail.com','45 650 000');
 /*!40000 ALTER TABLE `empresafilial` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,14 +182,14 @@ CREATE TABLE `funcionario` (
   `login` varchar(45) NOT NULL,
   `senha` varchar(45) NOT NULL,
   `email` varchar(45) NOT NULL,
-  `empresaFilial_idempresaFilial` int(11) NOT NULL,
+  `empresaFilial_idempresaFilial` int(11) DEFAULT '0',
   `primeiroAcesso` tinyint(1) DEFAULT '0',
   `foto` varchar(100) NOT NULL,
   PRIMARY KEY (`idfuncionario`),
   UNIQUE KEY `login_UNIQUE` (`login`),
   UNIQUE KEY `cpf_UNIQUE` (`documentoIdentificacao`),
   KEY `fk_funcionario_empresaFilial1` (`empresaFilial_idempresaFilial`)
-) ENGINE=InnoDB AUTO_INCREMENT=25 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=26 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table funcionario
@@ -206,10 +206,11 @@ INSERT INTO `funcionario` VALUES (7,'MILLENA MOURA SABOIA','56128965667','m90m',
 INSERT INTO `funcionario` VALUES (8,'POUL DENNY BUNTON','J678D835','p63d','40bd001563085fc35165329ea1ff5c5ecbdbbeef','pdbunton@yahoo.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
 INSERT INTO `funcionario` VALUES (9,'JOANA LIMA DA GAMA SETUBAL','78234456721','j71l','40bd001563085fc35165329ea1ff5c5ecbdbbeef','joanasetubal@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
 INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','40bd001563085fc35165329ea1ff5c5ecbdbbeef','dannillyedyer@gmail.com',2,0,'/images/fotosFunc/usuarioPadrao.jpg');
-INSERT INTO `funcionario` VALUES (19,'Geovane M. souza','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',2,1,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (19,'Geovane M. souza','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',2,1,'/images/fotosFunc/19_1341506295.jpg');
 INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso','1170192599','geovane','40bd001563085fc35165329ea1ff5c5ecbdbbeef','geovanemimoso@gmail.com',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
 INSERT INTO `funcionario` VALUES (23,'teste','123456','teste','40bd001563085fc35165329ea1ff5c5ecbdbbeef','teste@teste',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
 INSERT INTO `funcionario` VALUES (24,'Bruno Pereira dos Santos','123','bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef','bruno.ps@live.com',1,1,'/images/fotosFunc/24_1341473472.jpg');
+INSERT INTO `funcionario` VALUES (26,'Dhielber','12345','teste2','8cb2237d0679ca88db6464eac60da96345513964','dadasda',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,6 +448,7 @@ INSERT INTO `usuariobugzilla` VALUES (19,'x9','99a2dd0d8fa45d2ebe6e48c8c024ededa
 INSERT INTO `usuariobugzilla` VALUES (20,'geovane','3827657f02349634eb0ffbe5eb4bd42c620b4870');
 INSERT INTO `usuariobugzilla` VALUES (23,'teste','7c4a8d09ca3762af61e59520943dc26494f8941b');
 INSERT INTO `usuariobugzilla` VALUES (24,'bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+INSERT INTO `usuariobugzilla` VALUES (26,'sadasd','8cb2237d0679ca88db6464eac60da96345513964');
 /*!40000 ALTER TABLE `usuariobugzilla` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -481,6 +483,7 @@ INSERT INTO `usuariogit` VALUES (19,'x9','99a2dd0d8fa45d2ebe6e48c8c024ededa32876
 INSERT INTO `usuariogit` VALUES (20,'geovane','3827657f02349634eb0ffbe5eb4bd42c620b4870');
 INSERT INTO `usuariogit` VALUES (23,'teste','7c4a8d09ca3762af61e59520943dc26494f8941b');
 INSERT INTO `usuariogit` VALUES (24,'bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef');
+INSERT INTO `usuariogit` VALUES (26,'sadasd','8cb2237d0679ca88db6464eac60da96345513964');
 /*!40000 ALTER TABLE `usuariogit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -503,7 +506,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `colaboradores_projetos` AS
 #
 
 DROP VIEW IF EXISTS `dados_funcionario_filial`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `dados_funcionario_filial` AS select `funcionario`.`idfuncionario` AS `idfuncionario`,`funcionario`.`nome` AS `nome`,`funcionario`.`foto` AS `foto`,`empresafilial`.`nome` AS `nomeEmpresa` from (`funcionario` join `empresafilial` on((`funcionario`.`empresaFilial_idempresaFilial` = `empresafilial`.`idempresaFilial`)));
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `dados_funcionario_filial` AS select `funcionario`.`idfuncionario` AS `idfuncionario`,`funcionario`.`nome` AS `nome`,`funcionario`.`foto` AS `foto`,`empresafilial`.`nome` AS `nomeEmpresa`,`empresafilial`.`idempresaFilial` AS `idempresaFilial`,`empresafilial`.`empresa_idempresa` AS `empresa_idempresa` from (`funcionario` join `empresafilial` on((`funcionario`.`empresaFilial_idempresaFilial` = `empresafilial`.`idempresaFilial`)));
 
 #
 # Source for view dados_git_projeto
@@ -577,13 +580,6 @@ ADD CONSTRAINT `fk_empresa_funcionario1` FOREIGN KEY (`responsavelGeral`) REFERE
 ALTER TABLE `empresafilial`
 ADD CONSTRAINT `fk_empresaFilial_empresa1` FOREIGN KEY (`empresa_idempresa`) REFERENCES `empresa` (`idempresa`) ON DELETE NO ACTION ON UPDATE NO ACTION,
 ADD CONSTRAINT `fk_empresaFilial_funcionario1` FOREIGN KEY (`responsavel`) REFERENCES `funcionario` (`idfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
-
-#
-#  Foreign keys for table funcionario
-#
-
-ALTER TABLE `funcionario`
-ADD CONSTRAINT `fk_funcionario_empresaFilial1` FOREIGN KEY (`empresaFilial_idempresaFilial`) REFERENCES `empresafilial` (`idempresaFilial`) ON DELETE NO ACTION ON UPDATE NO ACTION;
 
 #
 #  Foreign keys for table funfaztarefa
