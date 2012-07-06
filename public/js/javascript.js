@@ -24,12 +24,16 @@ function validaLogin(){
 // MUDA IMAGEM DO MENU
 function menu(it)	{
 //	alert(document.getElementById(it).style.display);
+        var tam = 6;
+        if(document.getElementById('6')!=null){tam = tam + 1};
+        if(document.getElementById('7')!=null){tam = tam + 1};
 	if(it>10){
-		for(i = 1; i< 9 ; i ++)	{
+		for(i = 1; i< tam ; i ++)	{
 			document.getElementById(i).style.display = "none";
 			document.getElementById(i+10).style.display = "inherit";			
 		}
 		document.getElementById(it).style.display = "none";
 		document.getElementById(it-10).style.display = "inherit";
 	}
+        
 }
