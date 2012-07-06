@@ -1,0 +1,37 @@
+<?
+if ( isset($this->flag)  )
+
+         switch ($this->flag){
+        case 1:
+            echo   "<h3>Filial cadastrada com sucesso!</h3><br>";
+            break;
+        case 2:
+            echo   "<h3>Filial atualizada com sucesso!</h3><br>";
+            break;
+        case 3:
+            echo "<h3>Filial excluída com sucesso!</h3><br>";
+            break;
+         }
+?>
+
+
+<h4><a href="/filial/create">Cadastrar Empresa Filial</a></h4><br>
+<table>
+
+        <tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Email</th><th>Cep</th></tr>
+        <?
+        foreach ( $this->filial as $aux ) :
+
+            echo "<tr>
+                    <td>".$aux->nome."</td>
+                    <td>".$aux->tel."</td>
+                    <td>".$aux->endereco."</td>
+                    <td>".$aux->email."</td>
+                    <td>".$aux->cep."</td>
+
+                    <td><a href='/empresafilial/edit/id/".$aux->idempresaFilial."' >Editar</a></td>
+                    <td><a href='/empresafilial/delete/id/".$aux->idempresaFilial."' >Excluir</a></td>
+                  </tr>";
+
+         endforeach; ?>
+</table>
