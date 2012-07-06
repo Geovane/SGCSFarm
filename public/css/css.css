@@ -16,7 +16,8 @@ body{
 .txtLogin{
 	border:0px solid black;
 	position:relative;
-	left:337px;	
+	left:337px;
+        top:172px;
 	height:26px;
 	width:178px;
 	text-align:center;
@@ -28,7 +29,8 @@ body{
 .btnLogin{
 	position:relative;
 	left:382px;	
-	width:87px;
+        top:172px;
+        width:87px;
 	text-align:center;
 	font-family:Verdana, Geneva, sans-serif;
 	font-size:14px;
@@ -72,6 +74,7 @@ body{
 	font-style:inherit;	
 	position:relative;
 	left:402px;	
+        top:172px;
 	}
 .linkLaranja{
 	font-family:Arial, Helvetica, sans-serif;
