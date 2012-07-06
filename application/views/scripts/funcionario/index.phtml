@@ -23,12 +23,17 @@ if ( isset($this->flag)  )
             echo "<h4>Imagem  alterada com sucesso.</h4><br>";
             break;
          }
+
 ?>
+
+
 
 <ul id="globalnav">
   <li><a href="/funcionario/meusdados" >Meus Dados</a></li>
+  <?if ($this->AdminEmpresa || $this->AdminFilial){?> 
   <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
   <li><a href="/funcionario/index" class="here">Funcionarios</a></li>
+  <?}?>
 </ul>
 <br>
 
