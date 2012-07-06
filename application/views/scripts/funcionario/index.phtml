@@ -23,16 +23,20 @@ if ( isset($this->flag)  )
             echo "<h4>Imagem  alterada com sucesso.</h4><br>";
             break;
          }
+
 ?>
 
-<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
-<?php echo $this->headLink()->appendStylesheet('/css/tab-view.css') ?>
-<?php echo $this->headScript()->appendFile("/js/ajax.js"); ?>
-<?php echo $this->headScript()->appendFile("/js/tab-view.js"); ?>
 
-<a href="/funcionario/create">Cadastrar Usuario</a><br>
-<a href="/funcionario/imagem">Alterar minha Imagem</a>
-<br><br>
+
+<ul id="globalnav">
+  <li><a href="/funcionario/meusdados" >Meus Dados</a></li>
+  <?if ($this->AdminEmpresa || $this->AdminFilial){?> 
+  <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
+  <li><a href="/funcionario/index" class="here">Funcionarios</a></li>
+  <?}?>
+</ul>
+<br>
+
 <center>
 <table width="100%" class="tbl">
 
@@ -41,7 +45,7 @@ if ( isset($this->flag)  )
         <?
         $indice = 0;
         foreach ( $this->paginator as $aux ) :
-        
+
             if($indice%2){
                 echo "<tr class='odd' >
                         <td width='33%'>".$aux['nome']."</td>
@@ -60,11 +64,11 @@ if ( isset($this->flag)  )
                         <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
                     </tr>";
             }
-         $indice = $indice + 1;   
+         $indice = $indice + 1;
          endforeach; ?>
             </tbody>
-</table>    
-    
+</table>
+
 </center>
 <br>
 
@@ -72,25 +76,6 @@ if ( isset($this->flag)  )
     <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
 </div>
 
-
-
-<div id="abasUsuario">
-	<div class="dhtmlgoodies_aTab">
-        </div>
-</div>  
-
-<script type="text/javascript">
-
-menu('12');
-
-//initTabs('mainContainerID','tabTitles','activeTab',width,height,closeButtonArray,additionalTab)
-initTabs('abasUsuario',Array('Usuários'),0,'100%',200,Array(false));
-
-//createNewTab(parentId,tabTitle,tabContent,tabContentUrl,closeButton)
-createNewTab('abasUsuario','Cadastrar Usuário','','',false);
-
-//showTab('mainContainerID', indice)
-showTab('abasUsuario','0');
-
+<script>
+menu('13');
 </script>
-
