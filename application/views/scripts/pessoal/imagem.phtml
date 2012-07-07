@@ -1,0 +1,17 @@
+<ul id="globalnav">
+  <li><a href="/pessoal/meusdados" >Meus Dados</a></li>
+  <li><a href="/pessoal/edit" >Alterar Dados</a></li>
+  <li><a href="/pessoal/imagem" class="here" >Nova Imagem</a></li>
+  <li><a href="/pessoal/senha" >Alterar Senha</a></li>
+</ul>
+
+<form action="/pessoal/imagem" method="post"  enctype = "multipart/form-data">
+       
+            <label>Foto: </label>
+            <input type="file" name="foto"/>
+
+            <input  type="submit" value="Alterar" name="Atualizar" />
+</form>
+<script>
+menu('13');
+</script>
