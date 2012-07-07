@@ -70,6 +70,7 @@ class ColaboradorController extends Zend_Controller_Action
         $this->empresa = new Model_DbTable_Empresa();
         $this->filial = new Model_DbTable_Filial();
         $this->funcfilial = new Model_DbTable_FuncFilial();
+        $this->tarefa = new Model_DbTable_TarColabProj();
     }
     
     public function indexAction()
@@ -140,18 +141,18 @@ class ColaboradorController extends Zend_Controller_Action
             
             if($colaborador != 0)
             {
-             $this->_redirect('colaborador/index/id/'.$id_proj);   
+             $this->_redirect('colaborador/index/id/'.$id_proj.'/flag/3');   
             }    
             $this->colab->insert($data);
             
-            $this->_redirect('projeto/detalhes/idProj/'.$id_proj);
+            $this->_redirect('colaborador/index/id/'.$id_proj.'/flag/2');
         }
     }
     
     public function editAction()
     {
 
-        //PRECISA SER REVISADO, PROVAVELMENTE O ERRO NÃO SEJA NO CÓDIGO MAS SIM NO BANCO
+        
         if($this->_request->isPost())
         {
             $data = array
@@ -204,17 +205,30 @@ class ColaboradorController extends Zend_Controller_Action
             $id_func = $this->_getParam('idfunc');
             $id_proj = $this->_getParam('id');
             
+            
+            
+            
             $colaborador = $this->colab->select();
             $colaborador -> where('funcionario_idfuncionario = ?',$id_func)
                          -> where('projeto_idprojeto = ?',$id_proj);
             
             $id_colab = $this->colab->fetchRow($colaborador)->idcolaboradores;
             
+            $tarefa = $this->tarefa->select();
+            $tarefa -> where('idColab = ?',$id_colab);
+            
+            $id_colab_tarefa = $this->tarefa->fetchRow($tarefa)->idColab;
+            
+            if($id_colab == $id_colab_tarefa)
+            {
+               $this->_redirect('colaborador/index/id/'.$id_proj.'/flag/5');   
+            }
+            
             $where = $this->colab->getAdapter()->quoteInto('idcolaboradores = ?', (int) $id_colab);
             
             $this->colab->delete($where);
             
-            $this->_redirect('projeto/detalhes/idProj/'.$id_proj);
+            $this->_redirect('colaborador/index/id/'.$id_proj.'/flag/4');
             
             
         }   
@@ -233,7 +247,7 @@ class ColaboradorController extends Zend_Controller_Action
         {
             return;
         }else
-            $this->_redirect('/projeto/index');
+            $this->_redirect('/projeto/index/flag/1');
     }
     
 }

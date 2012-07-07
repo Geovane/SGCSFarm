@@ -1,6 +1,22 @@
-<?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
+﻿<?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css'); ?>
+<<<<<<< HEAD
+
+<br/>
+=======
+>>>>>>> 80d2a21b419a6ff3b16b38486d0a716a966ed9e0
 <div id="projetos">
+<?php
+    if(isset($this->flag))
+    {
+        switch($this->flag)
+        {
+            case 1:
+                echo "<h3>Você precisa ser gerente do projeto para gerenciar os colaboradores</h3><br>";
+                break;
+        }
+    }
+?>
     <br/>
     <?php foreach ( $this->paginator as $aux ) : ?>
         <center>
