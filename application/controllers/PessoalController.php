@@ -57,7 +57,7 @@ class PessoalController extends Zend_Controller_Action
                     'empresaFilial_idempresaFilial' =>$this->idFilial
                 );
 
-                $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $func_id);
+                $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->idFunc);
 
                 $this->funcionario->update($data, $where);
 
