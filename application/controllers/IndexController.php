@@ -21,27 +21,34 @@ class IndexController extends Zend_Controller_Action
         $this->view->dadosIndex = $dadosIndex[0];
 
         //Dados do usuario logado para serem utilizados nas actions
-        $this->idFunc = $this->funcLogado->idfuncionario;
-        $this->idEmpresa = $dadosIndex[0]->empresa_idempresa;
-        $this->idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
-        
-        $idFunc = $this->idFunc;
-        $idFilial = $this->idFilial;
-        $idEmpresa =  $this->idEmpresa;
+        $idFunc = $this->funcLogado->idfuncionario;
+        $idEmpresa = $dadosIndex[0]->empresa_idempresa;
+        $idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
 
         //Informações relativas a permissoes (Se tiver permissão retorna True)
-        $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
-        $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
-               
-        $this->view->AdminFilial = $this->adminFilial;
-        $this->view->AdminEmpresa = $this->adminEmpresa;
+        $adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
+        $adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
+        $this->view->AdminFilial = $adminFilial;
+        $this->view->AdminEmpresa = $adminEmpresa;
 
-
+        $this->tarefas = new Model_DbTable_TipoEstadoTarefaColabProj();
     }
 
     public function indexAction()
     {
-        // action body
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+        
+        $selectTarefa = $this->tarefas->select()
+                    ->where('idfuncionario = ?', $idFuncLogado);
+        
+        @$rows = $this->tarefas->fetchAll($selectTarefa);
+        if($rows == null){
+            $this->view->exiteTarefas = '0';
+        }else{
+            $this->view->exiteTarefas = '1';
+        }
+        $this->view->todasTarefas = $rows;
+        
     }
 
 

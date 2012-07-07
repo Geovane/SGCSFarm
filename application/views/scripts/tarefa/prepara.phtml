@@ -62,11 +62,17 @@ if ( isset($this->flag)  )
             Colaborador Respons&aacute;vel: <?php echo $auxTarColabProj->nomeFunc; ?><br/>
             Descri&ccedil;&atilde;o da Tarefa: <?php echo $auxTarColabProj->descricaoTarefa; ?><br/>
             Data de In&iacute;cio: <?php echo $auxTarColabProj->dataInc;?><br/>
-            Data de Fim: <?php echo $auxTarColabProj->dataFim;?><br/>
-            Previsao da Entrega: <?php echo $auxTarColabProj->dataEntrega;?><br/>
+            Previsao da Entrega: <?php echo $auxTarColabProj->dataFim;?><br/>
             <?php foreach ( $this->listaEstado as $auxEstado ) :
                 if($auxEstado->idestado == $auxTarColabProj->estado_idestado){
+                    if($auxEstado->tipoDeEstado == "Concluido"){
+                        echo "<span style='color:blue; 
+                            text-transform:uppercase;'>Estado: <b>".$auxEstado->tipoDeEstado."</b><br/>";
+                        echo "Data da entrega:<b>".$auxTarColabProj->dataEntrega."</b></span><br/>";
+                    }else{
                     echo "Estado: ".$auxEstado->tipoDeEstado."<br/>";
+                }
+                    
                 }
             endforeach; ?>
             <br/>

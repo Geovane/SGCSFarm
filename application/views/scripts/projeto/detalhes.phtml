@@ -1,9 +1,7 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
-
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css');
 ?>
-<br>
 <div id="projetos_detalhes"
      <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
             style="-moz-box-shadow: 10px 10px 5px #ffb706; /* Firefox 3.6 and earlier */
@@ -11,8 +9,9 @@
     <?php } ?>
 >
     <div  id="projetos_detalhes_conteudo">
-        Alocado na filial: <?php echo $this->ProjEncontrado->current()->nomeFilialProj; ?><br /><br />
-        Nome: <b><?php echo $this->ProjEncontrado->current()->nomeProj; ?></b><br /><br />
+        <h1 style="color: #fd8f12;"><b><?php echo $this->ProjEncontrado->current()->nomeProj; ?></b></h1><br /><br />
+        <h3>Alocado na filial: <span style="color: #ff8000;"><?php echo $this->ProjEncontrado->current()->nomeFilialProj; ?></span></h3><br />
+        
         Data de in&iacute;cio: <b><?php echo $this->ProjEncontrado->current()->dataInc; ?></b><br /><br />
         Previs&atilde;o de conclus&atilde;o: <b><?php echo $this->ProjEncontrado->current()->dataFim; ?></b><br /><br />
         Situa&ccedil&atilde;o do projeto: <b><?php echo $this->ProjEncontrado->current()->estadoProj; ?></b><br /><br />
@@ -47,17 +46,18 @@
 <div id="projetos_detalhes_tarefas">
     <center><h4>Tarefas do Projeto: <?php echo $this->ProjEncontrado->current()->nomeProj; ?></h4></center>
     <br/>
-    <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
-    <center>
-        <a title="Gerenciar Tarefas" href='/tarefa/prepara/idProj/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>
-            <div class="divGerente" style="width: 100px">
+    <?php if($this->naoColabEnaoEGerente == '1'){
+            if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
+                <center>
+                    <a title="Gerenciar Tarefas" href='/tarefa/prepara/idProj/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>
+                        <div class="divGerente" style="width: 100px">
 
-                    <img src="/images/b_tblops.png" width="30px;" height="30px" alt="Gerenciar Tarefas"/><br/>
-                    Gerenciar Tarefas
-            </div>
-        </a>
-    </center>
-    <?php } else { ?>
+                                <img src="/images/b_tblops.png" width="30px;" height="30px" alt="Gerenciar Tarefas"/><br/>
+                                Gerenciar Tarefas
+                        </div>
+                    </a>
+                </center>
+    <?php   } else { ?>
     <center>
         <div style="width: 130px;
                     border:1px solid #a1a1a1;
@@ -72,7 +72,8 @@
             </a>
         </div>
     </center>
-    <?php } ?>
+    <?php } 
+    }?>
     <br>
     <center>
         <div style="width:95%;">
@@ -118,7 +119,7 @@
     <br/>
     <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
     <center>
-        <a href="/colaborador/index/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>" title="Gerenciar Colaboradores" >
+        <a title="Gerenciar Colaboradores" href='/colaboradores/create/idProj/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>
             <div class="divGerente" style="width: 200px">
                 <img src="/images/b_tblops.png" width="30px;" height="30px" alt="Gerenciar Colaboradores"/><br/>
                 Gerenciar Colaboradores
@@ -126,28 +127,28 @@
         </a>
     </center>
     <br>
-    
+    <center><a href='/projeto/colab/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>REMOVER ESSE Inserir Colaborador</a></center>
     <br>
     <?php } ?>
     <center>
         <div style="width:95%;">
         <table width="100%" class="tbl">
-            <thead><tr><th>Nome Funcionário</th><th>Função</th><th>Tempo de Dedicação em horas/mês</th></thead>
-    <?php 
+            <thead><tr><th>Nome Funcionário</th><th>Função</th><th>E-mail</th></thead>
+    <?php
         $indice = 0;
-        foreach ( $this->ProjEncontrado as $auxfuncaoColabProj ): 
+        foreach ( $this->colab as $auxfuncaoColabProj ): 
             if($indice%2){
                 echo "<tr class='odd' >
-                        <td width='10%'><p style='word-wrap:break-word;'>".$auxfuncaoColabProj->nomeColaborador."</p></td>
-                        <td width='15%' align='center'>".$auxfuncaoColabProj->funcaoColaborador."</td>
-                        <td width='8%' align='center'>".$auxfuncaoColabProj->dedicacaoMesColaborador."</td>
+                        <td width='10%'><p style='word-wrap:break-word;'>".$auxfuncaoColabProj->nomeFuncinario."</p></td>
+                        <td width='15%' align='center'>".$auxfuncaoColabProj->funcao."</td>
+                        <td width='8%' align='center'>".$auxfuncaoColabProj->emailFuncinario."</td>
                     </tr>
                     </tbody>";
             } else {
                 echo "<tr>
-                        <td width='10%'><p style='word-wrap:break-word;'>".$auxfuncaoColabProj->nomeColaborador."</p></td>
-                        <td width='15%' align='center'>".$auxfuncaoColabProj->funcaoColaborador."</td>
-                        <td width='8%' align='center'>".$auxfuncaoColabProj->dedicacaoMesColaborador."</td>
+                        <td width='10%'><p style='word-wrap:break-word;'>".$auxfuncaoColabProj->nomeFuncinario."</p></td>
+                        <td width='15%' align='center'>".$auxfuncaoColabProj->funcao."</td>
+                        <td width='8%' align='center'>".$auxfuncaoColabProj->emailFuncinario."</td>
                     </tr>";
             }
             $indice = $indice + 1;   
