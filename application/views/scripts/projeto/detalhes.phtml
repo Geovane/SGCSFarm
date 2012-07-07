@@ -118,7 +118,7 @@
     <br/>
     <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
     <center>
-        <a title="Gerenciar Colaboradores" href='#'>
+        <a href="/colaborador/index/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>" title="Gerenciar Colaboradores" >
             <div class="divGerente" style="width: 200px">
                 <img src="/images/b_tblops.png" width="30px;" height="30px" alt="Gerenciar Colaboradores"/><br/>
                 Gerenciar Colaboradores
@@ -126,7 +126,7 @@
         </a>
     </center>
     <br>
-    <center><a href='/projeto/colab/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>REMOVER ESSE Inserir Colaborador</a></center>
+    
     <br>
     <?php } ?>
     <center>

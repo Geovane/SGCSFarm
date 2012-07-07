@@ -1,0 +1,49 @@
+<ul id="globalnav">
+    <li><a href="/colaborador/index/id/<?php echo $this->funcionario->current()->idprojeto; ?>">Colaboradores</a></li>   
+    <li><a href="#" class="here">Editar Colaborador</a></li>
+</ul>
+<br>
+
+<form action="/colaborador/edit" method="post">
+
+        <div>
+            
+            
+           
+            
+            <label for="nomeproj">Nome Projeto:</label>
+            <input type="text" disabled="disabled" id="nomeproj" name="nomeproj" maxlength="35" value="<? echo $this->funcionario->current()->nomeProj; ?>"/>
+            <br><br>
+            
+            <label for="nomecolab">Nome Colaborador:</label>
+            <input type="text" disabled="disabled" id="nomeproj" name="nomecolab" maxlength="35" value="<? echo $this->funcionario->current()->nomeColaborador; ?>"/>
+            <br><br>
+            
+            <label for="horas">Horas por Mês:</label>
+            <input type="number" id="horas" name="horas" value="<?= $this->funcionario->current()->dedicacaoMesColaborador; ?>" />
+            <br><br>
+            
+            <label for="funcao">Função:</label>
+            <select id="funcao" name="funcao">
+                <?php foreach ( $this->funcao as $funcao) : ?>
+                <option value="<?php echo $funcao->idfuncaoProjeto; ?>">
+                    <?php echo $funcao->descricao; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
+            
+            
+            
+            
+
+
+            <input  type="submit" value="Atualizar" name="Atualizar" class="btnLogin" style="width: 135px" />
+            <input  type="reset" value="Limpar" name="Limpar" class="btnLogin" style="width: 135px" />
+            <br><br>
+        </div>
+
+</form>
+
+<script>
+menu('12');
+</script>

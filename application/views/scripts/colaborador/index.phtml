@@ -1,0 +1,52 @@
+<?php echo $this->headLink()->appendStylesheet('/css/tabela.css'); ?>
+
+<br/>
+<div id="colaboradores">
+
+    <ul id="globalnav">
+    <li><a href="/colaborador/index" class="here" >Colaboradores</a></li>   
+    <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
+    </ul>
+    <br>
+    
+    <center>
+<table width="100%" class="tbl">
+
+        <thead><tr><th>Nome Colaborador</th><th>Dedicação Mensal</th><th>Função</th><th>Filial</th><th></th><th></th></tr></thead>
+        <tbody>
+        <?
+        $indice = 0;
+        foreach ( $this->paginator as $aux ) :
+
+            if($indice%2){
+                echo "<tr class='odd' >
+                        <td width='33%'>".$aux['nomeColaborador']."</td>
+                        <td width='16%'>".$aux['dedicacaoMesColaborador']."</td>
+                        <td width='33%'>".$aux['funcaoColaborador']."</td>
+                        <td width='33%'>".$aux['nomeFilialProj']."</td>    
+                        <td width='8%'><a href='/colaborador/edit/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
+                        <td width='8%'><a href='/colaborador/delete/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+                    </tr>
+                    </tbody>";
+            } else {
+                echo "<tr>
+                         <td width='33%'>".$aux['nomeColaborador']."</td>
+                        <td width='16%'>".$aux['dedicacaoMesColaborador']."</td>
+                        <td width='33%'>".$aux['funcaoColaborador']."</td>
+                        <td width='33%'>".$aux['nomeFilialProj']."</td>    
+                        <td width='8%'><a href='/colaborador/edit/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
+                        <td width='8%'><a href='/colaborador/delete/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+                    </tr>";
+            }
+         $indice = $indice + 1;
+         endforeach; ?>
+            </tbody>
+</table>
+
+</center>
+    
+</div>
+
+<script>
+menu('12');
+</script>
