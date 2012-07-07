@@ -1,7 +1,19 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css'); ?>
+
 <br/>
 <div id="projetos">
+<?php
+    if(isset($this->flag))
+    {
+        switch($this->flag)
+        {
+            case 1:
+                echo "<h3>Você precisa ser gerente do projeto para gerenciar os colaboradores</h3><br>";
+                break;
+        }
+    }
+?>
     <br/>
     <center><h2>Seus Projetos</h2></center>
     <br/>
