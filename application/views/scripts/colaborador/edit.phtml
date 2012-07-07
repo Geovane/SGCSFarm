@@ -7,10 +7,10 @@
 <form action="/colaborador/edit" method="post">
 
         <div>
-            
-            
-           
-            
+          
+              <input type="hidden" name="idProj" value="<?php echo $this->funcionario->current()->idprojeto; ?>" />
+               <input type="hidden" name="idFunc" value="<?php echo $this->funcionario->current()->idFuncionarioColaborador; ?>" />
+
             <label for="nomeproj">Nome Projeto:</label>
             <input type="text" disabled="disabled" id="nomeproj" name="nomeproj" maxlength="35" value="<? echo $this->funcionario->current()->nomeProj; ?>"/>
             <br><br>
@@ -30,16 +30,8 @@
                     <?php echo $funcao->descricao; ?></option>
                 <?php endforeach; ?>
             </select>
-            <br><br>
-            
-            
-            
-            
-
-
             <input  type="submit" value="Atualizar" name="Atualizar" class="btnLogin" style="width: 135px" />
             <input  type="reset" value="Limpar" name="Limpar" class="btnLogin" style="width: 135px" />
-            <br><br>
         </div>
 
 </form>

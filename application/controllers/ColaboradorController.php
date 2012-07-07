@@ -40,16 +40,20 @@ class ColaboradorController extends Zend_Controller_Action
         * @access disponível em todos os actions do controller Tarefas
         */
         //Dados do usuario logado para serem utilizados nas actions
-        $idFunc = $this->funcLogado->idfuncionario;
-        $idEmpresa = $dadosIndex[0]->empresa_idempresa;
-        $idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
+        $this->idFunc = $this->funcLogado->idfuncionario;
+        $this->idEmpresa = $dadosIndex[0]->empresa_idempresa;
+        $this->idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
+
+        $idFunc = $this->idFunc;
+        $idFilial = $this->idFilial;
+        $idEmpresa =  $this->idEmpresa;
 
         //Informações relativas a permissoes (Se tiver permissão retorna True)
-        $adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
-        $adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
-        $this->view->AdminFilial = $adminFilial;
-        $this->view->AdminEmpresa = $adminEmpresa;
+        $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
+        $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
 
+        $this->view->AdminFilial = $this->adminFilial;
+        $this->view->AdminEmpresa = $this->adminEmpresa;
 
         $this->project = new Model_DbTable_Proj();
         $this->funcionario = new Model_DbTable_Func();
@@ -70,6 +74,9 @@ class ColaboradorController extends Zend_Controller_Action
     
     public function indexAction()
     {
+        //Manda a flag de mensagens pra view index
+        $this->view->flag = $this->_request->getParam('flag');
+
         $this->verificaGerente();
         
         $id_proj = $this->_getParam('id');
@@ -143,44 +150,51 @@ class ColaboradorController extends Zend_Controller_Action
     
     public function editAction()
     {
-        $this->verificaGerente();
-        
-        $id_func = $this->_getParam('idfunc');
-        $id_proj = $this->_getParam('id');
-        
-        $funcionario = $this->ProjGerFiliColab->select();
-        $funcionario -> where('idFuncionarioColaborador = ?',$id_func)
-                     -> where('idprojeto = ?',$id_proj);
-        
-        $funcao = $this->funcaoproj->select();
-        $funcao -> where('idfuncaoProjeto != 40');
-       
-        $this->view->funcionario = $this->ProjGerFiliColab->fetchAll($funcionario);
-        $this->view->funcao = $this->funcaoproj->fetchAll($funcao);
-        
+
         //PRECISA SER REVISADO, PROVAVELMENTE O ERRO NÃO SEJA NO CÓDIGO MAS SIM NO BANCO
         if($this->_request->isPost())
         {
             $data = array
             (
-             'projeto_idprojeto' => $id_proj,
-             'funcionario_idfuncionario' => $id_func,
+             'projeto_idprojeto' =>$this->_request->getPost('idProj') ,
+             'funcionario_idfuncionario' => $this->_request->getPost('idFunc'),
              'dedicacaoMes' => $this->_request->getPost('horas'),
-             'funcaoProjeto_idfuncaoProjeto' => $this->_request->getPost('funcao')   
+             'funcaoProjeto_idfuncaoProjeto' => $this->_request->getPost('funcao')
             );
-            
+
+
+            //print_r($data);
             $colaborador = $this->colab->select();
-            $colaborador -> where('funcionario_idfuncionario = ?',$id_func)
-                         -> where('projeto_idprojeto = ?',$id_proj);
+            $colaborador -> where('funcionario_idfuncionario = ?',$this->_request->getPost('idFunc'))
+                         -> where('projeto_idprojeto = ?',$this->_request->getPost('idProj'));
             
             $id_colab = $this->colab->fetchRow($colaborador)->idcolaboradores;
+
             
             $where = $this->colab->getAdapter()->quoteInto('idcolaboradores = ?', (int) $id_colab);
             
             $this->colab->update($data,$where);
             
-            $this->_redirect('projeto/detalhes/idProj/'.$id_proj);
-        }    
+            $this->_redirect('/colaborador/index/id/'.$this->_request->getPost('idProj').'/flag/1');
+
+        }else{
+
+                $this->verificaGerente();
+
+                $id_func = $this->_getParam('idfunc');
+                $id_proj = $this->_getParam('id');
+
+                $funcionario = $this->ProjGerFiliColab->select();
+                $funcionario -> where('idFuncionarioColaborador = ?',$id_func)
+                             -> where('idprojeto = ?',$id_proj);
+
+                $funcao = $this->funcaoproj->select();
+                $funcao -> where('idfuncaoProjeto != 40');
+
+                $this->view->funcionario = $this->ProjGerFiliColab->fetchAll($funcionario);
+                $this->view->funcao = $this->funcaoproj->fetchAll($funcao);
+
+        }
     }
     
      public function deleteAction()
@@ -219,9 +233,7 @@ class ColaboradorController extends Zend_Controller_Action
         {
             return;
         }else
-            $this->_redirect('projeto/index');
-        
-        
+            $this->_redirect('/projeto/index');
     }
     
 }

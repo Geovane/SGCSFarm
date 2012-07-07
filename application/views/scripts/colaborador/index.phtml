@@ -1,14 +1,24 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css'); ?>
 
-<br/>
-<div id="colaboradores">
 
+<div id="colaboradores">
     <ul id="globalnav">
     <li><a href="/colaborador/index" class="here" >Colaboradores</a></li>   
     <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
     </ul>
     <br>
-    
+
+<?
+if ( isset($this->flag)  )
+
+         switch ($this->flag){
+        case 1:
+            echo   "<h3>Colaborador atualizado com sucesso!</h3><br>";
+            break;
+         }
+
+?>
+
     <center>
 <table width="100%" class="tbl">
 
