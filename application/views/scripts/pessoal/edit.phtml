@@ -1,0 +1,35 @@
+<ul id="globalnav">
+  <li><a href="/pessoal/meusdados" >Meus Dados</a></li>
+  <li><a href="/pessoal/edit" class="here" >Alterar Dados</a></li>
+  <li><a href="/pessoal/imagem" >Nova Imagem</a></li>
+  <li><a href="/pessoal/senha">Alterar Senha</a></li>
+</ul>
+
+<form action="/pessoal/edit" method="post">
+        <div>
+            <br><br>
+            
+            <label for="nome">Nome:</label>
+            <input type="text" id="nome" name="nome" maxlength="35" value ="<?= $this->funcionario->nome; ?>"/>
+            <br><br>
+
+            <label for="doc">Identidade:</label>
+            <input type="text" id="doc" name="doc" maxlength="25" value ="<?= $this->funcionario->documentoIdentificacao; ?>"/>
+            <br><br>
+
+            <label for="login">Usuário:</label>
+            <input type="text" id="login" name="login" maxlength="25"  value ="<?= $this->funcionario->login; ?>"/>
+            <br><br>
+
+            <label for="email">E-mail:</label>
+            <input type="text" id="email" name="email" maxlength="25"  value ="<?= $this->funcionario->email; ?>"/>
+            <br><br>
+
+            <input  type="submit" value="atualizar" name="Atualizar" />
+            <br><br>
+        </div>
+
+</form>
+<script>
+menu('13');
+</script>

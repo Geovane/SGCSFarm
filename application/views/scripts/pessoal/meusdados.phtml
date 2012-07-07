@@ -1,0 +1,18 @@
+<ul id="globalnav">
+  <li><a href="/pessoal/meusdados" class="here" >Meus Dados</a></li>
+  <li><a href="/pessoal/edit" >Alterar Dados</a></li>
+  <li><a href="/pessoal/imagem" >Nova Imagem</a></li>
+  <li><a href="/pessoal/senha" >Alterar Senha</a></li>
+</ul>
+<br>
+<?
+echo 'Nome:'.$this->dados->nome.'<br>';
+echo 'Filial:'.$this->dadosIndex->nomeEmpresa.'<br>';
+echo 'Identidade:'.$this->dados->documentoIdentificacao.'<br>';
+echo 'Usuário:'.$this->dados->login.'<br>';
+echo 'Email:'.$this->dados->email.'<br><br>';
+?>
+
+<script>
+menu('13');
+</script>

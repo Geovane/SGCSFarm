@@ -1,0 +1,27 @@
+<ul id="globalnav">
+  <li><a href="/pessoal/meusdados" >Meus Dados</a></li>
+  <li><a href="/pessoal/edit" >Alterar Dados</a></li>
+  <li><a href="/pessoal/imagem" >Nova Imagem</a></li>
+  <li><a href="/pessoal/senha" class="here"  >Alterar Senha</a></li>
+</ul>
+
+<?php if ( isset($this->mensagem) ): ?>
+
+  <strong>Erro:</strong> <?= $this->mensagem ?><br><br>
+
+ <?php endif; ?>
+  
+<form  action="/pessoal/senha" method="post">
+    
+    Senha Atual:&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="senhaAtual" />
+     <br><br>
+    Nova senha:&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="senhaNova" />
+     <br><br>
+    Repita a senha:<input type="password" name="senhaNova2" />
+    <br><br>
+    <input type="submit" value="Atualizar" name="Atualizar" />
+
+</form>
+<script>
+menu('13');
+</script>
