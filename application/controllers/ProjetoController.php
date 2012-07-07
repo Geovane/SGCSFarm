@@ -32,7 +32,9 @@ class ProjetoController extends Zend_Controller_Action
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
-
+        
+        
+        
         //Pega as informações do usuario logado no sistema.
         $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
         //Envia pra view
@@ -42,22 +44,6 @@ class ProjetoController extends Zend_Controller_Action
         $this->FuncFilial = new Model_DbTable_FuncFilial();
         $dadosIndex = $this->FuncFilial->find($this->funcLogado->idfuncionario);
         $this->view->dadosIndex = $dadosIndex[0];
-
-        //Dados do usuario logado para serem utilizados nas actions
-        $this->idFunc = $this->funcLogado->idfuncionario;
-        $this->idEmpresa = $dadosIndex[0]->empresa_idempresa;
-        $this->idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
-
-        $idFunc = $this->idFunc;
-        $idFilial = $this->idFilial;
-        $idEmpresa =  $this->idEmpresa;
-
-        //Informações relativas a permissoes (Se tiver permissão retorna True)
-        $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
-        $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
-
-        $this->view->AdminFilial = $this->adminFilial;
-        $this->view->AdminEmpresa = $this->adminEmpresa;
         
         /**
         * Variáveis responsáveis pelo acesso as tabelas do banco de dados.
@@ -78,6 +64,17 @@ class ProjetoController extends Zend_Controller_Action
          * @name filial
         * @access disponível em todos os actions do controller Tarefas
         */
+        //Dados do usuario logado para serem utilizados nas actions
+        $idFunc = $this->funcLogado->idfuncionario;
+        $idEmpresa = $dadosIndex[0]->empresa_idempresa;
+        $idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
+
+        //Informações relativas a permissoes (Se tiver permissão retorna True)
+        $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
+        $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
+        $this->view->AdminFilial = $this->adminFilial;
+        $this->view->AdminEmpresa = $this->adminEmpresa;
+
 
         $this->project = new Model_DbTable_Proj();
         $this->funcionario = new Model_DbTable_Func();
@@ -308,8 +305,24 @@ class ProjetoController extends Zend_Controller_Action
     {
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;
-
+        
         $idProj = $this->_getParam('idProj');
+        $where = $this->ProjGerFiliColab->getAdapter()->quoteInto('idprojeto = ?', $idProj);
+        $selecProj = $this->ProjGerFiliColab->select()
+                ->where($where)
+                ->where('idFuncionarioColaborador = ?', $idFuncLogado)
+                ->orWhere('idGerente = ?', $idFuncLogado );
+        
+        $validaUsuario = $this->ProjGerFiliColab->fetchRow($selecProj);
+        
+        if( ($validaUsuario == null)){
+            $validaUsuario = '0';
+        }else{
+            $validaUsuario = '1';
+        }
+        
+        $this->view->naoColabEnaoEGerente = $validaUsuario;
+        
         $where = $this->ProjGerFiliColab->getAdapter()->quoteInto('idprojeto = ?', $idProj);
         $selecProj = $this->ProjGerFiliColab->select()
                 ->where($where);
@@ -327,6 +340,10 @@ class ProjetoController extends Zend_Controller_Action
 
         $this->view->paginator = $paginator;
         $paginator->setCurrentPageNumber($this->_getParam('page'));
+
+        $selecColab = $this->colabProj->select()
+                ->where('nomeProj = ?', $nomeProj);
+        $this->view->colab = $this->colabProj->fetchAll($selecColab);
     }
     
     /**

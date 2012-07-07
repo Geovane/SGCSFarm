@@ -1,0 +1,90 @@
+@charset "utf-8";
+/* CSS Document */
+
+#tarefas_atrasadas{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    float: left;
+    border: 1px solid #ff0000;
+    width: 300px;
+    
+    -moz-box-shadow: 10px 10px 5px #ea5246; /* Firefox 3.6 and earlier */
+    box-shadow: 0px 5px 10px #ea5246;
+    background:#dddddd;
+    border:2px solid #ea5246;
+    border-radius:10px;
+    -moz-border-radius:25px; /* Firefox 3.6 and earlier */
+}
+
+.atrasada_tar{
+    background-image: url('/images/notice.png');
+    padding: 30px 0px 5px 0px;
+    margin: 20px 0px;
+    word-wrap:break-word;
+    width: 250px;
+    height: auto;
+    text-align: center;
+    font-size: 12px;
+}
+
+#tarefas_mes{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    float: left;
+    width: 300px;
+    
+    -moz-box-shadow: 10px 10px 5px #ffff00; /* Firefox 3.6 and earlier */
+    box-shadow: 0px 5px 10px #ffff00;
+    background:#dddddd;
+    border:2px solid #ffff00;
+    border-radius:10px;
+    -moz-border-radius:25px; /* Firefox 3.6 and earlier */
+}
+
+.mes_tar{
+    background-image: url('/images/notice.png');
+    padding: 30px 0px 5px 0px;
+    margin: 20px 0px;
+    word-wrap:break-word;
+    width: 250px;
+    height: auto;
+    text-align: center;
+    font-size: 12px;
+}
+
+#todas_tarefas{
+    margin-left: 20px;
+    margin-bottom: 20px;
+    float: left;
+    border: 1px solid #6699cc;
+    width: 300px;
+    
+    -moz-box-shadow: 10px 10px 5px #0099ff; /* Firefox 3.6 and earlier */
+    box-shadow: 0px 5px 10px #0099ff;
+    background:#dddddd;
+    border:2px solid #0099ff;
+    border-radius:10px;
+    -moz-border-radius:25px; /* Firefox 3.6 and earlier */
+}
+
+.todas_tar{
+    background-image: url('/images/notice.png');
+    padding: 30px 0px 5px 0px;
+    margin: 20px 0px;
+    word-wrap:break-word;
+    width: 250px;
+    height: auto;
+    text-align: center;
+    font-size: 12px;
+}
+
+.tooltip{
+   position:absolute;
+   display:none;
+   padding: 10px 30px;
+   background:#000;
+   color:#fff;
+   -moz-border-radius:5px;
+   -webkit-border-radius:5px;
+    border-radius:5px;
+}

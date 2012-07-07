@@ -27,14 +27,15 @@ class TarefaController extends Zend_Controller_Action
      */
     public function init()
     {
-        //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
+        //Verifica se o usuario esta autenticado, 
+        //caso não esteja ele é redirecionado para a tela da login.
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
 
-        //Pega as informações do usuario logado no sistema.
+
+        //Variável que recebe as informações do usuario logado no sistema.
         $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
-        //Envia pra view
         $this->view->funcLogado = $this->funcLogado;
 
         //Informações de exibição do usuario no index (deve estar em todos os inits)
@@ -43,20 +44,15 @@ class TarefaController extends Zend_Controller_Action
         $this->view->dadosIndex = $dadosIndex[0];
 
         //Dados do usuario logado para serem utilizados nas actions
-        $this->idFunc = $this->funcLogado->idfuncionario;
-        $this->idEmpresa = $dadosIndex[0]->empresa_idempresa;
-        $this->idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
-
-        $idFunc = $this->idFunc;
-        $idFilial = $this->idFilial;
-        $idEmpresa =  $this->idEmpresa;
+        $idFunc = $this->funcLogado->idfuncionario;
+        $idEmpresa = $dadosIndex[0]->empresa_idempresa;
+        $idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
 
         //Informações relativas a permissoes (Se tiver permissão retorna True)
-        $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
-        $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
-
-        $this->view->AdminFilial = $this->adminFilial;
-        $this->view->AdminEmpresa = $this->adminEmpresa;
+        $adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
+        $adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
+        $this->view->AdminFilial = $adminFilial;
+        $this->view->AdminEmpresa = $adminEmpresa;
 
         /**
         * Variáveis responsáveis pelo acesso as tabelas do banco de dado.
@@ -70,7 +66,6 @@ class TarefaController extends Zend_Controller_Action
         * @name tarColabProj
         * @access disponível em todos os actions do controller Tarefas
         */
-
         $this->funFazTarefa = new Application_Model_DbTable_FunFazTarefa();
         $this->tarefa = new Application_Model_DbTable_Tarefa();
         $this->estado = new Model_DbTable_Estado();
@@ -266,9 +261,17 @@ class TarefaController extends Zend_Controller_Action
                 *  
                 * @name $dataEntrega
                 */
-            $dataEntrega = $this->inverte_data($this->_request->getPost('dataEntrega'), "/");
-            $dataEntrega = $dataEntrega." ".date("H:i:s");
-
+            //$dataEntrega = $this->inverte_data($this->_request->getPost('dataEntrega'), "/");
+            //$dataEntrega = $dataEntrega." ".date("H:i:s");
+            $dataEntrega = "";
+            $idEstado = $this->_request->getPost('estadoTarefa');
+            $select = $this->estado->select()
+                        ->where('idestado = ?', $idEstado);
+            $nomeEstado = $this->estado->fetchRow($select);
+            if($nomeEstado->tipoDeEstado == "Concluido"){
+                $dataEntrega = "".date("Y/m/d");
+                $dataEntrega = $dataEntrega." ".date("H:i:s");
+            }
             $dados = array(
                 'descricao'  => $this->_request->getPost('descricao'),
                 'dataInc'  => $dataInc,

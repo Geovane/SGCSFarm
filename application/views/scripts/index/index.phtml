@@ -1,1 +1,121 @@
-<h1>Home</h1>
+<?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
+                           ->appendStylesheet('/css/index_css.css'); ?>
+
+<?php ?>
+    <div id="tarefas_atrasadas">
+        <br/>
+        <center>
+            <h2>
+                <span style="color: #ea5246;">Tarefas Atrasadas</span>
+            </h2>
+        </center>
+        <br/>
+        <?php  foreach ( $this->todasTarefas as $auxTar ) : ?>
+        <?php if(
+                    (substr($auxTar->dataFim, 8, 2) < date('d')) &&
+                    (substr($auxTar->dataFim, 5, 2) <=  date('m')) &&
+                    (substr($auxTar->dataFim, 0, 4) <= date('Y'))
+                ){
+            
+                $detalhes = "<h3>Nome do Projeto: </3>".$auxTar->nomeProj."<br/>";
+                $detalhes = $detalhes."<h4>Descriçao: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
+                $detalhes = $detalhes."<h5>Data de Início: </h5>".$auxTar->dataInc."<br/>";
+                $detalhes = $detalhes."<h5>Previsão de entrega: </h5>".$auxTar->dataFim."<br/>";
+            ?>
+            <center>
+                <a rel='tooltip' id='<?php echo $detalhes; ?>'>
+                    <div class="atrasada_tar">
+                        <?php echo substr($auxTar->descricaoTarefa, 0, 100)."...<br/>";
+                            echo "<br/><br/>";
+                            echo "<b>Previsão de entrega: ".substr($auxTar->dataFim, 0, 10)."</b>";
+                        ?>
+                    </div>
+                </a>
+            </center>
+        <?php } ?>
+        <?php  endforeach; ?>
+    </div>
+
+    <div id="tarefas_mes">
+        <br/>
+        <center>
+            <h2>
+                <span style="color: #ffff00;">Tarefas do M�s</span>
+            </h2>
+        </center>
+        <br/>
+        <?php  foreach ( $this->todasTarefas as $auxTar ) : ?>
+        <?php if(
+                    (substr($auxTar->dataFim, 5, 2) == date('m')) &&
+                    (substr($auxTar->dataFim, 0, 4) == date('Y'))
+                ){
+                
+                $detalhes = "<h3>Nome do Projeto: </3>".$auxTar->nomeProj."<br/>";
+                $detalhes = $detalhes."<h4>Descriçãoo: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
+                $detalhes = $detalhes."<h5>Data de Início: </h5>".$auxTar->dataInc."<br/>";
+                $detalhes = $detalhes."<h5>Previsão de entrega: </h5>".$auxTar->dataFim."<br/>";
+            ?>
+            <center>
+                <a rel='tooltip' id='<?php echo $detalhes; ?>'>
+                    <div class="mes_tar">
+                        <?php echo substr($auxTar->descricaoTarefa, 0, 100)."...<br/>";
+                            echo "<br/><br/>";
+                            echo "<b>Previsão de entrega: ".substr($auxTar->dataFim, 0, 10)."</b>";
+                        ?>
+                    </div>
+                </a>
+            </center>
+        <?php } ?>
+        <?php  endforeach; ?>
+    </div>
+
+    <div id="todas_tarefas">
+        <br/>
+        <center>
+            <h2>
+                <span style="color: #0099ff;">Todas as Tarefas</span>
+            </h2>
+        </center>
+        <br/>
+        <?php  foreach ( $this->todasTarefas as $auxTar ) : 
+            $detalhes = "<h3>Nome do Projeto: </3>".$auxTar->nomeProj."<br/>";
+            $detalhes = $detalhes."<h4>Descrição: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
+            $detalhes = $detalhes."<h5>Data de Início: </h5>".$auxTar->dataInc."<br/>";
+            $detalhes = $detalhes."<h5>Previs�o de entrega: </h5>".$auxTar->dataFim."<br/>";
+            ?>
+        <center>
+            <a rel='tooltip' id='<?php echo $detalhes; ?>'>
+            <div class="todas_tar">
+                <?php echo substr($auxTar->descricaoTarefa, 0, 100)."...<br/>";
+                    echo "<br/><br/>";
+                    echo "<b>Previsão de entrega: ".substr($auxTar->dataFim, 0, 10)."</b>";
+                ?>
+            </div>
+            </a>
+        </center>
+        <?php  endforeach; ?>
+    </div>
+
+<script>
+
+$(function(){
+   
+   $("*[rel=tooltip]").hover(function(e){
+         $("body").append('<div class="tooltip">'+$(this).attr('id')+'</div>');
+         $('.tooltip').css({
+                     top : e.pageY - 50,
+                     left : e.pageX + 20
+                     }).fadeIn();
+      
+   }, function(){
+      $('.tooltip').remove();
+   }).mousemove(function(e){
+      $('.tooltip').css({
+                     top : e.pageY - 50,
+                     left : e.pageX + 20
+                     })
+   })
+   
+});
+
+</script>
