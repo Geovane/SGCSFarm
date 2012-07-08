@@ -1,4 +1,9 @@
-<?php echo $this->headLink()->appendStylesheet('/css/contato.css') ?>
+<?php 
+
+$this->headLink()->appendStylesheet('/css/contato.css'); 
+$this->headScript()->appendFile('/js/jquery.maskedinput-1.3.js');
+        
+?>
 
 <ul id="globalnav">
   <li><a href="/funcionario/index">Funcionarios</a></li>
