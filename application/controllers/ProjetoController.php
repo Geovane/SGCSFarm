@@ -32,9 +32,7 @@ class ProjetoController extends Zend_Controller_Action
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
-        
-        
-        
+
         //Pega as informações do usuario logado no sistema.
         $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
         //Envia pra view
@@ -44,37 +42,22 @@ class ProjetoController extends Zend_Controller_Action
         $this->FuncFilial = new Model_DbTable_FuncFilial();
         $dadosIndex = $this->FuncFilial->find($this->funcLogado->idfuncionario);
         $this->view->dadosIndex = $dadosIndex[0];
-        
-        /**
-        * Variáveis responsáveis pelo acesso as tabelas do banco de dados.
-        * 
-        * @name project
-        * @name funcionario
-        * @name estado
-        * @name projbugzilla
-        * @name projgit
-        * @name funcaoproj
-        * @name colab
-         * @name empresafilial
-         * @name funcaoColabProj
-         * @name tipoEstadoTarefaColabProj
-         * @name colabProj
-         * @name ProjGerFiliColab
-         * @name empresa
-         * @name filial
-        * @access disponível em todos os actions do controller Tarefas
-        */
+
         //Dados do usuario logado para serem utilizados nas actions
-        $idFunc = $this->funcLogado->idfuncionario;
-        $idEmpresa = $dadosIndex[0]->empresa_idempresa;
-        $idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
+        $this->idFunc = $this->funcLogado->idfuncionario;
+        $this->idEmpresa = $dadosIndex[0]->empresa_idempresa;
+        $this->idFilial = $this->funcLogado->empresaFilial_idempresaFilial;
+
+        $idFunc = $this->idFunc;
+        $idFilial = $this->idFilial;
+        $idEmpresa =  $this->idEmpresa;
 
         //Informações relativas a permissoes (Se tiver permissão retorna True)
         $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
         $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
-        $this->view->AdminFilial = $this->adminFilial;
-        $this->view->AdminEmpresa = $this->adminEmpresa;
 
+        $this->view->AdminFilial = $this->adminFilial;
+        $this->view->AdminEmpresa = $this->adminEmpresa;        
 
         $this->project = new Model_DbTable_Proj();
         $this->funcionario = new Model_DbTable_Func();
@@ -133,9 +116,11 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function createAction()
     {
-        $this->view->funcionario = $this->funcionario->fetchAll();
-                                
-                                
+        $select = $this->funcionario->select();
+        $select->where('empresaFilial_idempresaFilial = ?', $this->idFilial);
+        $select->order('nome');
+        $this->view->funcionario = $this->funcionario->fetchAll($select);
+                                                               
         if($this->_request->isPost())    
         {
             /**

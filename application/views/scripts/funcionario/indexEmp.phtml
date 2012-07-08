@@ -3,34 +3,35 @@ if ( isset($this->flag)  )
 
          switch ($this->flag){
         case 1:
-            echo   "<h3>Funcionario cadastrado com sucesso!</h3>";
+            echo   "<h3>Funcionario cadastrado com sucesso!</h3><br>";
             break;
         case 2:
-            echo   "<h3>Funcionario atualizado com sucesso!</h3>";
+            echo   "<h3>Funcionario atualizado com sucesso!</h3><br>";
             break;
         case 3:
-            echo "<h3>Funcionario excluído com sucesso!</h3>";
+            echo "<h3>Funcionario excluído com sucesso!</h3><br>";
             break;
         case 4:
             echo "<h4>Não foi possivel deletar o funcionario, verifique:<br> Se o funcionario é responsavel por alguma filial;<br>
                 Se o funcionario é colaborador em algum projeto;<br>Se o funcionario é gerente de algum projeto;<br>
-                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a escluxão.</h4>";
+                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a escluxão.</h4><br>";
             break;
         case 5:
-            echo "<h4>Imagem não inserida ou o formarto do arquivo é diferente de: 'jpg', 'jpeg', 'png' ou 'gif'.</h4>";
+            echo "<h4>Imagem não inserida ou o formarto do arquivo é diferente de: 'jpg', 'jpeg', 'png' ou 'gif'.</h4><br>";
             break;
         case 6:
-            echo "<h4>Imagem  alterada com sucesso.</h4>";
+            echo "<h4>Imagem  alterada com sucesso.</h4><br>";
             break;
          }
 
 ?>
 
 <ul id="globalnav">
+
+  <?//if ($this->AdminEmpresa || $this->AdminFilial){?>
   <li><a href="/funcionario/index" class="here">Funcionarios</a></li>
   <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
-  <li><a href="/projeto/adminfilial">Projetos</a></li>
-  <li><a href="/projeto/create" >Criar Projeto</a></li>
+  <?//}?>
 </ul>
 <br>
 
@@ -74,5 +75,5 @@ if ( isset($this->flag)  )
 </div>
 
 <script>
-menu('16');
+menu('13');
 </script>

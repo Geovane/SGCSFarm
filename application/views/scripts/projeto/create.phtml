@@ -1,5 +1,14 @@
 <?php echo $this->headLink()->appendStylesheet('/css/contato.css') ?>
 
+<ul id="globalnav">
+  <li><a href="/funcionario/index">Funcionarios</a></li>
+  <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
+  <li><a href="/projeto/adminfilial">Projetos</a></li>
+  <li><a href="#" class="here">Criar Projeto</a></li>
+</ul>
+
+<br>
+<br>
 <form id="createproject" class="rounded" action="/projeto/create" method="post"q>
     <center><h3>Novo Projeto</h3></center><br>
         <div class="field">            
@@ -45,5 +54,5 @@
     
 
 <script>
-menu('12');
+menu('16');
 </script>
