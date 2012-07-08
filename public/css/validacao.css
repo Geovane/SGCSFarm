@@ -1,0 +1,15 @@
+    label { display: block; margin-top: 10px; }
+    label.error { 
+        position: absolute;
+        display: block;  
+        margin: -30px 0 0 455px;
+        color: #FFFFFF;
+        padding: 7px 10px;
+        background: rgba(255, 0, 0, 0.6);
+        vertical-align:top;
+        -moz-border-radius: 7px;
+        -webkit-border-radius: 7px;
+        border-radius: 7px;	
+    }
+    .submit { margin-top: 1em; }
+    em { font-weight: bold; padding-right: 1em; vertical-align: top; }

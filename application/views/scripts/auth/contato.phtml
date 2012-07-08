@@ -1,46 +1,38 @@
-<?php echo $this->headLink()->appendStylesheet('/css/contato.css') ?>
+<?php echo $this->headLink()->appendStylesheet('/css/formularios.css') ?>
+<?php echo $this->headLink()->appendStylesheet('/css/validacao.css') ?>
 <br>
 <br>
 
 <center>
 <form id="contactform" class="cmxform" method="post" action="">
-<fieldset style="border: 0px solid black">
 <h3>Formulário de Contato</h3>
 <br>
 <div class="field">
-	<label for="name">Nome:</label>
-  	<input class="input" name="name" id="name" class="required" />
-	<p class="hint">Insira o seu nome.</p>
+	<label for="name" class="lblClass">Nome:</label>
+        <input class="input" name="name" id="name" type="text" />
 </div>
 
 <div class="field">
-	<label for="email">Email:</label>
-  	<input type="email" class="input" name="email" id="email" class="required" />
-	<p class="hint">Entre com o seu email.</p>
+	<label for="email" class="lblClass">Email:</label>
+  	<input type="email" class="input" name="email" id="email" type="text" />
 </div>
 
 <div class="field">
-	<label for="assunto">Assunto:</label>
-  	<input class="input" name="assunto" id="assunto" class="required" />
-	<p class="hint">Sobre o que você quer falar?</p>
+	<label for="assunto" class="lblClass">Assunto:</label>
+  	<input class="input" name="assunto" id="assunto" type="text" />
 </div>
 
 <div class="field">
-	<label for="message">Mensagem:</label>
-  	<textarea class="input" name="message" id="message" class="required"></textarea>
-	<p class="hint">Escreva a sua mensagem, de forma clara e objetiva.</p>
+	<label for="message" class="lblClass">Mensagem:</label>
+  	<textarea class="input" name="message" id="message"></textarea>
 </div>
 
 
-<input type="submit" name="Submit"  class="submit" value="Enviar" />
-</fieldset>
+    <input  type="submit" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px" />
+    <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
+
 </form>
 </center>
 <br>
 <br>
 
-  <script>
-  $(document).ready(function(){
-    $("#commentForm").validate();
-  });
-  </script>
