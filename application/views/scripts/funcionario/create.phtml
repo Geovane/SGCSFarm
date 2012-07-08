@@ -1,6 +1,7 @@
-
+<?php echo $this->headLink()->appendStylesheet('/css/contato.css') ?>
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
 <?php echo $this->headLink()->appendStylesheet('/css/tab.css') ?>
+
 
 <ul id="globalnav">
   <li><a href="/funcionario/meusdados" >Meus Dados</a></li>
@@ -8,41 +9,107 @@
   <li><a href="/funcionario/index" >Funcionarios</a></li>
 </ul>
 
+<center>
+<form id="createproject" class="rounded" action="/funcionario/create" method="post">
 
-<form action="/funcionario/create" method="post">
-
-        <div>
-            <br><br>
-            <label for="filial">Filial:</label>
-            <select id="filial" name="idFilial">
+        <div class="field">            
+            <label for="filial" >Filial:</label>
+            <select id="filial" class="select" name="idFilial">
                 <?php foreach ( $this->filial as $filial ) : ?>
                 <option value="<?php echo $filial->idempresaFilial; ?>">
                     <?php echo $filial->nome; ?></option>
                 <?php endforeach; ?>
             </select>
-            <br><br>
+        </div>
 
+        <div class="field"> 
             <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" maxlength="35"/>
-            <br><br>
+            <input type="text"  class="input" id="nome" name="nome" maxlength="35"/>
+            <p class="hint">Escolha um gerente para o projeto.</p>
+        </div>
 
+        <div class="field">             
             <label for="doc">Identidade:</label>
-            <input type="text" id="doc" name="doc" maxlength="25"/>
-            <br><br>
+            <input type="text" class="input"id="doc" name="doc" maxlength="25"/>
+            <p class="hint">Escolha um gerente para o projeto.</p>            
+        </div>
 
+        <div class="field"> 
             <label for="login">Usuário:</label>
-            <input type="text" id="login" name="login" maxlength="25"/>
-            <br><br>
+            <input type="text" class="input" id="login" name="login" maxlength="25"/>
+            <p class="hint">Escolha um gerente para o projeto.</p>            
+        </div>
 
+        <div class="field"> 
             <label for="email">E-mail:</label>
-            <input type="text" id="email" name="email" maxlength="25"/>
-            <br><br>
+            <input type="text" class="input" id="email" name="email" maxlength="25"/>
+            <p class="hint">Escolha um gerente para o projeto.</p>
 
-            <input  type="submit" value="Cadastrar" name="Cadastrar" class="btnLogin" style="width: 135px" />
-            <br><br>
+        </div>
+        <input  type="submit" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px" />
+        <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
         </div>
 
 </form>
+</center>
 <script>
+    
+$.validator.setDefaults({
+	submitHandler: function() { alert("submitted!"); }
+});
+
+$().ready(function() {
+	// validate the comment form when it is submitted
+	$("#commentForm").validate();
+
+	// validate signup form on keyup and submit
+	$("#signupForm").validate({
+		rules: {
+			firstname: "required",
+			lastname: "required",
+			username: {
+				required: true,
+				minlength: 2
+			},
+			password: {
+				required: true,
+				minlength: 5
+			},
+			confirm_password: {
+				required: true,
+				minlength: 5,
+				equalTo: "#password"
+			},
+			email: {
+				required: true,
+				email: true
+			},
+			topic: {
+				required: "#newsletter:checked",
+				minlength: 2
+			},
+			agree: "required"
+		},
+		messages: {
+			firstname: "Please enter your firstname",
+			lastname: "Please enter your lastname",
+			username: {
+				required: "Please enter a username",
+				minlength: "Your username must consist of at least 2 characters"
+			},
+			password: {
+				required: "Please provide a password",
+				minlength: "Your password must be at least 5 characters long"
+			},
+			confirm_password: {
+				required: "Please provide a password",
+				minlength: "Your password must be at least 5 characters long",
+				equalTo: "Please enter the same password as above"
+			},
+			email: "Please enter a valid email address",
+			agree: "Please accept our policy"
+		}
+	});    
+    
 menu('13');
 </script>

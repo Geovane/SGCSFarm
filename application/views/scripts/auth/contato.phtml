@@ -3,36 +3,44 @@
 <br>
 
 <center>
-<form id="contactform" class="rounded" method="post" action="">
+<form id="contactform" class="cmxform" method="post" action="">
+<fieldset style="border: 0px solid black">
 <h3>Formulário de Contato</h3>
 <br>
 <div class="field">
 	<label for="name">Nome:</label>
-  	<input type="text" class="input" name="name" id="name" />
+  	<input class="input" name="name" id="name" class="required" />
 	<p class="hint">Insira o seu nome.</p>
 </div>
 
 <div class="field">
 	<label for="email">Email:</label>
-  	<input type="text" class="input" name="email" id="email" />
+  	<input type="email" class="input" name="email" id="email" class="required" />
 	<p class="hint">Entre com o seu email.</p>
 </div>
 
 <div class="field">
 	<label for="assunto">Assunto:</label>
-  	<input type="text" class="input" name="assunto" id="assunto" />
+  	<input class="input" name="assunto" id="assunto" class="required" />
 	<p class="hint">Sobre o que você quer falar?</p>
 </div>
 
 <div class="field">
 	<label for="message">Mensagem:</label>
-  	<textarea class="input textarea" name="message" id="message"></textarea>
+  	<textarea class="input" name="message" id="message" class="required"></textarea>
 	<p class="hint">Escreva a sua mensagem, de forma clara e objetiva.</p>
 </div>
 
 
-<input type="submit" name="Submit"  class="button" value="Enviar" />
+<input type="submit" name="Submit"  class="submit" value="Enviar" />
+</fieldset>
 </form>
 </center>
 <br>
 <br>
+
+  <script>
+  $(document).ready(function(){
+    $("#commentForm").validate();
+  });
+  </script>

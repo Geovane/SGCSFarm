@@ -23,11 +23,11 @@ h3 { margin-bottom: 15px; font-size: 18px; text-shadow: 2px 2px 2px #ccc; }
 #createproject {
 
     width:100%;
-    padding-top: 20px;
-    
+    padding-top: 30px;
     background: #f0f0f0;
     overflow:auto;
-    height: 280px;
+
+    height: 250px;
     
     border: 1px solid #cccccc;
     -moz-border-radius: 7px;
@@ -39,7 +39,16 @@ h3 { margin-bottom: 15px; font-size: 18px; text-shadow: 2px 2px 2px #ccc; }
     box-shadow: 2px 2px 2px #cccccc;
 
     }   
-
+    
+.select{
+    font-family: Arial, Verdana; 
+    font-size: 15px; 
+    padding: 5px; 
+    border: 1px solid #b9bdc1; 
+    width: 312px; 
+    color: #797979;  
+    }
+    
 .field{margin-bottom:7px;}
 
 #createproject label {
@@ -48,9 +57,9 @@ h3 { margin-bottom: 15px; font-size: 18px; text-shadow: 2px 2px 2px #ccc; }
     display: block; 
     float: left; 
     font-weight: bold; 
-    margin-right:10px; 
+    margin-right:-280px; 
     text-align: right; 
-    width: 430px; 
+    width: 380px; 
     line-height: 25px; 
     font-size: 15px;
     }
@@ -92,7 +101,7 @@ h3 { margin-bottom: 15px; font-size: 18px; text-shadow: 2px 2px 2px #ccc; }
 #createproject .field:hover .hint {  
     position: absolute;
     display: block;  
-    margin: -30px 0 0 755px;
+    margin: -30px 0 0 720px;
     color: #FFFFFF;
     padding: 7px 10px;
     background: rgba(0, 0, 0, 0.6);
@@ -115,11 +124,18 @@ h3 { margin-bottom: 15px; font-size: 18px; text-shadow: 2px 2px 2px #ccc; }
     border-radius: 7px;	
     }    
 
+.button[type="submit"]{
+    float: left;
+    margin:10px 0 10px 385px;
+    
+    }
+    
+    
 .button{
-    float: right;
-    margin:10px 55px 10px 0;
     font-weight: bold;
     line-height: 1;
+    float: left;
+    margin:10px 0 10px 25px;
     padding: 6px 10px;
     cursor:pointer;   
     color: #fff;
@@ -147,5 +163,5 @@ h3 { margin-bottom: 15px; font-size: 18px; text-shadow: 2px 2px 2px #ccc; }
 
 .button:hover {
     background: #848FB2;
-cursor: pointer;
+    cursor: pointer;
 	}
