@@ -52,15 +52,16 @@ class FuncionarioController extends Zend_Controller_Action
     {
 
          $this->view->flag = $this->_request->getParam('flag');
-         $select = $this->funcionario->select()->order('nome');
-
+         $select = $this->funcionario->select();
+         $select->where('empresaFilial_idempresaFilial = ?', $this->idFilial);
+         $select->order('nome');
          $rows = $this->funcionario->fetchAll($select);
 
          //Cria a paginação relativa a exibição dos funcionarios
 
          $paginator = Zend_Paginator::factory($rows);
          //Passa o numero de registros por pagina
-         $paginator->setItemCountPerPage(5);
+         $paginator->setItemCountPerPage(10);
       
          $this->view->paginator = $paginator;
          $paginator->setCurrentPageNumber($this->_getParam('page'));
@@ -70,40 +71,50 @@ class FuncionarioController extends Zend_Controller_Action
 
     public function createAction()
     {
-
-        $this->view->filial = $this->filial->fetchAll();
-
-            if ( $this->_request->isPost() )
+        $this->view->flag = $this->_request->getParam('flag');
+        
+         if ( $this->_request->isPost() )
             {
-                $data = array(
-                    'nome'  => $this->_request->getPost('nome'),
-                    'documentoIdentificacao'  => $this->_request->getPost('doc'),
-                    'login' => $this->_request->getPost('login'),
-                    'senha'  => sha1($this->_request->getPost('doc')),
-                    'email'  => $this->_request->getPost('email'),
-                    'empresaFilial_idempresaFilial' => $this->_request->getPost('idFilial'),
-                    'foto' => '/images/fotosFunc/usuarioPadrao.jpg'
-                );
 
-                //Insere funcionario e guardo o id dele na variavel $idInserido
-                $idInserido = $this->funcionario->insert($data);
+             if(!$this->funcionario->existeDoc($this->_request->getPost('doc')))
+             {
+                 if(!$this->funcionario->existeLogin($this->_request->getPost('login')))
+                 {
+                    $data = array(
+                        'nome'  => $this->_request->getPost('nome'),
+                        'documentoIdentificacao'  => $this->_request->getPost('doc'),
+                        'login' => $this->_request->getPost('login'),
+                        'senha'  => sha1($this->_request->getPost('doc')),
+                        'email'  => $this->_request->getPost('email'),
+                        'empresaFilial_idempresaFilial' => $this->idFilial,
+                        'foto' => '/images/fotosFunc/usuarioPadrao.jpg'
+                    );
 
-                //Cria usuario Git e bugZilla
-                $data1 = array(
-                    'funcionario_idfuncionario'  => $idInserido,
-                    'usuario'  => $this->_request->getPost('login'),
-                    'senha'  => sha1($this->_request->getPost('doc'))
-                );
+                    //Insere funcionario e guardo o id dele na variavel $idInserido
+                    $idInserido = $this->funcionario->insert($data);
 
-               //Insere usuario Git e bugZilla
-               //print_r($data1);
+                    //Cria usuario Git e bugZilla
+                    $data1 = array(
+                        'funcionario_idfuncionario'  => $idInserido,
+                        'usuario'  => $this->_request->getPost('login'),
+                        'senha'  => sha1($this->_request->getPost('doc'))
+                    );
 
-               $this->userBug->insert($data1);
-               $this->userGit->insert($data1);
+                   //Insere usuario Git e bugZilla
+                   $this->userBug->insert($data1);
+                   $this->userGit->insert($data1);
 
-               $this->_redirect('funcionario/index/flag/1');
+                   $this->_redirect('funcionario/index/flag/1');
+
+                 }else{
+                   $this->_redirect('funcionario/create/flag/2');
+                 }
+             }else{
+
+                  $this->_redirect('funcionario/create/flag/1');
+             }
+
             }
-
     }
 
     public function editAction(){
@@ -112,28 +123,22 @@ class FuncionarioController extends Zend_Controller_Action
 
        $result  = $this->funcionario->find($func_id);
        $this->view->funcionario = $result->current();
-       $this->view->filial = $this->filial->fetchAll();
 
             if ( $this->_request->isPost() )
             {
 
                 $data = array(
                     'nome'  => $this->_request->getPost('nome'),
-                    'documentoIdentificacao'  => $this->_request->getPost('doc'),
-                    'login' => $this->_request->getPost('login'),
                     'email'  => $this->_request->getPost('email'),
-                    'empresaFilial_idempresaFilial' => $this->_request->getPost('idFilial')
                 );
 
-
-                $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->_request->getPost('id'));
+                $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->idFunc);
 
                 $this->funcionario->update($data, $where);
 
-                $this->_redirect('funcionario/index/flag/2');
-
-
+                $this->_redirect('/funcionario/index/flag/2');
             }
+
 
     }
 
@@ -181,8 +186,6 @@ class FuncionarioController extends Zend_Controller_Action
      */
     private function deletarRegistrosUsuario($func_id)
     {
-
-
         if($this->redefinir->existeRedefinir($func_id)){
         //deleta todas as solicitaçãoes de redefinição de senha
         $where = $this->redefinir->getAdapter()->quoteInto('funcionario_idfuncionario = ?', $func_id);

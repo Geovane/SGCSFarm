@@ -3,28 +3,22 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tab.css') ?>
 
 <ul id="globalnav">
-  <li><a href="/funcionario/index">Funcionarios</a></li>
+  <li><a href="/funcionario/index" >Funcionarios</a></li>
   <li><a href="/funcionario/create" class="here">Cadastrar Usuario</a></li>
-  <li><a href="/projeto/adminfilial">Projetos</a></li>
-  <li><a href="/projeto/create" >Criar Projeto</a></li>
 </ul>
-
-<?
-if ( isset($this->flag)  )
-
-    switch ($this->flag){
-        case 1:
-            echo   "<h3>Cadastro não realizado: Documento de indentificação já cadastrado.</h3>";
-            break;
-        case 2:
-            echo   "<h3>Cadastro não realizado: O usuário escolhido já existe. </h3>";
-            break;
-         }
-?>
 
 <form action="/funcionario/create" method="post">
 
         <div>
+            <br><br>
+            <label for="filial">Filial:</label>
+            <select id="filial" name="idFilial">
+                <?php foreach ( $this->filial as $filial ) : ?>
+                <option value="<?php echo $filial->idempresaFilial; ?>">
+                    <?php echo $filial->nome; ?></option>
+                <?php endforeach; ?>
+            </select>
+            <br><br>
 
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" maxlength="35"/>
@@ -48,5 +42,5 @@ if ( isset($this->flag)  )
 
 </form>
 <script>
-menu('16');
+menu('13');
 </script>

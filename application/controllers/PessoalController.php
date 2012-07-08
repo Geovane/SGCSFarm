@@ -51,17 +51,14 @@ class PessoalController extends Zend_Controller_Action
 
                 $data = array(
                     'nome'  => $this->_request->getPost('nome'),
-                    'documentoIdentificacao'  => $this->_request->getPost('doc'),
-                    'login' => $this->_request->getPost('login'),
                     'email'  => $this->_request->getPost('email'),
-                    'empresaFilial_idempresaFilial' =>$this->idFilial
                 );
 
                 $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->idFunc);
 
                 $this->funcionario->update($data, $where);
 
-                $this->_redirect('/pessoal/meusdados/flag/1');
+                $this->_redirect('/pessoal/meusdados/flag/2');
             }
 
     }
