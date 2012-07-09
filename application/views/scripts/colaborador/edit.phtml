@@ -1,39 +1,54 @@
+<?php echo $this->headLink()->appendStylesheet('/css/ui-lightness/jquery-ui-1.8.21.custom.css');?>
 <ul id="globalnav">
     <li><a href="/colaborador/index/id/<?php echo $this->funcionario->current()->idprojeto; ?>">Colaboradores</a></li>   
+    <li><a href="/colaborador/create/id/<?php echo $this->funcionario->current()->idprojeto; ?>">Inserir Colaborador</a></li>   
     <li><a href="#" class="here">Editar Colaborador</a></li>
 </ul>
-<br>
-
-<form action="/colaborador/edit" method="post">
-
-        <div>
-          
-              <input type="hidden" name="idProj" value="<?php echo $this->funcionario->current()->idprojeto; ?>" />
-               <input type="hidden" name="idFunc" value="<?php echo $this->funcionario->current()->idFuncionarioColaborador; ?>" />
-
-            <label for="nomeproj">Nome Projeto:</label>
-            <input type="text" disabled="disabled" id="nomeproj" name="nomeproj" maxlength="35" value="<? echo $this->funcionario->current()->nomeProj; ?>"/>
-            <br><br>
-            
-            <label for="nomecolab">Nome Colaborador:</label>
-            <input type="text" disabled="disabled" id="nomeproj" name="nomecolab" maxlength="35" value="<? echo $this->funcionario->current()->nomeColaborador; ?>"/>
-            <br><br>
-            
-            <label for="horas">Horas por Mês:</label>
-            <input type="number" id="horas" name="horas" value="<?= $this->funcionario->current()->dedicacaoMesColaborador; ?>" />
-            <br><br>
-            
-            <label for="funcao">Função:</label>
-            <select id="funcao" name="funcao">
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript"<script type="text/javascript">
+    
+$(document).ready(function(){
+        
+	$("#createproject").validate({
+		// Define as regras
+		rules:{
+			horas:{
+				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				required: true
+			}
+                }
+	});
+      
+});
+</script>
+<form id="createproject" class="rounded" action="/colaborador/edit" method="post">
+    <center><h3>Alterar Colaborador</h3></center><br>
+        <input type="hidden" name="idProj" value="<?php echo $this->funcionario->current()->idprojeto; ?>" />
+        <input type="hidden" name="idFunc" value="<?php echo $this->funcionario->current()->idFuncionarioColaborador; ?>" />
+        <div class="field">            
+            <label for="nomeproj" class="lblGeralClass">Nome Projeto:</label>
+            <input type="text" disabled="disabled" class="input" id="nomeproj" name="nomeproj" maxlength="35" value="<? echo $this->funcionario->current()->nomeProj; ?>"/>
+        </div>
+        <div class="field">                        
+            <label for="nomecolab" class="lblGeralClass">Nome Colaborador:</label>
+            <input type="text" disabled="disabled" class="input" id="nomeproj" name="nomecolab" maxlength="35" value="<? echo $this->funcionario->current()->nomeColaborador; ?>"/>
+        </div>
+        <div class="field">                        
+            <label for="horas" class="lblGeralClass">Horas por Mês:</label>
+            <input type="number" id="horas" class="input" style="width: 100px" name="horas" value="<?= $this->funcionario->current()->dedicacaoMesColaborador; ?>" />
+        </div>
+        <div class="field">                        
+            <label for="funcao" class="lblGeralClass">Função:</label>
+            <select id="funcao" name="funcao" class="select">
                 <?php foreach ( $this->funcao as $funcao) : ?>
                 <option value="<?php echo $funcao->idfuncaoProjeto; ?>">
                     <?php echo $funcao->descricao; ?></option>
                 <?php endforeach; ?>
             </select>
-            <input  type="submit" value="Atualizar" name="Atualizar" class="btnLogin" style="width: 135px" />
-            <input  type="reset" value="Limpar" name="Limpar" class="btnLogin" style="width: 135px" />
         </div>
-
+            <input  type="submit" value="Atualizar" id="x" name="Atualizar" class="button" style="width: 135px" />
+            <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
 </form>
 
 <script>

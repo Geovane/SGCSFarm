@@ -1,5 +1,6 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
-                            ->appendStylesheet('/css/tarefas_css.css');
+                            ->appendStylesheet('/css/tarefas_css.css')
+                            ->appendStylesheet('/css/formularios.css');
 ?>
 <?php
 if ( isset($this->flag)  )
@@ -25,16 +26,16 @@ if ( isset($this->flag)  )
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
 <center>
 <div id="perara_tarefa_add_colab">
-    <h1>Adicionar Tarefa</h1>
+    <h3>Adicionar Tarefa</h3>
     <form id="escolheColab" name="escolheColab" method="post" action="/tarefa/prepara">
         <br />
-        <br />
+
         <b>Nome do Projeto : <?php echo $this->projEncontrado->nome;?></b>
         <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
         <br />
         <br />
-        <b><label for="listColab">Escolha um colaborador:</label></b>
-            <select id="listColab" name="listColab">
+        <b><label for="listColab" class="lblGeralClass" style="margin-right: -10px;">Escolha um colaborador:</label></b>
+            <select id="listColab" name="listColab" class="select">
                 <option value=""> - - Escolha um Colaborador - - </option>
 
             <?php foreach ( $this->listaColaboradores as $auxColab ) : ?>
@@ -46,7 +47,8 @@ if ( isset($this->flag)  )
                 <?php endforeach; ?>
             <?php endforeach; ?>   
         </select>
-        <input type="submit" name="button" id="button" value="Ok" />
+        <input type="submit" class="carregaImg" value="Ok" name="button" style="width: 100px; float:right; margin-right: 200px" />
+
     </form>
 </div>
 </center>

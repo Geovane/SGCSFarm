@@ -3,7 +3,7 @@
 
 <div id="colaboradores">
     <ul id="globalnav">
-    <li><a href="/colaborador/index" class="here" >Colaboradores</a></li>   
+    <li><a href="/colaborador/index/id/<?php echo $this->projeto->current()->idprojeto ?>" class="here" >Colaboradores</a></li>   
     <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
     </ul>
     <br>
@@ -31,7 +31,7 @@ if ( isset($this->flag)  )
 
 ?>
 
-    <center>
+    <div id="createproject">
 <table width="100%" class="tbl">
 
         <thead><tr><th>Nome Colaborador</th><th>Dedicação Mensal</th><th>Função</th><th>Filial</th><th></th><th></th></tr></thead>
@@ -42,20 +42,20 @@ if ( isset($this->flag)  )
 
             if($indice%2){
                 echo "<tr class='odd' >
-                        <td width='33%'>".$aux['nomeColaborador']."</td>
-                        <td width='16%'>".$aux['dedicacaoMesColaborador']."</td>
-                        <td width='33%'>".$aux['funcaoColaborador']."</td>
-                        <td width='33%'>".$aux['nomeFilialProj']."</td>    
+                        <td width='25%'>".$aux['nomeColaborador']."</td>
+                        <td width='15%' align='center'>".$aux['dedicacaoMesColaborador']."</td>
+                        <td width='15%' align='center'>".$aux['funcaoColaborador']."</td>
+                        <td width='15%' align='center'>".$aux['nomeFilialProj']."</td>    
                         <td width='8%'><a href='/colaborador/edit/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
                         <td width='8%'><a href='/colaborador/delete/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
                     </tr>
                     </tbody>";
             } else {
                 echo "<tr>
-                         <td width='33%'>".$aux['nomeColaborador']."</td>
-                        <td width='16%'>".$aux['dedicacaoMesColaborador']."</td>
-                        <td width='33%'>".$aux['funcaoColaborador']."</td>
-                        <td width='33%'>".$aux['nomeFilialProj']."</td>    
+                         <td width='25%'>".$aux['nomeColaborador']."</td>
+                        <td width='15%' align='center'>".$aux['dedicacaoMesColaborador']."</td>
+                        <td width='15%' align='center'>".$aux['funcaoColaborador']."</td>
+                        <td width='15%' align='center'>".$aux['nomeFilialProj']."</td>    
                         <td width='8%'><a href='/colaborador/edit/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
                         <td width='8%'><a href='/colaborador/delete/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
                     </tr>";
@@ -64,11 +64,9 @@ if ( isset($this->flag)  )
          endforeach; ?>
             </tbody>
 </table>
-
-</center>
-    
+  
 </div>
-
+</div>
 <script>
 menu('12');
 </script>

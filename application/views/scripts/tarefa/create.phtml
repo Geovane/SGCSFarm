@@ -1,45 +1,75 @@
-<h1>Criando Tarefa</h1>
+<?php echo $this->headLink()->appendStylesheet('/css/formularios.css')?>
 
-<div>Tarefa para o projeto: <?php echo $this->projetoEncontrado->nome?>
-    <br/>
-    Para o colaborador: <?php echo $this->funcionario->nome;?>
-    <br/>
-    <br/>
-</div>
 <?php
     $idColab = $this->idColab;
     $idProj = $this->projetoEncontrado->idprojeto;
     $action = "/idColab/".$idColab.'/idProj/'.$idProj.'';
 ?>
-<form id="formulario_tarefa" name="formulario_tarefa" method="post" action="/tarefa/create<?php echo $action; ?>">
-    <label for="descricao">Descrição :</label>
-    <imput type="hidden" name="idProj" id="idPRoj" value="<?php echo $this->projetoEncontrado->idprojeto ?>" />
-    <textarea name="descricao" id="descricaoTarefa" cols="45" rows="5"></textarea>
-    <br />
-    <br />
-  <?php
+
+<script type="text/javascript">
+    
+$(document).ready(function(){
+        
+	$("#createproject").validate({
+		rules:{
+			descricao:{
+				required: true, minlength: 10
+			},
+			dataInc:{
+				required: true
+			},
+			dataFim:{
+				required: true
+			}
+                }
+	});
+      
+});
+</script>
+
+<form id="createproject" name="formulario_tarefa" class="rounded" method="post" action="/tarefa/create<?php echo $action; ?>">
+    <center> <h3>Criar Tarefa</h3></center>
+    <label for="nome" class="lblGeralClass">Para o projeto:</label>
+    <div id="nome" class="dados" style="margin-left: -11px; margin-top: 1px">   
+         <?php echo $this->projetoEncontrado->nome?>
+    </div><br><br>
+    <label for="nome" class="lblGeralClass">Para o colaborador:</label>
+    <div id="nome" class="dados" style="margin-left: -11px; margin-top: 1px">   
+        <?php echo $this->funcionario->nome;?>
+    </div><br><br>
+    <div class="field">
+        <input type="hidden" name="idProj" id="idPRoj" value="<?php echo $this->projetoEncontrado->idprojeto ?>" />
+        <label for="descricao" class="lblGeralClass">Descrição :</label>
+        <textarea name="descricao" class="input" id="descricaoTarefa" cols="45" rows="5"></textarea>
+    </div>
+    <div class="field">
+        <label for="dataInc" class="lblGeralClass">Data de Início:</label>
+    <?php
     $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
             "defaultDate" => date('Y/m/d', time())));
     $data->setName("dataInc")
          ->setAttrib("id", "dataInc")
-         ->setLabel("Data de Início da Tarefa: ");
+         ->setLabel("Data de Início da Tarefa: ")
+         ->setAttrib("class", "input");
     
     echo $data;
   ?>
-    <br />
-    <br />
+    </div>
+    <div class="field">
+        <label for="dataFim" class="lblGeralClass">Data Final:</label>
+
   <?php
     $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
             "defaultDate" => date('Y/m/d', time())));
     $data->setName("dataFim")
          ->setAttrib("id", "dataFim")
-         ->setLabel("Data de Fim da Tarefa: ");
+         ->setLabel("Data de Fim da Tarefa: ")
+         ->setAttrib("class", "input");
     
     echo $data;
   ?>
-    <br />
-    <br />
-  <?php
+    </div>
+    <?php
 //    $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
 //            "defaultDate" => date('Y/m/d', time())));
 //    $data->setName("dataEntrega")
@@ -56,6 +86,6 @@
     <?php // endforeach; ?>
 <!--  </select>-->
 
-  <input type="submit" name="button" id="button" value="Enviar" />
-  <input type="reset" name="button2" id="button2" value="Limpar" />
+        <input  type="submit" id="x" value="Criar" name="Cadastrar" class="button" style="width: 135px" />
+        <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
 </form>

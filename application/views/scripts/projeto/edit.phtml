@@ -1,28 +1,64 @@
-<form action="/projeto/edit" method="post">
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript" src="/js/jquery-ui-1.8.21.custom.min.js"></script>
+<script type="text/javascript" src="/js/jquery.ui.datepicker-pt-BR.js"></script>
+<?php echo $this->headLink()->appendStylesheet('/css/ui-lightness/jquery-ui-1.8.21.custom.css');?>
 
-        <div>
-            
-            <input type="hidden" value="<?=$this->projeto->idprojeto;?>" name="id" />
-            
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" maxlength="35" value="<?= $this->projeto->nome; ?>"/>
-            <br><br>
+<script type="text/javascript">
+    
+    
+$(document).ready(function() {
+    $("#dtinicio").datepicker({});
+    $("#dtinicio2").datepicker({});
+    $("#dtinicio").mask("99/99/9999");
+    $("#dtinicio2").mask("99/99/9999");    
+});
 
-            <label for="descricao">Descrição:</label>
-            <input type="text" id="descricao" name="descricao" maxlength="25" value="<?= $this->projeto->descricao; ?>"/>
-            <br><br>
-            
-            <label for="dtinicio">Data de Início:</label>
-            <input type="date" id="dtinicio" name="dtinicio" value="<?= $this->projeto->dataInc; ?>" />
-            <br><br>
-            
-            <label for="dtfim">Data de Término:</label>
-            <input type="date" id="dtinicio" name="dtfim" />
-            <br><br>
-            
-            
-            <label for="gerente">Gerente:</label>
-            <select id="gerente" name="idGerente">
+$(document).ready(function(){
+        
+	$("#createproject").validate({
+		// Define as regras
+		rules:{
+			nome:{
+				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				required: true, minlength: 3
+			},
+			descricao:{
+				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+				required: true, minlength: 10
+			},
+			dtinicio:{
+				required: true
+			}
+                }
+	});
+      
+});
+</script>
+
+<form id="createproject" class="rounded" action="/projeto/edit" method="post">
+    <center><h3>Alterar Projeto</h3></center><br>
+        <input type="hidden" value="<?=$this->projeto->idprojeto;?>" name="id" />
+        <div class="field">            
+            <label for="nome" class="lblGeralClass">Nome:</label>
+            <input type="text" id="nome" class="input" name="nome" maxlength="35" value="<?= $this->projeto->nome; ?>"/>
+        </div>
+        <div class="field">            
+            <label for="descricao" class="lblGeralClass">Descrição:</label>
+            <input type="text" id="descricao" class="input" name="descricao" maxlength="25" value="<?= $this->projeto->descricao; ?>"/>
+        </div>
+        <div class="field">            
+            <label for="dtinicio" class="lblGeralClass">Data de Início:</label>
+            <input type="text" id="dtinicio" class="input" name="dtinicio" value="<?= $this->projeto->dataInc; ?>" />
+        </div>
+        <div class="field">            
+            <label for="dtfim" class="lblGeralClass">Data de Término:</label>
+            <input type="text" id="dtinicio2" class="input" name="dtfim" />
+        </div>
+        <div class="field">            
+            <label for="gerente" class="lblGeralClass">Gerente:</label>
+            <select id="gerente" name="idGerente" class="select">
                 <?php foreach ( $this->funcionario as $gerente) : ?>
                 <option <?php
                         if($gerente->idfuncionario == $this->projeto->idGerente)
@@ -31,10 +67,10 @@
                     <?php echo $gerente->nome; ?></option>
                 <?php endforeach; ?>
             </select>
-            <br><br>
-            
-            <label for="estado">Estado:</label>
-            <select id="estado" name="estado">
+        </div>
+        <div class="field">            
+            <label for="estado" class="lblGeralClass">Estado:</label>
+            <select id="estado" name="estado"  class="select">
             <?php foreach($this->estado as $estado): ?>
             <option <?php
                     if($estado->idestado == $this->projeto->estado_idestado)
@@ -44,14 +80,9 @@
             </option>
             <?php endforeach;?>
             </select>
-            <br><br>
-            
-            
-
-
-            <input  type="submit" value="Atualizar" name="Atualizar" class="btnLogin" style="width: 135px" />
-            <input  type="reset" value="Limpar" name="Limpar" class="btnLogin" style="width: 135px" />
-            <br><br>
+        </div>
+            <input  type="submit" value="Atualizar" id="x" name="Atualizar" class="button" style="width: 135px" />
+            <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
         </div>
 
 </form>
