@@ -45,7 +45,6 @@ $(document).ready(function(){
 </script>
 
 <br>
-<br>
 <form id="createproject" class="rounded" action="/projeto/create" method="post"q>
     <center><h3>Novo Projeto</h3></center><br>
         <div class="field">            
@@ -73,7 +72,7 @@ $(document).ready(function(){
            
         <div class="field">                  
             <label for="gerente" class="lblGeralClass">Gerente:</label>
-            <select id="gerente" name="idGerente" class="input">
+            <select id="gerente" name="idGerente" class="select">
                 <?php foreach ( $this->funcionario as $gerente) : ?>
                 <option value="<?php echo $gerente->idfuncionario; ?>">
                     <?php echo $gerente->nome; ?></option>

@@ -33,8 +33,9 @@ if ( isset($this->flag)  )
   <li><a href="/projeto/create" >Criar Projeto</a></li>
 </ul>
 <br>
-
+ <div id="createproject" >
 <center>
+   
 <table width="100%" class="tbl">
 
         <thead><tr><th>Nome</th><th>Identidade</th><th>Email</th><th></th><th></th></tr></thead>
@@ -72,7 +73,7 @@ if ( isset($this->flag)  )
 <div>
     <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
 </div>
-
+</div>
 <script>
 menu('17');
 </script>

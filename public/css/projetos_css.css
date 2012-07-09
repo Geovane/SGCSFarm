@@ -2,13 +2,19 @@
 /* CSS Document */
 
 #projetos{
-    background:#dddddd;
-    border:2px solid #a1a1a1;
-    border-radius:25px;
-    -moz-border-radius:25px; /* Firefox 3.6 and earlier */
+    background:#f0f0f0;
+    border:1px solid #ccc;
+    border-radius:7px;
+    -moz-border-radius:7px; /* Firefox 3.6 and earlier */
     width:100%;
     height:auto;
-}
+    padding-top: 30px;
+    padding-bottom: 30px;
+    margin-top:1px;
+    -moz-box-shadow: 2px 2px 2px #cccccc;
+    -webkit-box-shadow: 2px 2px 2px #cccccc;
+    box-shadow: 2px 2px 2px #cccccc;
+    }
 
 #projetos_conteudo{
     padding: 15px;

@@ -2,17 +2,16 @@
                            ->appendStylesheet('/css/projetos_css.css'); ?>
 
 <ul id="globalnav">
-  <li><a href="/funcionario/index" class="here">Funcionarios</a></li>
+  <li><a href="/funcionario/index">Funcionarios</a></li>
   <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
   <li><a href="#" class="here">Projetos</a></li>
   <li><a href="/projeto/create" >Criar Projeto</a></li>
 </ul>
 
-<br><br>
+<br>
+
 <div id="projetos">
-    <br/>
-    <center><h2>Projetos da Filial: <?php echo $this->nomeFilial; ?></h2></center>
-    <br/>
+    <center><h3>Projetos da Filial: <?php echo $this->nomeFilial; ?></h3></center>
     <?php foreach ( $this->paginator as $aux ) : ?>
         <center>
         <div id="projetos_conteudo">

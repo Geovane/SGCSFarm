@@ -120,7 +120,7 @@ display: none;
 
 textarea {
     height:80px;
-    max-height: 150px;
+    max-height: 80px;
     max-width: 300px;
 }
 

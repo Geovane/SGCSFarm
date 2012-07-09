@@ -5,30 +5,50 @@
   <li><a href="/projeto/create" >Criar Projeto</a></li>
    <li><a href="#" class="here">Editar Funcionarios</a></li>
 </ul>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript">
+$(document).ready(function(){
+        
+	$("#createproject").validate({
+		// Define as regras
+		rules:{
+			nome:{
+				required: true, minlength: 3
+			},
+			email:{
+				required: true, email: true
+			}
+                }
+	});
+      
+});
+</script>
 
-<form action="/funcionario/edit" method="post">
-        <div>
-
+<form id="createproject" class="rounded" action="/funcionario/edit" method="post">
+    <center><h3>Alterar Dados de Funcionário</h3></center><br>
             <input type="hidden" value="<?=$this->funcionario->idfuncionario;?>" name="id" />
-            
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" maxlength="35" value ="<?= $this->funcionario->nome; ?>"/>
-            <br><br>
+        <div class="field">            
+            <label for="nome" class="lblGeralClass">Nome:</label>
+            <input type="text" class="input" id="nome" name="nome" maxlength="35" value ="<?= $this->funcionario->nome; ?>"/>
+        </div>    
+        <div class="field">            
+            <label for="doc" class="lblGeralClass">Identidade:</label>
+            <input type="text" class="input" id="doc" name="doc" disabled="disabled" maxlength="25" value ="<?= $this->funcionario->documentoIdentificacao; ?>"/>
+        </div>    
+        <div class="field">            
+            <label for="login" class="lblGeralClass">Usuário:</label>
+            <input type="text" class="input" id="login" name="login" disabled="disabled" maxlength="25"  value ="<?= $this->funcionario->login; ?>"/>
+        </div>    
+        <div class="field">            
+            <label for="email" class="lblGeralClass">E-mail:</label>
+            <input type="text" class="input" id="email" name="email" maxlength="25"  value ="<?= $this->funcionario->email; ?>"/>
+        </div>    
 
-            <label for="doc">Identidade:</label>
-            <input type="text" id="doc" name="doc" disabled="disabled" maxlength="25" value ="<?= $this->funcionario->documentoIdentificacao; ?>"/>
-            <br><br>
+        <input  type="submit" id="x" value="Atualizar" name="Cadastrar" class="button" style="width: 135px" />
+        <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
 
-            <label for="login">Usuário:</label>
-            <input type="text" id="login" name="login" disabled="disabled" maxlength="25"  value ="<?= $this->funcionario->login; ?>"/>
-            <br><br>
-
-            <label for="email">E-mail:</label>
-            <input type="text" id="email" name="email" maxlength="25"  value ="<?= $this->funcionario->email; ?>"/>
-            <br><br>
-
-            <input  type="submit" value="atualizar" name="Atualizar" />
-            <br><br>
         </div>
 
 </form>

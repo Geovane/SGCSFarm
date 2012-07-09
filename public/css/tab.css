@@ -6,8 +6,9 @@
 	position:relative;
 	float:left;
 	width:100%;
-	padding:0 0 1.75em 0em;
-	margin:0;
+	padding:0 0 0 0em;
+	margin-bottom: -1px;
+        margin-left: 10px;
 	list-style:none;
 	line-height:1em;
 }
@@ -23,7 +24,7 @@
 	color:#444;
 	text-decoration:none;
 	font-weight:bold;
-	background:#ddd;
+	background:#aaa;
 	margin:0;
 	padding:0.25em 1em;
 	border-left:1px solid #fff;
@@ -35,7 +36,7 @@
 #globalnav A:active,
 #globalnav A.here:link,
 #globalnav A.here:visited {
-	background:#eaeaea;
+	background:#f0f0f0;
 }
 
 #globalnav A.here:link,
@@ -51,12 +52,12 @@
 	left:0;
 	top:1.5em;
 	float:left;
-	background:#eaeaea;
+	background:#f0f0f0;
 	width:100%;
 	margin:0;
 	padding:0.25em 0.25em 0.25em 1em;
 	list-style:none;
-	border-top:1px solid #fff;
+	border-top:2px solid #fff;
 }
 
 #globalnav UL LI {
@@ -66,7 +67,7 @@
 }
 
 #globalnav UL A {
-	background:#eaeaea;
+	background:#f0f0f0;
 	color:#fff;
 	/*display:inline;*/
 	margin:0;
