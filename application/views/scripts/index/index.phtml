@@ -6,7 +6,7 @@
         <br/>
         <center>
             <h2>
-                <span style="color: #ea5246;">Tarefas Atrasadas</span>
+                <span style="color: #ff3300;">Tarefas Atrasadas</span>
             </h2>
         </center>
         <br/>
@@ -18,7 +18,7 @@
                 ){
             
                 $detalhes = "<h3>Nome do Projeto: </3>".$auxTar->nomeProj."<br/>";
-                $detalhes = $detalhes."<h4>Descriçao: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
+                $detalhes = $detalhes."<h4>Descrição: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
                 $detalhes = $detalhes."<h5>Data de Início: </h5>".$auxTar->dataInc."<br/>";
                 $detalhes = $detalhes."<h5>Previsão de entrega: </h5>".$auxTar->dataFim."<br/>";
             ?>
@@ -40,7 +40,7 @@
         <br/>
         <center>
             <h2>
-                <span style="color: #ffff00;">Tarefas do M�s</span>
+                <span style="color: #fcba04;">Tarefas do Mês</span>
             </h2>
         </center>
         <br/>
@@ -51,7 +51,7 @@
                 ){
                 
                 $detalhes = "<h3>Nome do Projeto: </3>".$auxTar->nomeProj."<br/>";
-                $detalhes = $detalhes."<h4>Descriçãoo: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
+                $detalhes = $detalhes."<h4>Descrição: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
                 $detalhes = $detalhes."<h5>Data de Início: </h5>".$auxTar->dataInc."<br/>";
                 $detalhes = $detalhes."<h5>Previsão de entrega: </h5>".$auxTar->dataFim."<br/>";
             ?>
@@ -73,7 +73,7 @@
         <br/>
         <center>
             <h2>
-                <span style="color: #0099ff;">Todas as Tarefas</span>
+                <span style="color: #666666;">Todas as Tarefas</span>
             </h2>
         </center>
         <br/>
@@ -81,7 +81,7 @@
             $detalhes = "<h3>Nome do Projeto: </3>".$auxTar->nomeProj."<br/>";
             $detalhes = $detalhes."<h4>Descrição: </h4>".$auxTar->descricaoTarefa."<br/><br/>";
             $detalhes = $detalhes."<h5>Data de Início: </h5>".$auxTar->dataInc."<br/>";
-            $detalhes = $detalhes."<h5>Previs�o de entrega: </h5>".$auxTar->dataFim."<br/>";
+            $detalhes = $detalhes."<h5>Previsão de entrega: </h5>".$auxTar->dataFim."<br/>";
             ?>
         <center>
             <a rel='tooltip' id='<?php echo $detalhes; ?>'>
