@@ -105,6 +105,29 @@ class ProjetoController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
         $paginator->setCurrentPageNumber($this->_getParam('page'));
     }
+
+    public function gerencioAction()
+    {
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+        $this->view->idFuncLogado = $idFuncLogado;
+
+        $selectProjs = $this->ProjGerFiliColab->select()
+                ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
+                        array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
+                    'nomeGerente', 'descricaoProj'))
+                ->distinct()
+                ->where('idGerente = ?', $idFuncLogado)
+                ->orWhere('idFuncionarioColaborador = ?', $idFuncLogado);
+
+        $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
+
+        $paginator = Zend_Paginator::factory($rows);
+        //Passa o numero de registros por pagina
+        $paginator->setItemCountPerPage(4);
+
+        $this->view->paginator = $paginator;
+        $paginator->setCurrentPageNumber($this->_getParam('page'));
+    }
     
     
     /**
