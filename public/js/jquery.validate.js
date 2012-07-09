@@ -265,7 +265,7 @@ $.extend($.validator, {
 	},
 
 	messages: {
-		required: "Este campo é obrigatório.",
+		required: "Campo obrigatório!",
 		remote: "Dados inválidos para este campo.",
 		email: "Insira um email válido.",
 		url: "Insira uma URL válida.",
@@ -274,7 +274,7 @@ $.extend($.validator, {
 		number: "Insira um número válido.",
 		digits: "Por favor, digite apenas dígitos.",
 		creditcard: "Please enter a valid credit card number.",
-		equalTo: "Campo diferente do primeiro.",
+		equalTo: "Senhas diferentes.",
 		accept: "Please enter a value with a valid extension.",
 		maxlength: $.validator.format("Por favor, não insira mais que {0} caracteres."),
 		minlength: $.validator.format("Por favor, insira no mínimo {0} caracteres."),

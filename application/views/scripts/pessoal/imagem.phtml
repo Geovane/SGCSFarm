@@ -5,12 +5,12 @@
   <li><a href="/pessoal/senha" >Alterar Senha</a></li>
 </ul>
 
-<form action="/pessoal/imagem" method="post"  enctype = "multipart/form-data">
-       
-            <label>Foto: </label>
-            <input type="file" name="foto"/>
+<form id="createproject" class="rounded" action="/pessoal/imagem" method="post"  enctype = "multipart/form-data">
+           <center><h3>Incluir/Alterar Foto</h3></center><br>
 
-            <input  type="submit" value="Alterar" name="Atualizar" />
+            <label for="foto" class="lblImgClass">Foto: </label>
+            <input type="file" class="carregaImg" id="foto" name="foto"/>
+            <input type="submit" class="carregaImg" id="x" value="Alterar" name="Atualizar" style="width: 135px" />
 </form>
 <script>
 menu('13');

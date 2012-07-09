@@ -11,15 +11,48 @@
 
  <?php endif; ?>
   
-<form  action="/pessoal/senha" method="post">
-    
-    Senha Atual:&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="senhaAtual" />
-     <br><br>
-    Nova senha:&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="senhaNova" />
-     <br><br>
-    Repita a senha:<input type="password" name="senhaNova2" />
-    <br><br>
-    <input type="submit" value="Atualizar" name="Atualizar" />
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+  
+<script type="text/javascript">
+$(document).ready( function() {
+	$("#createproject").validate({
+		// Define as regras
+		rules:{
+			senhaAtual:{
+				required: true, minlength: 3
+			},
+			senhaNova:{
+				required: true, minlength: 3
+			},
+			senhaNova2:{
+				required: true, equalTo: '#senhaNova'
+			}
+		}
+	});
+      
+});
+</script>  
+<form id="createproject" class="rounded" action="/pessoal/senha" method="post">
+<center><h3>Alterar Senha</h3></center>
+<br>
+<div class="field">
+    <label for="senhaAtual" class="lblGeralClass">Senha atual:</label>
+    <input type="password" class="input" name="senhaAtual" id="senhaAtual" />
+</div>
+
+<div class="field">
+    <label for="senhaNova" class="lblGeralClass">Nova senha:</label>
+    <input type="password" class="input" name="senhaNova" id="senhaNova" />
+</div>
+<div class="field">
+    <label for="senhaNova2" class="lblGeralClass">Repita a nova senha:</label>
+    <input type="password" class="input" name="senhaNova2" id="senhaNova2" />
+</div>
+
+<input type="submit" class="button" id="x" value="Atualizar" name="Atualizar" />
+<input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
 
 </form>
 <script>

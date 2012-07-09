@@ -5,14 +5,32 @@
   <li><a href="/pessoal/senha" >Alterar Senha</a></li>
 </ul>
 <br>
-<?
-echo 'Nome:'.$this->dados->nome.'<br>';
-echo 'Filial:'.$this->dadosIndex->nomeEmpresa.'<br>';
-echo 'Identidade:'.$this->dados->documentoIdentificacao.'<br>';
-echo 'Usuário:'.$this->dados->login.'<br>';
-echo 'Email:'.$this->dados->email.'<br><br>';
-?>
 
+<div id="createproject">
+     <center><h3>Meus Dados</h3></center><br>
+    <label for="nome" class="lblDados">Nome: </label>
+    <div id="nome" class="dados">   
+         <?echo $this->dados->nome;?>
+    </div><br><br>
+    <label for="empresa" class="lblDados">Empresa:</label>
+    <div id="empresa" class="dados">   
+        <?echo $this->dadosIndex->nomeEmpresa;?>
+    </div><br><br>
+    <label for="doc" class="lblDados">Identificação:</label>
+    <div id="dov" class="dados">   
+        <?echo $this->dados->documentoIdentificacao;?>
+    </div><br><br>
+     
+    <label for="login" class="lblDados">Login:</label>
+    <div id="login" class="dados">   
+        <?echo $this->dados->login;?>
+    </div><br><br>
+    <label for="email" class="lblDados">Email:</label>
+    <div id="email" class="dados">   
+        <?echo $this->dados->email;?>
+    </div><br><br>
+    
+</div>
 <script>
 menu('13');
 </script>

@@ -1,59 +1,87 @@
-<?php 
-
-$this->headLink()->appendStylesheet('/css/contato.css'); 
-$this->headScript()->appendFile('/js/jquery.maskedinput-1.3.js');
-        
-?>
-
 <ul id="globalnav">
   <li><a href="/funcionario/index">Funcionarios</a></li>
   <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
   <li><a href="/projeto/adminfilial">Projetos</a></li>
   <li><a href="#" class="here">Criar Projeto</a></li>
 </ul>
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#dtinicio").mask("99/99/9999");
+});    
+$(document).ready(function(){
+        
+	$("#createproject").validate({
+		// Define as regras
+		rules:{
+			name:{
+				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				required: true, minlength: 3
+			},
+			descricao:{
+				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+				required: true, minlength: 10
+			},
+			dtinicio:{
+				required: true
+			}
+                }
+		// Define as mensagens de erro para cada regra
+		/*messages:{
+			name:{
+				required: "Campo obrigatório!",
+				minlength: "O nome do projeto deve conter, no mínimo, 3 caracteres"
+			},
+			descricao:{
+				required: "Campo obrigatório!",
+				minlength: "A descrição do projeto deve conter, no mínimo, 10 caracteres"
+			},
+			dtinicio:{
+				required: "Campo obrigatório!"
+			}
+		}*/
+	});
+      
+});
+</script>
 
 <br>
 <br>
 <form id="createproject" class="rounded" action="/projeto/create" method="post"q>
     <center><h3>Novo Projeto</h3></center><br>
         <div class="field">            
-            <label for="nome">Nome:</label>
-            <input type="text" class="input" id="nome" name="nome" maxlength="35"/>
-            <p class="hint">Insira o seu nome.</p>
+            <label for="name" class="lblGeralClass">Nome:</label>
+            <input type="text" class="input" id="name" name="name" maxlength="35"/>
         </div>
 
         <div class="field">      
-            <label for="descricao">Descrição:</label>
-            <input type="text" class="input" id="descricao" name="descricao" maxlength="25"/>
-            <p class="hint">Insira a descrição do projeto.</p>
+            <label for="descricao" class="lblGeralClass">Descrição:</label>
+            <textarea class="input" name="descricao" id="descricao"></textarea>
         </div>
             
-        <div class="field">      
+   
+    <div class="field">      
+            <label for="dtinicio" class="lblGeralClass">Data de início:</label>
             <?php
                 $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
                         "defaultDate" => date('Y/m/d', time())));
                 $data->setName("dtinicio")
                     ->setAttrib("id", "dtinicio")
-                    ->setAttrib("class", "input")
-                    ->setLabel("Data de Início: ");
-
+                    ->setAttrib("class", "input");
                 echo $data;
-            ?>
-            <p class="hint">Defina a data de início do projeto.</p>
+                ?>
         </div>
            
         <div class="field">                  
-            <label for="gerente">Gerente:</label>
-            <select id="gerente" name="idGerente">
+            <label for="gerente" class="lblGeralClass">Gerente:</label>
+            <select id="gerente" name="idGerente" class="input">
                 <?php foreach ( $this->funcionario as $gerente) : ?>
                 <option value="<?php echo $gerente->idfuncionario; ?>">
                     <?php echo $gerente->nome; ?></option>
                 <?php endforeach; ?>
             </select>
-            <p class="hint">Escolha um gerente para o projeto.</p>
         </div>
 <br>
-    <input  type="submit" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px" />
+    <input  type="submit" id="x" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px" />
     <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
 </form>    
     

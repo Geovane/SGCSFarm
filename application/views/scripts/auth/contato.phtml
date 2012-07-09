@@ -4,7 +4,30 @@ echo $this->headLink()->appendStylesheet('/css/formularios.css');
 
 ?>
 <script type="text/javascript">
+$(document).ready( function() {
+	$("#contactform").validate({
+		// Define as regras
+		rules:{
+			name:{
+				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				required: true, minlength: 3
+			},
+			email:{
+				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+				required: true, email: true
+			},
+			assunto:{
+				required: true
+			},
 
+                        message:{
+				// campoMensagem será obrigatório (required) e terá tamanho mínimo (minLength)
+				required: true, minlength: 5
+			}
+		}
+	});
+      
+});
 </script>
 
 <br>
