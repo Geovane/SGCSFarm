@@ -90,6 +90,8 @@ class FuncionarioController extends Zend_Controller_Action
                         'foto' => '/images/fotosFunc/usuarioPadrao.jpg'
                     );
 
+                    //print_r($data);
+
                     //Insere funcionario e guardo o id dele na variavel $idInserido
                     $idInserido = $this->funcionario->insert($data);
 
@@ -100,6 +102,7 @@ class FuncionarioController extends Zend_Controller_Action
                         'senha'  => sha1($this->_request->getPost('doc'))
                     );
 
+                     //print_r($data1);
                    //Insere usuario Git e bugZilla
                    $this->userBug->insert($data1);
                    $this->userGit->insert($data1);

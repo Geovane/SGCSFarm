@@ -162,7 +162,7 @@ class ProjetoController extends Zend_Controller_Action
                 'dataInc' => $dataInc,
                 'dataFim' => "",
                 'idGerente' => $this->_request->getPost('idGerente'),
-                'estado_idestado' => "2"  
+                'estado_idestado' => (int)2
             );
 
             $idprojetoinserido = $this->project->insert($data);

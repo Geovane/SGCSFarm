@@ -58,13 +58,14 @@ class PessoalController extends Zend_Controller_Action
 
                 $this->funcionario->update($data, $where);
 
-                $this->_redirect('/pessoal/meusdados/flag/2');
+                $this->_redirect('/pessoal/meusdados/flag/1');
             }
 
     }
 
-
      public function imagemAction(){
+
+        $this->view->flag = $this->_request->getParam('flag');
 
         if ( $this->_request->isPost() )
         {
@@ -98,7 +99,7 @@ class PessoalController extends Zend_Controller_Action
 
           }else{
 
-             $this->_redirect('/pessoal/meusdados/flag/3');
+             $this->_redirect('/pessoal/imagem/flag/1');
 
           }
         }
@@ -107,6 +108,7 @@ class PessoalController extends Zend_Controller_Action
 
      public function meusdadosAction(){
 
+        $this->view->flag = $this->_request->getParam('flag');
         $dados = $this->funcionario->find($this->idFunc);
         $this->view->dados = $dados[0];
        
@@ -145,7 +147,7 @@ class PessoalController extends Zend_Controller_Action
                 );
 
                 $this->funcionario->update($data, $where);
-                $this->_redirect('/pessoal/meusdados/flag/4');
+                $this->_redirect('/pessoal/meusdados/flag/3');
             }
         }
 
