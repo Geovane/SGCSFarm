@@ -1,6 +1,13 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css');
 ?>
+
+<ul id="globalnav">
+  <li><a href="/projeto/index" >Que Colaboro</a></li>
+  <li><a href="/projeto/gerencio">Que Gerencio</a></li>
+  <li><a href="#" class="here">Detalhes</a></li>
+</ul>
+
 <div id="projetos_detalhes"
      <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
             style="-moz-box-shadow: 10px 10px 5px #ffb706; /* Firefox 3.6 and earlier */

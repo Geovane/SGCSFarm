@@ -4,7 +4,7 @@
 #conteudo_tarefas{
     padding-top: 10px;
     padding-bottom: 30px;
-    background:#dddddd;
+    background:#f0f0f0;
     border:2px solid #a1a1a1;
     border-radius:25px;
     -moz-border-radius:25px; /* Firefox 3.6 and earlier */
@@ -28,7 +28,7 @@
 #perara_tarefa_add_colab{
     padding-top: 30px;
     padding-bottom: 30px;
-    background:#dddddd;
+    background:#f0f0f0;
     border:2px solid #a1a1a1;
     border-radius:25px;
     -moz-border-radius:25px; /* Firefox 3.6 and earlier */

@@ -4,8 +4,6 @@
 #projetos{
     background:#f0f0f0;
     border:1px solid #ccc;
-    border-radius:7px;
-    -moz-border-radius:7px; /* Firefox 3.6 and earlier */
     width:100%;
     height:auto;
     padding-top: 30px;
@@ -18,9 +16,7 @@
 
 #projetos_conteudo{
     padding: 15px;
-    border: 2px solid #a1a1a1;
-    border-radius:10px;
-    -moz-border-radius:10px; /* Firefox 3.6 and earlier */
+    border-bottom: 2px solid #a1a1a1;
     margin: 10px 0 0 0 ; 
     text-align:center; 
     width:80%; 
@@ -29,7 +25,7 @@
 }
 
 #projetos_detalhes{
-    background:#dddddd;
+    background:#f0f0f0;
     border:2px solid #a1a1a1;
     border-radius:25px;
     float: left; 
@@ -49,7 +45,7 @@
 }
 
 #projetos_detalhes_tarefas{
-    background:#dddddd;
+    background:#f0f0f0;
     border:3px solid #a1a1a1;
     border-radius:10px;
     padding: 10px;
@@ -60,7 +56,7 @@
 }
 
 #projetos_detalhes_colaboradores{
-    background:#dddddd;
+    background:#f0f0f0;
     border:3px solid #a1a1a1;
     border-radius:10px;
     padding: 10px;
@@ -87,8 +83,8 @@
    position:absolute;
    display:none;
    padding: 10px 30px;
-   background:#000;
-   color:#fff;
+   background:#fafae9;
+   color:#000;
    -moz-border-radius:5px;
    -webkit-border-radius:5px;
     border-radius:5px;
