@@ -263,48 +263,6 @@ class ProjetoController extends Zend_Controller_Action
         }
     }
     
-    /**
-     * Função responsável pela inserção de um colaborador associado a um projeto
-     * ao banco dos dados
-     * 
-     * @access public 
-     * @return void
-     * 
-     */
-    public function colabAction()
-    {
-        $id_proj = $this->_getParam('id');
-                                
-        $result = $this->project->find($id_proj);
-
-        $idgerente= $this->project->select();
-        $idgerente -> from($this->project,array('idGerente'))
-                    -> where('idprojeto = ?',$id_proj);
-
-        $func = $this->funcionario->select();
-        $func -> where('idfuncionario != ?',$idgerente);
-
-        $funcao = $this->funcaoproj->select();
-        $funcao -> where('idfuncaoProjeto != 40');
-
-        $this->view->projeto = $result->current();
-        $this->view->funcionario = $this->funcionario->fetchAll($func);
-        $this->view->funcao = $this->funcaoproj->fetchAll($funcao);
-
-        if($this->_request->isPost())
-        {
-            $data = array
-            (
-                'projeto_idprojeto' => $this->_request->getPost('id'),
-                'funcionario_idfuncionario' => $this->_request->getPost('funcionario'),
-                'funcaoProjeto_idfuncaoProjeto' => $this->_request->getPost('funcao')
-            );
-
-            $this->colab->insert($data);
-
-            $this->_redirect('projeto/index');
-        }
-    }
     
     /**
      * Função responsável pela exibição detalhada de um projeto
