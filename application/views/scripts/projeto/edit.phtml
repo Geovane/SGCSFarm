@@ -42,7 +42,7 @@ $(document).ready(function(){
         <input type="hidden" value="<?=$this->projeto->idprojeto;?>" name="id" />
         <div class="field">            
             <label for="nome" class="lblGeralClass">Nome:</label>
-            <input type="text" id="nome" class="input" name="nome" maxlength="35" value="<?= $this->projeto->nome; ?>"/>
+            <input type="text" disabled="disabled" id="nome" class="input" name="nome" maxlength="35" value="<?= $this->projeto->nome; ?>"/>
         </div>
         <div class="field">            
             <label for="descricao" class="lblGeralClass">Descrição:</label>
@@ -50,7 +50,7 @@ $(document).ready(function(){
         </div>
         <div class="field">            
             <label for="dtinicio" class="lblGeralClass">Data de Início:</label>
-            <input type="text" id="dtinicio" class="input" name="dtinicio" value="<?= $this->projeto->dataInc; ?>" />
+            <input type="text" disabled="disabled" id="dtinicio" class="input" name="dtinicio" value="<?= $this->datainc; ?>" />
         </div>
         <div class="field">            
             <label for="dtfim" class="lblGeralClass">Data de Término:</label>
@@ -58,7 +58,7 @@ $(document).ready(function(){
         </div>
         <div class="field">            
             <label for="gerente" class="lblGeralClass">Gerente:</label>
-            <select id="gerente" name="idGerente" class="select">
+            <select disabled="disabled" id="gerente" name="idGerente" class="select">
                 <?php foreach ( $this->funcionario as $gerente) : ?>
                 <option <?php
                         if($gerente->idfuncionario == $this->projeto->idGerente)
@@ -70,7 +70,7 @@ $(document).ready(function(){
         </div>
         <div class="field">            
             <label for="estado" class="lblGeralClass">Estado:</label>
-            <select id="estado" name="estado"  class="select">
+            <select  id="estado" name="estado"  class="select">
             <?php foreach($this->estado as $estado): ?>
             <option <?php
                     if($estado->idestado == $this->projeto->estado_idestado)
