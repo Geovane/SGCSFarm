@@ -210,4 +210,94 @@ class FuncionarioController extends Zend_Controller_Action
         return true;
     }
 
+
+        public function indexempAction()
+    {
+
+         $this->view->flag = $this->_request->getParam('flag');
+         $select = $this->funcionario->select()->order('nome');
+
+         $rows = $this->funcionario->fetchAll($select);
+
+         //Cria a paginação relativa a exibição dos funcionarios
+
+         $paginator = Zend_Paginator::factory($rows);
+         //Passa o numero de registros por pagina
+         $paginator->setItemCountPerPage(5);
+
+         $this->view->paginator = $paginator;
+         $paginator->setCurrentPageNumber($this->_getParam('page'));
+
+    }
+
+
+    public function createempAction()
+    {
+
+        $this->view->filial = $this->filial->fetchAll();
+
+            if ( $this->_request->isPost() )
+            {
+                $data = array(
+                    'nome'  => $this->_request->getPost('nome'),
+                    'documentoIdentificacao'  => $this->_request->getPost('doc'),
+                    'login' => $this->_request->getPost('login'),
+                    'senha'  => sha1($this->_request->getPost('doc')),
+                    'email'  => $this->_request->getPost('email'),
+                    'empresaFilial_idempresaFilial' => $this->_request->getPost('idFilial'),
+                    'foto' => '/images/fotosFunc/usuarioPadrao.jpg'
+                );
+
+                //Insere funcionario e guardo o id dele na variavel $idInserido
+                $idInserido = $this->funcionario->insert($data);
+
+                //Cria usuario Git e bugZilla
+                $data1 = array(
+                    'funcionario_idfuncionario'  => $idInserido,
+                    'usuario'  => $this->_request->getPost('login'),
+                    'senha'  => sha1($this->_request->getPost('doc'))
+                );
+
+               //Insere usuario Git e bugZilla
+               //print_r($data1);
+
+               $this->userBug->insert($data1);
+               $this->userGit->insert($data1);
+
+               $this->_redirect('funcionario/index/flag/1');
+            }
+
+    }
+
+    public function editempAction(){
+
+       $func_id = $this->_getParam('id');
+
+       $result  = $this->funcionario->find($func_id);
+       $this->view->funcionario = $result->current();
+       $this->view->filial = $this->filial->fetchAll();
+
+            if ( $this->_request->isPost() )
+            {
+
+                $data = array(
+                    'nome'  => $this->_request->getPost('nome'),
+                    'documentoIdentificacao'  => $this->_request->getPost('doc'),
+                    'login' => $this->_request->getPost('login'),
+                    'email'  => $this->_request->getPost('email'),
+                    'empresaFilial_idempresaFilial' => $this->_request->getPost('idFilial')
+                );
+
+
+                $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->_request->getPost('id'));
+
+                $this->funcionario->update($data, $where);
+
+                $this->_redirect('funcionario/index/flag/2');
+
+
+            }
+
+    }
+
 }
