@@ -15,7 +15,7 @@ if ( isset($this->flag)  )
             break;
          }
 ?>
-<script type="text/javascript" src="/js/jquery.js"></script>
+ <script type="text/javascript" src="/js/jquery.js"></script>
     <script type="text/javascript" src="/js/jquery.validate.js"></script>
     <script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
     <script type="text/javascript" src="/js/validaForm.js"></script>
@@ -66,11 +66,12 @@ $(document).ready(function(){
 });
 </script>
 
-<form id="createproject" class="rounded" action="/filial/create" method="post">
+<form id="createfilial" class="rounded" action="/filial/create" method="post">
 
         <div>
+            <br><br>
             <center><h3>Nova Filial</h3></center>
-            <br>
+            
             <div class="field">
             <label for="nome" class="lblGeralClass">Nome:</label>
             <input type="text" class="input" id="nome" name="nome" maxlength="35"/>
@@ -114,7 +115,3 @@ $(document).ready(function(){
         </div>
 
 </form>
-
-<script>
-menu('17');
-</script>
