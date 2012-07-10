@@ -6,46 +6,105 @@ if ( isset($this->flag)  )
             break;
          }
 ?>
+<script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+    <script type="text/javascript" src="/js/validaForm.js"></script>
+<script type="text/javascript">    
 
-<form action="/filial/create" method="post">
+$(document).ready(function(){
+        
+	$("#createfilial").validate({
+		// Define as regras
+		rules:{
+			nome:{
+				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				required: true, minlength: 3
+			},
+			tel:{
+				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+				required: true, minlength: 10
+			},
+			endereco:{
+				required: true, minlength:10
+			},
+                        responsavel:{
+                                required:true
+                        },
+                        email:{
+                                required:true,email:true
+                        },
+                        cep:{
+                                required:true, minlength:8
+                        }
+                }
+		// Define as mensagens de erro para cada regra
+		/*messages:{
+			name:{
+				required: "Campo obrigatório!",
+				minlength: "O nome do projeto deve conter, no mínimo, 3 caracteres"
+			},
+			descricao:{
+				required: "Campo obrigatório!",
+				minlength: "A descrição do projeto deve conter, no mínimo, 10 caracteres"
+			},
+			dtinicio:{
+				required: "Campo obrigatório!"
+			}
+		}*/
+	});
+      
+});
+</script>
+
+<form id="createfilial" class="rounded" action="/filial/create" method="post">
 
         <div>
-            <h1>Cadastro de Empresa Filial</h1>
-
+            <center><h1>Cadastro de Empresa Filial</h1></center>
             <br><br>
-
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" maxlength="35"/>
-            <br><br>
-
-            <label for="tel">Telefone:</label>
-            <input type="text" id="tel" name="tel" maxlength="25"/>
-            <br><br>
-
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco" maxlength="25"/>
-            <br><br>
-
-          <label for="responsavel">Responsável:</label>
-            <select id="responsavel" name="idResponsavel">
+            <div class="field">
+            <label for="nome" class="lblGeralClass">Nome:</label>
+            <input type="text" class="input" id="nome" name="nome" maxlength="35"/>
+            </div>
+            
+            <div class="field">
+            <label for="tel" class="lblGeralClass">Telefone:</label>
+            <input type="text" class="input" id="tel" name="tel" maxlength="25"/>
+            </div>
+             
+            <div class="field">
+            <label for="endereco" class="lblGeralClass">Endereço:</label>
+            <input type="text" class="input" id="endereco" name="endereco" maxlength="25"/>
+            </div>
+            
+            <div class="field">
+          <label for="responsavel" class="lblGeralClass">Responsável:</label>
+            <select id="responsavel" name="idResponsavel" class="input">
                 <?php foreach ( $this->funcionario as $responsavel) : ?>
                 <option value="<?php echo $responsavel->idfuncionario; ?>">
                     <?php echo $responsavel->nome; ?></option>
                 <?php endforeach; ?>
             </select>
-            <br><br>
+            </div>
+            
+            <div class="field">
+            <label for="email" class="lblGeralClass">E-mail:</label>
+            <input type="text" class="input" id="email" name="email" maxlength="25"/>
+            
+            </div>
+            
+            <div class="field">
+            <label for="cep" class="lblGeralClass">CEP:</label>
+            <input type="text" class="input" id="cep" name="cep" maxlength="25"/>
+            </div>
+            
 
-            <label for="email">E-mail:</label>
-            <input type="text" id="email" name="email" maxlength="25"/>
-            <br><br>
-
-             <label for="cep">CEP:</label>
-            <input type="text" id="cep" name="cep" maxlength="25"/>
-            <br><br>
-
-            <input  type="submit" value="Cadastrar" name="Cadastrar" />
+            <input  type="submit" id="x" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px"/>
             <br><br>
         </div>
 
 </form>
 
+<script>
+menu('17');
+</script>
