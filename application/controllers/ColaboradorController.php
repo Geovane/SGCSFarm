@@ -86,6 +86,10 @@ class ColaboradorController extends Zend_Controller_Action
         $select -> where('idprojeto = ?', $id_proj)
                 -> where("funcaoColaborador != 'Gerente' ");
         
+        $selectproj = $this->project->select();
+        $selectproj -> where('idprojeto = ?', $id_proj);
+        
+        
         $rows = $this->ProjGerFiliColab->fetchAll($select);
         
         $paginator = Zend_Paginator::factory($rows);
@@ -93,7 +97,7 @@ class ColaboradorController extends Zend_Controller_Action
         $paginator->setItemCountPerPage(8);
 
         $this->view->paginator = $paginator;
-        $this->view->projeto = $this->ProjGerFiliColab->fetchAll($select);
+        $this->view->projeto = $this->project->fetchAll($selectproj);
         $paginator->setCurrentPageNumber($this->_getParam('page'));
     }
     
@@ -103,23 +107,26 @@ class ColaboradorController extends Zend_Controller_Action
         
         $id_proj = $this->_getParam('id');
         
-        $select = $this->ProjGerFiliColab->select();
+        $select = $this->project->select();
         $select -> where('idprojeto = ?', $id_proj);
         
-        $filial = $this->ProjGerFiliColab->fetchRow($select)->nomeFilialProj;
-        $gerente = $this->ProjGerFiliColab->fetchRow($select)->nomeGerente;
+        $gerente = $this->project->fetchRow($select)->idGerente;
         
         
+        $selectfilial = $this->funcfilial->select();
+        $selectfilial -> where('idfuncionario = ?',$gerente);
+        
+        $filial = $this->funcfilial->fetchRow($selectfilial)->nomeEmpresa;
         
         $funcionario = $this->funcfilial->select();
         $funcionario -> where('nomeEmpresa = ?', $filial)
-                     -> where('nome != ?',$gerente);
+                     -> where('idfuncionario != ?',$gerente);
                      
         
         $funcao = $this->funcaoproj->select();
         $funcao -> where('idfuncaoProjeto != 40');
         
-        $this->view->ProjGerFiliColab = $this->ProjGerFiliColab->fetchAll($select);
+        $this->view->projeto = $this->project->fetchAll($select);
         $this->view->funcionario = $this->funcfilial->fetchAll($funcionario);
         $this->view->funcao = $this->funcaoproj->fetchAll($funcao);
         
@@ -141,11 +148,14 @@ class ColaboradorController extends Zend_Controller_Action
             
             if($colaborador != 0)
             {
-             $this->_redirect('colaborador/index/id/'.$id_proj.'/flag/3');   
-            }    
+                $this->view->mensagem = '<h3>Um colaborador não pode exercer mais de uma função no projeto</h3><br>';
+            }
+            else
+            {    
             $this->colab->insert($data);
             
             $this->_redirect('colaborador/index/id/'.$id_proj.'/flag/2');
+            }
         }
     }
     
@@ -237,11 +247,11 @@ class ColaboradorController extends Zend_Controller_Action
         $idFunc = $this->funcLogado->idfuncionario;
         $id_proj = $this->_getParam('id');
         
-        $select = $this->ProjGerFiliColab->select();
-        $select ->from($this->ProjGerFiliColab,array('idGerente'))
+        $select = $this->project->select();
+        $select ->from($this->project,array('idGerente'))
                 -> where('idprojeto = ?', $id_proj);
         
-        $resultado = $this->ProjGerFiliColab->fetchRow($select)->idGerente;
+        $resultado = $this->project->fetchRow($select)->idGerente;
         
         if($idFunc == $resultado)
         {
