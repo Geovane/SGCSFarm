@@ -150,6 +150,16 @@ class ProjetoController extends Zend_Controller_Action
             */
             $dataInc = $this->inverte_data($this->_request->getPost('dtinicio'), "/");
             $dataInc = $dataInc." ".date("H:i:s");
+            
+            $selectnome = $this->project->select();
+            $selectnome -> where('nome = ?', $this->_request->getPost('nome'));
+            
+            $nomeprojeto = $this->project->fetchRow($selectnome)->nome;
+            
+            if($nomeprojeto == $this->_request->getPost('nome'))
+            {
+                $this->_redirect('projeto/index/flag/2');
+            }    
 
             $data = array
             (
@@ -158,7 +168,7 @@ class ProjetoController extends Zend_Controller_Action
                 'dataInc' => $dataInc,
                 'dataFim' => "",
                 'idGerente' => $this->_request->getPost('idGerente'),
-                'estado_idestado' => "2"  
+                'estado_idestado' => (int)2
             );
 
             $idprojetoinserido = $this->project->insert($data);
@@ -194,21 +204,25 @@ class ProjetoController extends Zend_Controller_Action
     public function editAction()
     {
         $id_proj = $this->_getParam('id');
-                                
+        
+        $selectdata = $this->project->select();
+        $selectdata -> where('idprojeto = ?',$id_proj);
+        
+        $datainc = $this->inverte_data($this->project->fetchRow($selectdata)->dataInc, '-');
+
         $result = $this->project->find($id_proj);
+        $this->view->datainc = $datainc;
         $this->view->projeto = $result->current();
         $this->view->funcionario = $this->funcionario->fetchAll();
         $this->view->estado = $this->estado->fetchAll();
 
         if($this->_request->isPost())
         {
+            $datafim = $this->inverte_data($this->_request->getPost('dtfim'), '/');
             $data = array
             (
-                'nome' => $this->_request->getPost('nome'),
-                'descricao' => $this->_request->getPost('descricao'),
-                'dataInc' => $this->_request->getPost('dtinicio'),
-                'dataFim' => $this->_request->getPost('dtfim'),
-                'idGerente' => $this->_request->getPost('idGerente'),
+                'descricao' => $this->_request->getPost('descricao'),              
+                'dataFim' => $datafim,                
                 'estado_idestado' => $this->_request->getPost('estado')  
             );
 
@@ -255,48 +269,6 @@ class ProjetoController extends Zend_Controller_Action
         }
     }
     
-    /**
-     * Função responsável pela inserção de um colaborador associado a um projeto
-     * ao banco dos dados
-     * 
-     * @access public 
-     * @return void
-     * 
-     */
-    public function colabAction()
-    {
-        $id_proj = $this->_getParam('id');
-                                
-        $result = $this->project->find($id_proj);
-
-        $idgerente= $this->project->select();
-        $idgerente -> from($this->project,array('idGerente'))
-                    -> where('idprojeto = ?',$id_proj);
-
-        $func = $this->funcionario->select();
-        $func -> where('idfuncionario != ?',$idgerente);
-
-        $funcao = $this->funcaoproj->select();
-        $funcao -> where('idfuncaoProjeto != 40');
-
-        $this->view->projeto = $result->current();
-        $this->view->funcionario = $this->funcionario->fetchAll($func);
-        $this->view->funcao = $this->funcaoproj->fetchAll($funcao);
-
-        if($this->_request->isPost())
-        {
-            $data = array
-            (
-                'projeto_idprojeto' => $this->_request->getPost('id'),
-                'funcionario_idfuncionario' => $this->_request->getPost('funcionario'),
-                'funcaoProjeto_idfuncaoProjeto' => $this->_request->getPost('funcao')
-            );
-
-            $this->colab->insert($data);
-
-            $this->_redirect('projeto/index');
-        }
-    }
     
     /**
      * Função responsável pela exibição detalhada de um projeto

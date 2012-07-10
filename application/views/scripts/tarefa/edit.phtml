@@ -1,62 +1,96 @@
-<h1>Editando Tarefa</h1>
-
-<div>Editar tarefa do projeto: <?php echo $this->projetoEncontrado->nome?>
+<center><h1>Editando Tarefa</h1></center>
+<br>
+<center><div>Editar tarefa do projeto: <?php echo $this->projetoEncontrado->nome?>
     <br/>
     Para o colaborador: <?php echo $this->funcionario->nome;?>
     <br/>
     <br/>
-</div>
+</div></center>
+
 <?php
     $idProj = $this->projetoEncontrado->idprojeto;
     $action = '/idProj/'.$idProj.'';
 ?>
-<form id="formulario_tarefa" name="formulario_tarefa" method="post" action="/tarefa/edit/idTarefa/<?= $this->id; echo $action;?>">
-    <label for="descricao">Descrição :</label>
-    <textarea name="descricao" id="descricaoTarefa" cols="45" rows="5"><?=
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#dtinicio").mask("99/99/9999");
+});
+$(document).ready(function(){
+    $("#dtfinal").mask("99/99/9999");
+});
+$(document).ready(function(){
+        
+	$("#formulario_tarefa").validate({
+		// Define as regras
+		rules:{
+			descricao:{
+				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
+				required: true, minlength: 10
+			},
+			dtinicio:{
+				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
+				required: true
+			},
+			dtfinal:{
+				required: true
+			}
+                }
+		// Define as mensagens de erro para cada regra
+		/*messages:{
+			name:{
+				required: "Campo obrigatório!",
+				minlength: "O nome do projeto deve conter, no mínimo, 3 caracteres"
+			},
+			descricao:{
+				required: "Campo obrigatório!",
+				minlength: "A descrição do projeto deve conter, no mínimo, 10 caracteres"
+			},
+			dtinicio:{
+				required: "Campo obrigatório!"
+			}
+		}*/
+	});
+      
+});
+</script>
+
+<form id="formulario_tarefa" class="rounded" name="formulario_tarefa" method="post" action="/tarefa/edit/idTarefa/<?= $this->id; echo $action;?>">
+    
+    <div class="field">
+    <label for="descricao" class="lblGeralClass">Descrição :</label>
+    <textarea name="descricao" class="input" id="descricao" cols="45" rows="5"><?=
         $this->tarefaEncontrada->descricao;
     ?></textarea>
-    <br />
-    <br />
-    <?php
-        $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
-                "defaultDate" => date('Y/m/d', time())));
-        $data->setName("dataInc")
-            ->setAttrib("id", "dataInc")
-            ->setLabel("Data de Início da Tarefa: ")
-            ->setValue($this->tarefaEncontrada->dataInc);
-
-        echo $data;
-    ?>
+        </div>
     
-    <br />
-    <br />
-   <?php
-        $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
-                "defaultDate" => date('Y/m/d', time())));
-        $data->setName("dataFim")
-            ->setAttrib("id", "dataFim")
-            ->setLabel("Data de Fim da Tarefa: ")
-            ->setValue($this->tarefaEncontrada->dataFim);
-
-        echo $data;
-    ?>
-    <br />
-    <br />
-  <?php
-        $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
-                "defaultDate" => date('Y/m/d', time())));
-        $data->setName("dataEntrega")
-            ->setAttrib("id", "dataEntrega")
-            ->setLabel("Data de Entrega da Tarefa: ")
-            ->setValue($this->tarefaEncontrada->dataEntrega);
-
-        echo $data;
-    ?>
-    <br />
-    <br />
-  <label for="estadoTarefa">Estado da Tarefa :</label>
-  <select id="estadoTarefa" name="estadoTarefa">
-   <?php foreach ( $this->estadoTarefa as $auxEstado ) : ?>
+    <div class="field">      
+            <label for="dtinicio" class="lblGeralClass">Data de início da tarefa:</label>
+            <?php
+                $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
+                        "defaultDate" => date('Y/m/d', time())));
+                $data->setName("dtinicio")
+                    ->setAttrib("id", "dtinicio")
+                    ->setAttrib("class", "input");
+                echo $data;
+                ?>
+        </div>
+    
+   <div class="field">      
+            <label for="dtfinal" class="lblGeralClass">Data de entrega da tarefa:</label>
+            <?php
+                $data = new ZendX_JQuery_Form_Element_DatePicker("dp2",'', array(
+                        "defaultDate" => date('Y/m/d', time())));
+               $data->setName("dtfinal")
+                    ->setAttrib("id", "dtfinal")
+                    ->setAttrib("class", "input");
+                echo $data;
+                ?>
+        </div>
+    
+    <div class="field">
+        <label for="estadoTarefa" class="lblGeralClass">Estado da Tarefa :</label>
+        <select id="estadoTarefa" class="input" name="estadoTarefa">
+        <?php foreach ( $this->estadoTarefa as $auxEstado ) : ?>
         <option <?php
                 if ( $auxEstado->idestado ==  $this->tarefaEncontrada->estado_idestado)
                 echo 'selected="selected"';
@@ -66,8 +100,8 @@
         </option>
     <?php endforeach; ?>
   </select>
-    <br />
-    <br />
-  <input type="submit" name="button" id="button" class="btnLogin" value="Alterar" />
-  <input type="reset" name="button2" id="button2" class="btnLogin" value="Limpar" />
+    </div>
+    
+  <input type="submit" name="button" id="x" class="button" value="Alterar" style="width: 135px" />
+  <input type="reset" name="button2" id="x" class="button" value="Limpar" style="width: 135px" />
 </form>

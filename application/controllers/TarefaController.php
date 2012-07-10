@@ -81,22 +81,6 @@ class TarefaController extends Zend_Controller_Action
     }
 
     /**
-     * Função inicial do controller tarefas.
-     * envia ao seu view as informações sobre os projetos.
-     * 
-     * @access public 
-     * @return void
-     * 
-     */
-    public function indexAction()
-    {
-        // action body
-
-        $select = $this->projeto->select();
-        $this->view->projeto = $this->projeto->fetchAll($select);
-    }
-
-    /**
      * Função responsável pela inserção ao banco dos dados de uma nova tarefa
      * criada vinculada a um colaborador em um projeto.
      * 

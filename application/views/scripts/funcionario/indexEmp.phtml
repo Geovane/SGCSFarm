@@ -1,3 +1,10 @@
+<ul id="globalnav">
+  <li><a href="#" class="here">Funcionarios</a></li>
+  <li><a href="/funcionario/createemp">Cadastrar Reponsável</a></li>
+  <li><a href="/filial" >Filiais</a></li>
+  <li><a href="/filial/create" >Cadastrar Filial</a></li>
+  <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
+</ul>
 
 <?
 if ( isset($this->flag)  )
@@ -10,32 +17,22 @@ if ( isset($this->flag)  )
             echo   "<h3>Funcionario atualizado com sucesso!</h3><br>";
             break;
         case 3:
-            echo "<h3>Funcionario excluído com sucesso!</h3><br>";
+            echo   "<h3>Funcionario excluído com sucesso!</h3><br>";
             break;
         case 4:
-            echo "<h4>Não foi possivel deletar o funcionario, verifique:<br> Se o funcionario é responsavel por alguma filial;<br>
+            echo "<h4>Não foi possivel transferir o funcionario, verifique:<br> Se o funcionario é responsavel por alguma filial;<br>
                 Se o funcionario é colaborador em algum projeto;<br>Se o funcionario é gerente de algum projeto;<br>
-                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a escluxão.</h4><br>";
+                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a transferência.</h4><br>";
             break;
         case 5:
-            echo "<h4>Imagem não inserida ou o formarto do arquivo é diferente de: 'jpg', 'jpeg', 'png' ou 'gif'.</h4><br>";
-            break;
-        case 6:
-            echo "<h4>Imagem  alterada com sucesso.</h4><br>";
+             echo   "<h3>Funcionario transferido com sucesso!</h3><br>";
             break;
          }
 
 ?>
 
-<ul id="globalnav">
 
-  <?//if ($this->AdminEmpresa || $this->AdminFilial){?>
-  <li><a href="/funcionario/index" class="here">Funcionarios</a></li>
-  <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
-  <?//}?>
-</ul>
-<br>
-
+ <div id="createproject" >
 <center>
 <table width="100%" class="tbl">
 
@@ -51,7 +48,7 @@ if ( isset($this->flag)  )
                         <td width='16%'>".$aux['documentoIdentificacao']."</td>
                         <td width='33%'>".$aux['email']."</td>
                         <td width='8%'><a href='/funcionario/edit/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
-                        <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
+                        <td width='8%'><a href='/funcionario/delete/tipo/2/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
                     </tr>
                     </tbody>";
             } else {
@@ -59,7 +56,7 @@ if ( isset($this->flag)  )
                         <td width='33%'>".$aux['nome']."</td>
                         <td width='16%'>".$aux['documentoIdentificacao']."</td>
                         <td width='33%'>".$aux['email']."</td>
-                        <td width='8%'><a href='/funcionario/edit/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
+                        <td width='8%'><a href='/funcionario/editemp/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
                         <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
                     </tr>";
             }
@@ -74,7 +71,7 @@ if ( isset($this->flag)  )
 <div>
     <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
 </div>
-
+</div>
 <script>
 menu('13');
 </script>

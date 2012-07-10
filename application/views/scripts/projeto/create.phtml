@@ -1,6 +1,6 @@
 <ul id="globalnav">
   <li><a href="/funcionario/index">Funcionarios</a></li>
-  <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
+  <li><a href="/funcionario/create">Cadastrar Funcionário</a></li>
   <li><a href="/projeto/adminfilial">Projetos</a></li>
   <li><a href="#" class="here">Criar Projeto</a></li>
 </ul>
@@ -13,7 +13,7 @@ $(document).ready(function(){
 	$("#createproject").validate({
 		// Define as regras
 		rules:{
-			name:{
+			nome:{
 				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
 				required: true, minlength: 3
 			},
@@ -49,7 +49,7 @@ $(document).ready(function(){
     <center><h3>Novo Projeto</h3></center><br>
         <div class="field">            
             <label for="name" class="lblGeralClass">Nome:</label>
-            <input type="text" class="input" id="name" name="name" maxlength="35"/>
+            <input type="text" class="input" id="name" name="nome" maxlength="35"/>
         </div>
 
         <div class="field">      

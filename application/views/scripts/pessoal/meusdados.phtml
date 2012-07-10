@@ -1,3 +1,21 @@
+<?
+if ( isset($this->flag)  )
+
+         switch ($this->flag){
+        case 1:
+            echo "<h4>Dados alterados com sucesso.</h4>";
+            break;
+        case 2:
+            echo "<h4>Imagem alterada com sucesso</h4>";
+            break;
+        case 3:
+            echo "<h4>Senha alterada com sucesso.</h4>";
+            break;
+         }
+
+?>
+
+
 <ul id="globalnav">
   <li><a href="/pessoal/meusdados" class="here" >Meus Dados</a></li>
   <li><a href="/pessoal/edit" >Alterar Dados</a></li>
