@@ -1,47 +1,86 @@
 
-<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
-<?php echo $this->headLink()->appendStylesheet('/css/tab.css') ?>
-
 <ul id="globalnav">
   <li><a href="/funcionario/indexemp" >Funcionarios</a></li>
-  <li><a href="/funcionario/createemp" class="here">Cadastrar Funcionario</a></li>
+  <li><a href="#" class="here">Cadastrar Reponsável</a></li>
+  <li><a href="/filial" >Filiais</a></li>
+  <li><a href="/filial/create" >Cadastrar Filial</a></li>
+  <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
 </ul>
 
+<?
+if ( isset($this->flag)  )
 
-<form action="/funcionario/create" method="post">
+    switch ($this->flag){
+        case 1:
+            echo   "<h3>Cadastro não realizado: Documento de indentificação já cadastrado.</h3>";
+            break;
+        case 2:
+            echo   "<h3>Cadastro não realizado: O usuário escolhido já existe. </h3>";
+            break;
+         }
+?>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
 
-        <div>
-            <br><br>
-            <label for="filial">Filial:</label>
-            <select id="filial" name="idFilial">
-                <?php foreach ( $this->filial as $filial ) : ?>
-                <option value="<?php echo $filial->idempresaFilial; ?>">
-                    <?php echo $filial->nome; ?></option>
-                <?php endforeach; ?>
-            </select>
-            <br><br>
+<script type="text/javascript">
+$(document).ready(function(){
 
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" maxlength="35"/>
-            <br><br>
+	$("#createproject").validate({
+		// Define as regras
+		rules:{
+			name:{
+				required: true, minlength: 3
+			},
+			doc:{
+				required: true
+			},
+			login:{
+				required: true, minlength: 3
+			},
+			email:{
+				required: true, email: true
+			}
+                }
+		/*messages:{
+			campo1:{
+				required: "Campo obrigatório!",
+				minlength: "O nome do projeto deve conter, no mínimo, 3 caracteres"
+			},
+			campo2:{
+				required: "Campo obrigatório!"
+			}
+		}*/
+	});
 
-            <label for="doc">Identidade:</label>
-            <input type="text" id="doc" name="doc" maxlength="25"/>
-            <br><br>
+});
+</script>
 
-            <label for="login">Usuário:</label>
-            <input type="text" id="login" name="login" maxlength="25"/>
-            <br><br>
-
-            <label for="email">E-mail:</label>
-            <input type="text" id="email" name="email" maxlength="25"/>
-            <br><br>
-
-            <input  type="submit" value="Cadastrar" name="Cadastrar" class="btnLogin" style="width: 135px" />
-            <br><br>
+<form id="createproject" class="rounded" action="/funcionario/createemp" method="post">
+    <center><h3>Novo Responsável</h3></center><br>
+        <div class="field">
+            <label for="name" class="lblGeralClass">Nome:</label>
+            <input type="text" class="input" id="name" name="nome" maxlength="35"/>
         </div>
+        <div class="field">
+            <label for="doc" class="lblGeralClass">Identidade:</label>
+            <input type="text" class="input" id="doc" name="doc" maxlength="25"/>
+        </div>
+        <div class="field">
+            <label for="login" class="lblGeralClass">Usuário:</label>
+            <input type="text" class="input" id="login" name="login" maxlength="25"/>
+        </div>
+        <div class="field">
+            <label for="email" class="lblGeralClass">E-mail:</label>
+            <input type="text" class="input" id="email" name="email" maxlength="25"/>
+        </div>
+        <br>
+
+        <input  type="submit" id="x" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px" />
+        <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
 
 </form>
+
 <script>
-menu('13');
+menu('17');
 </script>

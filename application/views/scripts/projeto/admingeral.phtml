@@ -1,6 +1,14 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css'); ?>
-<br/>
+
+<ul id="globalnav">
+  <li><a href="/funcionario/indexemp" >Funcionarios</a></li>
+  <li><a href="/funcionario/createemp">Cadastrar Reponsável</a></li>
+  <li><a href="/filial" >Filiais</a></li>
+   <li><a href="/filial/create" >Cadastrar Filial</a></li>
+  <li><a href="#" class="here">Projetos da Empresa</a></li>
+</ul>
+<br>
 <div id="projetos">
     <br/>
     <center><h2>Projetos da <?php echo $this->nomeEmpresa; ?></h2></center>

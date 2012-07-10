@@ -1,3 +1,12 @@
+<ul id="globalnav">
+  <li><a href="/funcionario/indexemp" >Funcionarios</a></li>
+  <li><a href="/funcionario/createemp">Cadastrar Reponsável</a></li>
+  <li><a href="/filial" >Filiais</a></li>
+  <li><a href="/filial/create" class="here">Cadastrar Filial</a></li>
+  <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
+</ul>
+
+
 <?
 if ( isset($this->flag)  )
       switch ($this->flag){
@@ -57,11 +66,11 @@ $(document).ready(function(){
 });
 </script>
 
-<form id="createfilial" class="rounded" action="/filial/create" method="post">
+<form id="createproject" class="rounded" action="/filial/create" method="post">
 
         <div>
-            <center><h1>Cadastro de Empresa Filial</h1></center>
-            <br><br>
+            <center><h3>Nova Filial</h3></center>
+            <br>
             <div class="field">
             <label for="nome" class="lblGeralClass">Nome:</label>
             <input type="text" class="input" id="nome" name="nome" maxlength="35"/>
@@ -79,7 +88,7 @@ $(document).ready(function(){
             
             <div class="field">
           <label for="responsavel" class="lblGeralClass">Responsável:</label>
-            <select id="responsavel" name="idResponsavel" class="input">
+            <select id="responsavel" name="idResponsavel" class="select">
                 <?php foreach ( $this->funcionario as $responsavel) : ?>
                 <option value="<?php echo $responsavel->idfuncionario; ?>">
                     <?php echo $responsavel->nome; ?></option>
@@ -100,6 +109,7 @@ $(document).ready(function(){
             
 
             <input  type="submit" id="x" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px"/>
+            <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
             <br><br>
         </div>
 

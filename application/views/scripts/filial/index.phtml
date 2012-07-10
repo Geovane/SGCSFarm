@@ -14,11 +14,20 @@ if ( isset($this->flag)  )
          }
 ?>
 
+<ul id="globalnav">
+  <li><a href="#" >Funcionarios</a></li>
+  <li><a href="/funcionario/createemp">Cadastrar Reponsável</a></li>
+  <li><a href="#" class="here">Filiais</a></li>
+  <li><a href="/filial/create" >Cadastrar Filial</a></li>
+  <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
+</ul>
 
-<h4><a href="/filial/create">Cadastrar Empresa Filial</a></h4><br>
-<table>
+<div id="createproject" >
+<center>
+    <table width="95%" class="tbl">
 
-        <tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Email</th><th>Cep</th></tr>
+        <thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Email</th><th>Cep</th><th></th><th></th></tr></thead>
+        <tbody>
         <?
         foreach ( $this->filial as $aux ) :
 
@@ -34,4 +43,7 @@ if ( isset($this->flag)  )
                   </tr>";
 
          endforeach; ?>
+        </tbody>
 </table>
+</center>
+</div>
