@@ -73,6 +73,7 @@ class ProjetoController extends Zend_Controller_Action
         $this->ProjGerFiliColab = new Model_DbTable_ProjGerFiliColab();
         $this->empresa = new Model_DbTable_Empresa();
         $this->filial = new Model_DbTable_Filial();
+        $this->estadoProj = new Model_DbTable_EstadoProj();
     }
     
     /**
@@ -93,8 +94,7 @@ class ProjetoController extends Zend_Controller_Action
                         array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
                     'nomeGerente', 'descricaoProj'))
                 ->distinct()
-                ->where('idGerente = ?', $idFuncLogado)
-                ->orWhere('idFuncionarioColaborador = ?', $idFuncLogado);
+                ->where('idFuncionarioColaborador = ?', $idFuncLogado);
 
         $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
 
@@ -110,16 +110,12 @@ class ProjetoController extends Zend_Controller_Action
     {
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;
-
-        $selectProjs = $this->ProjGerFiliColab->select()
-                ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
-                        array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
-                    'nomeGerente', 'descricaoProj'))
+        $this->view->estadoProj = $this->estadoProj;        
+        $selectProjs = $this->project->select()
                 ->distinct()
-                ->where('idGerente = ?', $idFuncLogado)
-                ->orWhere('idFuncionarioColaborador = ?', $idFuncLogado);
+                ->where('idGerente = ?', $idFuncLogado);
 
-        $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
+        $rows = $this->project->fetchAll($selectProjs);
 
         $paginator = Zend_Paginator::factory($rows);
         //Passa o numero de registros por pagina
@@ -352,6 +348,28 @@ class ProjetoController extends Zend_Controller_Action
         $selecColab = $this->colabProj->select()
                 ->where('nomeProj = ?', $nomeProj);
         $this->view->colab = $this->colabProj->fetchAll($selecColab);
+        
+//        $where = $this->ProjGerFiliColab->getAdapter()->quoteInto('idprojeto = ?', $idProj);
+//        $selecProj = $this->ProjGerFiliColab->select()
+//                ->where($where);
+//        $ProjEncontrado = $this->ProjGerFiliColab->fetchAll($selecProj);
+//        $this->view->ProjEncontrado = $ProjEncontrado;
+//
+//        $nomeProj = $ProjEncontrado->current()->nomeProj;
+//        $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
+//                    ->where('nomeProj = ?', $nomeProj);
+//        $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
+//
+//        $paginator = Zend_Paginator::factory($rows);
+//        //Passa o numero de registros por pagina
+//        $paginator->setItemCountPerPage(4);
+//
+//        $this->view->paginator = $paginator;
+//        $paginator->setCurrentPageNumber($this->_getParam('page'));
+//
+//        $selecColab = $this->colabProj->select()
+//                ->where('nomeProj = ?', $nomeProj);
+//        $this->view->colab = $this->colabProj->fetchAll($selecColab);
     }
     
     /**
@@ -452,7 +470,139 @@ class ProjetoController extends Zend_Controller_Action
                         return $nova_data;
     }
 
+    public function detalhesgerenteAction(){
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+        $this->view->idFuncLogado = $idFuncLogado;
+        $this->view->estadoProj = $this->estadoProj;
+        $idProj = $this->_getParam('idProj');
+        $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', $idProj);
+        $selecProj = $this->project->select()
+                ->where($where);
+        
+        $projetoEncontrado = $this->project->fetchRow($selecProj);
+        if($projetoEncontrado->idGerente == $idFuncLogado){
+            $this->view->projetoEncontrado = $projetoEncontrado;
+            
+            
+            $nomeProj = $projetoEncontrado->nome;
+            $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
+                        ->where('nomeProj = ?', $nomeProj);
+            $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
+
+            $paginator = Zend_Paginator::factory($rows);
+            //Passa o numero de registros por pagina
+            $paginator->setItemCountPerPage(4);
+
+            $this->view->paginator = $paginator;
+            $paginator->setCurrentPageNumber($this->_getParam('page'));
+
+            $selecColab = $this->colabProj->select()
+                    ->where('nomeProj = ?', $nomeProj);
+            $this->view->colab = $this->colabProj->fetchAll($selecColab);
+            
+        }else{
+            $this->_redirect('/projeto/index');
+        }
+        
+        
+//        $this->view->naoColabEnaoEGerente = $validaUsuario;
+//        
+//        $where = $this->ProjGerFiliColab->getAdapter()->quoteInto('idprojeto = ?', $idProj);
+//        $selecProj = $this->ProjGerFiliColab->select()
+//                ->where($where);
+//        $ProjEncontrado = $this->ProjGerFiliColab->fetchAll($selecProj);
+//        $this->view->ProjEncontrado = $ProjEncontrado;
+//
+//        $nomeProj = $ProjEncontrado->current()->nomeProj;
+//        $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
+//                    ->where('nomeProj = ?', $nomeProj);
+//        $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
+//
+//        $paginator = Zend_Paginator::factory($rows);
+//        //Passa o numero de registros por pagina
+//        $paginator->setItemCountPerPage(4);
+//
+//        $this->view->paginator = $paginator;
+//        $paginator->setCurrentPageNumber($this->_getParam('page'));
+//
+//        $selecColab = $this->colabProj->select()
+//                ->where('nomeProj = ?', $nomeProj);
+//        $this->view->colab = $this->colabProj->fetchAll($selecColab);
+    }
     
+    public function detalhesadminfilialAction(){
+        
+        
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+        $this->view->idFuncLogado = $idFuncLogado;
+        $this->view->estadoProj = $this->estadoProj;
+        $idProj = $this->_getParam('idProj');
+        $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', $idProj);
+        $selecProj = $this->project->select()
+                ->where($where);
+        
+        $projetoEncontrado = $this->project->fetchRow($selecProj);
+        if($this->adminFilial){
+            $this->view->projetoEncontrado = $projetoEncontrado;
+            
+            
+            $nomeProj = $projetoEncontrado->nome;
+            $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
+                        ->where('nomeProj = ?', $nomeProj);
+            $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
+
+            $paginator = Zend_Paginator::factory($rows);
+            //Passa o numero de registros por pagina
+            $paginator->setItemCountPerPage(4);
+
+            $this->view->paginator = $paginator;
+            $paginator->setCurrentPageNumber($this->_getParam('page'));
+
+            $selecColab = $this->colabProj->select()
+                    ->where('nomeProj = ?', $nomeProj);
+            $this->view->colab = $this->colabProj->fetchAll($selecColab);
+            
+        }else{
+            $this->_redirect('/projeto/adminfilial');
+        }
+    }
+    
+     public function detalhesadmingeralAction(){
+        
+        
+        $idFuncLogado = $this->funcLogado->idfuncionario;
+        $this->view->idFuncLogado = $idFuncLogado;
+        $this->view->estadoProj = $this->estadoProj;
+        $idProj = $this->_getParam('idProj');
+        $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', $idProj);
+        $selecProj = $this->project->select()
+                ->where($where);
+        
+        $projetoEncontrado = $this->project->fetchRow($selecProj);
+        if($this->adminEmpresa){
+            $this->view->projetoEncontrado = $projetoEncontrado;
+            
+            
+            $nomeProj = $projetoEncontrado->nome;
+            $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
+                        ->where('nomeProj = ?', $nomeProj);
+            $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
+
+            $paginator = Zend_Paginator::factory($rows);
+            //Passa o numero de registros por pagina
+            $paginator->setItemCountPerPage(4);
+
+            $this->view->paginator = $paginator;
+            $paginator->setCurrentPageNumber($this->_getParam('page'));
+
+            $selecColab = $this->colabProj->select()
+                    ->where('nomeProj = ?', $nomeProj);
+            $this->view->colab = $this->colabProj->fetchAll($selecColab);
+            
+        }else{
+            $this->_redirect('/projeto/index');
+        }
+    }
 }
 
 

@@ -1,10 +1,8 @@
 ﻿<?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css'); ?>
-
 <ul id="globalnav">
-  <li><a href="/projeto/index" >Que Colaboro</a></li>
-  <li><a href="#" class="here">Que Gerencio</a></li>
-
+  <li><a href="/projeto/index" >Projetos que colaboro</a></li>
+  <li><a href="#" class="here">Projetos que gerencio</a></li>
 </ul>
 <br>
 <br>
@@ -25,25 +23,15 @@
     <br/>
     <?php foreach ( $this->paginator as $aux ) : ?>
         <center>
-        <div id="projetos_conteudo"
-        <?php if($this->idFuncLogado == $aux['idGerente']){?>
-            style="-moz-box-shadow: 10px 10px 5px #ffb706; /* Firefox 3.6 and earlier */
-                    box-shadow: 0px 5px 10px #ffb706;"
-        <?php } ?>     
-        >
-                Nome: <b><?php echo $aux['nomeProj']; ?></b><br />
-                Resumo: <?php echo substr($aux['descricaoProj'], 0, 50)."..."; ?><br />
+        <div id="projetos_conteudo">
+                Nome: <b><?php echo $aux['nome']; ?></b><br />
+                Resumo: <?php echo substr($aux['descricao'], 0, 50)."..."; ?><br />
                 Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
                 Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim']; ?><br />
-                Situa&ccedil&atilde;o do projeto: <?php echo $aux['estadoProj']; ?><br/>
-               
-                <?php if($this->idFuncLogado == $aux['idGerente']){?>
-                    <b>Gerente: <?php echo $aux['nomeGerente']; ?></b><br />
-                <?php }else{ ?>
-                     Gerente: <?php echo $aux['nomeGerente']; ?><br />
-                <?php } ?>
+                Situa&ccedil&atilde;o do projeto: <?php echo $this->estadoProj->buscaEstadoProj($aux['idprojeto']); ?><br/>
+                <b>Gerente: <?php echo $this->funcLogado->nome ?></b><br />
                 <br/>
-                <a href='/projeto/detalhes/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a>
+                <a href='/projeto/detalhesgerente/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a>
                 <?php if($this->idFuncLogado == $aux['idGerente']){?>
                     | <a href='/tarefa/prepara/idProj/<?php echo $aux['idprojeto']; ?>'>Tarefas do Projeto</a>
                 <?php }?>

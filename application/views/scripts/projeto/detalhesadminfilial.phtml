@@ -1,87 +1,39 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
-                           ->appendStylesheet('/css/projetos_css.css');
-?>
-
+                           ->appendStylesheet('/css/projetos_css.css');?>
 <ul id="globalnav">
-  <li><a href="/projeto/index" >Projetos que colaboro</a></li>
-  <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
-  <li><a href="#" class="here">Detalhes</a></li>
+    <li><a href="/funcionario/index">Funcionarios</a></li>
+    <li><a href="/funcionario/create">Cadastrar Usuario</a></li>
+    <li><a href="/projeto/adminfilial">Projetos</a></li>
+    <li><a href="/projeto/create" >Criar Projeto</a></li>
+    <li><a href="#" class="here">Detalhes</a></li>
 </ul>
-<br>
+<br/>
 <div id="detalhes">
-    <div id="projetos_detalhes"
-        <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
-                style="-moz-box-shadow: 10px 10px 5px #ffb706; /* Firefox 3.6 and earlier */
-                        box-shadow: 0px 5px 10px #ffb706;"
-        <?php } ?>
-    >
+    <div id="projetos_detalhes" style="-moz-box-shadow: 10px 10px 5px #ffb706; /* Firefox 3.6 and earlier */
+                                        box-shadow: 0px 5px 10px #ffb706;">
         <div  id="projetos_detalhes_conteudo">
-            <h1 style="color: #fd8f12;"><b><?php echo $this->ProjEncontrado->current()->nomeProj; ?></b></h1><br /><br />
-            <h3>Alocado na filial: <span style="color: #ff8000;"><?php echo $this->ProjEncontrado->current()->nomeFilialProj; ?></span></h3><br />
+            <h1 style="color: #fd8f12;"><b><?php echo $this->projetoEncontrado->nome; ?></b></h1><br /><br />
+            <h3>Alocado na filial: <span style="color: #ff8000;"><?php echo $this->dadosIndex->nomeEmpresa//echo $this->ProjEncontrado->current()->nomeFilialProj; ?></span></h3><br />
 
-            Data de in&iacute;cio: <b><?php echo $this->ProjEncontrado->current()->dataInc; ?></b><br /><br />
-            Previs&atilde;o de conclus&atilde;o: <b><?php echo $this->ProjEncontrado->current()->dataFim; ?></b><br /><br />
-            Situa&ccedil&atilde;o do projeto: <b><?php echo $this->ProjEncontrado->current()->estadoProj; ?></b><br /><br />
-            <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
-                <b>Gerente: <?php echo $this->ProjEncontrado->current()->nomeGerente; ?></b><br /><br />
-            <?php }else{ ?>
-                Gerente: <?php echo $this->ProjEncontrado->current()->nomeGerente; ?><br /><br />
-            <?php } ?>
+            Data de in&iacute;cio: <b><?php echo $this->projetoEncontrado->dataInc; ?></b><br /><br />
+            Previs&atilde;o de conclus&atilde;o: <b><?php echo $this->projetoEncontrado->dataFim; ?></b><br /><br />
+            Situa&ccedil&atilde;o do projeto: <b><?php echo $this->estadoProj->buscaEstadoProj($this->projetoEncontrado->idprojeto); ?></b><br /><br />
+            <b>Gerente: <?php echo $this->funcLogado->nome ?></b><br /><br />
             <br/>
             Descrição:
             <center>
             <div style="border:3px solid #a1a1a1;
                         border-radius:5px; 
-                        word-wrap:break-word; width:70%; border: 1px solid #666666; "><?php echo $this->ProjEncontrado->current()->descricaoProj; ?></div><br />
-            </center>
-
-            <center>
-                <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
-                <div class="divGerente" style="width: 200px">
-                    <a title="editar projeto"href='/projeto/edit/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>
-                        <img src="/images/b_edit.png" width="20px;" height="20px" alt="editar projeto"/></a> |
-                    <a title="excluir projeto" href='/projeto/delete/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>
-                        <img src="/images/b_drop.png" width="20px;" height="20px" alt="excluir projeto"/></a>
-                </div>
-                <?php } ?>
+                        word-wrap:break-word; width:70%; border: 1px solid #666666; "><?php echo $this->projetoEncontrado->descricao; ?></div><br />
             </center>
         </div>            
     </div>
-
+    
     <!-- div de tarefas -->
 
     <div id="projetos_detalhes_tarefas">
-        <center><h4>Tarefas do Projeto: <?php echo $this->ProjEncontrado->current()->nomeProj; ?></h4></center>
+        <center><h4>Tarefas do Projeto: <?php echo $this->projetoEncontrado->nome; ?></h4></center>
         <br/>
-        <?php if($this->naoColabEnaoEGerente == '1'){
-                if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
-                    <center>
-                        <a title="Gerenciar Tarefas" href='/tarefa/prepara/idProj/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>
-                            <div class="divGerente" style="width: 100px">
-
-                                    <img src="/images/b_tblops.png" width="30px;" height="30px" alt="Gerenciar Tarefas"/><br/>
-                                    Gerenciar Tarefas
-                            </div>
-                        </a>
-                    </center>
-        <?php   } else { ?>
-        <center>
-            <div style="width: 130px;
-                        border:1px solid #a1a1a1;
-                        border-radius:10px;
-                        display: block;
-                        -moz-box-shadow: 10px 10px 5px #888888; /* Firefox 3.6 and earlier */
-                        box-shadow: 0px 5px 10px #888888;
-            ">
-                <a title="Suas Tarefas" href='/tarefa/minhas-tarefas/idProj/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>'>
-                    Veja suas tarefas<br/>
-                    <img src="/images/b_bookmark.png" width="30px;" height="30px" alt="Suas Tarefas"/>
-                </a>
-            </div>
-        </center>
-        <?php } 
-        }?>
-        <br>
         <center>
             <div style="width:95%;">
             <table width="100%" class="tbl">
@@ -118,25 +70,12 @@
         </center>
 
     </div>
-
+    
     <!-- div de colaboradores -->
 
     <div id="projetos_detalhes_colaboradores">
-        <center><h4>Colaboradores do Projeto: <?php echo $this->ProjEncontrado->current()->nomeProj; ?></h4></center>
+        <center><h4>Colaboradores do Projeto: <?php echo $this->projetoEncontrado->nome; ?></h4></center>
         <br/>
-        <?php if(($this->idFuncLogado == $this->ProjEncontrado->current()->idGerente)){?>
-        <center>
-            <a title="Gerenciar Colaboradores" href='/colaborador/index/id/<?php echo $this->ProjEncontrado->current()->idprojeto; ?>' >
-                <div class="divGerente" style="width: 200px">
-                    <img src="/images/b_tblops.png" width="30px;" height="30px" alt="Gerenciar Colaboradores"/><br/>
-                    Gerenciar Colaboradores
-                </div>
-            </a>
-        </center>
-        <br>
-        <br>
-        <?php } ?>
-        <center>
             <div style="width:95%;">
             <table width="100%" class="tbl">
                 <thead><tr><th>Nome Funcionário</th><th>Função</th><th>E-mail</th></thead>
@@ -163,6 +102,7 @@
             </div>
         </center>
     </div>
+    
 </div>
 
 <script>

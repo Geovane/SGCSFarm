@@ -518,7 +518,7 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `dados_git_projeto` AS sele
 #
 
 DROP VIEW IF EXISTS `estado_projeto`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `estado_projeto` AS select `estado`.`tipoDeEstado` AS `tipoDeEstado`,`projeto`.`nome` AS `nomeProj` from (`projeto` join `estado` on((`projeto`.`estado_idestado` = `estado`.`idestado`))) order by `projeto`.`nome`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `estado_projeto` AS select `estado`.`tipoDeEstado` AS `tipoDeEstado`,`projeto`.`nome` AS `nomeProj`,`projeto`.`idprojeto` AS `idprojeto` from (`projeto` join `estado` on((`projeto`.`estado_idestado` = `estado`.`idestado`))) order by `projeto`.`nome`;
 
 #
 # Source for view filias_das_empresas
