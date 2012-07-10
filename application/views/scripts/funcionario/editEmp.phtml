@@ -9,7 +9,7 @@
                         echo 'selected="selected"';
                         ?>
                         value="<?php echo $filial->idempresaFilial; ?>">
-                    
+
                     <?php echo $filial->nome; ?>
                 </option>
                 <?php endforeach; ?>
@@ -17,7 +17,7 @@
             <br><br>
 
             <input type="hidden" value="<?=$this->funcionario->idfuncionario;?>" name="id" />
-            
+
             <label for="nome">Nome:</label>
             <input type="text" id="nome" name="nome" maxlength="35" value ="<?= $this->funcionario->nome; ?>"/>
             <br><br>
