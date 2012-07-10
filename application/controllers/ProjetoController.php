@@ -154,6 +154,16 @@ class ProjetoController extends Zend_Controller_Action
             */
             $dataInc = $this->inverte_data($this->_request->getPost('dtinicio'), "/");
             $dataInc = $dataInc." ".date("H:i:s");
+            
+            $selectnome = $this->project->select();
+            $selectnome -> where('nome = ?', $this->_request->getPost('nome'));
+            
+            $nomeprojeto = $this->project->fetchRow($selectnome)->nome;
+            
+            if($nomeprojeto == $this->_request->getPost('nome'))
+            {
+                $this->_redirect('projeto/index/flag/2');
+            }    
 
             $data = array
             (
