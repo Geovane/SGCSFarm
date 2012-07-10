@@ -198,21 +198,25 @@ class ProjetoController extends Zend_Controller_Action
     public function editAction()
     {
         $id_proj = $this->_getParam('id');
-                                
+        
+        $selectdata = $this->project->select();
+        $selectdata -> where('idprojeto = ?',$id_proj);
+        
+        $datainc = $this->inverte_data($this->project->fetchRow($selectdata)->dataInc, '-');
+
         $result = $this->project->find($id_proj);
+        $this->view->datainc = $datainc;
         $this->view->projeto = $result->current();
         $this->view->funcionario = $this->funcionario->fetchAll();
         $this->view->estado = $this->estado->fetchAll();
 
         if($this->_request->isPost())
         {
+            $datafim = $this->inverte_data($this->_request->getPost('dtfim'), '/');
             $data = array
             (
-                'nome' => $this->_request->getPost('nome'),
-                'descricao' => $this->_request->getPost('descricao'),
-                'dataInc' => $this->_request->getPost('dtinicio'),
-                'dataFim' => $this->_request->getPost('dtfim'),
-                'idGerente' => $this->_request->getPost('idGerente'),
+                'descricao' => $this->_request->getPost('descricao'),              
+                'dataFim' => $datafim,                
                 'estado_idestado' => $this->_request->getPost('estado')  
             );
 
