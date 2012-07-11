@@ -3,13 +3,13 @@ if ( isset($this->flag)  )
 
          switch ($this->flag){
         case 1:
-            echo "<h4>Dados alterados com sucesso.</h4>";
+            echo   "<div id='alerta'>Dados alterados com sucesso.</div>";
             break;
         case 2:
-            echo "<h4>Imagem alterada com sucesso</h4>";
+            echo   "<div id='alerta'>Imagem alterada com sucesso</div>";
             break;
         case 3:
-            echo "<h4>Senha alterada com sucesso.</h4>";
+            echo   "<div id='alerta'>Senha alterada com sucesso.</div>";
             break;
          }
 
@@ -22,7 +22,7 @@ if ( isset($this->flag)  )
   <li><a href="/pessoal/imagem" >Nova Imagem</a></li>
   <li><a href="/pessoal/senha" >Alterar Senha</a></li>
 </ul>
-
+<br/>
 <div id="createproject">
      <center><h3>Meus Dados</h3></center><br>
     <label for="nome" class="lblDados">Nome: </label>

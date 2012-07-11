@@ -133,11 +133,11 @@ class PessoalController extends Zend_Controller_Action
 
             if ( empty($data['senhaAtual']) || empty($data['senhaNova'])
                  || empty($data['senhaNova2']) )
-                $this->view->mensagem = "Preencha os campos obrigatórios.";
+                $this->view->mensagem = "<div id='alerta'>Preencha os campos obrigatórios.</div>";
             elseif ( sha1($data['senhaAtual']) != $result['senha'] )
-                $this->view->mensagem = "Senha atual errada.";
+                $this->view->mensagem = "<div id='alerta'>Senha atual errada.</div>";
             elseif ( $data['senhaNova'] != $data['senhaNova2']  )
-                $this->view->mensagem = "As senhas digitadas são diferentes.";
+                $this->view->mensagem = "<div id='alerta'>As senhas digitadas são diferentes.</div>";
             else
             {
                 $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $data['id']);

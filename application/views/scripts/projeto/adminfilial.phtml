@@ -16,16 +16,18 @@
         <center>
         <div id="projetos_conteudo">
                 Nome: <?php echo $aux['nomeProj']; ?><br />
-                Resumo: <?php echo substr($aux['descricaoProj'], 0, 50)."..."; ?><br />
+                Resumo: <?php echo substr($aux['descricao'], 0, 50)."..."; ?><br />
                 Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
-                Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim']; ?><br />
-                Situa&ccedil&atilde;o do projeto: <?php echo $aux['estadoProj']; ?><br/>
-               
+                Situa&ccedil&atilde;o do projeto: <?php echo $this->estadoProj->buscaEstadoProj($aux['idprojeto']); ?><br/>
+                <?php if($this->estadoProj->buscaEstadoProj($aux['idprojeto']) == "Concluido"){ ?>
+                    Data de Término: <?php echo $aux['dataFim']; ?><br />
+                <?php }?>
                 <?php if($this->idFuncLogado == $aux['idGerente']){?>
-                    <b>Gerente: <?php echo $aux['nomeGerente']; ?></b><br />
+                    <b>Gerente: <?php echo $aux['nome']; ?></b><br />
                 <?php }else{ ?>
-                     Gerente: <?php echo $aux['nomeGerente']; ?><br />
+                     Gerente: <?php echo $aux['nome']; ?><br />
                 <?php } ?>
+                E-mail do Gerente:  <?php echo $aux['email']; ?><br />
                 <br/>
                 <a href='/projeto/detalhesadminfilial/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a>
         </div>

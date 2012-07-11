@@ -70,7 +70,8 @@ $(document).ready(function(){
                         "defaultDate" => date('Y/m/d', time())));
                 $data->setName("dtinicio")
                     ->setAttrib("id", "dtinicio")
-                    ->setAttrib("class", "input");
+                    ->setAttrib("class", "input")
+                    ->setValue(implode("-",array_reverse(explode("-",substr($this->tarefaEncontrada->dataInc, 0, 10)))));
                 echo $data;
                 ?>
         </div>
@@ -82,7 +83,8 @@ $(document).ready(function(){
                         "defaultDate" => date('Y/m/d', time())));
                $data->setName("dtfinal")
                     ->setAttrib("id", "dtfinal")
-                    ->setAttrib("class", "input");
+                    ->setAttrib("class", "input")
+                    ->setValue(implode("-",array_reverse(explode("-",substr($this->tarefaEncontrada->dataFim, 0, 10)))));
                 echo $data;
                 ?>
         </div>
@@ -101,7 +103,8 @@ $(document).ready(function(){
     <?php endforeach; ?>
   </select>
     </div>
-    
-  <input type="submit" name="button" id="x" class="button" value="Alterar" style="width: 135px" />
-  <input type="reset" name="button2" id="x" class="button" value="Limpar" style="width: 135px" />
+    <div>  
+        <input type="submit" name="button" id="x" class="button" value="Alterar" style="width: 135px" />
+        <input type="reset" name="button2" id="x" class="button" value="Limpar" style="width: 135px" />
+    </div>
 </form>

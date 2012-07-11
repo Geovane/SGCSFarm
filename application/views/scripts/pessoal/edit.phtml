@@ -4,16 +4,16 @@
   <li><a href="/pessoal/imagem" >Nova Imagem</a></li>
   <li><a href="/pessoal/senha">Alterar Senha</a></li>
 </ul>
-
+<br/>
 <?
 if ( isset($this->flag)  )
 
     switch ($this->flag){
         case 1:
-            echo   "<h3>Edição não realizada: Documento de indentificação já cadastrado.</h3><br>";
+            echo   "<div id='alerta'>Edição não realizada: Documento de indentificação já cadastrado.</div>";
             break;
         case 2:
-            echo   "<h3>Edição não realizada: O usuário escolhido já existe. </h3><br>";
+            echo   "<div id='alerta'>Edição não realizada: O usuário escolhido já existe. </div>";
             break;
          }
 ?>
