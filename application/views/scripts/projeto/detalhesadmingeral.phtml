@@ -1,6 +1,14 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css');?>
-
+<ul id="globalnav">
+    <li><a href="/funcionario/indexemp" >Funcionarios</a></li>
+    <li><a href="/funcionario/createemp">Cadastrar Reponsável</a></li>
+    <li><a href="/filial" >Filiais</a></li>
+    <li><a href="/filial/create" >Cadastrar Filial</a></li>
+    <li><a href="http://sgcsfarm/projeto/admingeral">Projetos da Empresa</a></li>
+    <li><a href="#" class="here">Detalhes</a></li>
+</ul>
+<br>
 <div id="detalhes">
     <div id="projetos_detalhes" style="-moz-box-shadow: 10px 10px 5px #ffb706; /* Firefox 3.6 and earlier */
                                         box-shadow: 0px 5px 10px #ffb706;">
@@ -29,6 +37,7 @@
         <br/>
         <center>
             <div style="width:95%;">
+                <?php if(count($this->paginator) != 0){?>
             <table width="100%" class="tbl">
                 <thead><tr><th></th><th>Nome Funcionário</th><th>Descrição</th></thead>
         <?php 
@@ -59,6 +68,9 @@
             <div>
                 <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
             </div>
+            <?php }  else {?>
+                <h3>Este projeto ainda não tem tarefas</h3>
+            <?php } ?>
             </div>
         </center>
 
@@ -70,6 +82,7 @@
         <center><h4>Colaboradores do Projeto: <?php echo $this->projetoEncontrado->nome; ?></h4></center>
         <br/>
             <div style="width:95%;">
+            <?php if(count($this->colab) != 0){?>
             <table width="100%" class="tbl">
                 <thead><tr><th>Nome Funcionário</th><th>Função</th><th>E-mail</th></thead>
         <?php
@@ -92,6 +105,9 @@
                 $indice = $indice + 1;   
             endforeach; ?>
             </table>
+            <?php }  else {?>
+                <center><h3>Este projeto ainda não tem Colaboradores</h3></center>
+            <?php } ?>
             </div>
         </center>
     </div>

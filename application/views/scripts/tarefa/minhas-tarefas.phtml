@@ -3,7 +3,9 @@
 ?>
 <br/>
 <div id="conteudo_tarefas">
-    <center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
+    <center><h2>Tarefas do <?php echo $this->projEncontrado->nome;?></h2></center>
+    
+    <?php if(count($this->paginator) != 0){ ?>
     <?php foreach ( $this->paginator as $auxTarColabProj ) : ?>
         <center>
             <div class="tarefas">
@@ -99,7 +101,10 @@
             <?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?>
         </div>
     </center>
-    <br/>
+    <?php }else{?>
+    <br/><br/>
+    <center><h3>Você não tem tarefas.</h3></center>
+    <?php }?>
 </div>
 <script>
 menu('13');

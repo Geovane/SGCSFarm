@@ -59,6 +59,10 @@ if ( isset($this->flag)  )
         <br/>
         <h2>Todas as Tarefas</h2>
         <br/>
+        <?php if(count($this->paginator) == 0){?>
+        <br/>
+        <center><h3>Este Projeto ainda não tem tarefas</h3></center>
+        <?php } ?>
     <?php foreach ( $this->paginator as $auxTarColabProj ) : ?>
         <div class="tarefas">
             Colaborador Respons&aacute;vel: <?php echo $auxTarColabProj->nomeFunc; ?><br/>
