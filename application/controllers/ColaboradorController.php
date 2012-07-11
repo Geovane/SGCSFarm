@@ -89,7 +89,6 @@ class ColaboradorController extends Zend_Controller_Action
         $selectproj = $this->project->select();
         $selectproj -> where('idprojeto = ?', $id_proj);
         
-        
         $rows = $this->ProjGerFiliColab->fetchAll($select);
         
         $paginator = Zend_Paginator::factory($rows);
