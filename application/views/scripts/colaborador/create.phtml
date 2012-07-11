@@ -1,9 +1,16 @@
+<?php if ( isset($this->mensagem) ): ?>
+
+  <? echo $this->mensagem; ?>
+
+<?php endif; ?>
+
 
 <ul id="globalnav">
-    <li><a href="/colaborador/index/id/<?php echo $this->ProjGerFiliColab->current()->idprojeto; ?>">Colaboradores</a></li>   
-    <li><a href="/colaborador/create/id/<?php echo $this->ProjGerFiliColab->current()->idprojeto; ?>" class="here">Inserir Colaborador</a></li>
+    <li><a href="/colaborador/index/id/<?php echo $this->projeto->current()->idprojeto; ?>">Colaboradores</a></li>   
+    <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto; ?>" class="here">Inserir Colaborador</a></li>
 </ul>
 <br>
+
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript"<script type="text/javascript">
@@ -26,10 +33,10 @@ $(document).ready(function(){
 <form id="createproject" class="rounded" action="/colaborador/create" method="post">
     <center><h3>Inserir Colaborador</h3></center><br>
     
-    <input type="hidden" value="<?php echo $this->ProjGerFiliColab->current()->idprojeto;  ?>" name="id" />
+    <input type="hidden" value="<?php echo $this->projeto->current()->idprojeto;  ?>" name="id" />
     <div class="field">                    
         <label for="nome" class="lblGeralClass">Nome Projeto:</label>
-        <input type="text" disabled="disabled" class="input" id="nome" name="nome" maxlength="35" value="<?php echo $this->ProjGerFiliColab->current()->nomeProj ?>"/>
+        <input type="text" disabled="disabled" class="input" id="nome" name="nome" maxlength="35" value="<?php echo $this->projeto->current()->nome ?>"/>
     </div>
     <div class="field">                    
             <label for="funcionario" class="lblGeralClass">Funcionário:</label>
