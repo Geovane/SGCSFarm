@@ -1,3 +1,15 @@
+<?php
+    if(isset($this->flag))
+    {
+        switch($this->flag)
+        {
+            case 1:
+                echo "<h3>Não é possível deletar um projeto que não esteja concluído!</h3><br>";
+                break;
+        }
+    }
+?>
+
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css');?>
 
