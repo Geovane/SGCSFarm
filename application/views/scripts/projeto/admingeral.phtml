@@ -19,9 +19,10 @@
                 Nome: <?php echo $aux['nome']; ?><br />
                 Resumo: <?php echo substr($aux['descricao'], 0, 50)."..."; ?><br />
                 Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
-                Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim']; ?><br />
                 Situa&ccedil&atilde;o do projeto: <?php echo $this->estadoProj->buscaEstadoProj($aux['idprojeto']); ?><br/>
-               
+                <?php if($this->estadoProj->buscaEstadoProj($aux['idprojeto']) == "Concluido"){ ?>
+                    Data de Término: <?php echo $aux['dataFim']; ?><br />
+                <?php }?>
                 <a href='/projeto/detalhesadmingeral/idProj/<?php echo $aux['idprojeto']; ?>'>Acessar Projeto</a>
         </div>
         </center>

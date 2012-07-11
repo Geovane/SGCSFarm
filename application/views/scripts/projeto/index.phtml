@@ -23,7 +23,7 @@
   <li><a href="#" class="here">Projetos que colaboro</a></li>
   <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
 </ul>
-
+<br/>
 <div id="createproject">
     <?php if(count($this->paginator) == 0){ ?>
     <br/>
@@ -40,9 +40,10 @@
                 Nome: <b><?php echo $aux['nomeProj']; ?></b><br />
                 Resumo: <?php echo substr($aux['descricaoProj'], 0, 50)."..."; ?><br />
                 Data de in&iacute;cio: <?php echo $aux['dataInc']; ?><br />
-                Previs&atilde;o de conclus&atilde;o: <?php echo $aux['dataFim']; ?><br />
                 Situa&ccedil&atilde;o do projeto: <?php echo $aux['estadoProj']; ?><br/>
-               
+                <?php if($aux['estadoProj'] == "Concluido"){?>
+                Data de Término: <?php echo $aux['dataFim']; ?><br />
+                <?php }?>
                 <?php if($this->idFuncLogado == $aux['idGerente']){?>
                     <b>Gerente: <?php echo $aux['nomeGerente']; ?></b><br />
                 <?php }else{ ?>
