@@ -74,6 +74,7 @@ class ProjetoController extends Zend_Controller_Action
         $this->empresa = new Model_DbTable_Empresa();
         $this->filial = new Model_DbTable_Filial();
         $this->estadoProj = new Model_DbTable_EstadoProj();
+        $this->projFiliais = new Model_DbTable_ProjetosFiliais();
     }
     
     /**
@@ -361,25 +362,36 @@ class ProjetoController extends Zend_Controller_Action
         $selecFilial = $this->filial->select()
                 ->where('responsavel = ?', $idFuncLogado);
         $filialEncontrada = $this->filial->fetchRow($selecFilial);
-        
+        $this->view->estadoProj = $this->estadoProj;
         if($filialEncontrada->responsavel == $idFuncLogado){
             $this->view->nomeFilial = $filialEncontrada->nome;
-            $idFilial = $filialEncontrada->idempresaFilial;
-            $selectProjs = $this->ProjGerFiliColab->select()
-                ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
-                        array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
-                    'nomeGerente', 'descricaoProj'))
-                ->distinct()
-                ->where('idFilialProj = ?', $idFilial);
-
-            $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
-
+            $selectProjs = $this->projFiliais->select()
+                    ->where('nomeFilial = ?', $filialEncontrada->nome);
+            
+            $rows = $this->projFiliais->fetchAll($selectProjs);
             $paginator = Zend_Paginator::factory($rows);
             //Passa o numero de registros por pagina
             $paginator->setItemCountPerPage(4);
-
             $this->view->paginator = $paginator;
             $paginator->setCurrentPageNumber($this->_getParam('page'));
+            
+//            $this->view->nomeFilial = $filialEncontrada->nome;
+//            $idFilial = $filialEncontrada->idempresaFilial;
+//            $selectProjs = $this->ProjGerFiliColab->select()
+//                ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
+//                        array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
+//                    'nomeGerente', 'descricaoProj'))
+//                ->distinct()
+//                ->where('idFilialProj = ?', $idFilial);
+//
+//            $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
+//
+//            $paginator = Zend_Paginator::factory($rows);
+//            //Passa o numero de registros por pagina
+//            $paginator->setItemCountPerPage(4);
+//
+//            $this->view->paginator = $paginator;
+//            $paginator->setCurrentPageNumber($this->_getParam('page'));
             
         }else{
             $this->_redirect('/');
