@@ -10,7 +10,7 @@
  *
  * @author Luiz Daud
  */
-class IndexControllerTestextends extends Zend_Test_PHPUnit_ControllerTestCase
+class IndexControllerTeste extends Zend_Test_PHPUnit_ControllerTestCase
 {
     //put your code here
     public function setUp()
@@ -26,10 +26,17 @@ class IndexControllerTestextends extends Zend_Test_PHPUnit_ControllerTestCase
     }
     
     public function testHomePageIsASuccessfulRequest() {
-        $this->dispatch('/index');
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '123'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');
         $this->assertFalse($this->response
                         ->isException());
-        $this->assertRedirectTo('auth/login');
+        $this->assertRedirectTo('/');
     }
  
     public function tearDown() {

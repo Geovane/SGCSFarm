@@ -22,12 +22,6 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
     
     }
     
-    public function testHomePageIsASuccessfulRequest() {
-        $this->dispatch('/Auth');
-        $this->assertFalse($this->response
-                        ->isException());
-        $this->assertNotRedirect();
-    }
     
     public function testValidLoginShouldGoToProfilePage()
     {
@@ -37,9 +31,64 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
                   'senha' => '123'
               ));
         $this->dispatch('/Auth/login');
-        $this->assertRedirectTo('/index');
+        $this->assertRedirectTo('/');
+
+        
     }
- 
+    
+    public function testInvalidCredentialsShouldResultInRedisplayOfLoginForm()
+    {
+        $request = $this->getRequest();
+        $request->setMethod('POST')
+                ->setPost(array(
+                    'login' => 'bogus',
+                    'senha' => 'reallyReallyBogus',
+                ));
+        $this->dispatch('/Auth');
+        $this->assertController('Auth');
+        $this->assertAction('index');
+        $this->assertRedirectTo('/Auth/login');
+       // $this->assertQuery('form');
+    }
+    
+     public function testIndexActionShouldContainLoginForm()
+    {
+        $this->dispatch('/Auth/login');
+        $this->assertAction('login');
+        $this->assertQueryCount('form', 1);
+    }
+        
+    public function testHomePageIsASuccessfulRequest() {
+        $this->dispatch('/Auth');
+        $this->assertController('Auth');
+        $this->assertAction('index');
+        $this->assertFalse($this->response
+                        ->isException());
+        $this->assertRedirectTo('/Auth/login');
+    }
+    
+    public function testLogoutAction(){
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '123'
+              ));
+        $this->dispatch('/Auth/login');
+        
+        $this->dispatch();
+        $this->assertRedirectTo('/Auth');
+    }
+
+public function testSenhaAction(){
+    //teste não implementado
+    
+    assert(0);  
+    
+}
+
+
+
+
     public function tearDown() {
         /* Tear Down Routine */
     }
