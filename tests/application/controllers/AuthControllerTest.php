@@ -10,9 +10,8 @@ require_once dirname(__FILE__) . '/../../../application/controllers/AuthControll
 class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
 {
     //put your code here
-    public function setUp()
-    {
-          // Assign and instantiate in one step:
+    public function setUp(){
+        // Assign and instantiate in one step:
         $this->bootstrap = new Zend_Application(
         APPLICATION_ENV,
         APPLICATION_PATH

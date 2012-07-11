@@ -13,8 +13,7 @@
 class IndexControllerTeste extends Zend_Test_PHPUnit_ControllerTestCase
 {
     //put your code here
-    public function setUp()
-    {
+    public function setUp()    {
           // Assign and instantiate in one step:
         $this->bootstrap = new Zend_Application(
         APPLICATION_ENV,

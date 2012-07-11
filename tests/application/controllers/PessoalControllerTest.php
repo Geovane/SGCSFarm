@@ -18,7 +18,6 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new PessoalController;
         // Assign and instantiate in one step:
         $this->bootstrap = new Zend_Application(
         APPLICATION_ENV,
@@ -50,10 +49,15 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testEditAction().
      */
     public function testEditAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'nome' => 'mimoso',
+                  'doc' => '123987',
+                  'login' => 'mimosos',
+                  'email' => 'mimoso@softfarm.com'
+              ));
+        $this->dispatch('/pessoal/edit');
+        $this->assertRedirectTo(pessoal/meusdados/flag/1);                
     }
 
     /**

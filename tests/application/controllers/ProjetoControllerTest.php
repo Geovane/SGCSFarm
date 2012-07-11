@@ -18,7 +18,6 @@ class ProjetoControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * This method is called before a test is executed.
      */
     protected function setUp() {
-        $this->object = new ProjetoController;
         // Assign and instantiate in one step:
         $this->bootstrap = new Zend_Application(
         APPLICATION_ENV,
