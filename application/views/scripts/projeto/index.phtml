@@ -1,13 +1,3 @@
-﻿<?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
-                           ->appendStylesheet('/css/projetos_css.css'); ?>
-
-<ul id="globalnav">
-  <li><a href="#" class="here">Projetos que colaboro</a></li>
-  <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
-</ul>
-<br>
-<br>
-<div id="projetos">
 <?php
     if(isset($this->flag))
     {
@@ -29,8 +19,12 @@
     }
 ?>
 
+<ul id="globalnav">
+  <li><a href="#" class="here">Projetos que colaboro</a></li>
+  <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
+</ul>
 
-    <br/>
+<div id="createproject">
     <?php foreach ( $this->paginator as $aux ) : ?>
         <center>
         <div id="projetos_conteudo"
