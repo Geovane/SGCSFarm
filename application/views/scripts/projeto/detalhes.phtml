@@ -84,6 +84,7 @@
         <br>
         <center>
             <div style="width:95%;">
+                 <?php if(count($this->paginator) != 0){?>
             <table width="100%" class="tbl">
                 <thead><tr><th></th><th>Nome Funcionário</th><th>Descrição</th></thead>
         <?php 
@@ -114,6 +115,9 @@
             <div>
                 <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
             </div>
+            <?php }  else {?>
+                <h3>Este projeto ainda não tem tarefas</h3>
+            <?php } ?>
             </div>
         </center>
 
@@ -138,6 +142,7 @@
         <?php } ?>
         <center>
             <div style="width:95%;">
+                <?php if(count($this->colab) != 0){?>
             <table width="100%" class="tbl">
                 <thead><tr><th>Nome Funcionário</th><th>Função</th><th>E-mail</th></thead>
         <?php
@@ -160,6 +165,9 @@
                 $indice = $indice + 1;   
             endforeach; ?>
             </table>
+            <?php }  else {?>
+            <center><h3>Este projeto ainda não tem Colaboradores</h3></center>
+            <?php } ?>
             </div>
         </center>
     </div>

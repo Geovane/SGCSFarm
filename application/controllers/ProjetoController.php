@@ -402,16 +402,12 @@ class ProjetoController extends Zend_Controller_Action
         $selecEmpresa = $this->empresa->select()
                 ->where('responsavelGeral = ?', $idFuncLogado);
         $empresaEncontrada = $this->empresa->fetchRow($selecEmpresa);
-        
+        $this->view->estadoProj = $this->estadoProj;
         if($empresaEncontrada->responsavelGeral == $idFuncLogado){
             $this->view->nomeEmpresa = $empresaEncontrada->nome;
-            $selectProjs = $this->ProjGerFiliColab->select()
-                    ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
-                            array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
-                        'nomeGerente', 'descricaoProj'))
-                    ->distinct();
+            $selectProjs = $this->project->select();
 
-            $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
+            $rows = $this->project->fetchAll($selectProjs);
 
             $paginator = Zend_Paginator::factory($rows);
             //Passa o numero de registros por pagina
