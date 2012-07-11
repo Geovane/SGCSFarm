@@ -11,7 +11,7 @@
 if ( isset($this->flag)  )
       switch ($this->flag){
         case 1:
-            echo   "<h3>Filial não cadastra, nome já existente.</h3><br>";
+            echo   "<div id='alerta'>Filial não cadastra, nome já existente.</div>";
             break;
          }
 ?>
@@ -47,30 +47,14 @@ $(document).ready(function(){
                                 required:true, minlength:8
                         }
                 }
-		// Define as mensagens de erro para cada regra
-		/*messages:{
-			name:{
-				required: "Campo obrigatório!",
-				minlength: "O nome do projeto deve conter, no mínimo, 3 caracteres"
-			},
-			descricao:{
-				required: "Campo obrigatório!",
-				minlength: "A descrição do projeto deve conter, no mínimo, 10 caracteres"
-			},
-			dtinicio:{
-				required: "Campo obrigatório!"
-			}
-		}*/
 	});
       
 });
 </script>
 
-<form id="createfilial" class="rounded" action="/filial/create" method="post">
+<form id="createproject" class="rounded" action="/filial/create" method="post">
 
-        <div>
-            <br><br>
-            <center><h3>Nova Filial</h3></center>
+           <center><h3>Nova Filial</h3></center>
             
             <div class="field">
             <label for="nome" class="lblGeralClass">Nome:</label>
@@ -111,7 +95,5 @@ $(document).ready(function(){
 
             <input  type="submit" id="x" value="Cadastrar" name="Cadastrar" class="button" style="width: 135px"/>
             <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
-            <br><br>
-        </div>
 
 </form>

@@ -13,8 +13,9 @@
 
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
-<script type="text/javascript"<script type="text/javascript">
-    
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+
+<script type="text/javascript">
 $(document).ready(function(){
         
 	$("#createproject").validate({
@@ -26,6 +27,20 @@ $(document).ready(function(){
 			}
                 }
 	});
+});     
+
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "Alerta do Sistema",
+                resizable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
       
 });
 </script>

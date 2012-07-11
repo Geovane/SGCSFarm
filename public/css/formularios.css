@@ -251,16 +251,12 @@ label { display: block; margin-top: 10px; }
 label.error { 
     position: absolute;
     display: block;  
-    margin: -32px 0 0 715px;
-    color: #FFFFFF;
-    padding: 7px 10px;
-    background: rgba(255, 0, 0, 0.6);
-    vertical-align:top;
+    margin: -25px 0 0 715px;
     -moz-border-radius: 7px;
     -webkit-border-radius: 7px;
     border-radius: 7px;	
     font-family: Verdana; 
-    font-size: 96%; 
+    font-size: 85%;    
 }
 
 .submit { margin-top: 1em; }
