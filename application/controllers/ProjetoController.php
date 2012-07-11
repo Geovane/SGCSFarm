@@ -86,6 +86,8 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        
+        $this->view->flag = $this->_request->getParam('flag');
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;
 
@@ -158,8 +160,8 @@ class ProjetoController extends Zend_Controller_Action
             
             if($nomeprojeto == $this->_request->getPost('nome'))
             {
-                $this->_redirect('projeto/index/flag/2');
-            }    
+                $this->view->mensagem = '<h3>Já existe um projeto com este nome!</h3>';
+            }else{    
 
             $data = array
             (
@@ -190,8 +192,9 @@ class ProjetoController extends Zend_Controller_Action
 
             $this->projgit->insert($data2);
 
-            $this->_redirect('projeto/index');
+            $this->_redirect('projeto/index/flag/3');
         }
+      }
     }
     
     /**
@@ -230,7 +233,7 @@ class ProjetoController extends Zend_Controller_Action
 
             $this->project->update($data,$where);
 
-            $this->_redirect('projeto/index');
+            $this->_redirect('projeto/index/flag/2');
         }
     }
     
@@ -246,7 +249,7 @@ class ProjetoController extends Zend_Controller_Action
     {
         //Precisa só colocar as flags informando o ocorrido para o usuário
         $id_proj = $this->_getParam('id');
-
+       
         $select = $this->project->select();
         $select -> from($this->project, 'COUNT(*) AS num')
                 -> where('idprojeto = ?', $id_proj)
@@ -263,9 +266,9 @@ class ProjetoController extends Zend_Controller_Action
             $where = $this->project->getAdapter()->quoteInto('idprojeto = ?',$id_proj);
             $this->project->delete($where);
 
-            $this->_redirect('projeto/index');
+            $this->_redirect('projeto/index/flag/4');
         }else{
-            $this->_redirect('projeto/index');
+            $this->_redirect('projeto/detalhesgerente/flag/1/idProj/'.$id_proj);
         }
     }
     
@@ -443,6 +446,7 @@ class ProjetoController extends Zend_Controller_Action
     }
 
     public function detalhesgerenteAction(){
+        $this->view->flag = $this->_request->getParam('flag');
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;
         $this->view->estadoProj = $this->estadoProj;

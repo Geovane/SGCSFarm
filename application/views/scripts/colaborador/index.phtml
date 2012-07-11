@@ -1,13 +1,4 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css'); ?>
-
-
-<div id="colaboradores">
-    <ul id="globalnav">
-    <li><a href="/colaborador/index/id/<?php echo $this->projeto->current()->idprojeto ?>" class="here" >Colaboradores</a></li>   
-    <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
-    </ul>
-    <br>
-
 <?
 if ( isset($this->flag)  )
 
@@ -17,9 +8,6 @@ if ( isset($this->flag)  )
             break;
          case 2:
             echo   "<h3>Colaborador inserido com sucesso!</h3><br>";
-            break;
-        case 3:
-            echo   "<h3>Um colaborador não pode exercer mais de uma função no projeto</h3><br>";
             break;
         case 4:
             echo   "<h3>Colaborador Excluído com Sucesso</h3><br>";
@@ -31,9 +19,24 @@ if ( isset($this->flag)  )
 
 ?>
 
+
+<div id="colaboradores">
+    <ul id="globalnav">
+    <li><a href="/colaborador/index/id/<?php echo $this->projeto->current()->idprojeto ?>" class="here" >Colaboradores</a></li>   
+    <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
+    </ul>
+    <br>
+
+
     <div id="createproject">
 <table width="100%" class="tbl">
-
+        <?
+        if(count($this->paginator) == 0)
+        {
+        echo '<center><h3>Este projeto não possue colaboradores !</h3></center>';    
+        }else{
+        ?>
+    
         <thead><tr><th>Nome Colaborador</th><th>Dedicação Mensal</th><th>Função</th><th>Filial</th><th></th><th></th></tr></thead>
         <tbody>
         <?
@@ -62,7 +65,9 @@ if ( isset($this->flag)  )
             }
          $indice = $indice + 1;
          endforeach; ?>
-            </tbody>
+
+        </tbody>
+        <? } ?>
 </table>
   
 </div>
