@@ -160,7 +160,7 @@ class ProjetoController extends Zend_Controller_Action
             
             if($nomeprojeto == $this->_request->getPost('nome'))
             {
-                $this->view->mensagem = '<h3>Já existe um projeto com este nome!</h3>';
+                $this->view->mensagem = "<div id='alerta'>Já existe um projeto com este nome!</div>";
             }else{    
 
             $data = array

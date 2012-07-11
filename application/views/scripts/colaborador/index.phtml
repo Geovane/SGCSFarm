@@ -4,23 +4,41 @@ if ( isset($this->flag)  )
 
          switch ($this->flag){
         case 1:
-            echo   "<h3>Colaborador atualizado com sucesso!</h3><br>";
+            echo   "<div id='alerta'>Colaborador atualizado com sucesso!</div>";
             break;
          case 2:
-            echo   "<h3>Colaborador inserido com sucesso!</h3><br>";
+            echo   "<div id='alerta'>Colaborador inserido com sucesso!</div>";
             break;
         case 4:
-            echo   "<h3>Colaborador Excluído com Sucesso</h3><br>";
+            echo   "<div id='alerta'>Colaborador Excluído com Sucesso</div>";
             break;
         case 5:
-            echo   "<h3>Não é possível excluir um colaborador que possua tarefas associadas a ele</h3><br>";
+            echo   "<div id='alerta'>Não é possível excluir um colaborador que possua tarefas associadas a ele</div>";
             break;
          }
 
 ?>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
+<script>
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+</script>
 
-<div id="colaboradores">
     <ul id="globalnav">
     <li><a href="/colaborador/index/id/<?php echo $this->projeto->current()->idprojeto ?>" class="here" >Colaboradores</a></li>   
     <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
@@ -28,12 +46,13 @@ if ( isset($this->flag)  )
     <br>
 
 
-    <div id="createproject">
-<table width="100%" class="tbl">
+    <div id="createproject" >
+        <center>
+<table width="95%" class="tbl">
         <?
         if(count($this->paginator) == 0)
         {
-        echo '<center><h3>Este projeto não possue colaboradores !</h3></center>';    
+        echo '<center><h3>Este projeto não possui colaboradores !</h3></center>';    
         }else{
         ?>
     
@@ -69,9 +88,9 @@ if ( isset($this->flag)  )
         </tbody>
         <? } ?>
 </table>
-  
+        </center>
 </div>
-</div>
+
 <script>
 menu('12');
 </script>

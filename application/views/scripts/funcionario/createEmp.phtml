@@ -12,10 +12,10 @@ if ( isset($this->flag)  )
 
     switch ($this->flag){
         case 1:
-            echo   "<h3>Cadastro não realizado: Documento de indentificação já cadastrado.</h3>";
+            echo   "<div id='alerta'>Cadastro não realizado: Documento de indentificação já cadastrado.</div>";
             break;
         case 2:
-            echo   "<h3>Cadastro não realizado: O usuário escolhido já existe. </h3>";
+            echo   "<div id='alerta'>Cadastro não realizado: O usuário escolhido já existe. </div>";
             break;
          }
 ?>
@@ -42,15 +42,6 @@ $(document).ready(function(){
 				required: true, email: true
 			}
                 }
-		/*messages:{
-			campo1:{
-				required: "Campo obrigatório!",
-				minlength: "O nome do projeto deve conter, no mínimo, 3 caracteres"
-			},
-			campo2:{
-				required: "Campo obrigatório!"
-			}
-		}*/
 	});
 
 });
