@@ -1,19 +1,46 @@
-<h3>Primeiro Ascesso, Modifique sua senha.</h3>
+<link rel="stylesheet" type="text/css" href="/css/css.css" />
+<link rel="stylesheet" type="text/css" href="/css/tabela.css" />
+<link rel="stylesheet" type="text/css" href="/css/tab.css" />
+<link rel="stylesheet" type="text/css" href="/css/formularios.css" />
+
+<center><h3>Primeiro Ascesso, Modifique sua senha.</h3></center>
 
 <?php if ( isset($this->mensagem) ): ?>
 
   <strong>Erro:</strong> <?= $this->mensagem ?><br><br>
 
  <?php endif; ?>
-
-<form  action="/auth/senha" method="post">
+  
+<script type="text/javascript">
+$(document).ready( function() {
+	$("#mudasenha").validate({
+		// Define as regras
+		rules:{
+			senhaNova:{
+				required: true, minlength: 3
+			},
+			senhaNova2:{
+				required: true, equalTo: '#senhaNova'
+			}
+		}
+	});
+      
+});
+</script>  
+<form  id="mudasenha" class="rounded" action="/auth/senha" method="post">
     
-    <input type="hidden" name="id" value="<?php echo $this->usuarioLogado->idfuncionario; ?>" />
-
-    Nova senha:&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="senhaNova" />
-     <br><br>
-    Repita a senha:<input type="password" name="senhaNova2" />
+   <input type="hidden" name="id" value="<?php echo $this->usuarioLogado->idfuncionario; ?>" />
+   <br><br>
+    <div class="field">
+    <label for="senhaNova" class="lblGeralClass">Nova senha:</label>
+    <input type="password" class="input" id="senhaNova" name="senhaNova" />
+    </div>
+   <br>
+    <div class="field">
+    <label for="senhaNova2" class="lblGeralClass">Repita a senha:</label>
+    <input type="password" class="input" name="senhaNova2" id="senhaNova2" />
+    </div>
     <br><br>
-    <input type="submit" value="Atualizar" name="Atualizar" />
-
+    <input type="submit" class="button" id="x" value="Atualizar" name="Atualizar" style="width: 135px" />
+    
 </form>
