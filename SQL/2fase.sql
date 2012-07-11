@@ -187,7 +187,7 @@ CREATE TABLE `funcionario` (
   UNIQUE KEY `login_UNIQUE` (`login`),
   UNIQUE KEY `cpf_UNIQUE` (`documentoIdentificacao`),
   KEY `fk_funcionario_empresaFilial1` (`empresaFilial_idempresaFilial`)
-) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table funcionario
@@ -209,6 +209,7 @@ INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso','1170192599','geovane','40
 INSERT INTO `funcionario` VALUES (23,'teste','123456','teste','40bd001563085fc35165329ea1ff5c5ecbdbbeef','teste@teste',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
 INSERT INTO `funcionario` VALUES (24,'Bruno Pereira dos Santos','123','bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef','bruno.ps@live.com',1,1,'/images/fotosFunc/24_1341473472.jpg');
 INSERT INTO `funcionario` VALUES (26,'Dhielber','12345','teste2','8cb2237d0679ca88db6464eac60da96345513964','dadasda',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
+INSERT INTO `funcionario` VALUES (27,'ze das farinhas','ze123','zezinho','250454f6b8bbe438b3679cd8e510c583b7dfd4d6','ze@gmail.com',0,0,'/images/fotosFunc/usuarioPadrao.jpg');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -447,6 +448,7 @@ INSERT INTO `usuariobugzilla` VALUES (20,'geovane','3827657f02349634eb0ffbe5eb4b
 INSERT INTO `usuariobugzilla` VALUES (23,'teste','7c4a8d09ca3762af61e59520943dc26494f8941b');
 INSERT INTO `usuariobugzilla` VALUES (24,'bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 INSERT INTO `usuariobugzilla` VALUES (26,'sadasd','8cb2237d0679ca88db6464eac60da96345513964');
+INSERT INTO `usuariobugzilla` VALUES (27,'zezinho','250454f6b8bbe438b3679cd8e510c583b7dfd4d6');
 /*!40000 ALTER TABLE `usuariobugzilla` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -482,6 +484,7 @@ INSERT INTO `usuariogit` VALUES (20,'geovane','3827657f02349634eb0ffbe5eb4bd42c6
 INSERT INTO `usuariogit` VALUES (23,'teste','7c4a8d09ca3762af61e59520943dc26494f8941b');
 INSERT INTO `usuariogit` VALUES (24,'bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef');
 INSERT INTO `usuariogit` VALUES (26,'sadasd','8cb2237d0679ca88db6464eac60da96345513964');
+INSERT INTO `usuariogit` VALUES (27,'zezinho','250454f6b8bbe438b3679cd8e510c583b7dfd4d6');
 /*!40000 ALTER TABLE `usuariogit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -533,6 +536,13 @@ CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `filias_das_empresas` AS se
 
 DROP VIEW IF EXISTS `funcao_colaboradores_projeto`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `funcao_colaboradores_projeto` AS select `funcaoprojeto`.`descricao` AS `descricao`,`projeto`.`nome` AS `nomeProj`,`funcionario`.`nome` AS `nomeFunc`,`colaboradores`.`dedicacaoMes` AS `dedicacaoMes` from (((`projeto` join `colaboradores` on((`projeto`.`idprojeto` = `colaboradores`.`projeto_idprojeto`))) join `funcaoprojeto` on((`colaboradores`.`funcaoProjeto_idfuncaoProjeto` = `funcaoprojeto`.`idfuncaoProjeto`))) join `funcionario` on((`colaboradores`.`funcionario_idfuncionario` = `funcionario`.`idfuncionario`))) order by `projeto`.`nome`,`funcionario`.`nome`;
+
+#
+# Source for view projetos_filiais
+#
+
+DROP VIEW IF EXISTS `projetos_filiais`;
+CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `projetos_filiais` AS select `projeto`.`nome` AS `nomeProj`,`projeto`.`idprojeto` AS `idprojeto`,`projeto`.`descricao` AS `descricao`,`projeto`.`dataInc` AS `dataInc`,`projeto`.`dataFim` AS `dataFim`,`projeto`.`idGerente` AS `idGerente`,`projeto`.`estado_idestado` AS `estado_idestado`,`funcionario`.`nome` AS `nome`,`funcionario`.`email` AS `email`,`empresafilial`.`idempresaFilial` AS `idempresaFilial`,`empresafilial`.`nome` AS `nomeFilial` from ((`projeto` join `funcionario` on((`projeto`.`idGerente` = `funcionario`.`idfuncionario`))) join `empresafilial` on((`funcionario`.`empresaFilial_idempresaFilial` = `empresafilial`.`idempresaFilial`)));
 
 #
 # Source for view projetos_gerente_filial_colaboradores
