@@ -70,11 +70,11 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->request->setMethod('POST')
               ->setPost(array(
                   'login' => 'mimoso',
-                  'senha' => '123'
+                  'senha' => '1234'
               ));
         $this->dispatch('/Auth/login');
         
-        $this->dispatch();
+        $this->dispatch('/Auth/logout');
         $this->assertRedirectTo('/Auth');
     }
 

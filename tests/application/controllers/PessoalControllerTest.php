@@ -51,13 +51,20 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
     public function testEditAction() {
         $this->request->setMethod('POST')
               ->setPost(array(
-                  'nome' => 'mimoso',
-                  'doc' => '123987',
-                  'login' => 'mimosos',
+                  'login' => 'mimoso',
+                  'senha' => '123'
+              ));
+        $this->dispatch('/Auth/login');        
+        
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'nome' => 'Geovane Mimoso',
+                  'doc' => '987654',
+                  'login' => 'mimoso',
                   'email' => 'mimoso@softfarm.com'
               ));
         $this->dispatch('/pessoal/edit');
-        $this->assertRedirectTo(pessoal/meusdados/flag/1);                
+        $this->assertRedirectTo('/pessoal/meusdados/flag/1');                
     }
 
     /**
@@ -75,19 +82,36 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      */
     public function testMeusdadosAction() {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '123'
+              ));
+        $this->dispatch('/Auth/login', 'login');       
+        $this->dispatch('/pessoal/meusdados', 'meus dados');
+        $this->assertQuery('div');
     }
 
     /**
      * @todo Implement testSenhaAction().
+     * testa a alteração de senha
      */
     public function testSenhaAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+       $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '123'
+              ));
+        $this->dispatch('/Auth/login');
+        
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'senhaAtual' => '123',
+                  'senhaNova' => '123',
+                  'senhaNova2' => '123',             
+              ));
+        $this->dispatch('/pessoal/senha');
+        $this->assertRedirectTo('/pessoal/meusdados/flag/3');         
     }
 
 }

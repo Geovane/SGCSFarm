@@ -25,6 +25,11 @@ class FilialControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
            . '/configs/application.ini'
         );
         parent::setUp();
+        
+        $this->funcionario = new Model_DbTable_Func();
+        $this->filial = new Model_DbTable_Filial();
+        $this->colaboradores = new Model_DbTable_Colaboradores();
+        $this->projeto = new Model_DbTable_Proj();
     }
 
     /**
