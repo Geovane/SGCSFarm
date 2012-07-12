@@ -75,12 +75,12 @@ $(document).ready(function(){
 
             <div class="field">
             <label for="tel" class="lblGeralClass">Telefone:</label>
-            <input type="text" class="input" id="tel" name="tel"  value ="<?= $this->filial->tel; ?>"/>
+            <input type="text" class="input" id="tel" name="tel" maxlength="14" value ="<?= $this->filial->tel; ?>"/>
             </div>
 
             <div class="field">
             <label for="endereco" class="lblGeralClass">Endereço:</label>
-            <input type="text" class="input" id="endereco" name="endereco"  value ="<?= $this->filial->endereco; ?>"/>
+            <input type="text" class="input" id="endereco" name="endereco" maxlength="45" value ="<?= $this->filial->endereco; ?>"/>
             </div>
 
             <div class="field">

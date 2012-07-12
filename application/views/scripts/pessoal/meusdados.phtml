@@ -22,12 +22,16 @@ if ( isset($this->flag)  )
   <li><a href="/pessoal/senha" >Alterar Senha</a></li>
 </ul>
 <br/>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 <script>
 $(document).ready(function(){
         $("#alerta").dialog({
                 modal : true,
-                title : "Alerta do Sistema",
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
                 resizable : false,
+                width : 350,
+                draggable : false,
                 buttons: {
                         Ok: function() {
                                 $( this ).dialog( "close" );
