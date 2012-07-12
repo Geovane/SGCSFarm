@@ -1,6 +1,6 @@
 <?php
 /**
- * Esta classe tem como objetivo efetuar a escolha da tabela 'projetos_gerente_filial_colaboradores'
+ * Esta classe tem como objetivo efetuar a escolha da tabela 'projetos_filiais'
  * no banco de dados.
  * 
  * @author SoftFarm
@@ -9,7 +9,7 @@
  * @copyright Copyright © 2012, SoftFarm.
  * 
  */
-class Model_DbTable_ProjGerFiliColab extends Zend_Db_Table_Abstract
+class Model_DbTable_ProjetosFiliais extends Zend_Db_Table_Abstract
 {
 
     /**
@@ -17,7 +17,7 @@ class Model_DbTable_ProjGerFiliColab extends Zend_Db_Table_Abstract
     * @access private
     * @name $_name
     */
-    protected $_name = 'projetos_gerente_filial_colaboradores';
+    protected $_name = 'projetos_filiais';
     
     /**
     * Variavel que recebe o nome da tabela a ser acessada.
@@ -25,4 +25,7 @@ class Model_DbTable_ProjGerFiliColab extends Zend_Db_Table_Abstract
     * @name $_primary
     */
     protected $_primary = 'nomeProj';
+
+
 }
+

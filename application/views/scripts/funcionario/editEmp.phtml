@@ -25,8 +25,8 @@ if ( isset($this->flag)  )
 
          switch ($this->flag){
         case 1:
-            echo   "<h3>Não é possivel tranferir o funcionario, verifique se o funcionario em questão<br>
-                    esta incluido em algum projeto na sua filial de origem</h3><br>";
+            echo   "<div id='alerta'>Não é possivel tranferir o funcionario, verifique se o funcionario em questão<br>
+                    esta incluido em algum projeto na sua filial de origem</div>";
             break;
          }
 
@@ -41,7 +41,7 @@ if ( isset($this->flag)  )
    <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
   <li><a href="#" class="here">Editar / Transferir Funcionário</a></li>
 </ul>
-
+<br/>
 
 <form id="createproject" class="rounded" action="/funcionario/editemp" method="post">
     <center><h3>Alterar Dados de Funcionário</h3></center><br>

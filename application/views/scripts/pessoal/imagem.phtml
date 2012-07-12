@@ -3,7 +3,7 @@ if ( isset($this->flag)  )
 
          switch ($this->flag){
         case 1:
-            echo "<h4>Imagem não inserida ou o formarto do arquivo é diferente de: 'jpg', 'jpeg', 'png' ou 'gif'.</h4>";
+            echo "<div id='alerta'>Imagem não inserida ou o formarto do arquivo é diferente de: 'jpg', 'jpeg', 'png' ou 'gif'.</div>";
             break;
          }
 
@@ -16,7 +16,7 @@ if ( isset($this->flag)  )
   <li><a href="/pessoal/imagem" class="here" >Nova Imagem</a></li>
   <li><a href="/pessoal/senha" >Alterar Senha</a></li>
 </ul>
-
+<br/>
 <form id="createproject" class="rounded" action="/pessoal/imagem" method="post"  enctype = "multipart/form-data">
            <center><h3>Incluir/Alterar Foto</h3></center><br>
 
