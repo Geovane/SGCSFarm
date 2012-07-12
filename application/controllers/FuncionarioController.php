@@ -50,7 +50,11 @@ class FuncionarioController extends Zend_Controller_Action
 
     public function indexAction()
     {
-
+        //Verifica permissão
+        if(!$this->adminFilial){
+            $this->_redirect('/index/negado');
+        }
+        
          $this->view->flag = $this->_request->getParam('flag');
          $select = $this->funcionario->select();
          $select->where('empresaFilial_idempresaFilial = ?', $this->idFilial);
@@ -71,6 +75,12 @@ class FuncionarioController extends Zend_Controller_Action
 
     public function createAction()
     {
+
+        //Verifica permissão
+        if(!$this->adminFilial){
+            $this->_redirect('/index/negado');
+        }
+
         $this->view->flag = $this->_request->getParam('flag');
         
          if ( $this->_request->isPost() )
@@ -122,6 +132,11 @@ class FuncionarioController extends Zend_Controller_Action
 
     public function editAction(){
 
+        //Verifica permissão
+        if(!$this->adminFilial){
+            $this->_redirect('/index/negado');
+        }
+
        $func_id = $this->_getParam('id');
 
        $result  = $this->funcionario->find($func_id);
@@ -146,6 +161,11 @@ class FuncionarioController extends Zend_Controller_Action
     }
 
     public function deleteAction(){
+
+         //Verifica permissão
+        if(!($this->adminFilial || $this->adminEmpresa) ){
+            $this->_redirect('/index/negado');
+        }
 
         $func_id = $this->_getParam('id');
         $tipo = $this->_getParam('tipo');
@@ -219,7 +239,12 @@ class FuncionarioController extends Zend_Controller_Action
 
 
         public function indexempAction()
-    {
+        {
+
+        //Verifica permissão
+        if(!$this->adminEmpresa){
+            $this->_redirect('/index/negado');
+        }
 
          $this->view->flag = $this->_request->getParam('flag');
          $select = $this->funcionario->select()->order('nome');
@@ -240,6 +265,11 @@ class FuncionarioController extends Zend_Controller_Action
 
     public function createempAction()
     {
+        //Verifica permissão
+        if(!$this->adminEmpresa){
+            $this->_redirect('/index/negado');
+        }
+
         $this->view->flag = $this->_request->getParam('flag');
 
          if ( $this->_request->isPost() )
@@ -290,6 +320,11 @@ class FuncionarioController extends Zend_Controller_Action
     }
 
     public function editempAction(){
+
+        //Verifica permissão
+        if(!$this->adminEmpresa){
+            $this->_redirect('/index/negado');
+        }
 
        $func_id = $this->_getParam('id');
 

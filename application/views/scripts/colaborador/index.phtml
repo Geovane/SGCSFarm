@@ -111,6 +111,9 @@ $( ".bt .delCol" ).button({
 </script>
 
     <ul id="globalnav">
+    <li><a href="/projeto/index" >Projetos que colaboro</a></li>
+    <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
+    <li><a href="/projeto/detalhesgerente/idProj/<?php echo $this->projeto->current()->idprojeto; ?>">Detalhes</a></li>
     <li><a href="/colaborador/index/id/<?php echo $this->projeto->current()->idprojeto ?>" class="here" >Colaboradores</a></li>   
     <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
     </ul>

@@ -38,6 +38,15 @@ $(document).ready(function(){
 });
 </script>
 
+<ul id="globalnav">
+  <li><a href="/projeto/index" >Projetos que colaboro</a></li>
+  <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
+  <li><a href="/projeto/detalhesgerente/idProj/<?php echo $this->projetoEncontrado->idprojeto; ?>">Detalhes</a></li>
+  <li><a href="/tarefa/prepara/idProj/<?php echo $this->projetoEncontrado->idprojeto;  ?>">Tarefas</a></li>
+  <li><a href="#" class="here">Editar Tarefa</a></li>
+  
+</ul>
+<br/>
 <form id="createproject" class="rounded" name="formulario_tarefa" method="post" action="/tarefa/edit/idTarefa/<?= $this->id; echo $action;?>">
     <center><h3>Editar Tarefa</h3></center>
 
@@ -54,12 +63,12 @@ $(document).ready(function(){
     
     <div class="field">      
             <label for="dtinicio" class="lblGeralClass">Data de início da tarefa:</label>
-            <input type="text" id="dtinicio" class="input" name="dtinicio" value="<?= $this->tarefaEncontrada->dataInc; ?>" />
+            <input type="text" id="dtinicio" class="input" name="dataInc" value="<?= $this->tarefaEncontrada->dataInc; ?>" />
         </div>
     
    <div class="field">      
             <label for="dtfinal" class="lblGeralClass">Data de entrega da tarefa:</label>
-            <input type="text" id="dtfinal" class="input" name="dtfinal" value="<?= $this->tarefaEncontrada->dataFim; ?>" />
+            <input type="text" id="dtfinal" class="input" name="dataFim" value="<?= $this->tarefaEncontrada->dataFim; ?>" />
         </div>
     
     <div class="field">
