@@ -24,12 +24,46 @@ if ( isset($this->flag)  )
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
 <script>
+var idfuncionario;
+
+function edita(x){
+    idfuncionario = x;
+    
+    window.location = "/funcionario/edit/id/" + idfuncionario;
+    
+}
+
+function confirmaDel(x){
+    idfuncionario = x;
+
+    $( "#exclui" ).dialog("open");
+}   
+
+$(document).ready(function(){
+        $("#exclui").dialog({
+                autoOpen : false,
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Confirmar: function() {
+                                window.location = "/funcionario/delete/id/" + idfuncionario;
+                                $( this ).dialog( "close" );
+                        },
+                        Cancelar: function() {
+                                $( this ).dialog( "close" );
+                        }
+                        
+                }
+                        
+        });
+});
 $(document).ready(function(){
         $("#alerta").dialog({
                 modal : true,
                 title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
                 resizable : false,
-                width : 350,
                 draggable : false,
                 buttons: {
                         Ok: function() {
@@ -40,6 +74,23 @@ $(document).ready(function(){
         });
       
 });
+
+$(function() {        
+$( ".bt .edit" ).button({
+            icons: {
+                primary: "ui-icon-pencil"
+            },
+            text: false
+        })  ;
+})  ;        
+$(function() {        
+$( ".bt .del" ).button({
+            icons: {
+                primary: "ui-icon-trash"
+            },
+            text: false
+        })  ;        
+}); 
 </script>
 <ul id="globalnav">
   <li><a href="/funcionario/index" class="here">Funcionarios</a></li>
@@ -53,7 +104,7 @@ $(document).ready(function(){
    
 <table width="95%" class="tbl">
 
-        <thead><tr><th>Nome</th><th>Identidade</th><th>Email</th><th></th><th></th></tr></thead>
+        <thead><tr><th>Nome</th><th>Identidade</th><th>Email</th><th>Ação</th></tr></thead>
         <tbody>
         <?
         $indice = 0;
@@ -61,20 +112,28 @@ $(document).ready(function(){
 
             if($indice%2){
                 echo "<tr class='odd' >
-                        <td width='33%'>".$aux['nome']."</td>
-                        <td width='16%'>".$aux['documentoIdentificacao']."</td>
-                        <td width='33%'>".$aux['email']."</td>
-                        <td width='8%'><a href='/funcionario/edit/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
-                        <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
+                        <td width='35%'>".$aux['nome']."</td>
+                        <td width='18%'>".$aux['documentoIdentificacao']."</td>
+                        <td width='35%'>".$aux['email']."</td>
+                        <td>
+                            <div class='bt'>
+                                <button class='edit' onclick='edita(".$aux['idfuncionario'].")' >Editar Funcionário</button>
+                                <button class='del'id='confirmaExclui' onclick='confirmaDel(".$aux['idfuncionario'].")'>Excluir Funcionário</button>
+                            </div>
+                        </td>                            
                     </tr>
                     </tbody>";
             } else {
                 echo "<tr>
-                        <td width='33%'>".$aux['nome']."</td>
-                        <td width='16%'>".$aux['documentoIdentificacao']."</td>
-                        <td width='33%'>".$aux['email']."</td>
-                        <td width='8%'><a href='/funcionario/edit/id/".$aux['idfuncionario']."' class='linkLaranja' >Editar</a></td>
-                        <td width='8%'><a href='/funcionario/delete/id/".$aux['idfuncionario']."' class='linkLaranja' >Excluir</a></td>
+                        <td width='35%'>".$aux['nome']."</td>
+                        <td width='18%'>".$aux['documentoIdentificacao']."</td>
+                        <td width='35%'>".$aux['email']."</td>
+                        <td>
+                            <div class='bt'>
+                                <button class='edit' onclick='edita(".$aux['idfuncionario'].")' >Editar Funcionário</button>
+                                <button class='del'id='confirmaExclui' onclick='confirmaDel(".$aux['idfuncionario'].")'>Excluir Funcionário</button>
+                            </div>
+                        </td>                            
                     </tr>";
             }
          $indice = $indice + 1;
@@ -89,6 +148,7 @@ $(document).ready(function(){
     <center><?= $this->paginationControl($this->p, 'Sliding', 'my_pagination_control.phtml');?></center>
 </div>
 </div>
+<div id="exclui">Tem certeza que deseja excluir esta Filial?</div>
 <script>
 menu('17');
 </script>
