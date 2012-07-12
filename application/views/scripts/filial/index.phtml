@@ -2,15 +2,18 @@
 if ( isset($this->flag)  )
 
          switch ($this->flag){
-        case 1:
-            echo   "<h3>Filial cadastrada com sucesso!</h3><br>";
-            break;
-        case 2:
-            echo   "<h3>Filial atualizada com sucesso!</h3><br>";
-            break;
-        case 3:
-            echo "<h3>Filial excluída com sucesso!</h3><br>";
-            break;
+            case 1:
+                echo   "<h3>Filial cadastrada com sucesso!</h3><br>";
+                break;
+            case 2:
+                echo   "<h3>Filial atualizada com sucesso!</h3><br>";
+                break;
+            case 3:
+                echo "<h3>Filial excluída com sucesso!</h3><br>";
+                break;
+            case 4:
+                echo "<h3>Filial atualizada com sucesso:<br>Responsável Alterado</h3><br>";
+                break;
          }
 ?>
 
@@ -38,8 +41,8 @@ if ( isset($this->flag)  )
                     <td>".$aux->email."</td>
                     <td>".$aux->cep."</td>
 
-                    <td><a href='/empresafilial/edit/id/".$aux->idempresaFilial."' >Editar</a></td>
-                    <td><a href='/empresafilial/delete/id/".$aux->idempresaFilial."' >Excluir</a></td>
+                    <td><a href='/filial/edit/id/".$aux->idempresaFilial."' >Editar</a></td>
+                    <td><a href='/filial/delete/id/".$aux->idempresaFilial."' >Excluir</a></td>
                   </tr>";
 
          endforeach; ?>

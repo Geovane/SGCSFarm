@@ -6,7 +6,6 @@
   <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
 </ul>
 
-
 <?
 if ( isset($this->flag)  )
       switch ($this->flag){
@@ -65,11 +64,10 @@ $(document).ready(function(){
       
 });
 </script>
-
+<div id="createproject" >
 <form id="createfilial" class="rounded" action="/filial/create" method="post">
 
         <div>
-            <br><br>
             <center><h3>Nova Filial</h3></center>
             
             <div class="field">
@@ -115,3 +113,4 @@ $(document).ready(function(){
         </div>
 
 </form>
+</div>
