@@ -147,6 +147,11 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function createAction()
     {
+        //Verifica permissão
+        if(!$this->adminFilial){
+            $this->_redirect('/index/negado');
+        }
+
         $select = $this->funcionario->select();
         $select->where('empresaFilial_idempresaFilial = ?', $this->idFilial);
         $select->order('nome');
@@ -216,6 +221,7 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function editAction()
     {
+        
         $id_proj = $this->_getParam('id');
         
         $selectdata = $this->project->select();
@@ -354,6 +360,12 @@ class ProjetoController extends Zend_Controller_Action
      * 
      */
     public function adminfilialAction(){
+
+        //Verifica permissão
+        if(!$this->adminFilial){
+            $this->_redirect('/index/negado');
+        }
+        
         $idFuncLogado = $this->funcLogado->idfuncionario;
         
         $selecFilial = $this->filial->select()
@@ -387,6 +399,11 @@ class ProjetoController extends Zend_Controller_Action
      * 
      */
     public function admingeralAction(){
+
+        //Verifica permissão
+        if(!$this->adminEmpresa){
+            $this->_redirect('/index/negado');
+        }
         
         $idFuncLogado = $this->funcLogado->idfuncionario;
                 
