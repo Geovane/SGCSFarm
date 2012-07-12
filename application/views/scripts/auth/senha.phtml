@@ -3,7 +3,7 @@
 <link rel="stylesheet" type="text/css" href="/css/tab.css" />
 <link rel="stylesheet" type="text/css" href="/css/formularios.css" />
 
-<center><h3>Primeiro Ascesso, Modifique sua senha.</h3></center>
+<div id="alerta">Primeiro Ascesso, Modifique sua senha.</div>
 
 <?php if ( isset($this->mensagem) ): ?>
 
@@ -26,21 +26,40 @@ $(document).ready( function() {
 	});
       
 });
+
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+
 </script>  
-<form  id="mudasenha" class="rounded" action="/auth/senha" method="post">
+<form  id="createproject" class="rounded" action="/auth/senha" method="post">
+    <center><h3>Defina a sua senha!</h3></center><br />
     
    <input type="hidden" name="id" value="<?php echo $this->usuarioLogado->idfuncionario; ?>" />
-   <br><br>
+
     <div class="field">
     <label for="senhaNova" class="lblGeralClass">Nova senha:</label>
     <input type="password" class="input" id="senhaNova" name="senhaNova" />
     </div>
-   <br>
+   
     <div class="field">
     <label for="senhaNova2" class="lblGeralClass">Repita a senha:</label>
     <input type="password" class="input" name="senhaNova2" id="senhaNova2" />
     </div>
-    <br><br>
-    <input type="submit" class="button" id="x" value="Atualizar" name="Atualizar" style="width: 135px" />
+            <input  type="submit" value="Atualizar" id="x" name="inserir" class="button" style="width: 135px" />
+            <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
+
     
 </form>

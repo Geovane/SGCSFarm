@@ -22,10 +22,37 @@ if ( isset($this->flag)  )
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
 <script>
+
+var idFuncionarioColaborador;
+var idprojeto;
+var idColaborador;
+
+function confirmaDel(x,y){
+    idFuncionarioColaborador = x;
+    idprojeto = y;
+    
+    $( "#exclui" ).dialog("open");
+}    
+
+function editaCol(x,y){
+    idFuncionarioColaborador = x;
+    idprojeto = y;
+    
+    window.location = "/colaborador/edit/idfunc/" + idFuncionarioColaborador+ "/id/"+ idprojeto;
+}
+
+function addTar(x,y){
+    idprojeto = x;
+    idColaborador = y;
+    
+    window.location =  "/tarefa/create/idProj/" + idprojeto + "/idColab/" + idColaborador;
+}
+
+
 $(document).ready(function(){
         $("#alerta").dialog({
                 modal : true,
-                title : "Alerta do Sistema",
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
                 resizable : false,
                 draggable : false,
                 buttons: {
@@ -37,6 +64,50 @@ $(document).ready(function(){
         });
       
 });
+$(document).ready(function(){
+        $("#exclui").dialog({
+                autoOpen : false,
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Confirmar: function() {
+                                window.location = "/colaborador/delete/idfunc/" + idFuncionarioColaborador + "/id/" + idprojeto;
+                                $( this ).dialog( "close" );
+                        },
+                        Cancelar: function() {
+                                $( this ).dialog( "close" );
+                        }
+                        
+                }
+                        
+        });
+});
+$(function() {
+$( ".bt .addTarefa" ).button({
+            icons: {
+                primary: "ui-icon-plusthick"
+            },
+            text: false
+        })  ;
+})  ;        
+$(function() {        
+$( ".bt .editCol" ).button({
+            icons: {
+                primary: "ui-icon-pencil"
+            },
+            text: false
+        })  ;
+})  ;        
+$(function() {        
+$( ".bt .delCol" ).button({
+            icons: {
+                primary: "ui-icon-trash"
+            },
+            text: false
+        })  ;        
+});
 </script>
 
     <ul id="globalnav">
@@ -44,7 +115,6 @@ $(document).ready(function(){
     <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto ?>">Inserir Colaborador</a></li>
     </ul>
     <br>
-
 
     <div id="createproject" >
         <center>
@@ -56,7 +126,7 @@ $(document).ready(function(){
         }else{
         ?>
     
-        <thead><tr><th>Nome Colaborador</th><th>Dedicação Mensal</th><th>Função</th><th>Filial</th><th></th><th></th><th></th></tr></thead>
+        <thead><tr><th>Nome Colaborador</th><th>Dedicação Mensal</th><th>Função</th><th>Filial</th><th>Ações</th></tr></thead>
         <tbody>
         <?
         $indice = 0;
@@ -69,20 +139,28 @@ $(document).ready(function(){
                         <td width='15%' align='center'>".$aux['dedicacaoMesColaborador']."</td>
                         <td width='15%' align='center'>".$aux['funcaoColaborador']."</td>
                         <td width='15%' align='center'>".$aux['nomeFilialProj']."</td>
-                        <td width='8%'><a href='/tarefa/create/idProj/".$aux['idprojeto']."/idColab/".$aux['idColaborador']."' class='linkLaranja' >Atribuir Tarefa</a></td>    
-                        <td width='8%'><a href='/colaborador/edit/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='8%'><a href='/colaborador/delete/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+                        <td>
+                            <div class='bt'>
+                                <button class='addTarefa' onclick='addTar(".$aux['idprojeto'].",".$aux['idColaborador'].")'>Adicionar Tarefa</button>
+                                <button class='editCol' onclick='editaCol(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")' >Editar Colaborador</button>
+                                <button class='delCol'id='confirmaExclui' onclick='confirmaDel(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")'>Remover Colaborador do Projeto</button>
+                            </div>
+                        </td>                            
                     </tr>
                     </tbody>";
             } else {
                 echo "<tr>
-                         <td width='25%'>".$aux['nomeColaborador']."</td>
-                        <td width='15%' align='center'>".$aux['dedicacaoMesColaborador']."</td>
-                        <td width='15%' align='center'>".$aux['funcaoColaborador']."</td>
-                        <td width='15%' align='center'>".$aux['nomeFilialProj']."</td>
-                        <td width='8%'><a href='/tarefa/create/idProj/".$aux['idprojeto']."/idColab/".$aux['idColaborador']."' class='linkLaranja' >Atribuir Tarefa</a></td>    
-                        <td width='8%'><a href='/colaborador/edit/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Editar</a></td>
-                        <td width='8%'><a href='/colaborador/delete/idfunc/".$aux['idFuncionarioColaborador']."/id/".$aux['idprojeto']."' class='linkLaranja' >Excluir</a></td>
+                        <td width='35%'>".$aux['nomeColaborador']."</td>
+                        <td width='20%' align='center'>".$aux['dedicacaoMesColaborador']."</td>
+                        <td width='17%' align='center'>".$aux['funcaoColaborador']."</td>
+                        <td width='17%' align='center'>".$aux['nomeFilialProj']."</td>
+                        <td>
+                            <div class='bt'>
+                                <button class='addTarefa' onclick='addTar(".$aux['idprojeto'].",".$aux['idColaborador'].")'>Adicionar Tarefa</button>
+                                <button class='editCol' onclick='editaCol(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")' >Editar Colaborador</button>
+                                <button class='delCol'id='confirmaExclui' onclick='confirmaDel(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")'>Remover Colaborador do Projeto</button>
+                            </div>
+                        </td>                           
                     </tr>";
             }
          $indice = $indice + 1;
@@ -96,6 +174,8 @@ $(document).ready(function(){
         </center>
 </div>
 
+    <div id="exclui">Tem certeza que deseja excluir?</div>
+
 <script>
-menu('12');
+menu("12");
 </script>
