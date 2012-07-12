@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <funcionario nome = "Mateus Passos" documentoIdentificacao = "123456" login = "MPassos"
+    senha = "123" email = "tetus4@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
+    foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
+    <funcionario nome = "Luiz Daud" documentoIdentificacao = "1233" login = "LDaud"
+    senha = "123" email = "luizdaud@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
+    foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
+    <funcionario nome = "Bruno Pereira" documentoIdentificacao = "138217840" login = "BPereira"
+    senha = "123" email = "brunopereira@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
+    foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
+    <funcionario nome = "Carlos Henrique" documentoIdentificacao = "12345678" login = "CHenrique"
+    senha = "123" email = "carloshenrique@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
+    foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
+    <funcionario nome = "Sabina Moreno" documentoIdentificacao = "134565432" login = "SMoreno"
+    senha = "123" email = "sabinamoreno@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
+    foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
+    <funcionario nome = "Joao de Piracicaba" documentoIdentificacao = "112269" login = "JPira"
+    senha = "123" email = "joaopiracicaba@gmail.com" empresaFilial_idempresaFilial = "1" primeiroAcesso = "0"
+    foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
+</dataset>    
