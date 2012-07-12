@@ -135,7 +135,7 @@ class FuncionarioController extends Zend_Controller_Action
                     'email'  => $this->_request->getPost('email'),
                 );
 
-                $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->idFunc);
+                $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->_request->getPost('id'));
 
                 $this->funcionario->update($data, $where);
 
