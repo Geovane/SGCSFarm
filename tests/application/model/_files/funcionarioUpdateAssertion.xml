@@ -1,18 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <funcionario nome = "Pedro Augusto" documentoIdentificacao = "123456" login = "PAugusto"
+    <funcionario idfuncionario = "1" nome = "Pedro Augusto" documentoIdentificacao = "123456" login = "PAugusto"
     senha = "123" email = "tetus4@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
     foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
-    <funcionario nome = "Luiz Daud" documentoIdentificacao = "1233" login = "LDaud"
+    <funcionario idfuncionario = "2" nome = "Luiz Daud" documentoIdentificacao = "1233" login = "LDaud"
     senha = "123" email = "luizdaud@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
     foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
-    <funcionario nome = "Bruno Pereira" documentoIdentificacao = "138217840" login = "BPereira"
+    <funcionario idfuncionario = "3" nome = "Bruno Pereira" documentoIdentificacao = "138217840" login = "BPereira"
     senha = "123" email = "brunopereira@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
     foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
-    <funcionario nome = "Carlos Henrique" documentoIdentificacao = "12345678" login = "CHenrique"
+    <funcionario idfuncionario = "4" nome = "Carlos Henrique" documentoIdentificacao = "12345678" login = "CHenrique"
     senha = "123" email = "carloshenrique@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
     foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
-    <funcionario nome = "Sabina Moreno" documentoIdentificacao = "134565432" login = "SMoreno"
+    <funcionario idfuncionario = "5" nome = "Sabina Moreno" documentoIdentificacao = "134565432" login = "SMoreno"
     senha = "123" email = "sabinamoreno@hotmail.com" empresaFilial_idempresaFilial = "2" primeiroAcesso = "0"
     foto = "/images/fotosFunc/usuarioPadrao.jpg"/>
 </dataset>
