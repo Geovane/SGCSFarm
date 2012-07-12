@@ -107,22 +107,39 @@ $( ".bt .del" ).button({
         <thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Email</th><th>Cep</th><th>Ações</th></tr></thead>
         <tbody>
         <?
+        $indice = 0;
         foreach ( $this->filial as $aux ) :
-
-            echo "<tr>
-                    <td>".$aux->nome."</td>
-                    <td>".$aux->tel."</td>
-                    <td>".$aux->endereco."</td>
-                    <td>".$aux->email."</td>
-                    <td>".$aux->cep."</td>
-                    <td>
-                        <div class='bt'>
-                            <button class='edit' onclick='edita(".$aux->idempresaFilial.")' >Editar Filial</button>
-                            <button class='del'id='confirmaExclui' onclick='confirmaDel(".$aux->idempresaFilial.")'>Excluir Filial</button>
-                        </div>
-                    </td>                            
-                  </tr>";
-
+            if($indice%2){
+                echo "<tr class='odd' >
+                        <td width='18%'>".$aux->nome."</td>
+                        <td width='15%'>".$aux->tel."</td>
+                        <td width='20%'>".$aux->endereco."</td>
+                        <td width='20%'>".$aux->email."</td>
+                        <td width='15%'>".$aux->cep."</td>
+                        <td>
+                            <div class='bt'>
+                                <button class='edit' onclick='edita(".$aux->idempresaFilial.")' >Editar Filial</button>
+                                <button class='del'id='confirmaExclui' onclick='confirmaDel(".$aux->idempresaFilial.")'>Excluir Filial</button>
+                            </div>
+                        </td>                            
+                    </tr>";
+            }
+            else{
+                echo "<tr>
+                        <td width='18%'>".$aux->nome."</td>
+                        <td width='15%'>".$aux->tel."</td>
+                        <td width='20%'>".$aux->endereco."</td>
+                        <td width='20%'>".$aux->email."</td>
+                        <td width='15%'>".$aux->cep."</td>
+                        <td>
+                            <div class='bt'>
+                                <button class='edit' onclick='edita(".$aux->idempresaFilial.")' >Editar Filial</button>
+                                <button class='del'id='confirmaExclui' onclick='confirmaDel(".$aux->idempresaFilial.")'>Excluir Filial</button>
+                            </div>
+                        </td>                            
+                    </tr>";
+                }
+            $indice = $indice + 1;
          endforeach; ?>
         </tbody>
 </table>

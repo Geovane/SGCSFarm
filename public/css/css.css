@@ -103,3 +103,7 @@ body{
         height: 70px;
         padding: 0px 0px 0px 0px;
         }        
+th{
+    text-align: left;
+    
+}
