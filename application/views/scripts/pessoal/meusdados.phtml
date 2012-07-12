@@ -15,7 +15,6 @@ if ( isset($this->flag)  )
 
 ?>
 
-
 <ul id="globalnav">
   <li><a href="/pessoal/meusdados" class="here" >Meus Dados</a></li>
   <li><a href="/pessoal/edit" >Alterar Dados</a></li>
@@ -23,6 +22,24 @@ if ( isset($this->flag)  )
   <li><a href="/pessoal/senha" >Alterar Senha</a></li>
 </ul>
 <br/>
+<script>
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "Alerta do Sistema",
+                resizable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+</script>
+
+
 <div id="createproject">
      <center><h3>Meus Dados</h3></center><br>
     <label for="nome" class="lblDados">Nome: </label>

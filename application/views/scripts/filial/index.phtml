@@ -2,17 +2,95 @@
 if ( isset($this->flag)  )
 
          switch ($this->flag){
-        case 1:
-            echo   "<div id='alerta'>Filial cadastrada com sucesso!</div>";
-            break;
-        case 2:
-            echo   "<div id='alerta'>Filial atualizada com sucesso!</div>";
-            break;
-        case 3:
-            echo "<div id='alerta'>Filial excluída com sucesso!</div>";
-            break;
+
+            case 1:
+                echo   "<div id='alerta'>Filial cadastrada com sucesso!</div>";
+                break;
+            case 2:
+                echo   "<div id='alerta'>Filial atualizada com sucesso!</div>";
+                break;
+            case 3:
+                echo "<div id='alerta'>Filial excluída com sucesso!</div>";
+                break;
+            case 4:
+                echo "<div id='alerta'>Filial atualizada com sucesso:<br>Responsável Alterado</div>";
+                break;
          }
 ?>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+
+<script>
+
+var idEmpresaFilial;
+
+function edita(x){
+    idEmpresaFilial = x;
+    
+    window.location = "/filial/edit/id/" + idEmpresaFilial;
+    
+}
+
+function confirmaDel(x){
+    idEmpresaFilial = x;
+
+    $( "#exclui" ).dialog("open");
+}   
+
+$(document).ready(function(){
+        $("#exclui").dialog({
+                autoOpen : false,
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Confirmar: function() {
+                                window.location = "/filial/delete/id/" + idEmpresaFilial;
+                                $( this ).dialog( "close" );
+                        },
+                        Cancelar: function() {
+                                $( this ).dialog( "close" );
+                        }
+                        
+                }
+                        
+        });
+});
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+
+$(function() {        
+$( ".bt .edit" ).button({
+            icons: {
+                primary: "ui-icon-pencil"
+            },
+            text: false
+        })  ;
+})  ;        
+$(function() {        
+$( ".bt .del" ).button({
+            icons: {
+                primary: "ui-icon-trash"
+            },
+            text: false
+        })  ;        
+});       
+
+</script>
 
 <ul id="globalnav">
   <li><a href="/funcionario/indexemp" >Funcionarios</a></li>
@@ -26,7 +104,7 @@ if ( isset($this->flag)  )
 <center>
     <table width="95%" class="tbl">
 
-        <thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Email</th><th>Cep</th><th></th><th></th></tr></thead>
+        <thead><tr><th>Nome</th><th>Telefone</th><th>Endereço</th><th>Email</th><th>Cep</th><th>Ações</th></tr></thead>
         <tbody>
         <?
         foreach ( $this->filial as $aux ) :
@@ -37,9 +115,12 @@ if ( isset($this->flag)  )
                     <td>".$aux->endereco."</td>
                     <td>".$aux->email."</td>
                     <td>".$aux->cep."</td>
-
-                    <td><a href='/empresafilial/edit/id/".$aux->idempresaFilial."' >Editar</a></td>
-                    <td><a href='/empresafilial/delete/id/".$aux->idempresaFilial."' >Excluir</a></td>
+                    <td>
+                        <div class='bt'>
+                            <button class='edit' onclick='edita(".$aux->idempresaFilial.")' >Editar Filial</button>
+                            <button class='del'id='confirmaExclui' onclick='confirmaDel(".$aux->idempresaFilial.")'>Excluir Filial</button>
+                        </div>
+                    </td>                            
                   </tr>";
 
          endforeach; ?>
@@ -47,3 +128,4 @@ if ( isset($this->flag)  )
 </table>
 </center>
 </div>
+<div id="exclui">Tem certeza que deseja excluir esta Filial?</div>

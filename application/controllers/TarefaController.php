@@ -2,10 +2,10 @@
 
 /**
  * Esta classe tem como objetivo efetuar o CRUD de Tarefas para um projeto.
- * Ela contém os recursos necessários para a associação de uma tarefa recém
+ * Ela contem os recursos necessarios para a associacao de uma tarefa recem
  * criada a um colaborador alocado em um projeto.
  * 
- * Os actions deste controller são: index, create, edit, delete e prepara.
+ * Os actions deste controller sao: index, create, edit, delete e prepara.
  * 
  * @author Bruno Pereira dos Santos
  * @version 0.1
@@ -18,7 +18,7 @@ class TarefaController extends Zend_Controller_Action
 {
 
     /**
-     * Função que inicializa todos os parametros necessários para o correto
+     * Funcao que inicializa todos os parametros necessarios para o correto
      * funcionamento dos actions.
      * 
      * @access public 
@@ -28,18 +28,18 @@ class TarefaController extends Zend_Controller_Action
     public function init()
     {
         //Verifica se o usuario esta autenticado, 
-        //caso não esteja ele é redirecionado para a tela da login.
-        //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
+        //caso nao esteja ele e redirecionado para a tela da login.
+        //Verifica se o usuario esta autenticado, caso nao esteja ele e redirecionado para a tela da login
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
 
-        //Pega as informações do usuario logado no sistema.
+        //Pega as informacoes do usuario logado no sistema.
         $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
         //Envia pra view
         $this->view->funcLogado = $this->funcLogado;
 
-        //Informações de exibição do usuario no index (deve estar em todos os inits)
+        //Informacoes de exibicao do usuario no index (deve estar em todos os inits)
         $this->FuncFilial = new Model_DbTable_FuncFilial();
         $dadosIndex = $this->FuncFilial->find($this->funcLogado->idfuncionario);
         $this->view->dadosIndex = $dadosIndex[0];
@@ -53,14 +53,14 @@ class TarefaController extends Zend_Controller_Action
         $idFilial = $this->idFilial;
         $idEmpresa =  $this->idEmpresa;
 
-        //Informações relativas a permissoes (Se tiver permissão retorna True)
+        //Informacoes relativas a permissoes (Se tiver permissao retorna True)
         $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
         $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
 
         $this->view->AdminFilial = $this->adminFilial;
         $this->view->AdminEmpresa = $this->adminEmpresa;
         /**
-        * Variáveis responsáveis pelo acesso as tabelas do banco de dado.
+        * Variaveis responsaveis pelo acesso as tabelas do banco de dado.
         * 
         * @name funFazTarefa
         * @name tarefa
@@ -81,7 +81,7 @@ class TarefaController extends Zend_Controller_Action
     }
 
     /**
-     * Função responsável pela inserção ao banco dos dados de uma nova tarefa
+     * Funcao responsavel pela insercao ao banco dos dados de uma nova tarefa
      * criada vinculada a um colaborador em um projeto.
      * 
      * @access public 
@@ -100,7 +100,7 @@ class TarefaController extends Zend_Controller_Action
         $this->view->idColab = $idColab;
 
         //Efetua uma busca pelo id do colaborador, para encontrar a FK_funcionario
-        //com a FK_funcionario é possível encontrar o nome do funcionário
+        //com a FK_funcionario e possível encontrar o nome do funcionario
         $where = $this->colaboradores->getAdapter()->quoteInto('idcolaboradores = ?', $idColab);
         $select = $this->colaboradores->select()
                 ->where($where);
@@ -114,8 +114,8 @@ class TarefaController extends Zend_Controller_Action
 
         if( $this->getRequest()->isPost() ) {
             /**
-                * Variável que pega uma data enviada pelo método post e prepara o
-                * array para posterior inserção no bando de dados.
+                * Variavel que pega uma data enviada pelo metodo post e prepara o
+                * array para posterior insercao no bando de dados.
                 *  
                 * @name $dataInc
                 */
@@ -123,8 +123,8 @@ class TarefaController extends Zend_Controller_Action
             $dataInc = $dataInc." ".date("H:i:s");
 
             /**
-                * Variável que pega uma data enviada pelo método post e prepara o
-                * array para posterior inserção no bando de dados.
+                * Variavel que pega uma data enviada pelo metodo post e prepara o
+                * array para posterior insercao no bando de dados.
                 *  
                 * @name $dataFim
                 */
@@ -138,7 +138,7 @@ class TarefaController extends Zend_Controller_Action
             $idTarEncontrada = $this->estado->fetchRow($select);
             $idTarEncontrada = $idTarEncontrada->idestado;
             /**
-                * Variável responsável pelos dados a serem inseridos na tabela
+                * Variavel responsavel pelos dados a serem inseridos na tabela
                 * tarefas do banco de dados
                 * 
                 * o campo 'estado_idestado' deve sempre ser setada para o estado
@@ -157,9 +157,9 @@ class TarefaController extends Zend_Controller_Action
             );
 
             /**
-                * Efetua inserçao no banco.
-                * A variavel '$idInseridoTarefa' contém o id do linha inserida.
-                * O parâmetro '$dados' contém os dados das colunas da tabela tarefas.
+                * Efetua insercao no banco.
+                * A variavel '$idInseridoTarefa' contem o id do linha inserida.
+                * O parâmetro '$dados' contem os dados das colunas da tabela tarefas.
                 * 
                 * @name $idInseridoTarefa
                 * @param $dados
@@ -168,7 +168,7 @@ class TarefaController extends Zend_Controller_Action
             $idInseridoTarefa = $this->tarefa->insert($dados);
 
             /**
-                * Variável responsável pelos dados a serem inseridos na tabela
+                * Variavel responsavel pelos dados a serem inseridos na tabela
                 * funFazTarefa do banco de dados
                 * 
                 * @name $dadosFunFazTar
@@ -179,9 +179,9 @@ class TarefaController extends Zend_Controller_Action
             );
 
             /**
-                * Efetua inserçao no banco.
-                * A variavel '$idInseridoFunFazTar' contém o id do linha inserida.
-                * O parâmetro '$dadosFunFazTar' contém os dados das colunas da tabela
+                * Efetua insercao no banco.
+                * A variavel '$idInseridoFunFazTar' contem o id do linha inserida.
+                * O parâmetro '$dadosFunFazTar' contem os dados das colunas da tabela
                 * funFazTarefa.
                 * 
                 * @name $idInseridoFunFazTar
@@ -189,8 +189,8 @@ class TarefaController extends Zend_Controller_Action
                 */
             $idInseridoFunFazTar = $this->funFazTarefa->insert($dadosFunFazTar);
 
-            //verifica se algum dos inserts obeteve erro e envia a informação
-            // de erro ou não com o parâmetro 'flag'
+            //verifica se algum dos inserts obeteve erro e envia a informacao
+            // de erro ou nao com o parâmetro 'flag'
             if(($idInseridoFunFazTar == null) || ($idInseridoTarefa == null)){
                 $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/4');
             }else{
@@ -200,7 +200,7 @@ class TarefaController extends Zend_Controller_Action
     }
 
     /**
-     * Função responsável pela edição de uma tarefa existente associada a um
+     * Funcao responsavel pela edicao de uma tarefa existente associada a um
      * colaborador em um projeto.
      * 
      * @access public 
@@ -219,7 +219,7 @@ class TarefaController extends Zend_Controller_Action
         $this->view->idColab = $idColab;
 
         //Efetua uma busca pelo id do colaborador, para encontrar a FK_funcionario
-        //com a FK_funcionario é possível encontrar o nome do funcionário
+        //com a FK_funcionario e possível encontrar o nome do funcionario
         $where = $this->colaboradores->getAdapter()->quoteInto('idcolaboradores = ?', $idColab);
         $select = $this->colaboradores->select()
                 ->where($where);
@@ -245,8 +245,8 @@ class TarefaController extends Zend_Controller_Action
             $dataFim = $dataFim." ".date("H:i:s");
 
             /**
-                * Variável que pega uma data enviada pelo método post e prepara o
-                * array para posterior inserção no bando de dados.
+                * Variavel que pega uma data enviada pelo metodo post e prepara o
+                * array para posterior insercao no bando de dados.
                 *  
                 * @name $dataEntrega
                 */
@@ -270,10 +270,10 @@ class TarefaController extends Zend_Controller_Action
             );
 
             /**
-                * Efetua a atualização no banco.
-                * A variavel '$where' contém a condição de atualização.
-                * A variavel '$idAtualizado' contém o id do linha atualizada.
-                * O parâmetro '$dados' contém os dados das colunas da tabela
+                * Efetua a atualizacao no banco.
+                * A variavel '$where' contem a condicao de atualizacao.
+                * A variavel '$idAtualizado' contem o id do linha atualizada.
+                * O parâmetro '$dados' contem os dados das colunas da tabela
                 * tarefa.
                 * 
                 * @name $where
@@ -283,8 +283,8 @@ class TarefaController extends Zend_Controller_Action
             $where = $this->tarefa->getAdapter()->quoteInto("idtarefa = ?", $idTarefa);
             $idAtualizado = $this->tarefa->update($dados, $where);
 
-            //verifica se a atualização obeteve erro e envia a informação
-            //de erro ou não com o parâmetro 'flag'
+            //verifica se a atualizacao obeteve erro e envia a informacao
+            //de erro ou nao com o parâmetro 'flag'
             if($idAtualizado == null){
                 $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/4');
             }else{
@@ -294,7 +294,7 @@ class TarefaController extends Zend_Controller_Action
     }
 
     /**
-     * Função responsável pela deleção de uma tarefa existente associada a um
+     * Funcao responsavel pela delecao de uma tarefa existente associada a um
      * colaborador em um projeto.
      * 
      * @access public 
@@ -308,9 +308,9 @@ class TarefaController extends Zend_Controller_Action
         $idColab = $this->_getParam('idColab');
 
         /**
-        * Efetua a deleção no banco de dados da tabela funFazTarefa.
-        * A variavel '$where' contém a condição de deleção.
-        * A variavel '$idDelatadoFunfazTar' contém o id do linha deletada.
+        * Efetua a delecao no banco de dados da tabela funFazTarefa.
+        * A variavel '$where' contem a condicao de delecao.
+        * A variavel '$idDelatadoFunfazTar' contem o id do linha deletada.
         * 
         * @name $where
         * @name $idDelatadoFunfazTar
@@ -319,9 +319,9 @@ class TarefaController extends Zend_Controller_Action
         $idDelatadoFunfazTar = $this->funFazTarefa->delete($where);
 
         /**
-        * Efetua a deleção no banco de dados da tabela tarefa.
-        * A variavel '$where' contém a condição de deleção.
-        * A variavel '$idDelatadoTar' contém o id do linha deletada.
+        * Efetua a delecao no banco de dados da tabela tarefa.
+        * A variavel '$where' contem a condicao de delecao.
+        * A variavel '$idDelatadoTar' contem o id do linha deletada.
         * 
         * @name $where
         * @name $idDelatadoTar
@@ -331,8 +331,8 @@ class TarefaController extends Zend_Controller_Action
 
         $idProj = $this->_getParam('idProj');
 
-        //verifica se a atualização obeteve erro e envia a informação
-            //de erro ou não com o parâmetro 'flag'
+        //verifica se a atualizacao obeteve erro e envia a informacao
+            //de erro ou nao com o parâmetro 'flag'
         if(($idDelatadoFunfazTar == null) || ($idDelatadoTar == null)){
             $this->_redirect('/tarefa/prepara/idProj/'.$idProj.'/flag/4');
         }else{
@@ -341,8 +341,8 @@ class TarefaController extends Zend_Controller_Action
     }
 
     /**
-     * Função para a inversão de datas.
-     * Exemplo dd/mm/yyyy é convertido em yyyy/mm/dd e vice-versa
+     * Funcao para a inversao de datas.
+     * Exemplo dd/mm/yyyy e convertido em yyyy/mm/dd e vice-versa
      * recebe a data e o tipo de separador utilizado
      * retorna a data invertida.
      * 
@@ -359,10 +359,10 @@ class TarefaController extends Zend_Controller_Action
     }
 
     /**
-     * Função responsável pela preparação de criação de uma nova tarefa
+     * Funcao responsavel pela preparacao de criacao de uma nova tarefa
      * associada a um
      * colaborador em um projeto.
-     * Visualização de tarefas existentes em um projeto.
+     * Visualizacao de tarefas existentes em um projeto.
      * 
      * @access public 
      * @return void
@@ -385,7 +385,7 @@ class TarefaController extends Zend_Controller_Action
             $this->_redirect('/projeto/');
         }
         
-        //verifica se algum projeto foi selecionado e presenta as informações
+        //verifica se algum projeto foi selecionado e presenta as informacoes
         //do mesmo.
         if( ($this->getRequest()->isPost()) || ($listProj != null) ){
             if($listProj == null)
@@ -394,13 +394,13 @@ class TarefaController extends Zend_Controller_Action
             $idColab = $this->_request->getPost('listColab');
             $idProj = $this->_request->getPost('idProj');
 
-            //redireciona para a criação de uma tarefa, pois já foi selecionado
+            //redireciona para a criacao de uma tarefa, pois ja foi selecionado
             //um projeto e uma tarefa.
             if(($idColab != null) && ($idProj != null)){
                 $this->_redirect('/tarefa/create/idProj/'.$idProj.'/idColab/'.$idColab.'');
             }
             //caso nenhum projeto tenha sido selecionado redireciona para a pagina
-            //de tarefas, onde é possível selecionar um projeto.
+            //de tarefas, onde e possível selecionar um projeto.
             if($listProj == null){
                 $this->_redirect('/tarefa');
             }else{
@@ -432,7 +432,7 @@ class TarefaController extends Zend_Controller_Action
                         ->where($where);
                 $rows = $this->tarColabProj->fetchAll($select);
 
-                //Cria a paginação relativa a exibição dos funcionarios
+                //Cria a paginacao relativa a exibicao dos funcionarios
                 $paginator = Zend_Paginator::factory($rows);
                 //Passa o numero de registros por pagina
                 $paginator->setItemCountPerPage(3);
@@ -443,7 +443,16 @@ class TarefaController extends Zend_Controller_Action
             }
         }
     }
-
+    
+    /**
+     * Funcao responsavel pela busca de tarefas de um determinado colaborador
+     * associado a um projeto.
+     * Visualizacao de tarefas existentes em um projeto.
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function minhasTarefasAction()
     {
         // action body
@@ -475,7 +484,7 @@ class TarefaController extends Zend_Controller_Action
         
         $rows = $this->tarColabProj->fetchAll($select);
         
-        //Cria a paginação relativa a exibição dos funcionarios
+        //Cria a paginacao relativa a exibicao dos funcionarios
         $paginator = Zend_Paginator::factory($rows);
         //Passa o numero de registros por pagina
         $paginator->setItemCountPerPage(5);
@@ -483,63 +492,6 @@ class TarefaController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
         $paginator->setCurrentPageNumber($this->_getParam('page'));
         
-        
-        
-//        $select = $this->estado->select();
-//        $this->view->listaEstado = $this->estado->fetchAll($select);
-//        
-//        $where = $this->projeto->getAdapter()->quoteInto('idprojeto = ?', $idProj);
-//        $select = $this->projeto->select()
-//                    ->where($where);
-//        $projEncontrado = $this->projeto->fetchRow($select);
-//        $this->view->projEncontrado = $projEncontrado;
-//        $nomeProjEncontrado = $projEncontrado->nome;
-//        
-//        
-//        $where = $this->colaboradores->getAdapter()->quoteInto('projeto_idprojeto = ?, funcionario_idfuncionario = ?', $idProj, $idFunc);
-//        $select = $this->colaboradores->select()
-//                    ->where($where);
-//        $colabEncontrado = $this->colaboradores->fetchRow($select);
-//        $idColabEncontrado = $colabEncontrado->idcolaboradores;  
-//        
-//       
-//        $select = $this->tarColabProj->select()
-//                        ->where('nomeProj = ?, idColab = ?', $nomeProjEncontrado, $idColabEncontrado);
-//        
-//        $rows = $this->tarColabProj->fetchRow($select);
-//        
-//        //Cria a paginação relativa a exibição dos funcionarios
-//        $paginator = Zend_Paginator::factory($rows);
-//        //Passa o numero de registros por pagina
-//        $paginator->setItemCountPerPage(5);
-//
-//        $this->view->paginator = $paginator;
-//        $paginator->setCurrentPageNumber($this->_getParam('page'));
-//        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-//        $where = $this->colaboradores->getAdapter()->quoteInto('projeto_idprojeto = ?', $idProj);
-//        $select = $this->colaboradores->select()
-//                ->where($where)
-//                ->where('funcionario_idfuncionario = ?', $idFunc);
-//        $colabEncontrado = $this->colaboradores->fetchRow($select);
-//        $idColabEncontrado = $colabEncontrado->idcolaboradores;
-//        
-//        $select = $this->funFazTarefa->select()
-//                ->where('colaboradores_idcolaboradores = ?', $idColabEncontrado);
-//        
-//        $this->view->funFazTarefa = $this->funFazTarefa->fetchAll($select);
     }
 
 
