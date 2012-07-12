@@ -1,8 +1,27 @@
 <?php
-
+/**
+ * Esta classe tem como objetivo efetuar a escolha da tabela 'projetobugzilla'
+ * no banco de dados.
+ * 
+ * @author SoftFarm
+ * @version 0.1
+ * @access public
+ * @copyright Copyright © 2012, SoftFarm.
+ * 
+ */
 class Model_Permissoes
 {
-
+    
+    /**
+     * Funcao que Retorna true o o funcionario e responsavel pela empresa informada
+     * 
+     * @access public 
+     * @param int $idFunc contendo o id do funcionario fornecido
+     * @param int $idEmpresa contendo o id da empresa
+     * @return true se $idFunc seja responsavel pela empresa com id $idEmpresa.
+     * @return false caso nao $idFunc seja responsavel pela empresa com id $idEmpresa.
+     * 
+     */
     static function responsavelEmpresa( $idFunc, $idEmpresa) {
 
         $empresa = new Model_DbTable_Empresa();
@@ -18,6 +37,16 @@ class Model_Permissoes
 
     }
 
+    /**
+     * Funcao que Retorna true o o funcionario e responsavel pela empresa filial
+     * 
+     * @access public 
+     * @param int $idFunc contendo o id do funcionario fornecido
+     * @param int $idFilial contendo o id da empresa filial
+     * @return true se $idFunc seja responsavel pela empresa filial com id $idFilial.
+     * @return false caso nao $idFunc seja responsavel pela empresa filial com id $idFilial.
+     * 
+     */
     static function responsavelFilial( $idFunc, $idFilial) {
 
         $filial = new Model_DbTable_Filial();

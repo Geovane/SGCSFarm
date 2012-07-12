@@ -2,14 +2,14 @@
 /**
  * Esta classe tem como objetivo efetuar o CRUD de Projetos para um projeto
  * bem como permitir acessos a views de gerentes (geral e de projetos).
- * Ela contém os recursos necessários para o controle dos usuários ao CRUDE e
- * as visões de cada tipo de usuário.
+ * Ela contem os recursos necessarios para o controle dos usuarios ao CRUDE e
+ * as visoes de cada tipo de usuario.
  * 
  * @author Bruno Pereira dos Santos
  * @author Matheus Passos
  * @version 0.1
  * @access public
- * 
+ * @copyright Copyright © 2012, SoftFarm.
  * 
  */
 
@@ -19,7 +19,7 @@ class ProjetoController extends Zend_Controller_Action
 {
     
     /**
-     * Função que inicializa todos os parametros necessários para o correto
+     * Funcao que inicializa todos os parametros necessarios para o correto
      * funcionamento dos actions.
      * 
      * @access public 
@@ -28,17 +28,17 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function init()
     {
-        //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
+        //Verifica se o usuario esta autenticado, caso nao esteja ele e redirecionado para a tela da login
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
         }
 
-        //Pega as informações do usuario logado no sistema.
+        //Pega as informacoes do usuario logado no sistema.
         $this->funcLogado = Zend_Auth::getInstance()->getIdentity();
         //Envia pra view
         $this->view->funcLogado = $this->funcLogado;
 
-        //Informações de exibição do usuario no index (deve estar em todos os inits)
+        //Informacoes de exibicao do usuario no index (deve estar em todos os inits)
         $this->FuncFilial = new Model_DbTable_FuncFilial();
         $dadosIndex = $this->FuncFilial->find($this->funcLogado->idfuncionario);
         $this->view->dadosIndex = $dadosIndex[0];
@@ -52,7 +52,7 @@ class ProjetoController extends Zend_Controller_Action
         $idFilial = $this->idFilial;
         $idEmpresa =  $this->idEmpresa;
 
-        //Informações relativas a permissoes (Se tiver permissão retorna True)
+        //Informacoes relativas a permissoes (Se tiver permissao retorna True)
         $this->adminFilial = Model_Permissoes::responsavelFilial($idFunc,$idFilial);
         $this->adminEmpresa = Model_Permissoes::responsavelEmpresa($idFunc,$idEmpresa);
 
@@ -74,11 +74,12 @@ class ProjetoController extends Zend_Controller_Action
         $this->empresa = new Model_DbTable_Empresa();
         $this->filial = new Model_DbTable_Filial();
         $this->estadoProj = new Model_DbTable_EstadoProj();
+        $this->projFiliais = new Model_DbTable_ProjetosFiliais();
     }
     
     /**
-     * Função inicial do controller projetos.
-     * envia ao seu view as informações sobre os projetos.
+     * Funcao inicial do controller projetos.
+     * envia ao seu view as informacoes sobre os projetos.
      * 
      * @access public 
      * @return void
@@ -107,7 +108,16 @@ class ProjetoController extends Zend_Controller_Action
         $this->view->paginator = $paginator;
         $paginator->setCurrentPageNumber($this->_getParam('page'));
     }
-
+    
+    /**
+     * Funcao responsavel pela exibicao dos projetos que um dado funcionario
+     * esta alocado como gerente.
+     * Envia para seus views as informacoes destes projetos.
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function gerencioAction()
     {
         $idFuncLogado = $this->funcLogado->idfuncionario;
@@ -129,7 +139,7 @@ class ProjetoController extends Zend_Controller_Action
     
     
     /**
-     * Função responsável pela inserção ao banco dos dados de uma novo projeto
+     * Funcao responsavel pela insercao ao banco dos dados de uma novo projeto
      * 
      * @access public 
      * @return void
@@ -145,8 +155,8 @@ class ProjetoController extends Zend_Controller_Action
         if($this->_request->isPost())    
         {
             /**
-            * Variável que pega uma data enviada pelo método post e prepara o
-            * array para posterior inserção no bando de dados.
+            * Variavel que pega uma data enviada pelo metodo post e prepara o
+            * array para posterior insercao no bando de dados.
             *  
             * @name $dataInc
             */
@@ -160,7 +170,7 @@ class ProjetoController extends Zend_Controller_Action
             
             if($nomeprojeto == $this->_request->getPost('nome'))
             {
-                $this->view->mensagem = '<h3>Já existe um projeto com este nome!</h3>';
+                $this->view->mensagem = "<div id='alerta'>Ja existe um projeto com este nome!</div>";
             }else{    
 
             $data = array
@@ -198,7 +208,7 @@ class ProjetoController extends Zend_Controller_Action
     }
     
     /**
-     * Função responsável pela edição de projeto existente
+     * Funcao responsavel pela edicao de projeto existente
      * 
      * @access public 
      * @return void
@@ -239,7 +249,7 @@ class ProjetoController extends Zend_Controller_Action
     
     
     /**
-     * Função responsável pela deleção de um projeto existente
+     * Funcao responsavel pela delecao de um projeto existente
      * 
      * @access public 
      * @return void
@@ -247,7 +257,7 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        //Precisa só colocar as flags informando o ocorrido para o usuário
+        //Precisa so colocar as flags informando o ocorrido para o usuario
         $id_proj = $this->_getParam('id');
        
         $select = $this->project->select();
@@ -274,7 +284,7 @@ class ProjetoController extends Zend_Controller_Action
     
     
     /**
-     * Função responsável pela exibição detalhada de um projeto
+     * Funcao responsavel pela exibicao detalhada de um projeto
      * 
      * @access public 
      * @return void
@@ -323,33 +333,11 @@ class ProjetoController extends Zend_Controller_Action
         $selecColab = $this->colabProj->select()
                 ->where('nomeProj = ?', $nomeProj);
         $this->view->colab = $this->colabProj->fetchAll($selecColab);
-        
-//        $where = $this->ProjGerFiliColab->getAdapter()->quoteInto('idprojeto = ?', $idProj);
-//        $selecProj = $this->ProjGerFiliColab->select()
-//                ->where($where);
-//        $ProjEncontrado = $this->ProjGerFiliColab->fetchAll($selecProj);
-//        $this->view->ProjEncontrado = $ProjEncontrado;
-//
-//        $nomeProj = $ProjEncontrado->current()->nomeProj;
-//        $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
-//                    ->where('nomeProj = ?', $nomeProj);
-//        $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
-//
-//        $paginator = Zend_Paginator::factory($rows);
-//        //Passa o numero de registros por pagina
-//        $paginator->setItemCountPerPage(4);
-//
-//        $this->view->paginator = $paginator;
-//        $paginator->setCurrentPageNumber($this->_getParam('page'));
-//
-//        $selecColab = $this->colabProj->select()
-//                ->where('nomeProj = ?', $nomeProj);
-//        $this->view->colab = $this->colabProj->fetchAll($selecColab);
     }
     
     /**
-     * Função responsável pela exibição de todos os projetos daquela filial
-     * para o administrador responsável pela filial.
+     * Funcao responsavel pela exibicao de todos os projetos daquela filial
+     * para o administrador responsavel pela filial.
      * 
      * @access public 
      * @return void
@@ -361,23 +349,16 @@ class ProjetoController extends Zend_Controller_Action
         $selecFilial = $this->filial->select()
                 ->where('responsavel = ?', $idFuncLogado);
         $filialEncontrada = $this->filial->fetchRow($selecFilial);
-        
+        $this->view->estadoProj = $this->estadoProj;
         if($filialEncontrada->responsavel == $idFuncLogado){
             $this->view->nomeFilial = $filialEncontrada->nome;
-            $idFilial = $filialEncontrada->idempresaFilial;
-            $selectProjs = $this->ProjGerFiliColab->select()
-                ->from(array('p' => 'projetos_gerente_filial_colaboradores'),
-                        array('idprojeto', 'nomeProj', 'dataFim', 'dataInc', 'estadoProj', 'idGerente',
-                    'nomeGerente', 'descricaoProj'))
-                ->distinct()
-                ->where('idFilialProj = ?', $idFilial);
-
-            $rows = $this->ProjGerFiliColab->fetchAll($selectProjs);
-
+            $selectProjs = $this->projFiliais->select()
+                    ->where('nomeFilial = ?', $filialEncontrada->nome);
+            
+            $rows = $this->projFiliais->fetchAll($selectProjs);
             $paginator = Zend_Paginator::factory($rows);
             //Passa o numero de registros por pagina
             $paginator->setItemCountPerPage(4);
-
             $this->view->paginator = $paginator;
             $paginator->setCurrentPageNumber($this->_getParam('page'));
             
@@ -388,7 +369,7 @@ class ProjetoController extends Zend_Controller_Action
     }
     
     /**
-     * Função responsável pela exibição de todos os projetos daquela empresa
+     * Funcao responsavel pela exibicao de todos os projetos daquela empresa
      * para o administrador geral da empresa.
      * 
      * @access public 
@@ -423,8 +404,8 @@ class ProjetoController extends Zend_Controller_Action
     }
 
     /**
-     * Função para a inversão de datas.
-     * Exemplo dd/mm/yyyy é convertido em yyyy/mm/dd e vice-versa
+     * Funcao para a inversao de datas.
+     * Exemplo dd/mm/yyyy e convertido em yyyy/mm/dd e vice-versa
      * recebe a data e o tipo de separador utilizado
      * retorna a data invertida.
      * 
@@ -440,7 +421,15 @@ class ProjetoController extends Zend_Controller_Action
         $nova_data = implode("".$separador."",array_reverse(explode("".$separador."",$data)));
                         return $nova_data;
     }
-
+    
+    /**
+     * Funcao responsavel pela busca de detalhes de um dado projeto e exibe para
+     * o seu respectivo gerente. Caso contrario as informacoes sao negadas
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function detalhesgerenteAction(){
         $this->view->flag = $this->_request->getParam('flag');
         $idFuncLogado = $this->funcLogado->idfuncionario;
@@ -475,33 +464,17 @@ class ProjetoController extends Zend_Controller_Action
         }else{
             $this->_redirect('/projeto/index');
         }
-        
-        
-//        $this->view->naoColabEnaoEGerente = $validaUsuario;
-//        
-//        $where = $this->ProjGerFiliColab->getAdapter()->quoteInto('idprojeto = ?', $idProj);
-//        $selecProj = $this->ProjGerFiliColab->select()
-//                ->where($where);
-//        $ProjEncontrado = $this->ProjGerFiliColab->fetchAll($selecProj);
-//        $this->view->ProjEncontrado = $ProjEncontrado;
-//
-//        $nomeProj = $ProjEncontrado->current()->nomeProj;
-//        $selectEstadoTarefa = $this->tipoEstadoTarefaColabProj->select()
-//                    ->where('nomeProj = ?', $nomeProj);
-//        $rows = $this->tipoEstadoTarefaColabProj->fetchAll($selectEstadoTarefa);
-//
-//        $paginator = Zend_Paginator::factory($rows);
-//        //Passa o numero de registros por pagina
-//        $paginator->setItemCountPerPage(4);
-//
-//        $this->view->paginator = $paginator;
-//        $paginator->setCurrentPageNumber($this->_getParam('page'));
-//
-//        $selecColab = $this->colabProj->select()
-//                ->where('nomeProj = ?', $nomeProj);
-//        $this->view->colab = $this->colabProj->fetchAll($selecColab);
     }
     
+    /**
+     * Funcao responsavel pela busca de detalhes de um dado projeto e exibe para
+     * o seu respectivo administrador da filial.
+     * Caso contrario as informacoes sao negadas
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
     public function detalhesadminfilialAction(){
         
         
@@ -539,6 +512,15 @@ class ProjetoController extends Zend_Controller_Action
         }
     }
     
+    /**
+     * Funcao responsavel pela busca de detalhes de um dado projeto e exibe para
+     * o seu respectivo administrador da geral da empresa.
+     * Caso contrario as informacoes sao negadas
+     * 
+     * @access public 
+     * @return void
+     * 
+     */
      public function detalhesadmingeralAction(){
         
         

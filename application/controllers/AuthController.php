@@ -92,12 +92,12 @@ class AuthController extends Zend_Controller_Action
                 } else
                 {
                     //Dados inválidos
-                    $this->view->mensagem = 'Dados de usuário ou senha inválidos.';
+                    $this->view->mensagem = "<div id='alerta'>Dados de usuário ou senha inválidos.</div>";
                 }
             } else
             {
                 //Formulário preenchido de forma incorreta
-                $this->view->mensagem = 'Preencha o formulário corretamente.';
+                $this->view->mensagem = "<div id='alerta'>Preencha o formulário corretamente.</div>";
             }
         }
     }
@@ -137,9 +137,9 @@ class AuthController extends Zend_Controller_Action
 
 
             if (  empty($data['senhaNova']) || empty($data['senhaNova2']) )
-                $this->view->mensagem = "Preencha os campos obrigatórios.";
+                $this->view->mensagem = "<div id='alerta'>Preencha os campos obrigatórios.</div>";
             elseif ( $data['senhaNova'] != $data['senhaNova2']  )
-                $this->view->mensagem = "As senhas digitadas são diferentes.";
+                $this->view->mensagem = "<div id='alerta'>As senhas digitadas são diferentes.</div>";
             else
             {
                 //Faz o update do campo senha e redireciona para tela inicial do sistema

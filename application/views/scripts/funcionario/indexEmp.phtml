@@ -5,31 +5,44 @@
   <li><a href="/filial/create" >Cadastrar Filial</a></li>
   <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
 </ul>
-
+<br/>
 <?
 if ( isset($this->flag)  )
-
          switch ($this->flag){
         case 1:
-            echo   "<h3>Funcionario cadastrado com sucesso!</h3><br>";
+            echo   "<div id='alerta'>Funcionario cadastrado com sucesso!</div>";
             break;
         case 2:
-            echo   "<h3>Funcionario atualizado com sucesso!</h3><br>";
+            echo   "<div id='alerta'>Funcionario atualizado com sucesso!</div>";
             break;
         case 3:
-            echo   "<h3>Funcionario excluído com sucesso!</h3><br>";
+            echo   "<div id='alerta'>Funcionario excluído com sucesso!</div>";
             break;
         case 4:
-            echo "<h4>Não foi possivel transferir o funcionario, verifique:<br> Se o funcionario é responsavel por alguma filial;<br>
+            echo "<div id='alerta'>Não foi possivel transferir o funcionario, verifique:<br> Se o funcionario é responsavel por alguma filial;<br>
                 Se o funcionario é colaborador em algum projeto;<br>Se o funcionario é gerente de algum projeto;<br>
-                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a transferência.</h4><br>";
+                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a transferência.</div>";
             break;
         case 5:
-             echo   "<h3>Funcionario transferido com sucesso!</h3><br>";
+             echo   "<div id='alerta'>Funcionario transferido com sucesso!</div>";
             break;
-         }
-
+         };
 ?>
+
+<script type="text/javascript">
+    $(document).ready(function() {
+		$( "#alerta" ).dialog({
+			title : "Alerta do Sistema",
+                        resizable : false,
+                        buttons: {
+				Ok: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+                        
+		});    
+    });
+</script>
 
  <div id="createproject" >
 <center>

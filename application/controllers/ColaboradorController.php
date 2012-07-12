@@ -89,7 +89,6 @@ class ColaboradorController extends Zend_Controller_Action
         $selectproj = $this->project->select();
         $selectproj -> where('idprojeto = ?', $id_proj);
         
-        
         $rows = $this->ProjGerFiliColab->fetchAll($select);
         
         $paginator = Zend_Paginator::factory($rows);
@@ -148,7 +147,7 @@ class ColaboradorController extends Zend_Controller_Action
             
             if($colaborador != 0)
             {
-                $this->view->mensagem = '<h3>Um colaborador não pode exercer mais de uma função no projeto</h3><br>';
+                $this->view->mensagem = "<div id='alerta'>Um colaborador não pode exercer mais de uma função no projeto</div>";
             }
             else
             {    
