@@ -34,14 +34,14 @@ function confirmaDel(x,y){
     $( "#exclui" ).dialog("open");
 }    
 
-function editaCol(x,y){
+function edita(x,y){
     idFuncionarioColaborador = x;
     idprojeto = y;
     
     window.location = "/colaborador/edit/idfunc/" + idFuncionarioColaborador+ "/id/"+ idprojeto;
 }
 
-function addTar(x,y){
+function add(x,y){
     idprojeto = x;
     idColaborador = y;
     
@@ -141,8 +141,8 @@ $( ".bt .delCol" ).button({
                         <td width='15%' align='center'>".$aux['nomeFilialProj']."</td>
                         <td>
                             <div class='bt'>
-                                <button class='addTarefa' onclick='addTar(".$aux['idprojeto'].",".$aux['idColaborador'].")'>Adicionar Tarefa</button>
-                                <button class='editCol' onclick='editaCol(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")' >Editar Colaborador</button>
+                                <button class='addTarefa' onclick='add(".$aux['idprojeto'].",".$aux['idColaborador'].")'>Adicionar Tarefa</button>
+                                <button class='editCol' onclick='edita(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")' >Editar Colaborador</button>
                                 <button class='delCol'id='confirmaExclui' onclick='confirmaDel(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")'>Remover Colaborador do Projeto</button>
                             </div>
                         </td>                            
@@ -156,8 +156,8 @@ $( ".bt .delCol" ).button({
                         <td width='17%' align='center'>".$aux['nomeFilialProj']."</td>
                         <td>
                             <div class='bt'>
-                                <button class='addTarefa' onclick='addTar(".$aux['idprojeto'].",".$aux['idColaborador'].")'>Adicionar Tarefa</button>
-                                <button class='editCol' onclick='editaCol(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")' >Editar Colaborador</button>
+                                <button class='addTarefa' onclick='add(".$aux['idprojeto'].",".$aux['idColaborador'].")'>Adicionar Tarefa</button>
+                                <button class='editCol' onclick='edita(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")' >Editar Colaborador</button>
                                 <button class='delCol'id='confirmaExclui' onclick='confirmaDel(".$aux['idFuncionarioColaborador'].",".$aux['idprojeto'].")'>Remover Colaborador do Projeto</button>
                             </div>
                         </td>                           
