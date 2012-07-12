@@ -4,7 +4,10 @@
         switch($this->flag)
         {
             case 1:
-                echo "<h3>Não é possível deletar um projeto que não esteja concluído!</h3><br>";
+                echo "<div id='alerta'>Não é possível deletar um projeto que não esteja concluído!</div>";
+                break;
+            case 2:
+                echo "<div id='alerta'>Projeto Editado com Sucesso!</div>";
                 break;
         }
     }
@@ -12,6 +15,28 @@
 
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                            ->appendStylesheet('/css/projetos_css.css');?>
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+
+<script>
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+</script>
+
 
 <ul id="globalnav">
   <li><a href="/projeto/index" >Projetos que colaboro</a></li>
@@ -158,7 +183,6 @@
 menu('12');
 </script>
 
-<script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript">
 
 $(function(){

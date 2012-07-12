@@ -9,6 +9,12 @@ if(isset($this->mensagem))
   <li><a href="/projeto/adminfilial">Projetos</a></li>
   <li><a href="#" class="here">Criar Projeto</a></li>
 </ul>
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready(function(){
     $("#dtinicio").mask("99/99/9999");
@@ -19,32 +25,31 @@ $(document).ready(function(){
 		// Define as regras
 		rules:{
 			nome:{
-				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
 				required: true, minlength: 3
 			},
 			descricao:{
-				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
 				required: true, minlength: 10
 			},
 			dtinicio:{
 				required: true
 			}
                 }
-		// Define as mensagens de erro para cada regra
-		/*messages:{
-			name:{
-				required: "Campo obrigatório!",
-				minlength: "O nome do projeto deve conter, no mínimo, 3 caracteres"
-			},
-			descricao:{
-				required: "Campo obrigatório!",
-				minlength: "A descrição do projeto deve conter, no mínimo, 10 caracteres"
-			},
-			dtinicio:{
-				required: "Campo obrigatório!"
-			}
-		}*/
 	});
+      
+});
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
       
 });
 </script>
@@ -54,7 +59,7 @@ $(document).ready(function(){
     <center><h3>Novo Projeto</h3></center><br>
         <div class="field">            
             <label for="name" class="lblGeralClass">Nome:</label>
-            <input type="text" class="input" id="name" name="nome" maxlength="35"/>
+            <input type="text" class="input" id="nome" name="nome" maxlength="35"/>
         </div>
 
         <div class="field">      

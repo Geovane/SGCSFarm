@@ -10,10 +10,9 @@
     <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto; ?>" class="here">Inserir Colaborador</a></li>
 </ul>
 <br>
-
-<script type="text/javascript" src="/js/jquery.js"></script>
-<script type="text/javascript" src="/js/jquery.validate.js"></script>
-<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/js/jquery.js"></script>
+    <script type="text/javascript" src="/js/jquery.validate.js"></script>
+    <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -64,7 +63,7 @@ $(document).ready(function(){
     </div>
     <div class="field">                    
             <label for="nome" class="lblGeralClass">Horas por Mês:</label>
-            <input type="number" id="nome" name="horas" maxlength="35" class="input" style="width: 100px" />
+            <input type="number" min="1" id="nome" name="horas" maxlength="35" class="input" style="width: 100px" />
     </div>
     <div class="field">                    
            <label for="funcao" class="lblGeralClass">Função:</label>

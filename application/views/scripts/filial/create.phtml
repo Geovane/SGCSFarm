@@ -5,6 +5,7 @@
   <li><a href="/filial/create" class="here">Cadastrar Filial</a></li>
   <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
 </ul>
+
 <br/>
 
 <?
@@ -15,27 +16,29 @@ if ( isset($this->flag)  )
             break;
          }
 ?>
- <script type="text/javascript" src="/js/jquery.js"></script>
-    <script type="text/javascript" src="/js/jquery.validate.js"></script>
-    <script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
-    <script type="text/javascript" src="/js/validaForm.js"></script>
-<script type="text/javascript">    
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#tel").mask("(99) 9999-9999");
+    $("#cep").mask("99.999-999");
+});    
 $(document).ready(function(){
         
 	$("#createfilial").validate({
 		// Define as regras
 		rules:{
 			nome:{
-				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
 				required: true, minlength: 3
 			},
 			tel:{
-				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
 				required: true, minlength: 10
 			},
 			endereco:{
-				required: true, minlength:10
+				required: true, minlength: 10
 			},
                         responsavel:{
                                 required:true
@@ -44,31 +47,47 @@ $(document).ready(function(){
                                 required:true,email:true
                         },
                         cep:{
-                                required:true, minlength:8
+                                required:true, minlength: 8
                         }
                 }
 	});
       
 });
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
 </script>
+<div id="createproject" >
+<form id="createfilial" class="rounded" action="/filial/create" method="post">
 
-<form id="createproject" class="rounded" action="/filial/create" method="post">
+        <div>
+            <center><h3>Nova Filial</h3></center>
 
-           <center><h3>Nova Filial</h3></center>
-            
             <div class="field">
             <label for="nome" class="lblGeralClass">Nome:</label>
-            <input type="text" class="input" id="nome" name="nome" maxlength="35"/>
+            <input type="text" class="input" id="nome" name="nome" />
             </div>
             
             <div class="field">
             <label for="tel" class="lblGeralClass">Telefone:</label>
-            <input type="text" class="input" id="tel" name="tel" maxlength="25"/>
+            <input type="text" class="input" id="tel" name="tel" maxlength="14" />
             </div>
              
             <div class="field">
             <label for="endereco" class="lblGeralClass">Endereço:</label>
-            <input type="text" class="input" id="endereco" name="endereco" maxlength="25"/>
+            <input type="text" class="input" id="endereco" name="endereco" maxlength="45"/>
             </div>
             
             <div class="field">
@@ -97,3 +116,4 @@ $(document).ready(function(){
             <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
 
 </form>
+</div>

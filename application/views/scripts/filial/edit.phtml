@@ -1,50 +1,119 @@
-<form action="/empresafilial/edit" method="post">
+<ul id="globalnav">
+  <li><a href="/funcionario/indexemp" >Funcionarios</a></li>
+  <li><a href="/funcionario/createemp">Cadastrar Reponsável</a></li>
+  <li><a href="/filial" >Filiais</a></li>
+  <li><a href="/filial/create">Cadastrar Filial</a></li>
+  <li><a href="/projeto/admingeral">Projetos da Empresa</a></li>
+  <li><a href="/filial/edit" class="here">Editar Filial</a></li>
+</ul>
+
+
+<?
+if ( isset($this->flag)  )
+      switch ($this->flag){
+          case 1:
+            echo   "<div id='alerta'>Filial não atualizada, nome já existente.</div>";
+            break;
+          case 2:
+            echo   "<div id='alerta'>Erro: o responsavel não pode ser trocado, verifique se ele não esta vinculado a algum projeto como colaborador ou como gerente</div>";
+            break;
+         }
+?>
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+
+<script type="text/javascript">
+$(document).ready(function(){
+    $("#tel").mask("(99) 9999-9999");
+    $("#cep").mask("99.999-999");
+});    
+
+$(document).ready(function(){
+
+	$("#createfilial").validate({
+		// Define as regras
+		rules:{
+			nome:{
+				required: true, minlength: 3
+			},
+			tel:{
+				required: true
+			},
+			endereco:{
+				required: true, minlength:10
+			},
+                        responsavel:{
+                                required:true
+                        },
+                        email:{
+                                required:true,email:true
+                        },
+                        cep:{
+                                required:true, minlength:8
+                        }
+                }
+	});
+
+});
+</script>
+<div id="createproject" >
+<form id="createfilial" class="rounded" action="/filial/edit" method="post">
 
         <div>
-            <br><br>
-            <label for="filial">Filial:</label>
-            <select id="filial" name="idFilial">
-                <?php foreach ( $this->filial as $filial ) : ?>
-                <option <?php
-                        if ( $filial->idempresaFilial == $this->funcionario->empresaFilial_idempresaFilial )
-                        echo 'selected="selected"';
-                        ?>
-                        value="<?php echo $filial->idempresaFilial; ?>">
-                    
-                    <?php echo $filial->nome; ?>
-                </option>
+            <center><h3>Atualizar Filial</h3></center>
+
+            <input type="hidden" value="<?=$this->filial->idempresaFilial;?>" name="idfilial" />
+            <input type="hidden" value="<?=$this->filial->responsavel;?>" name="idresp" />
+            <input type="hidden" value="<?=$this->filial->nome;?>" name="filialnome" />
+
+            <div class="field">
+            <label for="nome" class="lblGeralClass">Nome:</label>
+            <input type="text" class="input" id="nome" name="nome" value ="<?= $this->filial->nome; ?>"/>
+            </div>
+
+            <div class="field">
+            <label for="tel" class="lblGeralClass">Telefone:</label>
+            <input type="text" class="input" id="tel" name="tel" maxlength="14" value ="<?= $this->filial->tel; ?>"/>
+            </div>
+
+            <div class="field">
+            <label for="endereco" class="lblGeralClass">Endereço:</label>
+            <input type="text" class="input" id="endereco" name="endereco" maxlength="45" value ="<?= $this->filial->endereco; ?>"/>
+            </div>
+
+            <div class="field">
+          <label for="responsavel" class="lblGeralClass">Responsável:</label>
+            <select id="responsavel" name="idResponsavel" class="select">
+
+                <option value="<?php echo $this->responsavel->idfuncionario; ?>" selected="selected">
+                    <?php echo $this->responsavel->nome; ?></option>
+
+                <?php foreach ( $this->funcionario as $responsavel) : ?>
+                <option value="<?php echo $responsavel->idfuncionario; ?>">
+                    <?php echo $responsavel->nome; ?></option>
                 <?php endforeach; ?>
             </select>
-            <br><br>
+            </div>
 
-            <input type="hidden" value="<?=$this->empresaFilial->idempresaFilial;?>" name="id" />
-            
-            <label for="idempresaFilial">ID Empresa Filial:</label>
-            <input type="text" id="idempresaFilial" name="idempresaFilial" maxlength="35" value ="<?= $this->empresaFilial->idempresaFilial; ?>"/>
-            <br><br>
+            <div class="field">
+            <label for="email" class="lblGeralClass">E-mail:</label>
+            <input type="text" class="input" id="email" name="email" maxlength="25"  value ="<?= $this->filial->email; ?>"/>
 
-            <label for="nome">Nome:</label>
-            <input type="text" id="nome" name="nome" maxlength="25" value ="<?= $this->empresaFilial->nome; ?>"/>
-            <br><br>
+            </div>
 
-            <label for="tel">Telefone:</label>
-            <input type="text" id="tel" name="tel" maxlength="25"  value ="<?= $this->empresaFilial->tel; ?>"/>
-            <br><br>
+            <div class="field">
+            <label for="cep" class="lblGeralClass">CEP:</label>
+            <input type="text" class="input" id="cep" name="cep" maxlength="25"  value ="<?= $this->filial->cep; ?>"/>
+            </div>
 
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco" maxlength="25"  value ="<?= $this->empresaFilial->endereco; ?>"/>
-            <br><br>
-            
-            <label for="endereco">Endereço:</label>
-            <input type="text" id="endereco" name="endereco" maxlength="25"  value ="<?= $this->empresaFilial->endereco; ?>"/>
-            <br><br>
-            
-            <label for="email">E-mail:</label>
-            <input type="text" id="email" name="email" maxlength="25"  value ="<?= $this->empresaFilial->email; ?>"/>
-            <br><br>
 
-            <input  type="submit" value="atualizar" name="Atualizar" />
+            <input  type="submit" id="x" value="Aualizar" name="Atualizar" class="button" style="width: 135px"/>
+            <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
             <br><br>
         </div>
 
 </form>
+
+</div>
