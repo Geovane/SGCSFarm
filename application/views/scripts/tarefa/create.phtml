@@ -9,10 +9,12 @@
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/jquery.ui.datepicker-pt-BR.js"></script>
 <script type="text/javascript">
 $(document).ready(function(){
-    $("#dataInc").mask("99/99/9999");
-    $("#dataFim").mask("99/99/9999");
+    
+    $("#dtinicio").datepicker({});
+    $("#dtfinal").datepicker({}); 
 });        
 $(document).ready(function(){
         
@@ -33,6 +35,15 @@ $(document).ready(function(){
 });
 </script>
 
+<ul id="globalnav">
+  <li><a href="/projeto/index" >Projetos que colaboro</a></li>
+  <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
+  <li><a href="/projeto/detalhesgerente/idProj/<?php echo $this->projetoEncontrado->idprojeto; ?>">Detalhes</a></li>
+  <li><a href="/tarefa/prepara/idProj/<?php echo $this->projetoEncontrado->idprojeto;  ?>">Tarefas</a></li>
+  <li><a href="#" class="here">Criar Tarefas</a></li>
+  
+</ul>
+<br/>
 <form id="createproject" name="formulario_tarefa" class="rounded" method="post" action="/tarefa/create<?php echo $action; ?>">
     <center> <h3>Criar Tarefa</h3></center>
     <label for="nome" class="lblGeralClass">Para o projeto:</label>
@@ -48,33 +59,16 @@ $(document).ready(function(){
         <label for="descricao" class="lblGeralClass">Descrição :</label>
         <textarea name="descricao" class="input" id="descricaoTarefa" cols="45" rows="5"></textarea>
     </div>
-    <div class="field">
-        <label for="dataInc" class="lblGeralClass">Data de Início:</label>
-    <?php
-    $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
-            "defaultDate" => date('Y/m/d', time())));
-    $data->setName("dataInc")
-         ->setAttrib("id", "dataInc")
-         ->setLabel("Data de Início da Tarefa: ")
-         ->setAttrib("class", "input");
-    
-    echo $data;
-  ?>
+       
+    <div class="field">      
+        <label for="dtinicio" class="lblGeralClass">Data de início da tarefa:</label>
+        <input type="text" id="dtinicio" class="input" name="dataInc" value="" />
     </div>
-    <div class="field">
-        <label for="dataFim" class="lblGeralClass">Data Final:</label>
-
-  <?php
-    $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
-            "defaultDate" => date('Y/m/d', time())));
-    $data->setName("dataFim")
-         ->setAttrib("id", "dataFim")
-         ->setLabel("Data de Fim da Tarefa: ")
-         ->setAttrib("class", "input");
     
-    echo $data;
-  ?>
-    </div>
+   <div class="field">      
+        <label for="dtfinal" class="lblGeralClass">Data de entrega da tarefa:</label>
+        <input type="text" id="dtfinal" class="input" name="dataFim" value="" />
+   </div>
     <?php
 //    $data = new ZendX_JQuery_Form_Element_DatePicker("dp1",'', array(
 //            "defaultDate" => date('Y/m/d', time())));

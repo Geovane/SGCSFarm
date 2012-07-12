@@ -130,8 +130,7 @@ class TarefaController extends Zend_Controller_Action
                 */
             $dataFim = $this->inverte_data($this->_request->getPost('dataFim'), "/");
             $dataFim = $dataFim." ".date("H:i:s");
-
-
+            
             $where = $this->estado->getAdapter()->quoteInto('tipoDeEstado = ?', "Fase inicial");
             $select = $this->estado->select()
                         ->where($where);
@@ -152,10 +151,10 @@ class TarefaController extends Zend_Controller_Action
                 'descricao'  => $this->_request->getPost('descricao'),
                 'dataInc'  => $dataInc,
                 'dataFim' => $dataFim,
-                'estado_idestado' => '2',//Tarefa sempre inicia em "estado inicial"
+                'estado_idestado' => $idTarEncontrada,//Tarefa sempre inicia em "estado inicial"
                 'dataEntrega'  => ''
             );
-
+            
             /**
                 * Efetua insercao no banco.
                 * A variavel '$idInseridoTarefa' contem o id do linha inserida.
