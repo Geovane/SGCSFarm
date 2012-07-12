@@ -36,9 +36,16 @@ $(document).ready(function(){
       
 });
 </script>
+<ul id="globalnav">
+  <li><a href="/projeto/index" >Projetos que colaboro</a></li>
+  <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
+  <li><a href= "/projeto/detalhesgerente/idProj/<? echo $this->projeto->idprojeto; ?>">Detalhes</a></li>
+  <li><a href= "/projeto/edit/id/<? echo $this->projeto->idprojeto; ?>" class="here">Editar Projeto</a></li>
+</ul>
+
 
 <form id="createproject" class="rounded" action="/projeto/edit" method="post">
-    <center><h3>Alterar Projeto</h3></center><br>
+    <center><h3>Editar Projeto</h3></center><br>
         <input type="hidden" value="<?=$this->projeto->idprojeto;?>" name="id" />
         <div class="field">            
             <label for="nome" class="lblGeralClass">Nome:</label>
@@ -51,10 +58,6 @@ $(document).ready(function(){
         <div class="field">            
             <label for="dtinicio" class="lblGeralClass">Data de Início:</label>
             <input type="text" disabled="disabled" id="dtinicio" class="input" name="dtinicio" value="<?= $this->datainc; ?>" />
-        </div>
-        <div class="field">            
-            <label for="dtfim" class="lblGeralClass">Data de Término:</label>
-            <input type="text" id="dtinicio2" class="input" name="dtfim" />
         </div>
         <div class="field">            
             <label for="gerente" class="lblGeralClass">Gerente:</label>

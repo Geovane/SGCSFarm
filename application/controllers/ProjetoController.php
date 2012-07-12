@@ -231,19 +231,29 @@ class ProjetoController extends Zend_Controller_Action
 
         if($this->_request->isPost())
         {
-            $datafim = $this->inverte_data($this->_request->getPost('dtfim'), '/');
+            if($this->_request->getPost('estado') != 7)
+            {    
             $data = array
             (
-                'descricao' => $this->_request->getPost('descricao'),              
-                'dataFim' => $datafim,                
+                'descricao' => $this->_request->getPost('descricao'),
+                'dataFim' => '0001/01/01',
                 'estado_idestado' => $this->_request->getPost('estado')  
             );
+            }else
+            {
+                $data = array
+                (
+                'descricao' => $this->_request->getPost('descricao'),
+                'dataFim' => date("Y/m/d"),    
+                'estado_idestado' => $this->_request->getPost('estado') 
+                );
+            }    
 
             $where = $this->project->getAdapter()->quoteInto('idprojeto = ?', (int) $this->_request->getPost('id'));
 
             $this->project->update($data,$where);
 
-            $this->_redirect('projeto/index/flag/2');
+            $this->_redirect('projeto/detalhesgerente/idProj/'.$id_proj.'/flag/2');
         }
     }
     
