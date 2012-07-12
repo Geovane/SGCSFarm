@@ -12,14 +12,35 @@ if ( isset($this->flag)  )
             echo   "<div id='alerta'>Funcionario excluído com sucesso!</div>";
             break;
         case 4:
-            echo   "<div id='alerta'>Não foi possivel deletar o funcionario, verifique:<br> Se o funcionario é responsavel por alguma filial;<br>
-                Se o funcionario é colaborador em algum projeto;<br>Se o funcionario é gerente de algum projeto;<br>
-                Caso alguma dessas opções seja positiva, as modifique e volte a tentar a escluxão.</div>";
+            echo   "<div id='alerta'>Não foi possivel deletar o funcionario, verifique:<br>    - Se o funcionario é responsavel por alguma filial;<br>
+                   - Se o funcionario é colaborador em algum projeto;<br>   - Se o funcionario é gerente de algum projeto;<br>
+                   - Caso alguma dessas opções seja positiva, as modifique e volte a tentar a esclusão.</div>";
             break;
          }
 
 ?>
+    
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
+<script>
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                width : 350,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+</script>
 <ul id="globalnav">
   <li><a href="/funcionario/index" class="here">Funcionarios</a></li>
   <li><a href="/funcionario/create">Cadastrar Funcionário</a></li>

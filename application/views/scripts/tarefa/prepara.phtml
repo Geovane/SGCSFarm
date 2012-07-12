@@ -6,24 +6,41 @@
 if ( isset($this->flag)  )
          switch ($this->flag){
         case 1:
-            echo   "<h3>Tarefa cadastrada com sucesso!</h3><br>";
+            echo   "<div id='alerta'>Tarefa cadastrada com sucesso!</div>";
             break;
         case 2:
-            echo   "<h3>Tarefa atualizada com sucesso!</h3><br>";
+            echo   "<div id='alerta'>Tarefa atualizada com sucesso!</div>";
             break;
         case 3:
-            echo "<h3>Tarefa excluída com sucesso!</h3><br>";
+            echo "<div id='alerta'>Tarefa excluída com sucesso!</div>";
             break;
         case 4:
-            echo "<h4>Não foi possivel Excluir\ALTERAR o tarefa, verifique:
-                <br> Se você não alterou algum dado!!
-                <br> Ou se a tarefa já foi excluída!!
-                </h4><br>";
+            echo "<div id='alerta'>Não foi possivel Excluir ou Alterar a tarefa. Verifique:
+                <br> - Se você não alterou algum dado.
+                <br> - Se a tarefa já foi excluída.</div>";
             break;
          }
 ?>
 
-<?php echo $this->headLink()->appendStylesheet('/css/tabela.css') ?>
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+</script>
 <center>
 <div id="perara_tarefa_add_colab">
     <h3>Adicionar Tarefa</h3>

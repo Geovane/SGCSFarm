@@ -19,6 +19,7 @@ if ( isset($this->flag)  )
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
 <script type="text/javascript">
 $(document).ready(function(){
@@ -31,15 +32,13 @@ $(document).ready(function(){
 		// Define as regras
 		rules:{
 			nome:{
-				// campoNome será obrigatório (required) e terá tamanho mínimo (minLength)
 				required: true, minlength: 3
 			},
 			tel:{
-				// campoEmail será obrigatório (required) e precisará ser um e-mail válido (email)
 				required: true, minlength: 10
 			},
 			endereco:{
-				required: true, minlength:10
+				required: true, minlength: 10
 			},
                         responsavel:{
                                 required:true
@@ -48,10 +47,25 @@ $(document).ready(function(){
                                 required:true,email:true
                         },
                         cep:{
-                                required:true, minlength:8
+                                required:true, minlength: 8
                         }
                 }
 	});
+      
+});
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
       
 });
 </script>
@@ -68,7 +82,7 @@ $(document).ready(function(){
             
             <div class="field">
             <label for="tel" class="lblGeralClass">Telefone:</label>
-            <input type="text" class="input" id="tel" name="tel" />
+            <input type="text" class="input" id="tel" name="tel" maxlength="14" />
             </div>
              
             <div class="field">

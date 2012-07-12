@@ -5,9 +5,15 @@
     $idProj = $this->projetoEncontrado->idprojeto;
     $action = "/idColab/".$idColab.'/idProj/'.$idProj.'';
 ?>
-
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
-    
+$(document).ready(function(){
+    $("#dataInc").mask("99/99/9999");
+    $("#dataFim").mask("99/99/9999");
+});        
 $(document).ready(function(){
         
 	$("#createproject").validate({

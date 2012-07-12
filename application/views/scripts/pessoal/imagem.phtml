@@ -8,7 +8,25 @@ if ( isset($this->flag)  )
          }
 
 ?>
-
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<script>
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+</script>
 
 <ul id="globalnav">
   <li><a href="/pessoal/meusdados" >Meus Dados</a></li>

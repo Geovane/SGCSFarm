@@ -4,18 +4,36 @@
         switch($this->flag)
         {
             case 1:
-                echo "<h3>Você precisa ser gerente do projeto para gerenciar os colaboradores</h3><br>";
+                echo "<div id='alerta'>Você precisa ser gerente do projeto para gerenciar os colaboradores</div>";
                 break;
             case 3:
-                echo "<h3>Projeto inserido com sucesso</h3><br>";
+                echo "<div id='alerta'>Projeto inserido com sucesso</div>";
                 break;
             case 4:
-                echo "<h3>Projeto excluido com sucesso</h3><br>";
+                echo "<div id='alerta'>Projeto excluido com sucesso</div>";
                 break;
         }
     }
 ?>
-
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+</script>
 <ul id="globalnav">
   <li><a href="#" class="here">Projetos que colaboro</a></li>
   <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
