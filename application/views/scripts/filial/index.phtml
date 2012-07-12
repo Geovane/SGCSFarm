@@ -15,6 +15,14 @@ if ( isset($this->flag)  )
             case 4:
                 echo "<div id='alerta'>Filial atualizada com sucesso:<br>Responsável Alterado</div>";
                 break;
+            case 5:
+                echo "<div id='alerta'>Exclusão não realizada: O responsavel pela filial ainda esta vinculado a projetos nessa filial,
+                    para realizar a exclusão esse vinculo deve ser terminado.</div>";
+                break;
+            case 6:
+                echo "<div id='alerta'>Não é possivel deletar a filial, ainda existem funcionarios vinculados a ela.
+                    Os tranfira ou os exclua, para depois realizar a exclusão da filial</div>";
+                break;
          }
 ?>
 <script type="text/javascript" src="/js/jquery.js"></script>

@@ -244,6 +244,68 @@ class FilialController extends Zend_Controller_Action
             }
 
     }
+
+
+     public function deleteAction(){
+
+        $filial_id = $this->_getParam('id');
+
+            //Verifica se existem funcionarios relacionados aquela filial
+            $select = $this->funcionario->select();
+            $select->from($this->funcionario, 'COUNT(*) AS num');
+            $select->where('empresaFilial_idempresaFilial = ?', $filial_id);
+
+            if ($this->funcionario->fetchRow($select)->num == 1 )
+            {
+               $filial_id = $this->_getParam('id');
+               $result  = $this->filial->find($filial_id);
+               $filial = $result->current();
+
+                //Verifica se o funcionario esta inserido como colaborador em algum projeto
+                $selectC = $this->colaboradores->select();
+                $selectC->from($this->colaboradores, 'COUNT(*) AS num');
+                $selectC->where('funcionario_idfuncionario = ?', $filial->responsavel);
+
+                //Verifica se o funcionario é gerente de algum projeto
+                $selectP = $this->projeto->select();
+                $selectP->from($this->projeto, 'COUNT(*) AS num');
+                $selectP->where('idGerente = ?', $filial->responsavel);
+
+
+                if($this->colaboradores->fetchRow($selectC)->num == 0 && $this->projeto->fetchRow($selectP)->num == 0 ){
+
+                       //Retirando a filial do responsavel pela filial excluida
+                       $data = array(
+                         'empresaFilial_idempresaFilial' => 0
+                       );
+
+                       $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $filial->responsavel);
+                       $this->funcionario->update($data, $where);
+
+                       //deleta o funcionario
+                       $where = $this->filial->getAdapter()->quoteInto(' idempresaFilial = ?', $filial_id);
+                       $this->filial->delete($where);
+
+                       //Mensagem que informa a exclusão da filial
+                       $this->_redirect('filial/index/flag/3');
+
+
+                }else{
+
+                    //Mensagem que informa a exclusão da filial
+                     $this->_redirect('filial/index/flag/5');
+
+                }
+
+            }else
+            {
+              //Mensagem que informa que a flilial não pode ser excluida pois tem,alem do responsavel,
+              //outros funcinarios relacionadas a ela;
+              $this->_redirect('filial/index/flag/6');
+            }
+
+    }
+
 }
 
 
