@@ -31,6 +31,15 @@
   background-color: white;
 }
 
+#createproject .tbl th:last-child {
+ text-align: center;
+}
+
+#createproject .tbl td:last-child {
+ text-align: center;
+}
+
+
 .tbl tr.odd {
   background-color: #eaeaea;
 }
@@ -38,7 +47,15 @@
 .tbl tr td, th{
   border-bottom: 1px solid black;
   padding: 2px;
+  text-align: left;
 }
+
+.tbl tr:hover{
+   background-color: rgba(250,240,210,1); 
+   cursor: default;
+    
+}
+
 a{
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:13px;

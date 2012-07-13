@@ -1,9 +1,31 @@
 <?php
 
+/**
+ *
+ * Classe responsavel pelo sistema de autenticação do SGCSFarm entre suas
+ * atribuições estão realizar autenticação do funcionario, gerenciar e criar a sessão de usuario
+ * e alem de redefinir senha de usuario em seu primeiro acesso;
+ *
+ * @author Geovane mimoso
+ * @version 0.1
+ * @access public
+ *
+ */
+
 class AuthController extends Zend_Controller_Action
 {
     private $_usuario;
 
+     /**
+     * Funcao que inicializa todos os parametros necessarios para o correto
+     * funcionamento dos actions, como conexões com o banco de dados e
+     * variaveis de controle dos actions. 
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function init()
     {
         $this->_usuario = new Model_DbTable_Func();
@@ -13,11 +35,29 @@ class AuthController extends Zend_Controller_Action
 
     }
 
+    /**
+     * Redireciona a raiz do sistema para o action responsavel pela a autenticação;
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function indexAction()
     {
         return $this->_helper->redirector('login');
     }
 
+     /**
+     * Recebe os dados de autenticação do usuario via post, valida e cria a sessão com os dados
+     * predefinidos tambem nesta action, caso seja o primeiro acesso do usuario redireciona ele
+     * para o action responsavel pela redefinição de senha.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function loginAction()
     {
         //Verifica se existem dados de POST
@@ -102,6 +142,14 @@ class AuthController extends Zend_Controller_Action
         }
     }
 
+    /**
+     * Encerra a sessão do usuario e o redireciona para a tela de login do sistema.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function logoutAction()
     {
         $auth = Zend_Auth::getInstance();
@@ -111,9 +159,12 @@ class AuthController extends Zend_Controller_Action
 
 
     /**
-     * Exibe o form para alteração da senha
+     * Redefine a senha do usuario que acessou o sistema pela primeira vez.
      *
-     * Executa o método '_updateSenha' quando a requisição for POST
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
      */
     public function senhaAction()
     {
@@ -158,6 +209,16 @@ class AuthController extends Zend_Controller_Action
 
     }
 
+    /**
+     * Action definida apenas para referenciar o endereço 'contato' no dispatch do zend.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function contatoAction(){ }
+    
+    public function sobreAction(){ }
 
 }
