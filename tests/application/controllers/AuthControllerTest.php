@@ -18,6 +18,7 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
            . '/configs/application.ini'
         );
         parent::setUp();
+        Zend_Controller_Front::getInstance()->setParam('noErrorHandler',true)->throwExceptions(true); 
     
     }
     
@@ -30,6 +31,8 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
                   'senha' => '123'
               ));
         $this->dispatch('/Auth/login');
+         $this->assertController('Auth');
+        $this->assertAction('login');
         $this->assertRedirectTo('/');
 
         
@@ -75,7 +78,7 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->dispatch('/Auth/login');
         
         $this->dispatch('/Auth/logout');
-        $this->assertRedirectTo('/Auth');
+        $this->assertRedirectTo('/Auth/login');
     }
 
 public function testSenhaAction(){

@@ -25,6 +25,7 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
            . '/configs/application.ini'
         );
         parent::setUp();
+        Zend_Controller_Front::getInstance()->setParam('noErrorHandler',true)->throwExceptions(true); 
     }
 
     /**
@@ -64,7 +65,9 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
                   'email' => 'mimoso@softfarm.com'
               ));
         $this->dispatch('/pessoal/edit');
-        $this->assertRedirectTo('/pessoal/meusdados/flag/1');                
+        $this->assertController('pessoal');
+        $this->assertAction('edit');
+        $this->assertRedirectTo('/pessoal/meusdados/flag/1');
     }
 
     /**
@@ -89,7 +92,8 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
               ));
         $this->dispatch('/Auth/login', 'login');       
         $this->dispatch('/pessoal/meusdados', 'meus dados');
-        $this->assertQuery('div');
+        $this->assertController('pessoal');
+        $this->assertAction('meusdados');
     }
 
     /**
@@ -106,14 +110,16 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
         
         $this->request->setMethod('POST')
               ->setPost(array(
-                  'senhaAtual' => '123',
+                  'senhaAtual' => '1234',
                   'senhaNova' => '123',
                   'senhaNova2' => '123',             
               ));
         $this->dispatch('/pessoal/senha');
-        $this->assertRedirectTo('/pessoal/meusdados/flag/3');         
-    }
-
+        $this->assertController('pessoal');
+        $this->assertAction('senha');
+        $this->assertRedirectTo('/pessoal/meusdados/flag/3');          
+        }
+        
 }
 
 ?>

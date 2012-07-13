@@ -25,6 +25,7 @@ class ColaboradorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
            . '/configs/application.ini'
         );
         parent::setUp();
+        Zend_Controller_Front::getInstance()->setParam('noErrorHandler',true)->throwExceptions(true); 
     
     }
 
@@ -42,17 +43,16 @@ class ColaboradorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
     public function testInit() {
         $this->dispatch('/Colaborador/init');
         $this->assertController('Colaborador');
-               
+        $this->assertAction('init');
     }
 
     /**
      * @todo Implement testIndexAction().
      */
     public function testIndexAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->dispatch('/Colaborador/index');
+        $this->assertController('Colaborador');
+        $this->assertAction('index');
     }
 
     /**
@@ -60,9 +60,15 @@ class ColaboradorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      */
     public function testCreateAction() {
         // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                'id' => $this->_request->getPost('id'),
+                'funcionario' => $this->_request->getPost('funcionario'),
+                'horas' => $this->_request->getPost('horas'),
+                'funcao' => $this->_request->getPost('funcao')
+              ));
+        $this->dispatch('/colaborador/create/id/4');
+        $thisAssertRedirectTo('/colaborador/index/id/4/flag/2');
     }
 
     /**

@@ -30,6 +30,7 @@ class FilialControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
         $this->filial = new Model_DbTable_Filial();
         $this->colaboradores = new Model_DbTable_Colaboradores();
         $this->projeto = new Model_DbTable_Proj();
+        Zend_Controller_Front::getInstance()->setParam('noErrorHandler',true)->throwExceptions(true); 
     }
 
     /**
@@ -64,10 +65,27 @@ class FilialControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testCreateAction().
      */
     public function testCreateAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '123'
+              ));
+        
+         $this->dispatch('/Auth/login');
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'nome'  => 'SoftArms',
+                'tel' => '7788998877',
+                'endereco'  => 'rua dos carroceiros',
+                'responsavel'  => 'ze das farinhas',
+                'empresa_idempresa' => '',
+                'email'  => 'Farinhas@colombia.com',
+                'cep' => '45999-140'
+              ));
+         
+         $this->dispatch('/filial/create');
+         $this->assertRedirectTo('/filial/index/flag/1');
+                
     }
 
 }
