@@ -20,6 +20,41 @@
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 
 <script>
+var idprojeto;
+
+function edita(x){
+    idprojeto = x;
+    
+    window.location = "/projeto/edit/id/"+ idprojeto;
+    
+}
+
+function confirmaDel(x){
+    idprojeto = x;
+
+    $( "#exclui" ).dialog("open");
+}   
+
+$(document).ready(function(){
+        $("#exclui").dialog({
+                autoOpen : false,
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Confirmar: function() {
+                                window.location = "/projeto/delete/id/" + idprojeto;
+                                $( this ).dialog( "close" );
+                        },
+                        Cancelar: function() {
+                                $( this ).dialog( "close" );
+                        }
+                        
+                }
+                        
+        });
+});
 $(document).ready(function(){
         $("#alerta").dialog({
                 modal : true,
@@ -35,6 +70,23 @@ $(document).ready(function(){
         });
       
 });
+
+$(function() {        
+$( ".bt .edit" ).button({
+            icons: {
+                primary: "ui-icon-pencil"
+            },
+            text: false
+        })  ;
+})  ;        
+$(function() {        
+$( ".bt .del" ).button({
+            icons: {
+                primary: "ui-icon-trash"
+            },
+            text: false
+        })  ;        
+}); 
 </script>
 
 
@@ -64,11 +116,11 @@ $(document).ready(function(){
             </center>
 
             <center>
-                <div class="divGerente" style="width: 200px">
-                    <a title="editar projeto"href='/projeto/edit/id/<?php echo $this->projetoEncontrado->idprojeto; ?>'>
-                        <img src="/images/b_edit.png" width="20px;" height="20px" alt="editar projeto"/></a> |
-                    <a title="excluir projeto" href='/projeto/delete/id/<?php echo $this->projetoEncontrado->idprojeto; ?>'>
-                        <img src="/images/b_drop.png" width="20px;" height="20px" alt="excluir projeto"/></a>
+                <div style="width: 200px">
+                        <div class="bt">
+                                <button class="edit" onclick="edita(<?echo $this->projetoEncontrado->idprojeto; ?>)">Editar Projeto</button>
+                                <button class="del" id="confirmaExclui" onclick="confirmaDel(<?echo $this->projetoEncontrado->idprojeto; ?>)">Excluir Projeto</button>
+                        </div>
                 </div>
             </center>
         </div>            
@@ -206,3 +258,4 @@ $(function(){
 });
 
 </script>
+<div id="exclui">Tem certeza que deseja excluir este Projeto?</div>

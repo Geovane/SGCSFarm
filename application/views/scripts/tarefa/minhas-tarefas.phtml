@@ -1,8 +1,50 @@
 <?php echo $this->headLink()->appendStylesheet('/css/tabela.css')
                             ->appendStylesheet('/css/tarefas_css.css');
 ?>
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<script type="text/javascript">
+var idTarefa,idColab,idProjeto ;
+
+function edita(x, y, z){
+    idTarefa = x;
+    idColab = y;
+    idProjeto = z;
+    window.location = "/tarefa/edit/idTarefa/"+ idTarefa + "/idColab/" + idColab + "/idProj/" + idProjeto;
+    
+}
+
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
+
+$(function() {        
+$( ".bt .edit" ).button({
+            icons: {
+                primary: "ui-icon-pencil"
+            },
+            text: false
+        })  ;
+})  ;        
+
+</script>
+
 <br/>
-<div id="conteudo_tarefas">
+<center>
+<div id="createproject">
     <center><h2>Tarefas do <?php echo $this->projEncontrado->nome;?></h2></center>
     
     <?php if(count($this->paginator) != 0){ ?>
@@ -25,11 +67,9 @@
                     }
                 endforeach; ?>
                 <br/>
-                <?php 
-                    echo "<a title='Editar Tarefa' href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                             <img src='/images/b_edit.png' width='20px' height='20px' alt='editar tarefa'/>
-                          </a>"
-                ?>
+                 <div class="bt">
+                                <button class="edit" onclick="edita(<?echo $auxTarColabProj->idtarefa . ",". $auxTarColabProj->idColab . ",".$this->projEncontrado->idprojeto ; ?>)">Editar Tarefa</button>
+                        </div>
             </div>
         </center>
     <?php endforeach;?>
@@ -106,6 +146,7 @@
     <center><h3>Você não tem tarefas.</h3></center>
     <?php }?>
 </div>
+</center>
 <script>
 menu('12');
 </script>
