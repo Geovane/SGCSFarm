@@ -1,4 +1,12 @@
 <?php
+/**
+ * Classe responsavel pelo gerenciamento das informações pessoais do usuario logado. 
+ * 
+ * @author Geovane Mimoso
+ * @version 0.1
+ * @access public
+ * 
+ */
 
 class PessoalController extends Zend_Controller_Action
 {
@@ -53,6 +61,15 @@ class PessoalController extends Zend_Controller_Action
         $this->funcionario = new Model_DbTable_Func();
     }
 
+   /**
+     *
+     * Metodo que edita as informações pessoais do usuario logado.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function editAction(){
 
        $result  = $this->funcionario->find($this->idFunc);
@@ -75,6 +92,15 @@ class PessoalController extends Zend_Controller_Action
 
     }
 
+     /**
+     *
+     * Metodo responsavel pela troca da imagem do perfil do usuario logado.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
      public function imagemAction(){
 
         $this->view->flag = $this->_request->getParam('flag');
@@ -118,6 +144,15 @@ class PessoalController extends Zend_Controller_Action
 
     }
 
+   /**
+     *
+     * Metodo que envia as informações do usuario logado para serem exibidas na view meus dados.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
      public function meusdadosAction(){
 
         $this->view->flag = $this->_request->getParam('flag');
@@ -126,6 +161,15 @@ class PessoalController extends Zend_Controller_Action
        
      }
 
+    /**
+     *
+     * Metodo realiza a alteração de senha do usuario logado.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function senhaAction()
     {
 
