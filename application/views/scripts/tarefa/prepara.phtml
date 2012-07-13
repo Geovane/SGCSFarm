@@ -61,7 +61,7 @@ if ( isset($this->flag)  )
         <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
         <br />
         <br />
-        <b><label for="listColab" class="lblGeralClass" style="margin-right: -75px;">Escolha um colaborador:</label></b>
+        <b><label for="listColab" class="lblGeralClass" style="margin-right: -10px;">Escolha um colaborador:</label></b>
             <select id="listColab" name="listColab" class="select">
                 <option value=""> - - Escolha um Colaborador - - </option>
 
@@ -74,7 +74,7 @@ if ( isset($this->flag)  )
                 <?php endforeach; ?>
             <?php endforeach; ?>   
         </select>
-        <input type="submit" class="carregaImg" value="Ok" name="button" style="width: 100px; float:right; margin-right: 200px" />
+        <input type="submit" class="carregaImg" value="Ok" name="button" style="width: 100px; float:right; margin-right: 90px; margin-top: 1px;" />
 
     </form>
 </div>
@@ -129,7 +129,7 @@ if ( isset($this->flag)  )
 </center>
 <br/>
 </div>
-
+<script>menu('12')</script>
 
 <!--
 <center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
