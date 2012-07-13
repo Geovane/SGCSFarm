@@ -284,7 +284,13 @@ class ProjetoController extends Zend_Controller_Action
         $select -> from($this->project, 'COUNT(*) AS num')
                 -> where('idprojeto = ?', $id_proj)
                 ->where('estado_idestado = 7');
+        
+        $selectcolab = $this->colab->select();
+        $selectcolab -> from($this->colab, 'COUNT(*) AS num') 
+                     -> where('projeto_idprojeto = ?', $id_proj);
 
+      if($this->colab->fetchRow($selectcolab)->num == 0)
+      {  
         if($this->project->fetchRow($select)->num != 0)
         {
             $where = $this->projbugzilla->getAdapter()->quoteInto('projeto_idprojeto = ?',$id_proj);
@@ -297,8 +303,15 @@ class ProjetoController extends Zend_Controller_Action
             $this->project->delete($where);
 
             $this->_redirect('projeto/index/flag/4');
-        }else{
+        }
+        else
+        {
             $this->_redirect('projeto/detalhesgerente/flag/1/idProj/'.$id_proj);
+        }
+      }
+        else
+        {
+            $this->_redirect('projeto/detalhesgerente/flag/3/idProj/'.$id_proj);
         }
     }
     
