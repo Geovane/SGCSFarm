@@ -10,9 +10,9 @@ h3 { margin-bottom: 15px; font-size: 18px; text-shadow: 2px 2px 2px #ccc; }
     overflow:auto;
 
     border: 1px solid #cccccc;
-    -moz-border-radius: 7px;
+    /*-moz-border-radius: 7px;
     -webkit-border-radius: 7px;
-    border-radius: 7px;	
+    border-radius: 7px;	*/
 
     -moz-box-shadow: 2px 2px 2px #cccccc;
     -webkit-box-shadow: 2px 2px 2px #cccccc;
