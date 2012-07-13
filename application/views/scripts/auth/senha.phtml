@@ -10,10 +10,14 @@
   <strong>Erro:</strong> <?= $this->mensagem ?><br><br>
 
  <?php endif; ?>
-  
+
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+
 <script type="text/javascript">
 $(document).ready( function() {
-	$("#mudasenha").validate({
+	$("#createproject").validate({
 		// Define as regras
 		rules:{
 			senhaNova:{

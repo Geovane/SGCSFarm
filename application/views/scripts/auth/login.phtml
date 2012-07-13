@@ -1,21 +1,60 @@
 <?php if ( isset($this->mensagem) ): ?>
 
-  <strong>Erro:</strong> <?= $this->mensagem ?><br><br>
+<div id="alerta"><?= $this->mensagem ?></div>
 
  <?php endif; ?>
+  
+<script type="text/javascript" src="/js/jquery.js"></script>
+<script type="text/javascript" src="/js/jquery.validate.js"></script>
+<script type="text/javascript" src="/js/jquery-ui.min.js"></script>    
+  
+<script type="text/javascript">
+$(document).ready(function(){
+        $("#alerta").dialog({
+                modal : true,
+                title : "Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Ok: function() {
+                                $( this ).dialog( "close" );
+                        }
+                }
+                        
+        });
+      
+});
 
-<form name="login" action="/auth/login" method="post" >
+  $(document).ready( function() {
+	$("#frmLogin").validate({
+		// Define as regras
+		rules:{
+			login:{
+				required: true
+			},
+			senha:{
+				required: true
+			}
+		}
+	});
+      
+});
+
+  </script>
+<form id="frmLogin" class="rounded" action="/auth/login" method="post" >
     <div id="conteudo" style="background-color:#eaeaea; background-position: 20%; width:1022px; background:url(/images/tela-de-login_06.jpg) 0px 50px no-repeat; min-height:420px;">
-      <input type="text" name="login" class="txtLogin" />
-      <br />
-      <img src="/images/b.gif" height="37" style="border:0px solid black" /><br />
-      <input type="password" name="senha" class="txtLogin" />
+      
+       <input type="text" id="login" name="login" class="txtLogin" />
+      
+       <br />
+     
+      <input type="password" id="senha" name="senha" class="txtLogin" />
+      
       <br />
 
-              <img src="/images/b.gif" height="3" style="border:0px solid black" /><br />
       <a class="linkEsqueci"href="#">Esqueci minha senha</a><br />
-      <img src="/images/b.gif" height="8" style="border:0px solid black" /><br />
-      <input type="submit" value="login" class="btnLogin" onclick="validaLogin()" />
+      
+      <input type="submit"  value="login" class="btnLogin" />
     </div>
 </form>
 
