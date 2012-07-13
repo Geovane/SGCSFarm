@@ -62,13 +62,15 @@ class ColaboradorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
         // Remove the following lines when you implement this test.
         $this->request->setMethod('POST')
               ->setPost(array(
-                'id' => $this->_request->getPost('id'),
-                'funcionario' => $this->_request->getPost('funcionario'),
-                'horas' => $this->_request->getPost('horas'),
-                'funcao' => $this->_request->getPost('funcao')
+                'id' => '4',
+                'funcionario' => '23',
+                'horas'  => '10',
+                'funcao' => '10'
               ));
-        $this->dispatch('/colaborador/create/id/4');
-        $thisAssertRedirectTo('/colaborador/index/id/4/flag/2');
+        $this->dispatch('/colaborador/create');
+        $this->AssertRedirectTo('/colaborador/index/id/4/flag/2');
+        
+        $this->dispatch('/colaborador/delete/idfunc/23/id/4');
     }
 
     /**

@@ -40,10 +40,9 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testInit().
      */
     public function testInit() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->dispatch('/Auth/Init');
+        $this->assertController('Auth');
+        $this->assertAction('Init');
     }
 
     /**

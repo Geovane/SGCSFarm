@@ -18,7 +18,7 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
            . '/configs/application.ini'
         );
         parent::setUp();
-        Zend_Controller_Front::getInstance()->setParam('noErrorHandler',true)->throwExceptions(true); 
+       // Zend_Controller_Front::getInstance()->setParam('noErrorHandler',true)->throwExceptions(true); 
     
     }
     
@@ -31,9 +31,10 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
                   'senha' => '123'
               ));
         $this->dispatch('/Auth/login');
-         $this->assertController('Auth');
+        $this->assertController('Auth');
         $this->assertAction('login');
-        $this->assertRedirectTo('/');
+        $this->assertNotRedirect();
+        $this->assertRedirectTo('/Auth');
 
         
     }
@@ -50,7 +51,7 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertController('Auth');
         $this->assertAction('index');
         $this->assertRedirectTo('/Auth/login');
-       // $this->assertQuery('form');
+        //$this->assertQuery('form');
     }
     
      public function testIndexActionShouldContainLoginForm()
@@ -76,16 +77,17 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
                   'senha' => '1234'
               ));
         $this->dispatch('/Auth/login');
-        
         $this->dispatch('/Auth/logout');
         $this->assertRedirectTo('/Auth/login');
     }
 
 public function testSenhaAction(){
-    //teste não implementado
     
-    assert(0);  
-    
+    $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => '12345',
+                  'senha' => '98765'
+      ));
 }
 
 
