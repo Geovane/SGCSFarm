@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <usuariobugzilla funcionario_idfuncionario = "1" usuario = "PAugusto" senha = "123" />
+    <usuariobugzilla funcionario_idfuncionario = "2" usuario = "LDaud" senha = "123" />
+    <usuariobugzilla funcionario_idfuncionario = "3" usuario = "BPereira" senha = "123" />
+    <usuariobugzilla funcionario_idfuncionario = "4" usuario = "CHenrique" senha = "123" />
+</dataset>
