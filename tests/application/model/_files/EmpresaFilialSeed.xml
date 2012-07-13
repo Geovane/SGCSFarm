@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <empresafilial idempresaFilial = '1' nome = 'SoftFarm - EUA' tel = '56 8945 9891' endereco = 'FDGDFSGFDSGS'
+    responsavel = '24' empresa_idempresa = '1' email = 'ghd@hud.com' cep = '34 567 678'/>
+    <empresafilial idempresaFilial = '2' nome = 'SoftFarm - BR' tel = '73 3639 5149' endereco = 'Rua da Linha 1029 Barra Ilheus BA'
+    responsavel = '19' empresa_idempresa = '1' email = 'softfarmbr@gmail.com' cep = '45 650 000'/>
+</dataset>    

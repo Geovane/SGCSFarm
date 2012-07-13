@@ -1,13 +1,13 @@
 <?php
-    class Empresa extends Zend_Db_Table_Abstract
+    class Tarefa extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'empresa';
-    	protected $_primary = 'idempresa';
+    	protected $_name = 'tarefa';
+    	protected $_primary = 'idtarefa';
     }
 ?>
     
 <?php
-class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class TarefaTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,78 +40,74 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
+            dirname(__FILE__) . '/_files/TarefaSeed.xml'
         );
     }
     
-    public function testEmpresaInsertedIntoDatabase()
+    public function testTarefaInsertedIntoDatabase()
     {
-        $this->empresaTable = new Empresa();
+        $this->tarefaTable = new Tarefa();
  
         $data = array(
-            'idempresa' => '2',
-            'nome' => 'SoftFarm Hardware',
-            'tel' => '7332316572',
-            'email' => 'softfarmhardware@gmail.com',
-            'site' => 'www.softfarm.com',
-            'cep' => '45 650 000',
-            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
-            'rezaoSocial' => '8321983091741',
-            'responsavelGeral' => '3'
+            'idtarefa' => '5',
+            'descricao' => 'ronaldo',
+            'dataInc' => '0000-00-00',
+            'dataFim' => '1111-11-11',
+            'estado_idestado' => '2',
+            'dataEntrega' => '2012-01-01'
             );
  
-       $this->empresaTable->insert($data);
+       $this->tarefaTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('empresa', 'SELECT * FROM empresa');
+        $ds->addTable('tarefa', 'SELECT * FROM tarefa');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/tarefaInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testEmpresaDelete()
+     public function testTarefaDelete()
     {
-        $empresaTable = new empresa();
+        $tarefaTable = new Tarefa();
  
-        $empresaTable->delete(
-            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
+        $tarefaTable->delete(
+            $tarefaTable->getAdapter()->quoteInto("idtarefa = ?", 1)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($empresaTable);
+        $ds->addTable($tarefaTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/empresaDeleteAssertion.xml"),
+                                      . "/_files/tarefaDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testEmpresaUpdate()
+    public function testTarefaUpdate()
     {
-        $empresaTable = new empresa();
+        $tarefaTable = new Tarefa();
  
         $data = array(
-            'nome'      => 'HardFarm',
-            'email'      => 'hardfarm@gmail.com'
+            'descricao'      => 'Abiledebob'
         );
  
-        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
+        $where = $tarefaTable->getAdapter()->quoteInto('idtarefa = ?', 2);
  
-        $empresaTable->update($data, $where);
+        $tarefaTable->update($data, $where);
  
-        $rowset = $empresaTable->fetchAll();
+        $rowset = $tarefaTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/tarefaUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('empresa');
+        $expectedRowsets = $assertion->getTable('tarefa');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds

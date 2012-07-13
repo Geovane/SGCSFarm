@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <tarefa idtarefa = '1' descricao = 'Tarefa 1' dataInc = '0000-00-00 00:00:00' dataFim = '1111-11-11 00:00:00'
+    estado_idestado = '2' dataEntrega = '0000-00-00 00:00:00'/>
+    <tarefa idtarefa = '2' descricao = 'Tarefa 2' dataInc = '0000-00-00 00:00:00' dataFim = '1111-11-11 00:00:00'
+    estado_idestado = '2' dataEntrega = '0000-00-00 00:00:00'/>
+    <tarefa idtarefa = '3' descricao = 'Tarefa 3' dataInc = '0000-00-00 00:00:00' dataFim = '1111-11-11 00:00:00'
+    estado_idestado = '2' dataEntrega = '0000-00-00 00:00:00'/>
+    <tarefa idtarefa = '4' descricao = 'Tarefa 4' dataInc = '0000-00-00 00:00:00' dataFim = '1111-11-11 00:00:00'
+    estado_idestado = '2' dataEntrega = '0000-00-00 00:00:00'/>
+</dataset>

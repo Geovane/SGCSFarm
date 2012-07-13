@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <estado idestado = '1' tipoDeEstado = 'Fase de Planejamento' />
+    <estado idestado = '2' tipoDeEstado = 'Fase inicial' />
+    <estado idestado = '3' tipoDeEstado = 'Em andamento' />
+    <estado idestado = '4' tipoDeEstado = 'Fase de Teste' />
+    <estado idestado = '5' tipoDeEstado = 'Fase de Revisão' />
+    <estado idestado = '6' tipoDeEstado = 'Fase de Conclusão' />
+    <estado idestado = '7' tipoDeEstado = 'Concluído' />
+</dataset>

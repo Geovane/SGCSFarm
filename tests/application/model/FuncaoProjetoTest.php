@@ -1,13 +1,13 @@
 <?php
-    class Empresa extends Zend_Db_Table_Abstract
+    class FuncaoProjeto extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'empresa';
-    	protected $_primary = 'idempresa';
+    	protected $_name = 'funcaoprojeto';
+    	protected $_primary = 'idfuncaoProjeto';
     }
 ?>
     
 <?php
-class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class FuncaoProjetoTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,78 +40,70 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
+            dirname(__FILE__) . '/_files/FuncaoProjetoSeed.xml'
         );
     }
     
-    public function testEmpresaInsertedIntoDatabase()
+    public function testFuncaoProjetoInsertedIntoDatabase()
     {
-        $this->empresaTable = new Empresa();
+        $this->fprojTable = new FuncaoProjeto();
  
         $data = array(
-            'idempresa' => '2',
-            'nome' => 'SoftFarm Hardware',
-            'tel' => '7332316572',
-            'email' => 'softfarmhardware@gmail.com',
-            'site' => 'www.softfarm.com',
-            'cep' => '45 650 000',
-            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
-            'rezaoSocial' => '8321983091741',
-            'responsavelGeral' => '3'
+            'idfuncaoProjeto' => '50',
+            'descricao' => 'Procrastinador'
             );
  
-       $this->empresaTable->insert($data);
+       $this->fprojTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('empresa', 'SELECT * FROM empresa');
+        $ds->addTable('funcaoprojeto', 'SELECT * FROM funcaoprojeto');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/funcaoprojetoInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testEmpresaDelete()
+     public function testFuncaoProjetoDelete()
     {
-        $empresaTable = new empresa();
+        $fprojTable = new FuncaoProjeto();
  
-        $empresaTable->delete(
-            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
+        $fprojTable->delete(
+            $fprojTable->getAdapter()->quoteInto("idfuncaoProjeto = ?", 10)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($empresaTable);
+        $ds->addTable($fprojTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/empresaDeleteAssertion.xml"),
+                                      . "/_files/funcaoprojetoDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testEmpresaUpdate()
+    public function testFuncaoProjetoUpdate()
     {
-        $empresaTable = new empresa();
+        $fprojTable = new FuncaoProjeto();
  
         $data = array(
-            'nome'      => 'HardFarm',
-            'email'      => 'hardfarm@gmail.com'
+            'descricao'      => 'Admnistrador'
         );
  
-        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
+        $where = $fprojTable->getAdapter()->quoteInto('idfuncaoProjeto = ?', 10);
  
-        $empresaTable->update($data, $where);
+        $fprojTable->update($data, $where);
  
-        $rowset = $empresaTable->fetchAll();
+        $rowset = $fprojTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/funcaoprojetoUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('empresa');
+        $expectedRowsets = $assertion->getTable('funcaoprojeto');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds
