@@ -1,13 +1,13 @@
 <?php
-    class Empresa extends Zend_Db_Table_Abstract
+    class ProjGit extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'empresa';
-    	protected $_primary = 'idempresa';
+    	protected $_name = 'projetogit';
+    	protected $_primary = 'projeto_idprojeto';
     }
 ?>
     
 <?php
-class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class ProjetoGitTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,78 +40,71 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
+            dirname(__FILE__) . '/_files/projetogitSeed.xml'
         );
     }
     
-    public function testEmpresaInsertedIntoDatabase()
+    public function testProjetoGitInsertedIntoDatabase()
     {
-        $this->empresaTable = new Empresa();
+        $this->projTable = new ProjGit();
  
         $data = array(
-            'idempresa' => '2',
-            'nome' => 'SoftFarm Hardware',
-            'tel' => '7332316572',
-            'email' => 'softfarmhardware@gmail.com',
-            'site' => 'www.softfarm.com',
-            'cep' => '45 650 000',
-            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
-            'rezaoSocial' => '8321983091741',
-            'responsavelGeral' => '3'
+            'projeto_idprojeto' => '4',
+            'repositorio' => 'Proj D',
+            'chave' => 'asdajdajsk'
             );
  
-       $this->empresaTable->insert($data);
+       $this->projTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('empresa', 'SELECT * FROM empresa');
+        $ds->addTable('projetogit', 'SELECT * FROM projetogit');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/projetogitInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testEmpresaDelete()
+     public function testProjetoGitDelete()
     {
-        $empresaTable = new empresa();
+        $projTable = new ProjGit();
  
-        $empresaTable->delete(
-            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
+        $projTable->delete(
+            $projTable->getAdapter()->quoteInto("projeto_idprojeto = ?", 1)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($empresaTable);
+        $ds->addTable($projTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/empresaDeleteAssertion.xml"),
+                                      . "/_files/projetoGitDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testEmpresaUpdate()
+    public function testProjetoGitUpdate()
     {
-        $empresaTable = new empresa();
+        $projTable = new ProjGit();
  
         $data = array(
-            'nome'      => 'HardFarm',
-            'email'      => 'hardfarm@gmail.com'
+            'repositorio'      => 'Projeto Novo'
         );
  
-        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
+        $where = $projTable->getAdapter()->quoteInto('projeto_idprojeto = ?', 2);
  
-        $empresaTable->update($data, $where);
+        $projTable->update($data, $where);
  
-        $rowset = $empresaTable->fetchAll();
+        $rowset = $projTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/projetogitUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('empresa');
+        $expectedRowsets = $assertion->getTable('projetogit');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds

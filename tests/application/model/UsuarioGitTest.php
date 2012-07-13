@@ -1,13 +1,13 @@
 <?php
-    class Empresa extends Zend_Db_Table_Abstract
+    class UsuarioGit extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'empresa';
-    	protected $_primary = 'idempresa';
+    	protected $_name = 'usuariogit';
+    	protected $_primary = 'funcionario_idfuncionario';
     }
 ?>
     
 <?php
-class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class UsuarioGitTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,78 +40,71 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
+            dirname(__FILE__) . '/_files/UsuarioGitSeed.xml'
         );
     }
     
-    public function testEmpresaInsertedIntoDatabase()
+    public function testUsuarioGitInsertedIntoDatabase()
     {
-        $this->empresaTable = new Empresa();
+        $this->userTable = new UsuarioGit();
  
         $data = array(
-            'idempresa' => '2',
-            'nome' => 'SoftFarm Hardware',
-            'tel' => '7332316572',
-            'email' => 'softfarmhardware@gmail.com',
-            'site' => 'www.softfarm.com',
-            'cep' => '45 650 000',
-            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
-            'rezaoSocial' => '8321983091741',
-            'responsavelGeral' => '3'
+            'funcionario_idfuncionario' => '5',
+            'usuario' => 'SMoreno',
+            'senha' => '123'
             );
  
-       $this->empresaTable->insert($data);
+       $this->userTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('empresa', 'SELECT * FROM empresa');
+        $ds->addTable('usuariogit', 'SELECT * FROM usuariogit');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/UsuarioGitInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testEmpresaDelete()
+     public function testUsuarioGitDelete()
     {
-        $empresaTable = new empresa();
+        $userTable = new UsuarioGit();
  
-        $empresaTable->delete(
-            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
+        $userTable->delete(
+            $userTable->getAdapter()->quoteInto("funcionario_idfuncionario = ?", 1)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($empresaTable);
+        $ds->addTable($userTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/empresaDeleteAssertion.xml"),
+                                      . "/_files/UsuarioGitDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testEmpresaUpdate()
+    public function testUsuarioGitUpdate()
     {
-        $empresaTable = new empresa();
+        $userTable = new UsuarioGit();
  
         $data = array(
-            'nome'      => 'HardFarm',
-            'email'      => 'hardfarm@gmail.com'
+            'senha'      => '123456'
         );
  
-        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
+        $where = $userTable->getAdapter()->quoteInto('funcionario_idfuncionario = ?', 2);
  
-        $empresaTable->update($data, $where);
+        $userTable->update($data, $where);
  
-        $rowset = $empresaTable->fetchAll();
+        $rowset = $userTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/UsuarioGitUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('empresa');
+        $expectedRowsets = $assertion->getTable('usuariogit');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds

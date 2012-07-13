@@ -12,6 +12,12 @@
 
 <div id="projetos">
     <center><h3>Projetos da Filial: <?php echo $this->nomeFilial; ?></h3></center>
+    <?php if(count($this->paginator) == 0) {?>
+        <br/>
+        <center>
+            <h4>Esta Filial ainda não possui projetos.</h4>
+        </center>
+    <?php }?>
     <?php foreach ( $this->paginator as $aux ) : ?>
         <center>
         <div id="projetos_conteudo">

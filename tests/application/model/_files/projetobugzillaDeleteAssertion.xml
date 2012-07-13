@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <projetobugzilla projeto_idprojeto = '2' nomeProjeto = 'Proj B' />
+    <projetobugzilla projeto_idprojeto = '3' nomeProjeto = 'Proj C' />
+</dataset>
