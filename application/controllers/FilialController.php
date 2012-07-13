@@ -1,11 +1,31 @@
 <?php
-
+/**
+ * Classe responsavel pelo gerenciamento da criação, edição, exibição e deleção das
+ * filiais, mantendo as restriçoes de integridade do sistema relativa as demais entidades 
+ * do sistema, pode ser acessada apenas pelo responsável geral da empresa.
+ * 
+ * @author Geovane Mimoso
+ * @version 0.1
+ * @access public
+ * 
+ */
 class FilialController extends Zend_Controller_Action
 {
 
+     /**
+     * Funcao que inicializa todos os parametros necessarios para o correto
+     * funcionamento dos actions, como conexões com o banco de dados e
+     * variaveis de controle dos actions, alem de enviar para as views, as informaçoes de sessão e
+     * de permissões de usuarios.
+     * Alem disso verifica se o usuario que tenta acessa-la tem permissão para isso, caso não tenha o redireciona.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function init()
-    {
-        
+    {   
         //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
         if ( !Zend_Auth::getInstance()->hasIdentity() ) {
             return $this->_helper->redirector->goToRoute( array('controller' => 'auth'), null, true);
@@ -41,22 +61,21 @@ class FilialController extends Zend_Controller_Action
             $this->_redirect('/index/negado');
         }
 
-
-        
         $this->funcionario = new Model_DbTable_Func();
         $this->filial = new Model_DbTable_Filial();
         $this->colaboradores = new Model_DbTable_Colaboradores();
         $this->projeto = new Model_DbTable_Proj();
     }
 
-  /** 
-     * Função inicial do controller tarefas.
-     * envia ao seu view as informações sobre os projetos.
-     * 
-     * @access public 
+     /**
+     *
+     * Metodo que envia as informações das filiais para serem exibidas na view index
+     *
+     * @author Geovane mimoso
+     * @access public
      * @return void
+     *
      */
-    
        public function indexAction()
     {
          $this->view->flag = $this->_request->getParam('flag');
@@ -64,14 +83,17 @@ class FilialController extends Zend_Controller_Action
          $this->view->filial = $this->filial->fetchAll($select);
     }
 
-    /** 
-     * Função responsável pela inserção ao banco dos dados de uma nova tarefa
-     * criada vinculada a um colaborador em um projeto.
-     * 
-     * @access public 
+     /**
+     *
+     * Metodo que insere filiais no sistema, gerindo tambem as
+     * informações relativas ao seu responsavel e as restrições de
+     * integridade dos seus dados.
+     *
+     * @author Geovane mimoso
+     * @access public
      * @return void
+     *
      */
-    
      public function createAction()
     {
 
@@ -128,6 +150,17 @@ class FilialController extends Zend_Controller_Action
 
     }
 
+   /**
+     *
+     * Metodo que edita as filiais do sistema, gerindo tambem as
+     * informações relativas ao seu responsavel e as restrições de
+     * integridade dos seus dados.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function editAction(){
 
 
@@ -253,7 +286,17 @@ class FilialController extends Zend_Controller_Action
 
     }
 
-
+    /**
+     *
+     * Metodo que deleta as filiais do sistema,
+     * verificando porem as dependencias para essa deleção,
+     * caso essas dependências existam essa deleção não é realizada.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
      public function deleteAction(){
 
         $filial_id = $this->_getParam('id');

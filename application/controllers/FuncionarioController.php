@@ -1,8 +1,32 @@
 <?php
+/**
+ * Classe responsavel pelo gerenciamento da criação, edição, exibição e deleção das
+ * de funcionários no sistema, separando o acesso de funcionarios de acordo com suas filiais e
+ * e dando acesso a todos eles para o responsavel pela empresa.
+ * Alem disso, mantem as restriçoes de integridade do sistema relativa as demais entidades
+ * do sistema.
+ * 
+ * @author Geovane Mimoso
+ * @version 0.1
+ * @access public
+ * 
+ */
 
 class FuncionarioController extends Zend_Controller_Action
 {
 
+
+     /**
+     * Funcao que inicializa todos os parametros necessarios para o correto
+     * funcionamento dos actions, como conexões com o banco de dados e
+     * variaveis de controle dos actions, alem de enviar para as views, as informaçoes de sessão e
+     * de permissões de usuarios.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function init()
     {
         //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
@@ -48,6 +72,15 @@ class FuncionarioController extends Zend_Controller_Action
 
     }
 
+     /**
+     *
+     * Metodo que envia as informações daos funcionarios da filial do responsavel logado para serem exibidas na view index
+     * Pode ser acessado apenas pelo responsavel da filial
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function indexAction()
     {
         //Verifica permissão
@@ -73,6 +106,18 @@ class FuncionarioController extends Zend_Controller_Action
     }
 
 
+
+    /**
+     *
+     * Metodo que insere os funcionarios na filial do responsavel logado no sistema,
+     * Alem disso deve manter as restrições de integridade dos seus dados e tem seu acesso restrito
+     * ao responsavel pela filial.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function createAction()
     {
 
@@ -237,7 +282,15 @@ class FuncionarioController extends Zend_Controller_Action
         return true;
     }
 
-
+     /**
+     *
+     * Metodo que envia as informações de todos os funcionarios da empresa para serem exibidas na view indexemp
+     * Pode ser acessado apenas pelo responsavel pela empresa
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
         public function indexempAction()
         {
 
@@ -262,7 +315,17 @@ class FuncionarioController extends Zend_Controller_Action
 
     }
 
-
+    /**
+     *
+     * Metodo que insere os funcionarios na empresa,
+     * Alem disso deve manter as restrições de integridade dos seus dados e tem seu acesso restrito
+     * ao responsavel pela empresa.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function createempAction()
     {
         //Verifica permissão

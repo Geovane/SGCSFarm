@@ -17,13 +17,17 @@
 class TarefaController extends Zend_Controller_Action
 {
 
-    /**
+
+     /**
      * Funcao que inicializa todos os parametros necessarios para o correto
-     * funcionamento dos actions.
-     * 
-     * @access public 
+     * funcionamento dos actions, como conexões com o banco de dados e
+     * variaveis de controle dos actions, alem de enviar para as views, as informaçoes de sessão e
+     * de permissões de usuarios.
+     *
+     * @author Geovane mimoso
+     * @access public
      * @return void
-     * 
+     *
      */
     public function init()
     {
