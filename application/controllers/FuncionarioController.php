@@ -175,6 +175,16 @@ class FuncionarioController extends Zend_Controller_Action
             }
     }
 
+   /**
+     *
+     * Metodo que edita os funcionarios das filiais.
+     * Apenas o responsavel pela filial tem acesso.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function editAction(){
 
         //Verifica permissão
@@ -205,6 +215,20 @@ class FuncionarioController extends Zend_Controller_Action
 
     }
 
+    /**
+     *
+     * Metodo que deleta os funcionarios do sistema,
+     * verificando porem as dependencias para essa deleção,
+     * caso essas dependências existam essa deleção não é realizada,
+     * Caso a deleção se confirme, os registros das tabelas relativas a esse funcionario tambem são deletados.
+     * Tanto o responsavel pela filial tanto o responsavel pela empresa tem acesso
+     * aos seus respectivos funcionários.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function deleteAction(){
 
          //Verifica permissão
@@ -256,8 +280,17 @@ class FuncionarioController extends Zend_Controller_Action
 
     }
 
-     /*
-     * Método que deleta do banco todos os registros que envolvem o usuário
+
+   /**
+     *
+     * Método que deleta do banco todos os registros que envolvem o usuário deletado
+     *
+     *
+     * @author Geovane mimoso
+     * @access private
+     * @param int $func_id id do funcionario a ser deletado.
+     * @return boolean
+     *
      */
     private function deletarRegistrosUsuario($func_id)
     {
@@ -382,6 +415,16 @@ class FuncionarioController extends Zend_Controller_Action
             }
     }
 
+    /**
+     *
+     * Metodo que edita os funcionarios da empresa.
+     * Apenas o responsavel pela empresa tem acesso.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function editempAction(){
 
         //Verifica permissão
