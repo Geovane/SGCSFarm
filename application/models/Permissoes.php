@@ -1,7 +1,6 @@
 <?php
 /**
- * Esta classe tem como objetivo efetuar a escolha da tabela 'projetobugzilla'
- * no banco de dados.
+ * Classe responsável pelos metodos que verificam as permissões de usuarios no sistema.
  * 
  * @author Geovane
  * @version 0.1
@@ -13,7 +12,7 @@ class Model_Permissoes
 {
     
     /**
-     * Funcao que Retorna true o o funcionario e responsavel pela empresa informada
+     * Funcao que verifica se o funcionario ($idFunc) é responsavel pela empresa ($idEmpresa)
      * @author Geovane
      * @access public 
      * @param int $idFunc contendo o id do funcionario fornecido
@@ -38,7 +37,7 @@ class Model_Permissoes
     }
 
     /**
-     * Funcao que Retorna true o o funcionario e responsavel pela empresa filial
+     * Funcao que verifica se o funcionario ($idFunc) é responsavel pela filial ($idFilial)
      * @author Geovane
      * @access public 
      * @param int $idFunc contendo o id do funcionario fornecido

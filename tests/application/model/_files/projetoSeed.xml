@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <projeto idprojeto = "1" nome = "Proj A" descricao = "Teste Tabela Projetos"
+    dataInc = "2012-01-01" dataFim = "2013-01-01" idGerente = "1" estado_idestado = "1"/>
+    <projeto idprojeto = "2" nome = "Proj B" descricao = "Teste Tabela Projetos"
+    dataInc = "2012-01-01" dataFim = "2013-01-01" idGerente = "2" estado_idestado = "1"/>
+    <projeto idprojeto = "3" nome = "Proj C" descricao = "Teste Tabela Projetos"
+    dataInc = "2012-01-01" dataFim = "2013-01-01" idGerente = "3" estado_idestado = "1"/>
+    <projeto idprojeto = "4" nome = "Proj D" descricao = "Teste Tabela Projetos"
+    dataInc = "2012-01-01" dataFim = "2013-01-01" idGerente = "4" estado_idestado = "1"/>
+</dataset>    

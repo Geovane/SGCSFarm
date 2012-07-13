@@ -4,8 +4,6 @@
     idcolaboradores = "1" dedicacaoMes = "40" funcaoProjeto_idfuncaoProjeto = "20"/>
     <colaboradores projeto_idprojeto = "1" funcionario_idfuncionario = "2" 
     idcolaboradores = "2" dedicacaoMes = "40" funcaoProjeto_idfuncaoProjeto = "30"/>
-    <colaboradores projeto_idprojeto = "1" funcionario_idfuncionario = "3" 
-    idcolaboradores = "3" dedicacaoMes = "40" funcaoProjeto_idfuncaoProjeto = "30"/>
     <colaboradores projeto_idprojeto = "1" funcionario_idfuncionario = "4" 
     idcolaboradores = "4" dedicacaoMes = "40" funcaoProjeto_idfuncaoProjeto = "10"/>
 </dataset>

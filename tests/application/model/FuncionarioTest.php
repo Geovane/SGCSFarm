@@ -1,4 +1,12 @@
 <?php
+    class Func extends Zend_Db_Table_Abstract
+    {
+    	protected $_name = 'funcionario';
+    	protected $_primary = 'idfuncionario';
+    }
+?>
+    
+<?php
 class FuncionarioTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
@@ -38,7 +46,7 @@ class FuncionarioTest extends Zend_Test_PHPUnit_DatabaseTestCase
     
     public function testFuncionarioInsertedIntoDatabase()
     {
-        $funcTable = new Func();
+        $this->funcTable = new Func();
  
         $data = array(
             'nome' => 'Joao de Piracicaba',
@@ -51,7 +59,7 @@ class FuncionarioTest extends Zend_Test_PHPUnit_DatabaseTestCase
             'foto' => '/images/fotosFunc/usuarioPadrao.jpg'
             );
  
-       $funcTable->insert($data);
+       $this->funcTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
@@ -70,7 +78,7 @@ class FuncionarioTest extends Zend_Test_PHPUnit_DatabaseTestCase
         $funcTable = new Func();
  
         $funcTable->delete(
-            $funcTable->getAdapter()->quoteInto("bug_id = ?", 4)
+            $funcTable->getAdapter()->quoteInto("idfuncionario = ?", 4)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
@@ -83,7 +91,7 @@ class FuncionarioTest extends Zend_Test_PHPUnit_DatabaseTestCase
         );
     }
     
-    public function testBugUpdate()
+    public function testFuncionarioUpdate()
     {
         $funcTable = new Func();
  
