@@ -13,6 +13,13 @@
     <br/>
     <center><h2>Projetos da <?php echo $this->nomeEmpresa; ?></h2></center>
     <br/>
+    
+    <?php if(count($this->paginator) == 0) {?>
+        <br/>
+        <center>
+            <h4>A Empresa ainda não possui projetos.</h4>
+        </center>
+    <?php }?>
     <?php foreach ( $this->paginator as $aux ) : ?>
         <center>
         <div id="projetos_conteudo">
