@@ -1,13 +1,13 @@
 <?php
-    class Colab extends Zend_Db_Table_Abstract
+    class Proj extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'colaboradores';
-    	protected $_primary = 'idcolaboradores';
+    	protected $_name = 'projeto';
+    	protected $_primary = 'idprojeto';
     }
 ?>
     
 <?php
-class ColaboradorTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class ProjetoTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,74 +40,75 @@ class ColaboradorTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/ColaboradorSeed.xml'
+            dirname(__FILE__) . '/_files/projetoSeed.xml'
         );
     }
     
-    public function testColaboradorInsertedIntoDatabase()
+    public function testProjetoInsertedIntoDatabase()
     {
-        $this->colabTable = new Colab();
+        $this->projTable = new Proj();
  
         $data = array(
-            'projeto_idprojeto' => '2',
-            'funcionario_idfuncionario' => '5',
-            'idcolaboradores' => '5',
-            'dedicacaoMes' => '50',
-            'funcaoProjeto_idFuncaoProjeto' => '10'
+            'nome' => 'Proj E',
+            'descricao' => 'Teste Tabela Projetos',
+            'dataInc' => '2012-01-01',
+            'dataFim' => '2013-01-01',
+            'idGerente' => '1',
+            'estado_idestado' => '1'
             );
  
-       $this->colabTable->insert($data);
+       $this->projTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('colaboradores', 'SELECT * FROM colaboradores');
+        $ds->addTable('projeto', 'SELECT * FROM projeto');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/ColaboradorInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/projetoInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testColaboradorDelete()
+     public function testProjetoDelete()
     {
-        $colabTable = new colab();
+        $projTable = new Proj();
  
-        $colabTable->delete(
-            $colabTable->getAdapter()->quoteInto("idcolaboradores = ?", 3)
+        $projTable->delete(
+            $projTable->getAdapter()->quoteInto("idprojeto = ?", 3)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($colabTable);
+        $ds->addTable($projTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/ColaboradorDeleteAssertion.xml"),
+                                      . "/_files/projetoDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testColaboradorUpdate()
+    public function testProjetoUpdate()
     {
-        $colabTable = new colab();
+        $projTable = new Proj();
  
         $data = array(
-            'projeto_idprojeto'      => '3',
-            'funcionario_idfuncionario'      => '2'
+            'nome'      => 'Projeto A',
+            'descricao'      => 'Um projeto sobre testes de Projetos'
         );
  
-        $where = $colabTable->getAdapter()->quoteInto('idcolaboradores = ?', 1);
+        $where = $projTable->getAdapter()->quoteInto('idprojeto = ?', 1);
  
-        $colabTable->update($data, $where);
+        $projTable->update($data, $where);
  
-        $rowset = $colabTable->fetchAll();
+        $rowset = $projTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/ColaboradorUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/projetoUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('colaboradores');
+        $expectedRowsets = $assertion->getTable('projeto');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds
