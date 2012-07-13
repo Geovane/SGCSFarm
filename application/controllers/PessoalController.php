@@ -1,8 +1,28 @@
 <?php
+/**
+ * Classe responsavel pelo gerenciamento das informações pessoais do usuario logado. 
+ * 
+ * @author Geovane Mimoso
+ * @version 0.1
+ * @access public
+ * 
+ */
 
 class PessoalController extends Zend_Controller_Action
 {
 
+
+     /**
+     * Funcao que inicializa todos os parametros necessarios para o correto
+     * funcionamento dos actions, como conexões com o banco de dados e
+     * variaveis de controle dos actions, alem de enviar para as views, as informaçoes de sessão e
+     * de permissões de usuarios.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function init()
     {
         //Verifica se o usuario esta autenticado, caso não esteja ele é redirecionado para a tela da login
@@ -41,6 +61,15 @@ class PessoalController extends Zend_Controller_Action
         $this->funcionario = new Model_DbTable_Func();
     }
 
+   /**
+     *
+     * Metodo que edita as informações pessoais do usuario logado.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function editAction(){
 
        $result  = $this->funcionario->find($this->idFunc);
@@ -63,6 +92,15 @@ class PessoalController extends Zend_Controller_Action
 
     }
 
+     /**
+     *
+     * Metodo responsavel pela troca da imagem do perfil do usuario logado.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
      public function imagemAction(){
 
         $this->view->flag = $this->_request->getParam('flag');
@@ -106,6 +144,15 @@ class PessoalController extends Zend_Controller_Action
 
     }
 
+   /**
+     *
+     * Metodo que envia as informações do usuario logado para serem exibidas na view meus dados.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
      public function meusdadosAction(){
 
         $this->view->flag = $this->_request->getParam('flag');
@@ -114,6 +161,15 @@ class PessoalController extends Zend_Controller_Action
        
      }
 
+    /**
+     *
+     * Metodo realiza a alteração de senha do usuario logado.
+     *
+     * @author Geovane mimoso
+     * @access public
+     * @return void
+     *
+     */
     public function senhaAction()
     {
 

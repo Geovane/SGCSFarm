@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <empresa idempresa = '1' nome = 'SoftFarm' tel = '73 3634 1874' email = 'softfarm@gmail.com'
+    site = 'www.softfarm.com' cep = '45 650 000' endereco = 'Rua Conselheiro Dantas 23 Centro Ilheus BA' rezaoSocial = '03454876000109'
+    responsavelGeral = '19'/>
+    <empresa idempresa = '2' nome = 'SoftFarm Hardware' tel = '7332316572' email = 'softfarmhardware@gmail.com'
+    site = 'www.softfarm.com' cep = '45 650 000' endereco = 'Avenida Soares Lopes, 23, Centro Ilhéus' rezaoSocial = '8321983091741'
+    responsavelGeral = '3'/>
+</dataset>

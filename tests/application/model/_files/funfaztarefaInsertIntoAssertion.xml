@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <funfaztarefa tarefa_idtarefa = '1' colaboradores_idcolaboradores = '1' />
+    <funfaztarefa tarefa_idtarefa = '2' colaboradores_idcolaboradores = '2' />
+    <funfaztarefa tarefa_idtarefa = '3' colaboradores_idcolaboradores = '3' />
+    <funfaztarefa tarefa_idtarefa = '4' colaboradores_idcolaboradores = '3' />
+</dataset>

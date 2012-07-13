@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<dataset>
+    <funcaoprojeto idfuncaoProjeto = '10' descricao = 'DBA' />
+    <funcaoprojeto idfuncaoProjeto = '20' descricao = 'Programador' />
+    <funcaoprojeto idfuncaoProjeto = '30' descricao = 'Analista' />
+    <funcaoprojeto idfuncaoProjeto = '40' descricao = 'Gerente' />
+    <funcaoprojeto idfuncaoProjeto = '50' descricao = 'Procrastinador' />
+</dataset>
