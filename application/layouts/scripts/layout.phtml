@@ -25,6 +25,7 @@
 <link rel="stylesheet" type="text/css" href="/css/jquery-ui.css"/>
 <script type="text/javascript" src="/js/jquery.js"></script>    
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
+<script type="text/javascript" src="/js/javascript.js"></script>    
  
 
 </head>
@@ -78,22 +79,19 @@
 
             
             <?php
-            $idImg = 5;
             if ($this->AdminEmpresa){
-            $idImg = $idImg + 1;
                     ?>            
-            <div onclick="window.open('/funcionario/indexemp','_self')"><img src="/images/menu_unselected_08.jpg" onclick="menu(this.id)" id="1<?echo $idImg?>" class="menu" />
-                 <img src="/images/menu_selected_08.jpg" onclick="menu(this.id)" id="<?echo $idImg?>" class="hiddenMenu" />
+            <div onclick="window.open('/funcionario/indexemp','_self')"><img src="/images/menu_unselected_08.jpg" onclick="menu(this.id)" id="16" class="menu" />
+                 <img src="/images/menu_selected_08.jpg" onclick="menu(this.id)" id="6" class="hiddenMenu" />
             </div>
 
                              
             <?
             }
             if ($this->AdminFilial){
-            $idImg = $idImg + 1;
                     ?>
-            <div onclick="window.open('/funcionario','_self')"><img src="/images/menu_unselected_09.jpg" onclick="menu(this.id)" id="1<?echo $idImg?>" class="menu" />
-                 <img src="/images/menu_selected_09.jpg" onclick="menu(this.id)" id="<?echo $idImg?>" class="hiddenMenu" />
+            <div onclick="window.open('/funcionario','_self')"><img src="/images/menu_unselected_09.jpg" onclick="menu(this.id)" id="17" class="menu" />
+                 <img src="/images/menu_selected_09.jpg" onclick="menu(this.id)" id="7" class="hiddenMenu" />
             </div>
             <?                 
             }

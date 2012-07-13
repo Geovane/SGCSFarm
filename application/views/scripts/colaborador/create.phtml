@@ -6,6 +6,9 @@
 
 
 <ul id="globalnav">
+    <li><a href="/projeto/index" >Projetos que colaboro</a></li>
+    <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
+    <li><a href="/projeto/detalhesgerente/idProj/<?php echo $this->projeto->current()->idprojeto; ?>">Detalhes</a></li>
     <li><a href="/colaborador/index/id/<?php echo $this->projeto->current()->idprojeto; ?>">Colaboradores</a></li>   
     <li><a href="/colaborador/create/id/<?php echo $this->projeto->current()->idprojeto; ?>" class="here">Inserir Colaborador</a></li>
 </ul>

@@ -41,6 +41,16 @@ if ( isset($this->flag)  )
       
 });
 </script>
+
+<ul id="globalnav">
+  <li><a href="/projeto/index" >Projetos que colaboro</a></li>
+  <li><a href="/projeto/gerencio">Projetos que gerencio</a></li>
+  <li><a href="/projeto/detalhesgerente/idProj/<?php echo $this->projEncontrado->idprojeto; ?>">Detalhes</a></li>
+  <li><a href="#" class="here">Tarefas</a></li>
+  
+</ul>
+<br/>
+<div id="detalhes_tarefas">
 <center>
 <div id="perara_tarefa_add_colab">
     <h3>Adicionar Tarefa</h3>
@@ -64,13 +74,13 @@ if ( isset($this->flag)  )
                 <?php endforeach; ?>
             <?php endforeach; ?>   
         </select>
-        <input type="submit" class="carregaImg" value="Ok" name="button" style="width: 100px; float:right; margin-right: 200px" />
+        <input type="submit" class="carregaImg" value="Ok" name="button" style="width: 100px; float:right; margin-right: 90px; margin-top: 1px;" />
 
     </form>
 </div>
 </center>
 <br/>
-
+<center>
 <div id="conteudo_tarefas">
     <center>
         <br/>
@@ -110,6 +120,7 @@ if ( isset($this->flag)  )
     <?php endforeach; ?>
     </center>
 </div>
+</center>
 <br/>
 <center>
 <div>
@@ -117,7 +128,8 @@ if ( isset($this->flag)  )
 </div>
 </center>
 <br/>
-
+</div>
+<script>menu('12')</script>
 
 <!--
 <center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
