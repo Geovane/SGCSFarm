@@ -120,11 +120,7 @@ body{
         height: 70px;
         padding: 0px 0px 0px 0px;
         }        
-th{
-    text-align: left;
-    
-}
-
+        
 #frmLogin label:first-of-type { 
     position: absolute;
     display: block;  
