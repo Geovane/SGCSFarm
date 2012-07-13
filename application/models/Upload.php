@@ -1,7 +1,28 @@
 <?php
-
+/**
+ * Classe responsável pelo upload de arquivos no sistema.
+ *
+ * @author Geovane
+ * @version 0.1
+ * @access public
+ * @copyright Copyright © 2012, SoftFarm.
+ *
+ */
 class Model_Upload
 {
+
+
+    /**
+     * Fução que realiza o upload de arquivos do sistema.
+     * @author Geovane
+     * @access static
+     * @param string $uploadDir diretorio que sera guardado o arquivo
+     * @param boolean $renameFile true caso o usuario queira renomear o arquivo upado
+     * @paran string[] $allowedExtensions contendo as extenções permitidas
+     * @param int $id contendo o id do funcionario que fez o upload do arquivo
+     * @return string[] $filesUploaded contendo o endereço dos arquivos upados
+     *
+     */
         static function uploadFiles($uploadDir = null, $renameFile = true , $allowedExtensions = array(), $id = "x")
         {
             //Caso o diretorio não exista , cria o diretorio para o destino

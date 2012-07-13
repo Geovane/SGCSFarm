@@ -1,13 +1,13 @@
 <?php
-    class Colab extends Zend_Db_Table_Abstract
+    class Empresa extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'colaboradores';
-    	protected $_primary = 'idcolaboradores';
+    	protected $_name = 'empresa';
+    	protected $_primary = 'idempresa';
     }
 ?>
     
 <?php
-class ColaboradorTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class empresaoradorTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,74 +40,78 @@ class ColaboradorTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/ColaboradorSeed.xml'
+            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
         );
     }
     
-    public function testColaboradorInsertedIntoDatabase()
+    public function testEmpresaInsertedIntoDatabase()
     {
-        $this->colabTable = new Colab();
+        $this->empresaTable = new Empresa();
  
         $data = array(
-            'projeto_idprojeto' => '2',
-            'funcionario_idfuncionario' => '5',
-            'idcolaboradores' => '5',
-            'dedicacaoMes' => '50',
-            'funcaoProjeto_idFuncaoProjeto' => '10'
+            'idempresa' => '2',
+            'nome' => 'SoftFarm Hardware',
+            'tel' => '7332316572',
+            'email' => 'softfarmhardware@gmail.com',
+            'site' => 'www.softfarm.com',
+            'cep' => '45 650 000',
+            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
+            'rezaoSocial' => '8321983091741',
+            'responsavelGeral' => '3'
             );
  
-       $this->colabTable->insert($data);
+       $this->empresaTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('colaboradores', 'SELECT * FROM colaboradores');
+        $ds->addTable('empresa', 'SELECT * FROM empresa');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/ColaboradorInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testColaboradorDelete()
+     public function testempresaoradorDelete()
     {
-        $colabTable = new colab();
+        $empresaTable = new empresa();
  
-        $colabTable->delete(
-            $colabTable->getAdapter()->quoteInto("idcolaboradores = ?", 3)
+        $empresaTable->delete(
+            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($colabTable);
+        $ds->addTable($empresaTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/ColaboradorDeleteAssertion.xml"),
+                                      . "/_files/empresaoradorDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testColaboradorUpdate()
+    public function testempresaoradorUpdate()
     {
-        $colabTable = new colab();
+        $empresaTable = new empresa();
  
         $data = array(
-            'projeto_idprojeto'      => '3',
-            'funcionario_idfuncionario'      => '2'
+            'nome'      => 'HardFarm',
+            'email'      => 'hardfarm@gmail.com'
         );
  
-        $where = $colabTable->getAdapter()->quoteInto('idcolaboradores = ?', 1);
+        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
  
-        $colabTable->update($data, $where);
+        $empresaTable->update($data, $where);
  
-        $rowset = $colabTable->fetchAll();
+        $rowset = $empresaTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/ColaboradorUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/empresaoradorUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('colaboradores');
+        $expectedRowsets = $assertion->getTable('empresa');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds

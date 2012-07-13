@@ -1,13 +1,14 @@
 <?php
 /**
- * Esta classe tem como objetivo efetuar a escolha da tabela 'funcionario'
- * no banco de dados.
- * 
+ * Esta classe tem como objetivo efetuar a conexão do sistema com a tabela 'funcionario'
+ * no banco de dados, alem de prover os metodos de acesso ao banco implementados na classe Zend_Db_Table_Abstract
+ * da qual esta classe herda suas carcteristicas
+ *
  * @author SoftFarm
  * @version 0.1
  * @access public
  * @copyright Copyright © 2012, SoftFarm.
- * 
+ *
  */
 class Model_DbTable_Func extends Zend_Db_Table_Abstract
 {
@@ -27,9 +28,10 @@ class Model_DbTable_Func extends Zend_Db_Table_Abstract
     protected $_primary = 'idfuncionario';
     
     /**
-     * Funcao que Retorna true se ja existir o login cadastrado
+     * Metodo que verifica a exitencia do login passado no banco de dados
      * funcionamento dos actions.
-     * 
+     *
+     * @author Geovane Mimoso
      * @access public 
      * @param String[] $login contendo o login fornecido
      * @return true caso exista um login cadastrado
@@ -46,9 +48,9 @@ class Model_DbTable_Func extends Zend_Db_Table_Abstract
     }
 
     /**
-     * Funcao que Retorna true se ja existir o documento de identificacao cadastrado
-     * funcionamento dos actions.
+     * Metodo que verifica a exitencia do documento de identificacão passado como parametroo no banco de dados
      * 
+     * @author Geovane Mimoso
      * @access public 
      * @param Int $doc contendo o numero de identificacao inserido.
      * @return true caso exista um documento de identificacao cadastrado

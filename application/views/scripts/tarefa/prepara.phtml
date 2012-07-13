@@ -25,7 +25,47 @@ if ( isset($this->flag)  )
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript" src="/js/jquery-ui.min.js"></script>
 <script type="text/javascript">
-    $(document).ready(function(){
+
+var idTarefa,idColab,idProjeto ;
+
+function edita(x, y, z){
+    idTarefa = x;
+    idColab = y;
+    idProjeto = z;
+    
+    window.location = "/tarefa/edit/idTarefa/"+ idTarefa + "/idColab/" + idColab + "/idProj/" + idProjeto;
+    
+}
+
+function confirmaDel(x,y,z){
+    idTarefa = x;
+    idColab = y;
+    idProjeto = z;
+
+    $( "#exclui" ).dialog("open");
+}   
+
+$(document).ready(function(){
+        $("#exclui").dialog({
+                autoOpen : false,
+                modal : true,
+                title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
+                resizable : false,
+                draggable : false,
+                buttons: {
+                        Confirmar: function() {
+                                window.location = "/tarefa/delete/idTarefa/"+ idTarefa + "/idColab/" + idColab + "/idProj/" + idProjeto;
+                                $( this ).dialog( "close" ); 
+                        },
+                        Cancelar: function() {
+                                $( this ).dialog( "close" );
+                        }
+                        
+                }
+                        
+        });
+});
+$(document).ready(function(){
         $("#alerta").dialog({
                 modal : true,
                 title : "<span class='ui-icon ui-icon-info' style='float:left; margin:1px 7px 0 0;'></span>Alerta do Sistema",
@@ -40,6 +80,24 @@ if ( isset($this->flag)  )
         });
       
 });
+
+$(function() {        
+$( ".bt .edit" ).button({
+            icons: {
+                primary: "ui-icon-pencil"
+            },
+            text: false
+        })  ;
+})  ;        
+$(function() {        
+$( ".bt .del" ).button({
+            icons: {
+                primary: "ui-icon-trash"
+            },
+            text: false
+        })  ;        
+});     
+
 </script>
 
 <ul id="globalnav">
@@ -61,7 +119,7 @@ if ( isset($this->flag)  )
         <input type="hidden" value="<?php echo $this->projEncontrado->idprojeto ?>" name="idProj" />
         <br />
         <br />
-        <b><label for="listColab" class="lblGeralClass" style="margin-right: -75px;">Escolha um colaborador:</label></b>
+        <b><label for="listColab" class="lblGeralClass" style="margin-right: -10px;">Escolha um colaborador:</label></b>
             <select id="listColab" name="listColab" class="select">
                 <option value=""> - - Escolha um Colaborador - - </option>
 
@@ -74,7 +132,7 @@ if ( isset($this->flag)  )
                 <?php endforeach; ?>
             <?php endforeach; ?>   
         </select>
-        <input type="submit" class="carregaImg" value="Ok" name="button" style="width: 100px; float:right; margin-right: 200px" />
+        <input type="submit" class="carregaImg" value="Ok" name="button" style="width: 100px; float:right; margin-right: 90px; margin-top: 1px;" />
 
     </form>
 </div>
@@ -109,13 +167,11 @@ if ( isset($this->flag)  )
                 }
             endforeach; ?>
             <br/>
-            <?php 
-                echo "<a title='Editar Tarefa' href='/tarefa/edit/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                          <img src='/images/b_edit.png' width='20px' height='20px' alt='editar tarefa'/></a>
-                      &nbsp;&nbsp;
-                      <a title='Excluir Tarefa' class='excluir' href='/tarefa/delete/idTarefa/".$auxTarColabProj->idtarefa."/idColab/".$auxTarColabProj->idColab."/idProj/".$this->projEncontrado->idprojeto."' >
-                        <img src='/images/b_drop.png' width='20px' height='20px' alt='excluir tarefa'/></a>"
-            ?>
+            
+            <div class="bt">
+                                <button class="edit" onclick="edita(<?echo $auxTarColabProj->idtarefa . ",". $auxTarColabProj->idColab . ",".$this->projEncontrado->idprojeto ; ?>)">Editar Tarefa</button>
+                                <button class="del" id="confirmaExclui" onclick="confirmaDel(<?echo $auxTarColabProj->idtarefa . ",". $auxTarColabProj->idColab . ",".$this->projEncontrado->idprojeto ; ?>)">Excluir Tarefa</button>
+                        </div>
         </div>
     <?php endforeach; ?>
     </center>
@@ -129,8 +185,8 @@ if ( isset($this->flag)  )
 </center>
 <br/>
 </div>
-
-
+<script>menu('12')</script>
+<div id="exclui">Tem certeza que deseja excluir esta Tarefa?</div>
 <!--
 <center><h3>Tarefas do <?php echo $this->projEncontrado->nome;?></h3></center>
 
