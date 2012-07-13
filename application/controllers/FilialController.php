@@ -36,6 +36,12 @@ class FilialController extends Zend_Controller_Action
 
         $this->view->AdminFilial = $this->adminFilial;
         $this->view->AdminEmpresa = $this->adminEmpresa;
+
+        if(!$this->adminEmpresa){
+            $this->_redirect('/index/negado');
+        }
+
+
         
         $this->funcionario = new Model_DbTable_Func();
         $this->filial = new Model_DbTable_Filial();
@@ -201,13 +207,15 @@ class FilialController extends Zend_Controller_Action
                                $this->funcionario->update($data1, $where);
 
                               //Retirando a filial do responsavel anterior
-                               $data2 = array(
-                                 'empresaFilial_idempresaFilial' => 0
-                               );
+                               if($this->_request->getPost('idresp') != $this->idFunc){
 
-                               $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->_request->getPost('idresp'));
-                               $this->funcionario->update($data2, $where);
+                                       $data2 = array(
+                                         'empresaFilial_idempresaFilial' => 0
+                                       );
 
+                                       $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $this->_request->getPost('idresp'));
+                                       $this->funcionario->update($data2, $where);
+                               }
 
                                //Informa a atualização da filial e a troca de responsavel
                                $this->_redirect('/filial/index/flag/4');
@@ -274,22 +282,26 @@ class FilialController extends Zend_Controller_Action
 
                 if($this->colaboradores->fetchRow($selectC)->num == 0 && $this->projeto->fetchRow($selectP)->num == 0 ){
 
-                       //Retirando a filial do responsavel pela filial excluida
-                       $data = array(
-                         'empresaFilial_idempresaFilial' => 0
-                       );
+                      if($filial->idempresaFilial != $this->idFilial ){
+                           //Retirando a filial do responsavel pela filial excluida
+                           $data = array(
+                             'empresaFilial_idempresaFilial' => 0
+                           );
 
-                       $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $filial->responsavel);
-                       $this->funcionario->update($data, $where);
-
-                       //deleta o funcionario
-                       $where = $this->filial->getAdapter()->quoteInto(' idempresaFilial = ?', $filial_id);
-                       $this->filial->delete($where);
-
-                       //Mensagem que informa a exclusão da filial
-                       $this->_redirect('filial/index/flag/3');
+                           $where = $this->funcionario->getAdapter()->quoteInto('idfuncionario = ?', (int) $filial->responsavel);
+                           $this->funcionario->update($data, $where);
 
 
+                           //deleta o funcionario
+                           $where = $this->filial->getAdapter()->quoteInto(' idempresaFilial = ?', $filial_id);
+                           $this->filial->delete($where);
+
+                           //Mensagem que informa a exclusão da filial
+                           $this->_redirect('filial/index/flag/3');
+                        }else{
+                            //Filial não pode ser excluida pois é a filial matriz da empresa
+                            $this->_redirect('filial/index/flag/7');
+                        }
                 }else{
 
                     //Mensagem que informa a exclusão da filial

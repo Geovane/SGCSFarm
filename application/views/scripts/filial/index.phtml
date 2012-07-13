@@ -23,6 +23,9 @@ if ( isset($this->flag)  )
                 echo "<div id='alerta'>Não é possivel deletar a filial, ainda existem funcionarios vinculados a ela.
                     Os tranfira ou os exclua, para depois realizar a exclusão da filial</div>";
                 break;
+             case 7:
+                echo "<div id='alerta'>Filial não pode ser excluida pois é a filial matriz da empresa.</div>";
+                break;
          }
 ?>
 <script type="text/javascript" src="/js/jquery.js"></script>
@@ -153,4 +156,7 @@ $( ".bt .del" ).button({
 </table>
 </center>
 </div>
+<script>
+menu('16')
+</script>
 <div id="exclui">Tem certeza que deseja excluir esta Filial?</div>
