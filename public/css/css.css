@@ -25,11 +25,25 @@ body{
 	font-size:14px;
 	font-weight:bolder;
 	}
-	
+        
+.txtLogin[id="senha"]{
+	border:0px solid black;
+	position:relative;
+	left:337px;
+        top:209.5px;
+	height:26px;
+	width:178px;
+	text-align:center;
+	font-family:Verdana, Geneva, sans-serif;
+	font-size:14px;
+	font-weight:bolder;
+	}
+        
+        
 .btnLogin{
 	position:relative;
 	left:382px;	
-        top:172px;
+        top:209px;
         width:87px;
 	text-align:center;
 	font-family:Verdana, Geneva, sans-serif;
@@ -48,10 +62,10 @@ body{
         text-align: center;
         text-shadow: 0 -1px 1px darkgrey;
  
-        /* Background gradient 
+        /* Background gradient */
         background: #eaeaea;
         background: -moz-linear-gradient(top, #eaeaea 0%, #7089b3 100%);
-        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eaeaea), to(#eaeaea));*/
+        background: -webkit-gradient(linear, 0% 0%, 0% 100%, from(#eaeaea), to(#eaeaea));
  
         /* Border style */
         border: 1px solid #000;
@@ -65,7 +79,10 @@ body{
         box-shadow: inset 0 1px 0 0 #AAAAAA;
  
     }        
-
+.btnLogin:hover {
+    background: #cccccc;
+    cursor: pointer;
+	}
 .linkEsqueci{
 	font-family:Arial, Helvetica, sans-serif;
 	font-size:11px;
@@ -74,7 +91,7 @@ body{
 	font-style:inherit;	
 	position:relative;
 	left:402px;	
-        top:172px;
+        top:209px;
 	}
 .linkLaranja{
 	font-family:Arial, Helvetica, sans-serif;
@@ -106,4 +123,32 @@ body{
 th{
     text-align: left;
     
+}
+
+#frmLogin label:first-of-type { 
+    position: absolute;
+    display: block;  
+    margin: 141px 0 0 515px;    
+    color: #FFFFFF;
+    padding: 7px 10px;
+    vertical-align:top;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;	
+    font-family: Verdana; 
+    font-size: 96%; 
+}
+
+#frmLogin label:last-of-type { 
+    position: absolute;
+    display: block;  
+    margin: 180px 0 0 515px;    
+    color: #FFFFFF;
+    padding: 7px 10px;
+    vertical-align:top;
+    -moz-border-radius: 7px;
+    -webkit-border-radius: 7px;
+    border-radius: 7px;	
+    font-family: Verdana; 
+    font-size: 96%; 
 }
