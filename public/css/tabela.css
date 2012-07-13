@@ -31,6 +31,15 @@
   background-color: white;
 }
 
+#createproject .tbl th:last-child {
+ text-align: center;
+}
+
+#createproject .tbl td:last-child {
+ text-align: center;
+}
+
+
 .tbl tr.odd {
   background-color: #eaeaea;
 }
