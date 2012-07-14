@@ -2,18 +2,17 @@
 <script type="text/javascript" src="/js/jquery.validate.js"></script>
 <script type="text/javascript" src="/js/jquery.maskedinput-1.3.js"></script>
 <script type="text/javascript" src="/js/jquery-ui-1.8.21.custom.min.js"></script>
-<script type="text/javascript" src="/js/jquery.ui.datepicker-pt-BR.js"></script>
 <?php echo $this->headLink()->appendStylesheet('/css/ui-lightness/jquery-ui-1.8.21.custom.css');?>
+<script type="text/javascript" src="/js/jquery.ui.datepicker-pt-BR.js"></script>
 
 <script type="text/javascript">
     
     
-$(document).ready(function() {
+$(document).ready(function(){
+
     $("#dtinicio").datepicker({});
-    $("#dtinicio2").datepicker({});
-    $("#dtinicio").mask("99/99/9999");
-    $("#dtinicio2").mask("99/99/9999");    
-});
+
+}); 
 
 $(document).ready(function(){
         
@@ -53,7 +52,8 @@ $(document).ready(function(){
         </div>
         <div class="field">            
             <label for="descricao" class="lblGeralClass">Descrição:</label>
-            <input type="text" id="descricao" class="input" name="descricao" maxlength="25" value="<?= $this->projeto->descricao; ?>"/>
+            <textarea class="input" name="descricao" id="descricao"><?= $this->projeto->descricao;?></textarea>
+    
         </div>
         <div class="field">            
             <label for="dtinicio" class="lblGeralClass">Data de Início:</label>
@@ -84,6 +84,7 @@ $(document).ready(function(){
             <?php endforeach;?>
             </select>
         </div>
+        <div>
             <input  type="submit" value="Atualizar" id="x" name="Atualizar" class="button" style="width: 135px" />
             <input  type="reset" value="Limpar" name="Limpar" class="button" style="width: 135px" />
         </div>
