@@ -277,7 +277,7 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        //Precisa so colocar as flags informando o ocorrido para o usuario
+        
         $id_proj = $this->_getParam('id');
        
         $select = $this->project->select();
