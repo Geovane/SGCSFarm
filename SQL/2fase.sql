@@ -34,7 +34,7 @@ CREATE TABLE `colaboradores` (
   KEY `fk_colaboradores_funcaoProjeto1` (`funcaoProjeto_idfuncaoProjeto`),
   KEY `fk_colaboradores_funcionario1` (`funcionario_idfuncionario`),
   KEY `fk_colaboradores_projeto1` (`projeto_idprojeto`)
-) ENGINE=InnoDB AUTO_INCREMENT=36 DEFAULT CHARSET=utf8 COMMENT='IdColaboradoes é uma chave indexada, da tabela colaboradores, isso foi nescessario pois funcionarios não podem se repetir em projetos, logo idprojeto e idfuncionario são chaves.\nObs: quem identifica a tabela colaborars nas relaçoes externas é idColaboradores';
+) ENGINE=InnoDB AUTO_INCREMENT=37 DEFAULT CHARSET=utf8 COMMENT='IdColaboradoes é uma chave indexada, da tabela colaboradores, isso foi nescessario pois funcionarios não podem se repetir em projetos, logo idprojeto e idfuncionario são chaves.\nObs: quem identifica a tabela colaborars nas relaçoes externas é idColaboradores';
 
 #
 # Dumping data for table colaboradores
@@ -54,6 +54,7 @@ INSERT INTO `colaboradores` VALUES (3,19,23,12,10);
 INSERT INTO `colaboradores` VALUES (1,19,24,40,10);
 INSERT INTO `colaboradores` VALUES (1,9,30,56,10);
 INSERT INTO `colaboradores` VALUES (1,10,35,34,30);
+INSERT INTO `colaboradores` VALUES (5,1,36,10,10);
 /*!40000 ALTER TABLE `colaboradores` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -70,7 +71,7 @@ CREATE TABLE `empresa` (
   `site` varchar(45) DEFAULT NULL,
   `cep` varchar(45) DEFAULT NULL,
   `endereco` varchar(45) NOT NULL,
-  `rezaoSocial` varchar(45) DEFAULT NULL,
+  `razaoSocial` varchar(45) DEFAULT NULL,
   `responsavelGeral` int(11) NOT NULL,
   PRIMARY KEY (`idempresa`),
   UNIQUE KEY `nome_UNIQUE` (`nome`),
@@ -187,7 +188,7 @@ CREATE TABLE `funcionario` (
   UNIQUE KEY `login_UNIQUE` (`login`),
   UNIQUE KEY `cpf_UNIQUE` (`documentoIdentificacao`),
   KEY `fk_funcionario_empresaFilial1` (`empresaFilial_idempresaFilial`)
-) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=29 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table funcionario
@@ -207,7 +208,7 @@ INSERT INTO `funcionario` VALUES (10,'DANNILLY EVANS DYER','M78B0956','d66e','40
 INSERT INTO `funcionario` VALUES (19,'Geovane M. souza','12324','mimoso','40bd001563085fc35165329ea1ff5c5ecbdbbeef','ge@g1.com',2,1,'/images/fotosFunc/19_1341506295.jpg');
 INSERT INTO `funcionario` VALUES (20,'Geovane Mimoso','1170192599','geovane','40bd001563085fc35165329ea1ff5c5ecbdbbeef','geovanemimoso@gmail.com',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
 INSERT INTO `funcionario` VALUES (23,'teste','123456','teste','40bd001563085fc35165329ea1ff5c5ecbdbbeef','teste@teste',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
-INSERT INTO `funcionario` VALUES (24,'Bruno Pereira dos Santos','123','bruno','40bd001563085fc35165329ea1ff5c5ecbdbbeef','bruno.ps@live.com',1,1,'/images/fotosFunc/24_1341473472.jpg');
+INSERT INTO `funcionario` VALUES (24,'Bruno P. dos Santos','123','bruno','7110eda4d09e062aa5e4a390b0a572ac0d2c0220','bruno.ps@live.com',1,1,'/images/fotosFunc/24_1342201379.jpg');
 INSERT INTO `funcionario` VALUES (26,'Dhielber','12345','teste2','8cb2237d0679ca88db6464eac60da96345513964','dadasda',1,1,'/images/fotosFunc/usuarioPadrao.jpg');
 INSERT INTO `funcionario` VALUES (27,'ze das farinhas','ze123','zezinho','250454f6b8bbe438b3679cd8e510c583b7dfd4d6','ze@gmail.com',0,0,'/images/fotosFunc/usuarioPadrao.jpg');
 /*!40000 ALTER TABLE `funcionario` ENABLE KEYS */;
@@ -239,6 +240,7 @@ INSERT INTO `funfaztarefa` VALUES (42,17);
 INSERT INTO `funfaztarefa` VALUES (44,20);
 INSERT INTO `funfaztarefa` VALUES (45,24);
 INSERT INTO `funfaztarefa` VALUES (46,20);
+INSERT INTO `funfaztarefa` VALUES (47,20);
 /*!40000 ALTER TABLE `funfaztarefa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -270,8 +272,7 @@ LOCK TABLES `projeto` WRITE;
 INSERT INTO `projeto` VALUES (1,'Proj A','Desenvolvimento de um sistema para gerenciamento de configuração de software.','2012-04-01','2012-07-30',1,2);
 INSERT INTO `projeto` VALUES (2,'Proj B','Sistema completo de automação comercial.','2012-04-01','2012-07-30',7,5);
 INSERT INTO `projeto` VALUES (3,'Proj C','teste','2012-07-03','1989-09-09',24,2);
-INSERT INTO `projeto` VALUES (4,'Proj D','Lorem Ipsum é simplesment','2012-07-03','1289-09-09',19,2);
-INSERT INTO `projeto` VALUES (5,'Proj E','testesteatestesteatestest','1989-09-09','1890-09-09',19,2);
+INSERT INTO `projeto` VALUES (5,'Proj E','testesteatestesteatestest','1989-09-09','2012-07-13',19,7);
 /*!40000 ALTER TABLE `projeto` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -294,8 +295,6 @@ LOCK TABLES `projetobugzilla` WRITE;
 /*!40000 ALTER TABLE `projetobugzilla` DISABLE KEYS */;
 INSERT INTO `projetobugzilla` VALUES (1,'Proj A');
 INSERT INTO `projetobugzilla` VALUES (3,'Proj C');
-INSERT INTO `projetobugzilla` VALUES (4,'Proj D');
-INSERT INTO `projetobugzilla` VALUES (5,'Proj E');
 /*!40000 ALTER TABLE `projetobugzilla` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -319,8 +318,6 @@ LOCK TABLES `projetogit` WRITE;
 /*!40000 ALTER TABLE `projetogit` DISABLE KEYS */;
 INSERT INTO `projetogit` VALUES (2,'Proj B','ydhbcgfhkchn');
 INSERT INTO `projetogit` VALUES (3,'Proj C','asdasdsda');
-INSERT INTO `projetogit` VALUES (4,'Proj D','asdasdsda');
-INSERT INTO `projetogit` VALUES (5,'Proj E','asdasdsda');
 /*!40000 ALTER TABLE `projetogit` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -355,32 +352,6 @@ INSERT INTO `redefinirsenha` VALUES ('o9lpmszv23n5',8);
 UNLOCK TABLES;
 
 #
-# Source for table sysconfig
-#
-
-DROP TABLE IF EXISTS `sysconfig`;
-CREATE TABLE `sysconfig` (
-  `idsysConfig` int(11) NOT NULL,
-  `nome` varchar(45) NOT NULL,
-  `valor` varchar(45) NOT NULL,
-  `empresa_idempresa` int(11) NOT NULL,
-  PRIMARY KEY (`idsysConfig`),
-  UNIQUE KEY `nome_UNIQUE` (`nome`),
-  KEY `fk_sysConfig_empresa1` (`empresa_idempresa`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='configurações gerais do sistema\n\nPrimeira: Usuario git da empresa';
-
-#
-# Dumping data for table sysconfig
-#
-
-LOCK TABLES `sysconfig` WRITE;
-/*!40000 ALTER TABLE `sysconfig` DISABLE KEYS */;
-INSERT INTO `sysconfig` VALUES (1,'Usuario Git Master','SoftFarm',1);
-INSERT INTO `sysconfig` VALUES (2,'Usuario Bugzila Master','SoftFarm',1);
-/*!40000 ALTER TABLE `sysconfig` ENABLE KEYS */;
-UNLOCK TABLES;
-
-#
 # Source for table tarefa
 #
 
@@ -394,7 +365,7 @@ CREATE TABLE `tarefa` (
   `dataEntrega` datetime NOT NULL,
   PRIMARY KEY (`idtarefa`),
   KEY `fk_tarefa_estado1` (`estado_idestado`)
-) ENGINE=InnoDB AUTO_INCREMENT=47 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=48 DEFAULT CHARSET=utf8;
 
 #
 # Dumping data for table tarefa
@@ -413,6 +384,7 @@ INSERT INTO `tarefa` VALUES (42,'dasda','2012-06-03 05:28:45','2012-06-30 05:28:
 INSERT INTO `tarefa` VALUES (44,'teste','2012-07-03 20:47:25','2012-07-03 20:47:25',7,'0000-00-00 00:00:00');
 INSERT INTO `tarefa` VALUES (45,'testes','2012-07-03 03:09:05','2012-07-31 03:09:05',2,'0000-00-00 00:00:00');
 INSERT INTO `tarefa` VALUES (46,',n,mn,m','2012-07-17 04:05:19','2012-07-27 04:05:19',2,'0000-00-00 00:00:00');
+INSERT INTO `tarefa` VALUES (47,'dqwfweafwerfwqefwerf        ','2012-07-24 19:40:57','2012-07-25 19:40:57',7,'2012-07-13 19:41:16');
 /*!40000 ALTER TABLE `tarefa` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -524,13 +496,6 @@ DROP VIEW IF EXISTS `estado_projeto`;
 CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `estado_projeto` AS select `estado`.`tipoDeEstado` AS `tipoDeEstado`,`projeto`.`nome` AS `nomeProj`,`projeto`.`idprojeto` AS `idprojeto` from (`projeto` join `estado` on((`projeto`.`estado_idestado` = `estado`.`idestado`))) order by `projeto`.`nome`;
 
 #
-# Source for view filias_das_empresas
-#
-
-DROP VIEW IF EXISTS `filias_das_empresas`;
-CREATE ALGORITHM=UNDEFINED SQL SECURITY DEFINER VIEW `filias_das_empresas` AS select `empresa`.`nome` AS `nomeEmp`,`empresafilial`.`nome` AS `nomeFilial`,`empresafilial`.`tel` AS `telFilial`,`empresafilial`.`endereco` AS `enderecoFilial`,`empresafilial`.`responsavel` AS `responsavelFilial`,`empresa`.`tel` AS `telEmp`,`empresa`.`email` AS `emailEmp`,`empresa`.`site` AS `site`,`empresa`.`cep` AS `cepEmp`,`empresa`.`endereco` AS `endereco`,`empresa`.`rezaoSocial` AS `rezaoSocialEmp` from (`empresa` join `empresafilial` on((`empresa`.`idempresa` = `empresafilial`.`empresa_idempresa`)));
-
-#
 # Source for view funcao_colaboradores_projeto
 #
 
@@ -617,7 +582,7 @@ ADD CONSTRAINT `fk_projetoBugzilla_projeto1` FOREIGN KEY (`projeto_idprojeto`) R
 #
 
 ALTER TABLE `projetogit`
-ADD CONSTRAINT `fk_projetoGit_projeto1` FOREIGN KEY (`projeto_idprojeto`) REFERENCES `projeto` (`idprojeto`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+ADD CONSTRAINT `fk_projetoGit_projeto1` FOREIGN KEY (`projeto_idprojeto`) REFERENCES `projeto` (`idprojeto`);
 
 #
 #  Foreign keys for table redefinirsenha
@@ -625,6 +590,27 @@ ADD CONSTRAINT `fk_projetoGit_projeto1` FOREIGN KEY (`projeto_idprojeto`) REFERE
 
 ALTER TABLE `redefinirsenha`
 ADD CONSTRAINT `fk_redefinirSenha_funcionario1` FOREIGN KEY (`funcionario_idfuncionario`) REFERENCES `funcionario` (`idfuncionario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+#
+#  Foreign keys for table tarefa
+#
+
+ALTER TABLE `tarefa`
+ADD CONSTRAINT `estado_idestado` FOREIGN KEY (`estado_idestado`) REFERENCES `estado` (`idestado`);
+
+#
+#  Foreign keys for table usuariobugzilla
+#
+
+ALTER TABLE `usuariobugzilla`
+ADD CONSTRAINT `funcionario_idfuncionario` FOREIGN KEY (`funcionario_idfuncionario`) REFERENCES `funcionario` (`idfuncionario`);
+
+#
+#  Foreign keys for table usuariogit
+#
+
+ALTER TABLE `usuariogit`
+ADD CONSTRAINT `funcinario_idfuncionario` FOREIGN KEY (`funcionario_idfuncionario`) REFERENCES `funcionario` (`idfuncionario`);
 
 
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

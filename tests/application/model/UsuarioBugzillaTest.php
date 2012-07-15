@@ -1,13 +1,13 @@
 <?php
-    class Empresa extends Zend_Db_Table_Abstract
+    class UsuarioBugzilla extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'empresa';
-    	protected $_primary = 'idempresa';
+    	protected $_name = 'usuariobugzilla';
+    	protected $_primary = 'funcionario_idfuncionario';
     }
 ?>
     
 <?php
-class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class UsuarioBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,78 +40,71 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
+            dirname(__FILE__) . '/_files/usuariobugzillaSeed.xml'
         );
     }
     
-    public function testEmpresaInsertedIntoDatabase()
+    public function testUsuarioBugzillaInsertedIntoDatabase()
     {
-        $this->empresaTable = new Empresa();
+        $this->userTable = new UsuarioBugzilla();
  
         $data = array(
-            'idempresa' => '2',
-            'nome' => 'SoftFarm Hardware',
-            'tel' => '7332316572',
-            'email' => 'softfarmhardware@gmail.com',
-            'site' => 'www.softfarm.com',
-            'cep' => '45 650 000',
-            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
-            'rezaoSocial' => '8321983091741',
-            'responsavelGeral' => '3'
+            'funcionario_idfuncionario' => '5',
+            'usuario' => 'SMoreno',
+            'senha' => '123'
             );
  
-       $this->empresaTable->insert($data);
+       $this->userTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('empresa', 'SELECT * FROM empresa');
+        $ds->addTable('usuariobugzilla', 'SELECT * FROM usuariobugzilla');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/usuariobugzillaInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testEmpresaDelete()
+     public function testUsuarioBugzillaDelete()
     {
-        $empresaTable = new empresa();
+        $userTable = new UsuarioBugzilla();
  
-        $empresaTable->delete(
-            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
+        $userTable->delete(
+            $userTable->getAdapter()->quoteInto("funcionario_idfuncionario = ?", 1)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($empresaTable);
+        $ds->addTable($userTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/empresaDeleteAssertion.xml"),
+                                      . "/_files/usuariobugzillaDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testEmpresaUpdate()
+    public function testUsuarioBugzillaUpdate()
     {
-        $empresaTable = new empresa();
+        $userTable = new UsuarioBugzilla();
  
         $data = array(
-            'nome'      => 'HardFarm',
-            'email'      => 'hardfarm@gmail.com'
+            'senha'      => '123456'
         );
  
-        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
+        $where = $userTable->getAdapter()->quoteInto('funcionario_idfuncionario = ?', 2);
  
-        $empresaTable->update($data, $where);
+        $userTable->update($data, $where);
  
-        $rowset = $empresaTable->fetchAll();
+        $rowset = $userTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/usuariobugzillaUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('empresa');
+        $expectedRowsets = $assertion->getTable('usuariobugzilla');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds

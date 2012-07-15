@@ -1,13 +1,13 @@
 <?php
-    class Empresa extends Zend_Db_Table_Abstract
+    class EmpresaFilial extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'empresa';
-    	protected $_primary = 'idempresa';
+    	protected $_name = 'empresafilial';
+    	protected $_primary = 'idempresaFilial';
     }
 ?>
     
 <?php
-class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class EmpresaFilialTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,24 +40,23 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
+            dirname(__FILE__) . '/_files/EmpresaFilialSeed.xml'
         );
     }
     
-    public function testEmpresaInsertedIntoDatabase()
+    public function testEmpresaFilialInsertedIntoDatabase()
     {
-        $this->empresaTable = new Empresa();
+        $this->empresaTable = new EmpresaFilial();
  
         $data = array(
-            'idempresa' => '2',
-            'nome' => 'SoftFarm Hardware',
-            'tel' => '7332316572',
-            'email' => 'softfarmhardware@gmail.com',
-            'site' => 'www.softfarm.com',
-            'cep' => '45 650 000',
-            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
-            'rezaoSocial' => '8321983091741',
-            'responsavelGeral' => '3'
+            'idempresaFilial' => '3',
+            'nome' => 'SoftFarm - RUS',
+            'tel' => '56 8945 9893',
+            'endereco' => 'Russia',
+            'responsavel' => '3',
+            'empresa_idempresa' => '1',
+            'email' => 'softfarmrus@gmail.com',
+            'cep' => '23 678 123'
             );
  
        $this->empresaTable->insert($data);
@@ -66,20 +65,20 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
             $this->getConnection()
         );
         
-        $ds->addTable('empresa', 'SELECT * FROM empresa');
+        $ds->addTable('empresafilial', 'SELECT * FROM empresafilial');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresafilialInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testEmpresaDelete()
+     public function testEmpresaFilialDelete()
     {
-        $empresaTable = new empresa();
+        $empresaTable = new EmpresaFilial();
  
         $empresaTable->delete(
-            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
+            $empresaTable->getAdapter()->quoteInto("idempresafilial = ?", 2)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
@@ -87,21 +86,21 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/empresaDeleteAssertion.xml"),
+                                      . "/_files/empresafilialDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testEmpresaUpdate()
+    public function testEmpresaFilialUpdate()
     {
-        $empresaTable = new empresa();
+        $empresaTable = new EmpresaFilial();
  
         $data = array(
-            'nome'      => 'HardFarm',
-            'email'      => 'hardfarm@gmail.com'
+            'nome'      => 'SoftFarm',
+            'email'      => 'softfarm@gmail.com'
         );
  
-        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
+        $where = $empresaTable->getAdapter()->quoteInto('idempresafilial = ?', 1);
  
         $empresaTable->update($data, $where);
  
@@ -109,9 +108,9 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/empresafilialUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('empresa');
+        $expectedRowsets = $assertion->getTable('empresafilial');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds

@@ -1,13 +1,13 @@
 <?php
-    class Empresa extends Zend_Db_Table_Abstract
+    class RedefinirSenha extends Zend_Db_Table_Abstract
     {
-    	protected $_name = 'empresa';
-    	protected $_primary = 'idempresa';
+    	protected $_name = 'redefinirsenha';
+    	protected $_primary = 'funcionario_idfuncionario';
     }
 ?>
     
 <?php
-class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
+class RedefinirSenhaTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
  
@@ -40,78 +40,70 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getDataSet()
     {
         return $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/EmpresaSeed.xml'
+            dirname(__FILE__) . '/_files/redefinirsenhaSeed.xml'
         );
     }
     
-    public function testEmpresaInsertedIntoDatabase()
+    public function testRedefinirSenhaInsertedIntoDatabase()
     {
-        $this->empresaTable = new Empresa();
+        $this->senhaTable = new RedefinirSenha();
  
         $data = array(
-            'idempresa' => '2',
-            'nome' => 'SoftFarm Hardware',
-            'tel' => '7332316572',
-            'email' => 'softfarmhardware@gmail.com',
-            'site' => 'www.softfarm.com',
-            'cep' => '45 650 000',
-            'endereco' => 'Avenida Soares Lopes, 23, Centro Ilhéus',
-            'rezaoSocial' => '8321983091741',
-            'responsavelGeral' => '3'
+            'hash' => 'ascasdascasd',
+            'funcionario_idfuncionario' => '4'
             );
  
-       $this->empresaTable->insert($data);
+       $this->senhaTable->insert($data);
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
         
-        $ds->addTable('empresa', 'SELECT * FROM empresa');
+        $ds->addTable('redefinirsenha', 'SELECT * FROM redefinirsenha');
  
         $this->assertDataSetsEqual(
-            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/empresaInsertIntoAssertion.xml"),
+            $this->createFlatXmlDataSet(dirname(__FILE__) . "/_files/redefinirsenhaInsertIntoAssertion.xml"),
             $ds
         );
     }
     
-     public function testEmpresaDelete()
+     public function testRedefinirSenhaDelete()
     {
-        $empresaTable = new empresa();
+        $senhaTable = new RedefinirSenha();
  
-        $empresaTable->delete(
-            $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
+        $senhaTable->delete(
+            $senhaTable->getAdapter()->quoteInto("funcionario_idfuncionario = ?", 1)
         );
  
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
-        $ds->addTable($empresaTable);
+        $ds->addTable($senhaTable);
  
         $this->assertDataSetsEqual(
             $this->createFlatXmlDataSet(dirname(__FILE__)
-                                      . "/_files/empresaDeleteAssertion.xml"),
+                                      . "/_files/redefinirsenhaDeleteAssertion.xml"),
             $ds
         );
     }
     
-    public function testEmpresaUpdate()
+    public function testRedefinirSenhaUpdate()
     {
-        $empresaTable = new empresa();
+        $senhaTable = new RedefinirSenha();
  
         $data = array(
-            'nome'      => 'HardFarm',
-            'email'      => 'hardfarm@gmail.com'
+            'hash'      => 'asdgascbmadshjk'
         );
  
-        $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
+        $where = $senhaTable->getAdapter()->quoteInto('funcionario_idfuncionario = ?', 2);
  
-        $empresaTable->update($data, $where);
+        $senhaTable->update($data, $where);
  
-        $rowset = $empresaTable->fetchAll();
+        $rowset = $senhaTable->fetchAll();
  
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         $assertion = $this->createFlatXmlDataSet(
-            dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
+            dirname(__FILE__) . '/_files/redefinirsenhaUpdateAssertion.xml'
         );
-        $expectedRowsets = $assertion->getTable('empresa');
+        $expectedRowsets = $assertion->getTable('redefinirsenha');
  
         $this->assertTablesEqual(
             $expectedRowsets, $ds
