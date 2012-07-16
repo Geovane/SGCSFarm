@@ -25,6 +25,7 @@ class TarefaControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
            . '/configs/application.ini'
         );
         parent::setUp();
+        Zend_Controller_Front::getInstance()->setParam('noErrorHandler',true)->throwExceptions(true); 
     }
 
     /**
@@ -39,60 +40,149 @@ class TarefaControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testInit().
      */
     public function testInit() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');        
+        
+        $this->dispatch('/tarefa/Init');
+        $this->assertController('tarefa');
+        $this->assertAction('Init');
     }
 
     /**
      * @todo Implement testCreateAction().
      */
     public function testCreateAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        
+         $this->dispatch('/Auth/login');
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'dataInc'  => '25/07/2012',
+                'dataFim' => '31/07/2012',
+                'descricao'  => 'tarefa teste'
+                ));
+         
+         $this->dispatch('/tarefa/create/idProj/4/idColab/2');
+         $this->assertRedirectTo('/tarefa/prepara/idProj/4/flag/1');
+         
+         $select = $this->tarefa->select();
+         $select->from($this->tarefa, 'descricao');
+         $select->where('nome = ?', 'teste');
+         
+         $this->dispatch('/tarefa/edit/idTarefa/'+ $this->tarefa->fetchRow($select)->descricao +'/idColab/2/idProj/4');
     }
 
     /**
      * @todo Implement testEditAction().
      */
     public function testEditAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        
+         $this->dispatch('/Auth/login');
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'dataInc'  => '25/07/2012',
+                'dataFim' => '31/07/2012',
+                'descricao'  => 'tarefa teste'
+                ));
+         
+         $this->dispatch('/tarefa/create/idProj/4/idColab/2');
+         $this->assertRedirectTo('/tarefa/prepara/idProj/4/flag/1');
+         
+         $select = $this->tarefa->select();
+         $select->from($this->tarefa, 'descricao');
+         $select->where('nome = ?', 'tarefa teste');
+         
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'dataInc'  => '25/07/2012',
+                'dataFim' => '31/07/2012',
+                'descricao'  => 'tarefa teste editada',
+                'estado_idestado' => 'Concluido',
+                'dataEntrega'  => '31/07/2012'
+                ));
+          
+         $this->dispatch('/tarefa/edit/idTarefa/'+ $this->tarefa->fetchRow($select)->descricao +'/idColab/2/idProj/4');
+         $this->assertRedirectTo('/tarefa/prepara/idProj/4/flag/2');         
     }
 
     /**
      * @todo Implement testDeleteAction().
      */
     public function testDeleteAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        
+         $this->dispatch('/Auth/login');
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'dataInc'  => '25/07/2012',
+                'dataFim' => '31/07/2012',
+                'descricao'  => 'tarefa a ser deletada'
+                ));
+         
+         $this->dispatch('/tarefa/create/idProj/4/idColab/2');
+         $this->assertRedirectTo('/tarefa/prepara/idProj/4/flag/1');
+         
+         $select = $this->tarefa->select();
+         $select->from($this->tarefa, 'descricao');
+         $select->where('nome = ?', 'tarefa a ser deletada');
+     
+         $this->dispatch('/tarefa/delete/idTarefa/' + $this->tarefa->fetchRow($select)->descricao + 'idColab/2/idProjeto/4');
+         $this->assertRedirectTo('/tarefa/prepara/idProj/4/flag/3');
     }
 
     /**
      * @todo Implement testPreparaAction().
      */
     public function testPreparaAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');        
+        
+        $this->dispatch('/tarefa/Prepara');
+        $this->assertController('tarefa');
+        $this->assertAction('Prepara');
     }
 
     /**
      * @todo Implement testMinhasTarefasAction().
      */
     public function testMinhasTarefasAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+      $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');      
+        
+        $this->dispatch('/Tarefa/MinhasTarefas');
+        $this->assertController('Tarefa');
+        $this->assertAction('MinhasTarefas');
     }
 
 }
