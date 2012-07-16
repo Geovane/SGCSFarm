@@ -45,20 +45,36 @@ class FilialControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testInit().
      */
     public function testInit() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');        
+        
+        $this->dispatch('/filial/Init');
+        $this->assertController('filial');
+        $this->assertAction('Init');
     }
 
     /**
      * @todo Implement testIndexAction().
      */
     public function testIndexAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/filial/login');
+        $this->assertController('filial');
+        $this->assertAction('login');        
+        
+        $this->dispatch('/filial/index');
+        $this->assertController('filial');
+        $this->assertAction('index');
     }
 
     /**
@@ -68,7 +84,7 @@ class FilialControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
         $this->request->setMethod('POST')
               ->setPost(array(
                   'login' => 'mimoso',
-                  'senha' => '123'
+                  'senha' => '1234'
               ));
         
          $this->dispatch('/Auth/login');
@@ -78,7 +94,6 @@ class FilialControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
                 'tel' => '7788998877',
                 'endereco'  => 'rua dos carroceiros',
                 'responsavel'  => 'ze das farinhas',
-                'empresa_idempresa' => '',
                 'email'  => 'Farinhas@colombia.com',
                 'cep' => '45999-140'
               ));
@@ -87,7 +102,83 @@ class FilialControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
          $this->assertRedirectTo('/filial/index/flag/1');
                 
     }
+    
+    
+    
+     public function testEditAction() {
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        
+         $this->dispatch('/Auth/login');
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'nome'  => 'SoftArms',
+                'tel' => '7788998877',
+                'endereco'  => 'rua dos carroceiros',
+                'responsavel'  => 'ze das farinhas',
+                'email'  => 'Farinhas@colombia.com',
+                'cep' => '45999-140'
+              ));
+         
+         $this->dispatch('/filial/create');
+         $this->assertRedirectTo('/filial/index/flag/1');
+         
+         $select = $this->filial->select();
+         $select->from($this->filial, 'idempresaFilial');
+         $select->where('nome = ?', 'SoftArms');
+        
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'nome'  => 'SoftBrArms',
+                'tel' => '7788998877',
+                'endereco'  => 'rua dos carroceiros',
+                'responsavel'  => 'ze das farinhas',
+                'email'  => 'Farinhas@brasil.com',
+                'cep' => '45999-140'
+              ));
+         
+         $this->dispatch('filial/edit/id/' + $this->filial->fetchRow($select)->idempresaFilial );
+         $this->assertRedirectTo('/filial/index/flag/2'); 
+         
+                
+    }
+    
+    
+     public function testDeleteAction() {
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        
+         $this->dispatch('/Auth/login');
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                'nome'  => 'SoftArms',
+                'tel' => '7788998877',
+                'endereco'  => 'rua dos carroceiros',
+                'responsavel'  => 'ze das farinhas',
+                'email'  => 'Farinhas@colombia.com',
+                'cep' => '45999-140'
+              ));
+         
+         $this->dispatch('/filial/create');
+         $this->assertRedirectTo('/filial/index/flag/1');
+                
+        $select = $this->filial->select();
+        $select->from($this->filial, 'idempresaFilial');
+        $select->where('nome = ?', 'SoftArms');
+        
+        $this->dispatch('filial/delete/id/' + $this->filial->fetchRow($select)->idempresaFilial );
+        $this->assertRedirectTo('/filial/index/flag/3'); 
+         
+    }
 
+    
+    
 }
 
 ?>
