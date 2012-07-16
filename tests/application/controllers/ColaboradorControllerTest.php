@@ -41,6 +41,16 @@ class ColaboradorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testInit().
      */
     public function testInit() {
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');   
+        
+        
         $this->dispatch('/Colaborador/init');
         $this->assertController('Colaborador');
         $this->assertAction('init');
@@ -50,6 +60,16 @@ class ColaboradorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testIndexAction().
      */
     public function testIndexAction() {
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');          
+        
+        
         $this->dispatch('/Colaborador/index');
         $this->assertController('Colaborador');
         $this->assertAction('index');
@@ -59,38 +79,93 @@ class ColaboradorControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testCreateAction().
      */
     public function testCreateAction() {
-        // Remove the following lines when you implement this test.
+   
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');   
+        
         $this->request->setMethod('POST')
               ->setPost(array(
                 'id' => '4',
-                'funcionario' => '23',
+                'funcionario' => '1',
                 'horas'  => '10',
                 'funcao' => '10'
               ));
         $this->dispatch('/colaborador/create');
         $this->AssertRedirectTo('/colaborador/index/id/4/flag/2');
         
-        $this->dispatch('/colaborador/delete/idfunc/23/id/4');
+        $this->dispatch('/colaborador/delete/idfunc/1/id/4');
     }
 
     /**
      * @todo Implement testEditAction().
      */
     public function testEditAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');   
+        
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                'id' => '4',
+                'funcionario' => '1',
+                'horas'  => '10',
+                'funcao' => '10'
+              ));
+        $this->dispatch('/colaborador/create');
+        $this->AssertRedirectTo('/colaborador/index/id/4/flag/2');
+       
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                'idProj' => '4',
+                'idFunc' => '1',
+                'horas'  => '10',
+                'funcao' => '10'
+              ));
+        $this->dispatch('/colaborador/edit/idfunc/1/id/4');
+        
+        $this->dispatch('/colaborador/delete/idfunc/23/id/4');
+        $this->AssertRedirectTo('/colaborador/index/id/4/flag/1');
+        
+        $this->dispatch('/colaborador/delete/idfunc/1/id/4');
+        
     }
 
     /**
      * @todo Implement testDeleteAction().
      */
     public function testDeleteAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+         $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');   
+        
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                'id' => '4',
+                'funcionario' => '1',
+                'horas'  => '10',
+                'funcao' => '10'
+              ));
+        $this->dispatch('/colaborador/create');
+        $this->AssertRedirectTo('/colaborador/index/id/4/flag/2');      
+        
+        $this->dispatch('/colaborador/delete/idfunc/1/id/4');       
     }
 
 }
