@@ -2,7 +2,19 @@
 if(isset($this->mensagem))
     echo $this->mensagem;
 ?>
-
+<?php
+    if(isset($this->flag))
+    {
+        switch($this->flag)
+        {
+          
+            case 1:
+                echo "<div id='alerta'>Projeto inserido com sucesso</div>";
+                break;
+            
+        }
+    }
+?>
 <ul id="globalnav">
   <li><a href="/funcionario/index">Funcionarios</a></li>
   <li><a href="/funcionario/create">Cadastrar Funcionário</a></li>
