@@ -40,6 +40,15 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testInit().
      */
     public function testInit() {
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');      
+        
         $this->dispatch('/Auth/Init');
         $this->assertController('Auth');
         $this->assertAction('Init');
@@ -52,7 +61,7 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
         $this->request->setMethod('POST')
               ->setPost(array(
                   'login' => 'mimoso',
-                  'senha' => '123'
+                  'senha' => '1234'
               ));
         $this->dispatch('/Auth/login');        
         
@@ -73,10 +82,18 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
      * @todo Implement testImagemAction().
      */
     public function testImagemAction() {
-        // Remove the following lines when you implement this test.
-        $this->markTestIncomplete(
-                'This test has not been implemented yet.'
-        );
+        $this->request->setMethod('POST')
+              ->setPost(array(
+                  'login' => 'mimoso',
+                  'senha' => '1234'
+              ));
+        $this->dispatch('/Auth/login');
+        $this->assertController('Auth');
+        $this->assertAction('login');        
+        
+        $this->dispatch('/pessoal/imagem');
+        $this->assertController('pessoal');
+        $this->assertAction('imagem');
     }
 
     /**
@@ -87,10 +104,10 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
         $this->request->setMethod('POST')
               ->setPost(array(
                   'login' => 'mimoso',
-                  'senha' => '123'
+                  'senha' => '1234'
               ));
         $this->dispatch('/Auth/login', 'login');       
-        $this->dispatch('/pessoal/meusdados', 'meus dados');
+        $this->dispatch('/pessoal/meusdados');
         $this->assertController('pessoal');
         $this->assertAction('meusdados');
     }
@@ -103,20 +120,20 @@ class PessoalControllerTest extends Zend_Test_PHPUnit_ControllerTestCase {
        $this->request->setMethod('POST')
               ->setPost(array(
                   'login' => 'mimoso',
-                  'senha' => '123'
+                  'senha' => '1234'
               ));
         $this->dispatch('/Auth/login');
         
         $this->request->setMethod('POST')
               ->setPost(array(
                   'senhaAtual' => '1234',
-                  'senhaNova' => '123',
-                  'senhaNova2' => '123',             
+                  'senhaNova' => '1234',
+                  'senhaNova2' => '1234',             
               ));
         $this->dispatch('/pessoal/senha');
         $this->assertController('pessoal');
         $this->assertAction('senha');
-        $this->assertRedirectTo('/pessoal/meusdados/flag/3');          
+        $this->assertRedirectTo('/pessoal/meusdados/flag/3');
         }
         
 }
