@@ -28,13 +28,12 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->request->setMethod('POST')
               ->setPost(array(
                   'login' => 'mimoso',
-                  'senha' => '123'
+                  'senha' => '1234'
               ));
         $this->dispatch('/Auth/login');
         $this->assertController('Auth');
         $this->assertAction('login');
-        $this->assertNotRedirect();
-        $this->assertRedirectTo('/Auth');
+        $this->assertRedirectTo('/');
 
         
     }
@@ -51,8 +50,7 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
         $this->assertController('Auth');
         $this->assertAction('index');
         $this->assertRedirectTo('/Auth/login');
-        //$this->assertQuery('form');
-    }
+        }
     
      public function testIndexActionShouldContainLoginForm()
     {
@@ -77,7 +75,10 @@ class AuthControllerTest extends Zend_Test_PHPUnit_ControllerTestCase
                   'senha' => '1234'
               ));
         $this->dispatch('/Auth/login');
-        $this->dispatch('/Auth/logout');
+        $this->assertController('Auth');
+        $this->assertAction('login');
+        
+        $this->dispatch('/auth/login');
         $this->assertRedirectTo('/Auth/login');
     }
 
@@ -87,11 +88,10 @@ public function testSenhaAction(){
               ->setPost(array(
                   'login' => '12345',
                   'senha' => '98765'
-      ));
-}
-
-
-
+      ));    
+    $this->dispatch('/Auth/login');
+    $this->assertRedirectTo('/Auth/senha');
+    }
 
     public function tearDown() {
         /* Tear Down Routine */
