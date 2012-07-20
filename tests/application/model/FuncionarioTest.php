@@ -22,6 +22,7 @@
  */
 class FuncionarioTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
+    private $_connectionMock;
     /**
      * Retorna a conexão para o banco de dados de teste.
      *
