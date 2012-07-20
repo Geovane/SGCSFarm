@@ -34,7 +34,7 @@ class FuncaoProjetoTest extends Zend_Test_PHPUnit_DatabaseTestCase
         return $this->_connectionMock;
     }
  
-    /**
+    /***
      * @return PHPUnit_Extensions_Database_DataSet_IDataSet
      */
     protected function getDataSet()

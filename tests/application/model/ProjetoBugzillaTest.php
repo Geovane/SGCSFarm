@@ -1,5 +1,5 @@
 <?php
-/* Classe responsável pelo acesso a tabela projetobugzilla para realização dos testes
+/** Classe responsável pelo acesso a tabela projetobugzilla para realização dos testes
  * 
  * @author Mateus Passos
  * @version 0.1
@@ -14,7 +14,7 @@
 ?>
     
 <?php
-/* Classe responsável pela realização dos testes da tabela projetobugzilla
+/** Classe responsável pela realização dos testes da tabela projetobugzilla
  * 
  * @author Mateus Passos
  * @version 0.1
@@ -32,7 +32,7 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
     protected function getConnection()
     {
         if($this->_connectionMock == null) {
-            /* Recebe os parâmetros para conexão com o banco
+            /** Recebe os parâmetros para conexão com o banco
              * 
              * @name $connection
              */
@@ -51,7 +51,7 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         return $this->_connectionMock;
     }
  
-    /* Povoa a tabela que se deseja testar no banco de dados
+    /** Povoa a tabela que se deseja testar no banco de dados
      * 
      * @return PHPUnit_Extensions_Database_DataSet_IDataSet
      * @access protected
@@ -63,20 +63,20 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         );
     }
     
-     /* Testa a inserção dos dados no banco
+     /** Testa a inserção dos dados no banco
      * 
      * @access public
      * @return void
      */
     public function testProjetoBugzillaInsertedIntoDatabase()
     {
-        /* Variável que representa a tabela que se deseja testar
+        /** Variável que representa a tabela que se deseja testar
          * 
          * @name projTable
          */
         $this->projTable = new ProjBug();
  
-        /* Variável que armazena os dados a serem inseridos no teste
+        /** Variável que armazena os dados a serem inseridos no teste
          * 
          * @name $data
          */
@@ -87,7 +87,7 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
  
        $this->projTable->insert($data);
  
-        /* Variável que recebe a conexão com o banco de dados de testes
+        /** Variável que recebe a conexão com o banco de dados de testes
         * 
         * @name $ds
         */
@@ -103,14 +103,14 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         );
     }
     
-    /* Função que testa a exclusão de dados no banco
+    /** Função que testa a exclusão de dados no banco
      * 
      * @access public
      * @return void
      */
      public function testProjetoBugzillaDelete()
     {
-         /* Variável que representa a tabela que se deseja testar
+         /** Variável que representa a tabela que se deseja testar
          * 
          * @name $projTable
          */ 
@@ -120,7 +120,7 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
             $projTable->getAdapter()->quoteInto("projeto_idprojeto = ?", 1)
         );
  
-        /* Variável que recebe a conexão com o banco de dados de testes
+        /** Variável que recebe a conexão com o banco de dados de testes
         * 
         * @name $ds
         */
@@ -134,20 +134,20 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         );
     }
     
-     /* Função que testa a atualização de dados no banco
+     /** Função que testa a atualização de dados no banco
      * 
      * @access public
      * @return void
      */
     public function testProjetoBugzillaUpdate()
     {
-         /* Variável que representa a tabela que se deseja testar
+         /** Variável que representa a tabela que se deseja testar
          * 
          * @name $projTable
          */ 
         $projTable = new ProjBug();
  
-         /* Variável que armazena os dados a serem atualizados no teste
+         /** Variável que armazena os dados a serem atualizados no teste
          * 
          * @name $data
          */
@@ -155,7 +155,7 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
             'nomeProjeto'      => 'Projeto Novo'
         );
  
-        /* Variável que armazena qual elemento do banco será atualizado
+        /** Variável que armazena qual elemento do banco será atualizado
          * 
          * @name $where
          */
@@ -165,13 +165,13 @@ class ProjetoBugzillaTest extends Zend_Test_PHPUnit_DatabaseTestCase
  
         $rowset = $projTable->fetchAll();
  
-        /* Variável que recebe a conexão com o banco de dados de testes
+        /** Variável que recebe a conexão com o banco de dados de testes
         * 
         * @name $ds
         */
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
         
-        /* Variável responsável por receber o arquivo que fará a verificação dos dados no banco
+        /** Variável responsável por receber o arquivo que fará a verificação dos dados no banco
          * 
          * @name $assertion
          */
