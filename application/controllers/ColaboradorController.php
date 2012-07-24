@@ -87,6 +87,7 @@ class ColaboradorController extends Zend_Controller_Action
     
     public function indexAction()
     {
+
         //Manda a flag de mensagens pra view index
         $this->view->flag = $this->_request->getParam('flag');
 

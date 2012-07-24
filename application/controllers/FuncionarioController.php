@@ -87,6 +87,13 @@ class FuncionarioController extends Zend_Controller_Action
         if(!$this->adminFilial){
             $this->_redirect('/index/negado');
         }
+
+
+        $page = $this->_request->getParam('page');
+
+            if ( isset($page) ){
+                $this->view->mem = true;
+            }
         
          $this->view->flag = $this->_request->getParam('flag');
          $select = $this->funcionario->select();
@@ -331,6 +338,12 @@ class FuncionarioController extends Zend_Controller_Action
         if(!$this->adminEmpresa){
             $this->_redirect('/index/negado');
         }
+
+        $page = $this->_request->getParam('page');
+
+            if ( isset($page) ){
+                $this->view->mem = true;
+            }
 
          $this->view->flag = $this->_request->getParam('flag');
          $select = $this->funcionario->select()->order('nome');

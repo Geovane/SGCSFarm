@@ -91,6 +91,10 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function indexAction()
     {
+        $page = $this->_request->getParam('page');
+            if ( isset($page) ){
+                $this->view->mem = true;
+            }
         
         $this->view->flag = $this->_request->getParam('flag');
         $idFuncLogado = $this->funcLogado->idfuncionario;

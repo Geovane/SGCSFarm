@@ -7,7 +7,8 @@
 </ul>
 <br/>
 <?
-if ( isset($this->flag)  )
+
+if ( isset($this->flag) and !($this->mem)  )
          switch ($this->flag){
         case 1:
             echo   "<div id='alerta'>Funcionario cadastrado com sucesso!</div>";
