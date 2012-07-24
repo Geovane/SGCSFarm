@@ -3,7 +3,7 @@ if(isset($this->mensagem))
     echo $this->mensagem;
 ?>
 <?php
-    if(isset($this->flag))
+    if(isset($this->flag) and !($this->mem))
     {
         switch($this->flag)
         {

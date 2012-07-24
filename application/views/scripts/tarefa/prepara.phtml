@@ -3,7 +3,7 @@
                             ->appendStylesheet('/css/formularios.css');
 ?>
 <?php
-if ( isset($this->flag)  )
+if ( isset($this->flag) and !($this->mem)  )
          switch ($this->flag){
         case 1:
             echo   "<div id='alerta'>Tarefa cadastrada com sucesso!</div>";

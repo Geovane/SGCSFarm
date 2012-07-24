@@ -92,9 +92,9 @@ class ProjetoController extends Zend_Controller_Action
     public function indexAction()
     {
         $page = $this->_request->getParam('page');
-            if ( isset($page) ){
-                $this->view->mem = true;
-            }
+        if ( isset($page) ){
+            $this->view->mem = true;
+        }
         
         $this->view->flag = $this->_request->getParam('flag');
         $idFuncLogado = $this->funcLogado->idfuncionario;
@@ -128,6 +128,13 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function gerencioAction()
     {
+        
+        $page = $this->_request->getParam('page');
+
+        if ( isset($page) ){
+            $this->view->mem = true;
+        }
+        
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;
         $this->view->estadoProj = $this->estadoProj;        
@@ -158,6 +165,11 @@ class ProjetoController extends Zend_Controller_Action
         //Verifica permissão
         if(!$this->adminFilial){
             $this->_redirect('/index/negado');
+        }
+        
+        $page = $this->_request->getParam('page');
+        if ( isset($page) ){
+            $this->view->mem = true;
         }
         
         $select = $this->funcionario->select();
@@ -479,6 +491,13 @@ class ProjetoController extends Zend_Controller_Action
      * 
      */
     public function detalhesgerenteAction(){
+        
+        $page = $this->_request->getParam('page');
+
+        if ( isset($page) ){
+            $this->view->mem = true;
+        }
+        
         $this->view->flag = $this->_request->getParam('flag');
         $idFuncLogado = $this->funcLogado->idfuncionario;
         $this->view->idFuncLogado = $idFuncLogado;

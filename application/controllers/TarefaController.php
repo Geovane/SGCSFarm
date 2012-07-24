@@ -374,6 +374,13 @@ class TarefaController extends Zend_Controller_Action
     public function preparaAction()
     {
         // action body
+        
+        $page = $this->_request->getParam('page');
+
+        if ( isset($page) ){
+            $this->view->mem = true;
+        }
+        
         $this->view->flag = $this->_request->getParam('flag');
         $listProj = $this->_getParam('idProj');
         

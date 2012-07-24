@@ -91,9 +91,9 @@ class FuncionarioController extends Zend_Controller_Action
 
         $page = $this->_request->getParam('page');
 
-            if ( isset($page) ){
-                $this->view->mem = true;
-            }
+        if ( isset($page) ){
+            $this->view->mem = true;
+        }
         
          $this->view->flag = $this->_request->getParam('flag');
          $select = $this->funcionario->select();
