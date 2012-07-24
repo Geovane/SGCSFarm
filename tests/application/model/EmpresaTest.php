@@ -1,4 +1,11 @@
 <?php
+/** Classe responsável pelo acesso a tabela empresa para realização dos testes
+ * 
+ * @author Mateus Passos
+ * @version 0.1
+ * @access public
+ */
+
     class Empresa extends Zend_Db_Table_Abstract
     {
     	protected $_name = 'empresa';
@@ -7,18 +14,28 @@
 ?>
     
 <?php
+/** Classe responsável pela realização dos testes da tabela empresa
+ * 
+ * @author Mateus Passos
+ * @version 0.1
+ * @access public
+ */
 class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
 {
     private $_connectionMock;
- 
-    /**
-     * Returns the test database connection.
+   /**
+     * Retorna a conexão para o banco de dados de teste.
      *
      * @return PHPUnit_Extensions_Database_DB_IDatabaseConnection
+     * @access protected
      */
     protected function getConnection()
     {
         if($this->_connectionMock == null) {
+            /** Recebe os parâmetros para conexão com o banco
+             * 
+             * @name $connection
+             */
             $connection = Zend_Db::factory('Pdo_Mysql', array(
                 'host' => '127.0.0.1',
                 'username' => 'root',
@@ -34,8 +51,10 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         return $this->_connectionMock;
     }
  
-    /**
+    /** Povoa a tabela que se deseja testar no banco de dados
+     * 
      * @return PHPUnit_Extensions_Database_DataSet_IDataSet
+     * @access protected
      */
     protected function getDataSet()
     {
@@ -44,10 +63,23 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         );
     }
     
+     /** Testa a inserção dos dados no banco
+     * 
+     * @access public
+     * @return void
+     */
     public function testEmpresaInsertedIntoDatabase()
     {
+        /** Variável que representa a tabela que se deseja testar
+         * 
+         * @name empresaTable
+         */
         $this->empresaTable = new Empresa();
  
+        /** Variável que armazena os dados a serem inseridos no teste
+         * 
+         * @name $data
+         */
         $data = array(
             'idempresa' => '2',
             'nome' => 'SoftFarm Hardware',
@@ -62,6 +94,10 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
  
        $this->empresaTable->insert($data);
  
+        /** Variável que recebe a conexão com o banco de dados de testes
+        * 
+        * @name $ds
+        */
         $ds = new Zend_Test_PHPUnit_Db_DataSet_QueryDataSet(
             $this->getConnection()
         );
@@ -74,14 +110,27 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         );
     }
     
+    /** Função que testa a exclusão de dados no banco
+     * 
+     * @access public
+     * @return void
+     */
      public function testEmpresaDelete()
     {
+         /** Variável que representa a tabela que se deseja testar
+         * 
+         * @name $empresaTable
+         */ 
         $empresaTable = new empresa();
  
         $empresaTable->delete(
             $empresaTable->getAdapter()->quoteInto("idempresa = ?", 2)
         );
  
+        /** Variável que recebe a conexão com o banco de dados de testes
+        * 
+        * @name $ds
+        */
         $ds = new Zend_Test_PHPUnit_Db_DataSet_DbTableDataSet();
         $ds->addTable($empresaTable);
  
@@ -92,22 +141,49 @@ class EmpresaTest extends Zend_Test_PHPUnit_DatabaseTestCase
         );
     }
     
+     /** Função que testa a atualização de dados no banco
+     * 
+     * @access public
+     * @return void
+     */
     public function testEmpresaUpdate()
     {
+         /** Variável que representa a tabela que se deseja testar
+         * 
+         * @name $empresaTable
+         */
         $empresaTable = new empresa();
  
+         /** Variável que armazena os dados a serem atualizados no teste
+         * 
+         * @name $data
+         */
         $data = array(
             'nome'      => 'HardFarm',
             'email'      => 'hardfarm@gmail.com'
         );
  
+        /** Variável que armazena qual elemento do banco será atualizado
+         * 
+         * @name $where
+         */
         $where = $empresaTable->getAdapter()->quoteInto('idempresa = ?', 1);
  
         $empresaTable->update($data, $where);
  
         $rowset = $empresaTable->fetchAll();
  
+        /** Variável que recebe a conexão com o banco de dados de testes
+        * 
+        * @name $ds
+        */
         $ds        = new Zend_Test_PHPUnit_Db_DataSet_DbRowset($rowset);
+        
+        /** Variável responsável por receber o arquivo que fará a verificação dos dados no banco
+         * 
+         * @name $assertion
+         */
+        
         $assertion = $this->createFlatXmlDataSet(
             dirname(__FILE__) . '/_files/empresaUpdateAssertion.xml'
         );

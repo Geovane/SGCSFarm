@@ -159,12 +159,12 @@ class ProjetoController extends Zend_Controller_Action
         if(!$this->adminFilial){
             $this->_redirect('/index/negado');
         }
-
+        
         $select = $this->funcionario->select();
         $select->where('empresaFilial_idempresaFilial = ?', $this->idFilial);
         $select->order('nome');
         $this->view->funcionario = $this->funcionario->fetchAll($select);
-                                                               
+        $this->view->flag = $this->_request->getParam('flag');                                                       
         if($this->_request->isPost())    
         {
             /**
@@ -215,7 +215,7 @@ class ProjetoController extends Zend_Controller_Action
 
             $this->projgit->insert($data2);
 
-            $this->_redirect('projeto/index/flag/3');
+            $this->_redirect('projeto/create/flag/1');
         }
       }
     }
@@ -281,7 +281,7 @@ class ProjetoController extends Zend_Controller_Action
      */
     public function deleteAction()
     {
-        //Precisa so colocar as flags informando o ocorrido para o usuario
+        
         $id_proj = $this->_getParam('id');
        
         $select = $this->project->select();
